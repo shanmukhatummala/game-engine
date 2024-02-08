@@ -2,7 +2,6 @@ package game.map;
 
 import static game.map.MapHelper.getContinentWithId;
 import static game.map.MapHelper.getCountryWithId;
-import static game.util.FileHelper.fileExists;
 
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -13,12 +12,7 @@ import java.io.IOException;
 
 public class MapLoader {
 
-    public static void loadMap(String filename, Map map) {
-        String path = "src/main/resources/" + filename;
-
-        if (!fileExists(path)) {
-            return;
-        }
+    public static void loadMap(String path, Map map) {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;

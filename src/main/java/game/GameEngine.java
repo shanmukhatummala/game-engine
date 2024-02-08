@@ -6,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static game.map.MapCreator.createNewMap;
 import static game.map.MapLoader.loadMap;
+import static game.util.FileHelper.fileExists;
 
 public class GameEngine {
 
@@ -26,13 +28,18 @@ public class GameEngine {
 
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
 
-            while(true) {
+            while (true) {
                 System.out.println("Enter the command: ");
                 String command = bufferedReader.readLine();
                 String[] commandArgs = command.split(" ");
 
                 if (commandArgs.length == 2 && "editmap".equals(commandArgs[0])) {
-                    loadMap(commandArgs[1], map);
+                    String fileName = commandArgs[1];
+                    String path = "src/main/resources/" + fileName;
+                    if (!fileExists(path)) {
+                        createNewMap(fileName);
+                    }
+                    loadMap(path, map);
                     endGame();
                 } else {
                     throw new IllegalArgumentException("Not a valid command");
