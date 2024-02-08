@@ -1,4 +1,4 @@
-package org.soen.game.pojo;
+package game.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

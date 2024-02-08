@@ -1,30 +1,26 @@
-package org.soen.game.pojo;
+package game.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Continent {
+public class Player {
 
-    int id;
     String name;
     List<Country> countries;
+    int totalArmyCount;
 
-    public Continent() {}
+    public Player() {}
 
-    public Continent(int id, String name, List<Country> countries) {
-        this.id = id;
+    public Player(String name, List<Country> countries, int totalArmyCount) {
         this.name = name;
         this.countries = countries;
+        this.totalArmyCount = totalArmyCount;
     }
 
-    public Continent(int id, String name) {
-        this.id = id;
+    public Player(String name) {
         this.name = name;
         this.countries = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
+        this.totalArmyCount = 0;
     }
 
     public String getName() {
@@ -33,5 +29,9 @@ public class Continent {
 
     public List<Country> getCountries() {
         return countries;
+    }
+
+    public int getTotalArmyCount() {
+        return totalArmyCount;
     }
 }

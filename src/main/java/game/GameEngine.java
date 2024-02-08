@@ -1,4 +1,4 @@
-package org.soen.game;
+package game;
 
 public class GameEngine {
     public static void main(String[] args) {

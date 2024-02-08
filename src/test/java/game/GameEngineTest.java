@@ -1,4 +1,4 @@
-package org.soen.game;
+package game;
 
 public class GameEngineTest {
 }
