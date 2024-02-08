@@ -6,4 +6,4 @@ I hope you already have Git and JDK installed.
 
 To run the project, just the run the main method in the GameEngine class
 
-To build the project - compile, test and generate artifacts - run "mvn clean verify package command"
+To build the project - compile, test and generate artifacts - run "mvn clean verify package" command
