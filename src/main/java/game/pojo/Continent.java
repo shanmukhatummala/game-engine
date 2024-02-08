@@ -8,19 +8,19 @@ public class Continent {
     int id;
     String name;
     List<Country> countries;
+    int bonus;
 
     public Continent() {}
 
-    public Continent(int id, String name, List<Country> countries) {
+    public Continent(int id, String name, List<Country> countries, int bonus) {
         this.id = id;
         this.name = name;
         this.countries = countries;
+        this.bonus = bonus;
     }
 
-    public Continent(int id, String name) {
-        this.id = id;
-        this.name = name;
-        this.countries = new ArrayList<>();
+    public Continent(int id, String name, int bonus) {
+        this(id, name, new ArrayList<>(), bonus);
     }
 
     public int getId() {
@@ -33,5 +33,9 @@ public class Continent {
 
     public List<Country> getCountries() {
         return countries;
+    }
+
+    public int getBonus() {
+        return bonus;
     }
 }

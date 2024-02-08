@@ -1,0 +1,19 @@
+package game.map;
+
+import game.pojo.Continent;
+import game.pojo.Country;
+
+public class MapHelper {
+
+    public static Continent getContinentWithId(Map map, int id) {
+
+        return map.getContinents()
+                .stream().filter(continent -> continent.getId() == id).toList().get(0);
+    }
+
+    public static Country getCountryWithId(Map map, int id) {
+
+        return map.getCountries()
+                .stream().filter(country -> country.getId() == id).toList().get(0);
+    }
+}

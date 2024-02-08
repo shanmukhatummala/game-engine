@@ -18,9 +18,7 @@ public class Player {
     }
 
     public Player(String name) {
-        this.name = name;
-        this.countries = new ArrayList<>();
-        this.totalArmyCount = 0;
+        this(name, new ArrayList<>(), 0);
     }
 
     public String getName() {

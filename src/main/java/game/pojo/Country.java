@@ -23,12 +23,11 @@ public class Country {
     }
 
     public Country(int id, String name, Continent continent, Player player) {
-        this.id = id;
-        this.name = name;
-        this.continent = continent;
-        this.neighbours = new ArrayList<>();
-        this.player = player;
-        this.armyCount = 0;
+        this(id, name, continent, new ArrayList<>(), player, 0);
+    }
+
+    public Country(int id, String name, Continent continent) {
+        this(id, name, continent, null);
     }
 
     public int getId() {
