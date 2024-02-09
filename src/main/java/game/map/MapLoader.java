@@ -23,7 +23,6 @@ public class MapLoader {
             int continentID = 1;
 
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
                 if ("[continents]".equals(line)) {
                     readingContinents = true;
                     continue;
