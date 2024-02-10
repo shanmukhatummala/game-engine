@@ -17,8 +17,13 @@ public class MapSaverTest {
     @BeforeEach
     void setUp() {
         List<Country> countries = new ArrayList<>();
+        List<Country> countries1Neighbours = new ArrayList<>();
+        List<Country> countries2Neighbours = new ArrayList<>();
+        List<Country> countries3Neighbours = new ArrayList<>();
+        List<Country> countries4Neighbours = new ArrayList<>();
         List<Country> countries5Neighbours = new ArrayList<>();
         List<Country> countries6Neighbours = new ArrayList<>();
+        List<Country> countries7Neighbours = new ArrayList<>();
         List<Country> countries8Neighbours = new ArrayList<>();
 
         List<Continent> continents = new ArrayList<>();
@@ -35,7 +40,7 @@ public class MapSaverTest {
         countries5Neighbours.add(country1);
         countries5Neighbours.add(country2);
         countries5Neighbours.add(country3);
-        Country country4 = new Country(4, "country4",continent1, countries, null, 0);
+        Country country4 = new Country(4, "country4",continent1,countries , null, 0);
         countries5Neighbours.add(country4);
         Country country5 = new Country(5, "country2",continent2, countries5Neighbours, null, 0);
         countries6Neighbours.add(country1);
