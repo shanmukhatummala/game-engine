@@ -14,14 +14,20 @@ import static game.map.MapHelper.getCountryWithId;
 
 public class ShowMap {
     public static void showMap(Map map) {
-        System.out.println("Continents");
-        System.out.println("----------------------------------------");
-        // System.out.println(map.getContinents());
+        System.out.println("---------------------------Continents---------------------------");
         List<Continent> conarr = map.getContinents();
         int conlen = conarr.toArray().length;
         for(int i=0; i<conlen; i++ ) {
             Continent continent = map.getContinents().get(i);
             String name = continent.getName();
+            System.out.println(name);
+        }
+        System.out.println("---------------------------Countries---------------------------");
+        List<Country> couarr = map.getCountries();
+        int coulen = couarr.toArray().length;
+        for(int i=0; i<coulen; i++ ) {
+            Country country = map.getCountries().get(i);
+            String name = country.getName();
             System.out.println(name);
         }
 
