@@ -35,10 +35,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B clean verify package --file pom.xml
 
-    - name: test
-      run: mvn -X test
+    - name: list
+      run: ls
 
-      # - name: Publish to GitHub Packages Apache Maven
+    # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
