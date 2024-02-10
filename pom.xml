@@ -12,7 +12,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <testSourceDirectory>src/main/test/java/game</testSourceDirectory>
+        <testSourceDirectory>src/test/java/game</testSourceDirectory>
     </properties>
     <dependencies>
         <dependency>
