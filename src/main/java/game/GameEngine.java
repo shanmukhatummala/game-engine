@@ -1,6 +1,7 @@
 package game;
 
 import game.map.Map;
+import game.map.ShowMap;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,8 +41,14 @@ public class GameEngine {
                         createNewMap(fileName);
                     }
                     loadMap(path, map);
-                    endGame();
-                } else {
+
+
+                    // endGame();
+                }
+                else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
+                    ShowMap.showMap(map);
+                }
+                else {
                     throw new IllegalArgumentException("Not a valid command");
                 }
             }
