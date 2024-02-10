@@ -35,12 +35,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B clean verify package --file pom.xml
 
-    - name: Check for test results
-      run: |
-        if grep -R --include=*.xml -E '<failure|<error' ./target/surefire-reports/; then
-          echo "Tests failed"
-          exit 1
-        fi
+    - name: Test with Maven Surefire
+      run: mvn surefire:test --file pom.xml
 
     # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
