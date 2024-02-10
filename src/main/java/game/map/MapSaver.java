@@ -25,16 +25,22 @@ public class MapSaver {
             writer.newLine();
             for (int i = 0; i < map.continents.size(); i++) {
                 writer.write(map.continents.get(i).getName()+" ");
-                writer.write(String.valueOf(map.continents.get(i).getBonus()));
-                writer.newLine();
+                writer.write(map.continents.get(i).getBonus()+"  \n");
             }
             writer.newLine();
             // write the countries to the file
             writer.write(countryStarter);
             writer.newLine();
+            for (int i = 0; i < map.countries.size(); i++) {
+                writer.write(map.countries.get(i).getId()+" ");
+                writer.write(map.countries.get(i).getName()+" ");
+                writer.write(map.countries.get(i).getContinent().getId()+" \n");
+            }
             writer.newLine();
             // write the border to the file
             writer.write(borderStarter);
+            writer.newLine();
+
             writer.newLine();
             //close the writer
             writer.close();
