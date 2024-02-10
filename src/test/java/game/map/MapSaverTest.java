@@ -53,7 +53,7 @@ public class MapSaverTest {
     }
 
     @Test
-    void saveMapTest() throws IOException{
+    void saveMap() throws IOException{
         MapSaver.saveMap("src/main/resources/testMapSaver.map", map);
     }
 }
