@@ -46,6 +46,7 @@ public class GameEngine {
                     // endGame();
                 }
                 else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
+                    Map Map;
                     ShowMap.showMap(map);
                 }
                 else {

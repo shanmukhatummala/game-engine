@@ -15,21 +15,35 @@ import static game.map.MapHelper.getCountryWithId;
 public class ShowMap {
     public static void showMap(Map map) {
         System.out.println("---------------------------Continents---------------------------");
-        List<Continent> conarr = map.getContinents();
-        int conlen = conarr.toArray().length;
-        for(int i=0; i<conlen; i++ ) {
-            Continent continent = map.getContinents().get(i);
-            String name = continent.getName();
-            System.out.println(name);
+        List<Continent> continents = map.getContinents();
+        for (Continent continent : continents) {
+            System.out.println(continent.getName());
         }
+//        System.out.println("---------------------------Countries---------------------------");
+//        List<Country> countries = map.getCountries();
+//        for (Country country : countries) {
+//            System.out.println(country.getName());
+//        }
         System.out.println("---------------------------Countries---------------------------");
-        List<Country> couarr = map.getCountries();
-        int coulen = couarr.toArray().length;
-        for(int i=0; i<coulen; i++ ) {
-            Country country = map.getCountries().get(i);
-            String name = country.getName();
-            System.out.println(name);
+        List<Country> countries = map.getCountries();
+        for (Country country : countries) {
+            System.out.println(country.getName());
+            System.out.println("Borders:");
+            List<Integer> borderIds = country.getBorderIds();
+            System.out.println(borderIds); // Print border IDs for debugging
+            if (borderIds != null && !borderIds.isEmpty()) {
+                for (int borderId : borderIds) {
+                    Country borderCountry = getCountryWithId(map, borderId);
+                    if (borderCountry != null) {
+                        System.out.println("- " + borderCountry.getName());
+                    } else {
+                        System.out.println("- Country with ID " + borderId + " does not exist");
+                    }
+                }
+            } else {
+                System.out.println("- No borders (invalid data)");
+            }
+            System.out.println();
         }
-
     }
 }
