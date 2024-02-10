@@ -14,9 +14,7 @@ public class Map {
     public List<Player> players;
 
     public Map() {
-        this.continents = new ArrayList<>();
-        this.countries = new ArrayList<>();
-        this.players = new ArrayList<>();
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     public Map(List<Continent> continents, List<Country> countries, List<Player> players) {

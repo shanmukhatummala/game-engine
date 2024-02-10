@@ -15,7 +15,6 @@ public class MapCreator {
                 throw new IllegalStateException("File with same name already exists");
             }
             editMap(fileName);
-            System.out.println("Enter commands to add/remove countries and continents");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
