@@ -8,7 +8,11 @@ on:
     branches:
       - master
       - 'feature/**'
-
+      - 'feat/**'
+  pull_request:
+    branches:
+      - 'feature/**'
+      - 'feat/**'
 
 jobs:
   build:
@@ -30,6 +34,9 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B clean verify package --file pom.xml
+
+    - name: Clean state and Test
+      run: mvn -B clean test
 
     # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
