@@ -30,10 +30,10 @@ public class ShowMap {
             System.out.println(country.getName());
             System.out.println("Borders:");
             List<Integer> borderIds = country.getBorderIds();
-            System.out.println(borderIds); // Print border IDs for debugging
+            // System.out.println(borderIds); // Printing border IDs for debugging
             if (borderIds != null && !borderIds.isEmpty()) {
                 for (int borderId : borderIds) {
-                    Country borderCountry = getCountryWithId(map, borderId);
+                    Country borderCountry = MapHelper.getCountryWithId(map, borderId);
                     if (borderCountry != null) {
                         System.out.println("- " + borderCountry.getName());
                     } else {

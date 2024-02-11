@@ -9,6 +9,8 @@ import game.pojo.Country;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapLoader {
 
@@ -63,13 +65,26 @@ public class MapLoader {
                     map.addCountry(country);
                 }
 
+//                if (readingBorders) {
+//                    String[] borderAttributes = line.split(" ");
+//                    Country currentCountry = getCountryWithId(map, Integer.parseInt(borderAttributes[0]));
+//                    for (int idx = 1; idx < borderAttributes.length; idx ++) {
+//                        int neighbourId = Integer.parseInt(borderAttributes[idx]);
+//                        Country neighbour = getCountryWithId(map, neighbourId);
+//                        currentCountry.getNeighbours().add(neighbour);
+//                    }
+//                }
+                // Siva - to print border countries in ShowMap
                 if (readingBorders) {
                     String[] borderAttributes = line.split(" ");
-                    Country currentCountry = getCountryWithId(map, Integer.parseInt(borderAttributes[0]));
-                    for (int idx = 1; idx < borderAttributes.length; idx ++) {
-                        int neighbourId = Integer.parseInt(borderAttributes[idx]);
-                        Country neighbour = getCountryWithId(map, neighbourId);
-                        currentCountry.getNeighbours().add(neighbour);
+                    int countryId = Integer.parseInt(borderAttributes[0]);
+                    List<Integer> borderIds = new ArrayList<>();
+                    for (int i = 1; i < borderAttributes.length; i++) {
+                        borderIds.add(Integer.parseInt(borderAttributes[i]));
+                    }
+                    Country country = MapHelper.getCountryWithId(map, countryId);
+                    if (country != null) {
+                        country.setBorderIds(borderIds);
                     }
                 }
             }

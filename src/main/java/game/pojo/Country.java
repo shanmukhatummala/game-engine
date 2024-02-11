@@ -15,17 +15,17 @@ public class Country {
 
     public Country() {}
 
-    public Country(int id, String name, Continent continent, List<Country> neighbours, Player player, int armyCount) {
+    public Country(int id, String name, Continent continent, List<Country> neighbours, Player player, int armyCount, List<Integer> borderIds) {
         this.id = id;
         this.name = name;
         this.continent = continent;
         this.neighbours = neighbours;
         this.armyCount = armyCount;
-        //this.borderIds = borderIds; //siva
+        this.borderIds = borderIds; //siva
     }
 
     public Country(int id, String name, Continent continent, Player player) {
-        this(id, name, continent, new ArrayList<>(), player, 0);
+        this(id, name, continent, new ArrayList<>(), player, 0, new ArrayList<>());
     }
 
     public Country(int id, String name, Continent continent) {
@@ -56,7 +56,7 @@ public class Country {
         return armyCount;
     }
 
-    public List<Integer> getBorderIds() { return borderIds; } //siva
+    public List<Integer> getBorderIds() { return borderIds; }
 
     public void setBorderIds(List<Integer> borderIds) { //siva
         this.borderIds = borderIds;
