@@ -74,7 +74,7 @@ public class MapLoader {
 //                        currentCountry.getNeighbours().add(neighbour);
 //                    }
 //                }
-                // Siva - to print border countries in ShowMap
+                // Siva - to print border countries in ShowMap. Shanmukh need to confirm if this change is causing any other issue.
                 if (readingBorders) {
                     String[] borderAttributes = line.split(" ");
                     int countryId = Integer.parseInt(borderAttributes[0]);

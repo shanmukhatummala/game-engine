@@ -11,7 +11,7 @@ public class Country {
     List<Country> neighbours;
     Player player;
     int armyCount;
-    List<Integer> borderIds; //siva
+    List<Integer> borderIds;
 
     public Country() {}
 
@@ -21,7 +21,7 @@ public class Country {
         this.continent = continent;
         this.neighbours = neighbours;
         this.armyCount = armyCount;
-        this.borderIds = borderIds; //siva
+        this.borderIds = borderIds;
     }
 
     public Country(int id, String name, Continent continent, Player player) {
