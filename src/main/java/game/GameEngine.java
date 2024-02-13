@@ -41,8 +41,6 @@ public class GameEngine {
                         createNewMap(fileName);
                     }
                     loadMap(path, map);
-
-
                     // endGame();
                 }
                 else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
