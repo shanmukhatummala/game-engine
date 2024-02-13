@@ -8,24 +8,22 @@ public class Country {
     int id;
     String name;
     Continent continent;
-    List<Country> neighbours;
+    List<Country> neighbors;
     Player player;
     int armyCount;
-    List<Integer> borderIds;
 
     public Country() {}
 
-    public Country(int id, String name, Continent continent, List<Country> neighbours, Player player, int armyCount, List<Integer> borderIds) {
+    public Country(int id, String name, Continent continent, List<Country> neighbors, Player player, int armyCount) {
         this.id = id;
         this.name = name;
         this.continent = continent;
-        this.neighbours = neighbours;
+        this.neighbors = neighbors;
         this.armyCount = armyCount;
-        this.borderIds = borderIds;
     }
 
     public Country(int id, String name, Continent continent, Player player) {
-        this(id, name, continent, new ArrayList<>(), player, 0, new ArrayList<>());
+        this(id, name, continent, new ArrayList<>(), player, 0);
     }
 
     public Country(int id, String name, Continent continent) {
@@ -44,8 +42,8 @@ public class Country {
         return continent;
     }
 
-    public List<Country> getNeighbours() {
-        return neighbours;
+    public List<Country> getNeighbors() {
+        return neighbors;
     }
 
     public Player getPlayer() {
@@ -56,13 +54,7 @@ public class Country {
         return armyCount;
     }
 
-    public List<Integer> getBorderIds() { return borderIds; }
-
-    public void setBorderIds(List<Integer> borderIds) { //siva
-        this.borderIds = borderIds;
-    }
-
-    public void setNeighbours(List<Country> neighbours) { //siva
-        this.neighbours = neighbours;
+    public void setNeighbors(List<Country> neighbors) { //siva
+        this.neighbors = neighbors;
     }
 }

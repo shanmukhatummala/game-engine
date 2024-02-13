@@ -1,7 +1,7 @@
 package game;
 
 import game.map.Map;
-import game.map.ShowMap;
+import game.map.MapShower;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,8 +44,8 @@ public class GameEngine {
                     // endGame();
                 }
                 else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
-                    Map Map;
-                    ShowMap.showMap(map);
+                    // Map Map;
+                    MapShower.mapShower(map);
                 }
                 else {
                     throw new IllegalArgumentException("Not a valid command");

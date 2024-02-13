@@ -64,30 +64,16 @@ public class MapLoader {
                     map.addCountry(country);
                 }
 
-//                if (readingBorders) {
-//                    String[] borderAttributes = line.split(" ");
-//                    Country currentCountry = getCountryWithId(map, Integer.parseInt(borderAttributes[0]));
-//                    for (int idx = 1; idx < borderAttributes.length; idx ++) {
-//                        int neighbourId = Integer.parseInt(borderAttributes[idx]);
-//                        Country neighbour = getCountryWithId(map, neighbourId);
-//                        currentCountry.getNeighbours().add(neighbour);
-//                    }
-//                }
-                // Siva - to print border countries in ShowMap. Shanmukh need to confirm if this change is causing any other issue.
                 if (readingBorders) {
                     String[] borderAttributes = line.split(" ");
-                    int countryId = Integer.parseInt(borderAttributes[0]);
-                    List<Integer> borderIds = new ArrayList<>();
-                    for (int i = 1; i < borderAttributes.length; i++) {
-                        borderIds.add(Integer.parseInt(borderAttributes[i]));
-                    }
-                    Country country = MapHelper.getCountryWithId(map, countryId);
-                    if (country != null) {
-                        country.setBorderIds(borderIds);
+                    Country currentCountry = getCountryWithId(map, Integer.parseInt(borderAttributes[0]));
+                    for (int idx = 1; idx < borderAttributes.length; idx ++) {
+                        int neighborId = Integer.parseInt(borderAttributes[idx]);
+                        Country neighbor = getCountryWithId(map, neighborId);
+                        currentCountry.getNeighbors().add(neighbor);
                     }
                 }
             }
-
             System.out.println("Loaded the map into Java objects");
         } catch (IOException e) {
             throw new RuntimeException(e);
