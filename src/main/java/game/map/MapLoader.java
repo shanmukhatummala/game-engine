@@ -55,11 +55,14 @@ public class MapLoader {
 
                 if (readingCountries) {
                     String[] countryAttributes = line.split(" ");
-                    Country country = new Country(
-                            Integer.parseInt(countryAttributes[0]),
-                            countryAttributes[1],
-                            getContinentWithId(map, Integer.parseInt(countryAttributes[2])));
+                    int countryId = Integer.parseInt(countryAttributes[0]);
+                    String countryName = countryAttributes[1];
+                    Continent continent = getContinentWithId(map, Integer.parseInt(countryAttributes[2]));
+
+                    Country country = new Country(countryId, countryName, continent);
                     map.addCountry(country);
+
+                    continent.addCountryId(countryId);
                 }
 
                 if (readingBorders) {

@@ -7,7 +7,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -71,6 +70,12 @@ class MapLoaderTest {
         country3.addNeighbours(Arrays.asList(1, 2, 4));
         country4.addNeighbours(List.of(3));
         country5.addNeighbours(Arrays.asList(2, 3));
+
+        continent1.addCountryId(1);
+        continent1.addCountryId(3);
+        continent2.addCountryId(2);
+        continent2.addCountryId(4);
+        continent2.addCountryId(5);
 
         expectedContinents.add(continent1);
         expectedContinents.add(continent2);

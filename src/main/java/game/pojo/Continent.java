@@ -8,15 +8,15 @@ public class Continent {
 
     int id;
     String name;
-    List<Country> countries;
+    List<Integer> countryIdList;
     int bonus;
 
     public Continent() {}
 
-    public Continent(int id, String name, List<Country> countries, int bonus) {
+    public Continent(int id, String name, List<Integer> countryIdList, int bonus) {
         this.id = id;
         this.name = name;
-        this.countries = countries;
+        this.countryIdList = countryIdList;
         this.bonus = bonus;
     }
 
@@ -32,12 +32,16 @@ public class Continent {
         return name;
     }
 
-    public List<Country> getCountries() {
-        return countries;
+    public List<Integer> getCountryIdList() {
+        return countryIdList;
     }
 
     public int getBonus() {
         return bonus;
+    }
+
+    public void addCountryId(Integer countryId) {
+        this.getCountryIdList().add(countryId);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class Continent {
 
         return Objects.equals(otherContinent.id, this.id)
                 && Objects.equals(otherContinent.name, this.name)
-                && Objects.equals(otherContinent.countries, this.countries)
+                && Objects.equals(otherContinent.countryIdList, this.countryIdList)
                 && Objects.equals(otherContinent.bonus, this.bonus);
     }
 
