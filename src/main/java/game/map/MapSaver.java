@@ -36,7 +36,7 @@ public class MapSaver {
             for (int i = 0; i < map.countries.size(); i++) {
                 writer.write(map.countries.get(i).getId()+" ");
                 for (int j = 0; j < map.countries.get(i).getNeighbours().size(); j++) {
-                    writer.write(map.countries.get(i).getNeighbours().get(j).getId()+" ");
+                    writer.write(map.countries.get(i).getNeighbours().get(j)+" ");
                 }
                 writer.newLine();
             }

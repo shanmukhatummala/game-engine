@@ -1,24 +1,27 @@
 package game.pojo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Country {
 
     int id;
     String name;
     Continent continent;
-    List<Country> neighbours;
+    List<Integer> neighbourIdList;
     Player player;
     int armyCount;
 
     public Country() {}
 
-    public Country(int id, String name, Continent continent, List<Country> neighbours, Player player, int armyCount) {
+    public Country(int id, String name, Continent continent, List<Integer> neighbourIdList, Player player, int armyCount) {
         this.id = id;
         this.name = name;
         this.continent = continent;
-        this.neighbours = neighbours;
+        this.neighbourIdList = neighbourIdList;
+        this.player = player;
         this.armyCount = armyCount;
     }
 
@@ -28,6 +31,14 @@ public class Country {
 
     public Country(int id, String name, Continent continent) {
         this(id, name, continent, null);
+    }
+
+    public void addNeighbour(Integer neighbourId) {
+        this.getNeighbours().add(neighbourId);
+    }
+
+    public void addNeighbours(List<Integer> neighbourIds) {
+        this.getNeighbours().addAll(neighbourIds);
     }
 
     public int getId() {
@@ -42,8 +53,8 @@ public class Country {
         return continent;
     }
 
-    public List<Country> getNeighbours() {
-        return neighbours;
+    public List<Integer> getNeighbours() {
+        return neighbourIdList;
     }
 
     public Player getPlayer() {
@@ -52,5 +63,31 @@ public class Country {
 
     public int getArmyCount() {
         return armyCount;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Country)) {
+            return false;
+        }
+
+        Country otherCountry = (Country) other;
+
+        return Objects.equals(otherCountry.id, this.id)
+                && Objects.equals(otherCountry.name, this.name)
+                && Objects.equals(otherCountry.continent, this.continent)
+                && Objects.equals(otherCountry.neighbourIdList, this.neighbourIdList)
+                && Objects.equals(otherCountry.player, this.player)
+                && Objects.equals(otherCountry.armyCount, this.armyCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
     }
 }

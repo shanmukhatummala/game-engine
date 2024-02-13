@@ -2,6 +2,7 @@ package game.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Player {
 
@@ -31,5 +32,28 @@ public class Player {
 
     public int getTotalArmyCount() {
         return totalArmyCount;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Player)) {
+            return false;
+        }
+
+        Player otherPlayer = (Player) other;
+
+        return Objects.equals(otherPlayer.name, this.name)
+                && Objects.equals(otherPlayer.countries, this.countries)
+                && Objects.equals(otherPlayer.totalArmyCount, this.totalArmyCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getName().hashCode();
     }
 }

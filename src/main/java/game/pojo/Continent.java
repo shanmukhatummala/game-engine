@@ -2,6 +2,7 @@ package game.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Continent {
 
@@ -37,5 +38,29 @@ public class Continent {
 
     public int getBonus() {
         return bonus;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Continent)) {
+            return false;
+        }
+
+        Continent otherContinent = (Continent) other;
+
+        return Objects.equals(otherContinent.id, this.id)
+                && Objects.equals(otherContinent.name, this.name)
+                && Objects.equals(otherContinent.countries, this.countries)
+                && Objects.equals(otherContinent.bonus, this.bonus);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId();
     }
 }
