@@ -35,8 +35,8 @@ public class MapSaver {
             writer.newLine();
             for (int i = 0; i < map.countries.size(); i++) {
                 writer.write(map.countries.get(i).getId()+" ");
-                for (int j = 0; j < map.countries.get(i).getNeighbours().size(); j++) {
-                    writer.write(map.countries.get(i).getNeighbours().get(j)+" ");
+                for (int j = 0; j < map.countries.get(i).getNeighbors().size(); j++) {
+                    writer.write(map.countries.get(i).getNeighbors().get(j)+" ");
                 }
                 writer.newLine();
             }

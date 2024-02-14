@@ -66,8 +66,8 @@ public class MapLoader {
                     String[] borderAttributes = line.split(" ");
                     Country currentCountry = getCountryWithId(map, Integer.parseInt(borderAttributes[0]));
                     for (int idx = 1; idx < borderAttributes.length; idx ++) {
-                        int neighbourId = Integer.parseInt(borderAttributes[idx]);
-                        currentCountry.addNeighbour(neighbourId);
+                        int neighborId = Integer.parseInt(borderAttributes[idx]);
+                        currentCountry.addNeighbor(neighborId);
                     }
                 }
             }
