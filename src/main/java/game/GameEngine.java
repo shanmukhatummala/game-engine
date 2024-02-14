@@ -6,6 +6,7 @@ import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
 import game.map.Map;
+import game.pojo.Player;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,6 +46,13 @@ public class GameEngine {
                     }
                     editMap(map, filePath);
                     endGame();
+                } else if (commandArgs.length == 3 && "gameplayer".equals(commandArgs[0])) {
+                    if (!isValidGamePlayerCommand(commandArgs)) {
+                        System.out.println("Not a valid gameplayer command");
+                        System.out.println("It should be like, 'gameplayer -add/-remove playername'");
+                    } else {
+                        map.addPlayer(new Player(commandArgs[2]));
+                    }
                 } else {
                     throw new IllegalArgumentException("Not a valid command");
                 }
@@ -60,5 +68,10 @@ public class GameEngine {
 
     public static void endGame() {
         System.exit(0);
+    }
+
+    private static boolean isValidGamePlayerCommand(String[] commandArgs) {
+
+        return "-add".equals(commandArgs[1]) || "-remove".equals(commandArgs[1]);
     }
 }

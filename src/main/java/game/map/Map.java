@@ -9,9 +9,9 @@ import java.util.List;
 
 public class Map {
 
-    public List<Continent> continents;
-    public List<Country> countries;
-    public List<Player> players;
+    private List<Continent> continents;
+    private List<Country> countries;
+    private List<Player> players;
 
     public Map() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
