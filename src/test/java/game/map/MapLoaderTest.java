@@ -36,23 +36,13 @@ class MapLoaderTest {
 
         List<Continent> expectedContinents = new ArrayList<>();
         List<Country> expectedCountries = new ArrayList<>();
+        List<Player> expectedPlayers = new ArrayList<>();
 
         createObjectsToAssert(expectedContinents, expectedCountries);
 
-        //assert continents details
-        assertThat(continents.size(), equalTo(2));
-        assertThat(continents.get(0), equalTo(expectedContinents.get(0)));
-        assertThat(continents.get(1), equalTo(expectedContinents.get(1)));
-
-        //assert countries details
-        assertThat(countries.size(), equalTo(5));
-        assertThat(countries.get(0), equalTo(expectedCountries.get(0)));
-        assertThat(countries.get(1), equalTo(expectedCountries.get(1)));
-        assertThat(countries.get(2), equalTo(expectedCountries.get(2)));
-        assertThat(countries.get(3), equalTo(expectedCountries.get(3)));
-        assertThat(countries.get(4), equalTo(expectedCountries.get(4)));
-
-        assertThat(players.size(), equalTo(0));
+        assertThat(countries, equalTo(expectedCountries));
+        assertThat(continents, equalTo(expectedContinents));
+        assertThat(players, equalTo(expectedPlayers));
     }
 
     private void createObjectsToAssert(List<Continent> expectedContinents, List<Country> expectedCountries) {
