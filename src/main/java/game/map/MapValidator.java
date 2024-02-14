@@ -1,5 +1,7 @@
 package game.map;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -16,8 +18,10 @@ public class MapValidator {
 	}
 	
 	
-	public List<Country> dfs(Country p_startingCountry) {
-		
+	public List<Boolean> dfs(Country p_startingCountry) {
+		List<Boolean> l_isVisited = new ArrayList<Boolean>(d_countryList.size());
+		Collections.fill(l_isVisited, false);
+		return dfsStep(p_startingCountry, l_isVisited);
 	}
 
 	private List<Boolean> dfsStep(Country p_currentCountry, List<Boolean> p_countryHasBeenSeen) {
