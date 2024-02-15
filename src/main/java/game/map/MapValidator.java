@@ -40,4 +40,15 @@ public class MapValidator {
 		return p_countryHasBeenSeen;
 	}
 	
+	public boolean mapIsConnected() {
+		for(Country l_country: d_countryList) {
+			List<Boolean> l_dfsResult = dfs(l_country);
+			for (Boolean l_isVisited: l_dfsResult) {
+				if (!l_isVisited)
+					return false;
+			}
+		}
+		return true;
+	}
+	
 }
