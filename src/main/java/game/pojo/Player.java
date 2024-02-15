@@ -56,4 +56,11 @@ public class Player {
     public int hashCode() {
         return this.getName().hashCode();
     }
+
+
+
+    public void setAssignedCountries(List<Country> assignedCountries) {
+        this.countries = countries;
+    }
+
 }

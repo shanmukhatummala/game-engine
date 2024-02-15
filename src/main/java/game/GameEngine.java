@@ -5,6 +5,7 @@ import static game.map.MapLoader.loadMap;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
+import game.map.AssignCountries;
 import game.map.Map;
 import game.pojo.Player;
 
@@ -82,4 +83,6 @@ public class GameEngine {
 
         return "-add".equals(commandArgs[1]) || "-remove".equals(commandArgs[1]);
     }
+
+
 }
