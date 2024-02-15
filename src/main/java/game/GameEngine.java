@@ -51,7 +51,15 @@ public class GameEngine {
                         System.out.println("Not a valid gameplayer command");
                         System.out.println("It should be like, 'gameplayer -add/-remove playername'");
                     } else {
-                        map.addPlayer(new Player(commandArgs[2]));
+                        try {
+                            if (commandArgs[0].equals("-add")) {
+                                map.addPlayer(commandArgs[2]);
+                            } else {
+                                map.removePlayer(commandArgs[2]);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                 } else {
                     throw new IllegalArgumentException("Not a valid command");

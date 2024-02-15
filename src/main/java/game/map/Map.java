@@ -9,9 +9,9 @@ import java.util.List;
 
 public class Map {
 
-    private List<Continent> continents;
-    private List<Country> countries;
-    private List<Player> players;
+    private final List<Continent> continents;
+    private final List<Country> countries;
+    private final List<Player> players;
 
     public Map() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
@@ -24,15 +24,44 @@ public class Map {
     }
 
     public void addContinent(Continent continent) {
+
+        for (Continent thisContinent : continents) {
+            if (thisContinent.getId() == continent.getId()) {
+                throw new IllegalArgumentException("Continent with same id already exists");
+            }
+        }
+
         continents.add(continent);
     }
 
     public void addCountry(Country country) {
+
+        for (Country thisCountry : countries) {
+            if (thisCountry.getId() == country.getId()) {
+                throw new IllegalArgumentException("Country with same id already exists");
+            }
+        }
         countries.add(country);
     }
 
-    public void addPlayer(Player player) {
-        players.add(player);
+    public void addPlayer(String playerName) {
+
+        for (Player thisPlayer : players) {
+            if (thisPlayer.getName().equals(playerName)) {
+                throw new IllegalArgumentException("Player with same name already exists");
+            }
+        }
+        players.add(new Player(playerName));
+    }
+
+    public void removePlayer(String playerName) {
+
+        for (Player thisPlayer : players) {
+            if (thisPlayer.getName().equals(playerName)) {
+                players.remove(thisPlayer);
+            }
+        }
+        throw new IllegalArgumentException("No player exists with this name");
     }
 
     public List<Continent> getContinents() {
