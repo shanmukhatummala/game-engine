@@ -74,4 +74,17 @@ public class MapValidator {
 		return p_countryHasBeenSeen;
 	}
 	
+	public boolean continentIsConnected(Continent p_continent) {
+		for(Country l_country: p_continent.getCountries()) {
+			List<Boolean> l_dfsResult = dfs(l_country, p_continent);
+			for (Boolean l_isVisited: l_dfsResult) {
+				if (!l_isVisited)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	
 }

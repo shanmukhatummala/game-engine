@@ -155,4 +155,16 @@ public class MapValidatorTest {
     	MapValidator l_mapVal = new MapValidator(d_map);
     	assertFalse(l_mapVal.mapIsConnected());
     }
+    
+    @Test
+    void testdfsConnectedContinent() {
+    	loadMap(d_path, d_map);
+    	MapValidator l_mapVal = new MapValidator(d_map);
+    	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
+    	Continent l_continentToTest = d_map.getContinents().get(1);
+    	for (int i=0; i<l_continentToTest.getCountries().size(); i++)
+    		l_expectedResult.add(Boolean.TRUE);
+    	l_expectedResult.set(1, Boolean.FALSE);
+    	assertEquals(l_expectedResult, l_mapVal.dfs(l_continentToTest.getCountries().get(0)));
+    }
 }
