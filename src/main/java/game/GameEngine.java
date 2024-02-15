@@ -1,17 +1,19 @@
 package game;
 
+import static game.map.MapEditor.editMap;
+import static game.map.MapLoader.loadMap;
+import static game.util.FileHelper.createNewFileForMap;
+import static game.util.FileHelper.fileExists;
+
 import game.map.Map;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static game.map.MapCreator.createNewMap;
-import static game.map.MapLoader.loadMap;
-import static game.util.FileHelper.fileExists;
-
 public class GameEngine {
 
+    public static final String RESOURCES_PATH = "src/main/resources";
     private final Map map;
 
     public GameEngine(Map map) {
@@ -35,12 +37,29 @@ public class GameEngine {
 
                 if (commandArgs.length == 2 && "editmap".equals(commandArgs[0])) {
                     String fileName = commandArgs[1];
-                    String path = "src/main/resources/" + fileName;
-                    if (!fileExists(path)) {
-                        createNewMap(fileName);
+                    String filePath = RESOURCES_PATH + fileName;
+                    if (!fileExists(filePath)) {
+                        createNewFileForMap(filePath);
+                    } else {
+                        loadMap(filePath, map);
                     }
-                    loadMap(path, map);
+                    editMap(map, filePath);
                     endGame();
+                } else if (commandArgs.length == 3 && "gameplayer".equals(commandArgs[0])) {
+                    if (!isValidGamePlayerCommand(commandArgs)) {
+                        System.out.println("Not a valid gameplayer command");
+                        System.out.println("It should be like, 'gameplayer -add/-remove playername'");
+                    } else {
+                        try {
+                            if (commandArgs[1].equals("-add")) {
+                                map.addPlayer(commandArgs[2]);
+                            } else {
+                                map.removePlayer(commandArgs[2]);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                 } else {
                     throw new IllegalArgumentException("Not a valid command");
                 }
@@ -56,5 +75,10 @@ public class GameEngine {
 
     public static void endGame() {
         System.exit(0);
+    }
+
+    private static boolean isValidGamePlayerCommand(String[] commandArgs) {
+
+        return "-add".equals(commandArgs[1]) || "-remove".equals(commandArgs[1]);
     }
 }

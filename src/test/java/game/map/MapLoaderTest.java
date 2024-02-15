@@ -7,7 +7,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,23 +36,13 @@ class MapLoaderTest {
 
         List<Continent> expectedContinents = new ArrayList<>();
         List<Country> expectedCountries = new ArrayList<>();
+        List<Player> expectedPlayers = new ArrayList<>();
 
         createObjectsToAssert(expectedContinents, expectedCountries);
 
-        //assert continents details
-        assertThat(continents.size(), equalTo(2));
-        assertThat(continents.get(0), equalTo(expectedContinents.get(0)));
-        assertThat(continents.get(1), equalTo(expectedContinents.get(1)));
-
-        //assert countries details
-        assertThat(countries.size(), equalTo(5));
-        assertThat(countries.get(0), equalTo(expectedCountries.get(0)));
-        assertThat(countries.get(1), equalTo(expectedCountries.get(1)));
-        assertThat(countries.get(2), equalTo(expectedCountries.get(2)));
-        assertThat(countries.get(3), equalTo(expectedCountries.get(3)));
-        assertThat(countries.get(4), equalTo(expectedCountries.get(4)));
-
-        assertThat(players.size(), equalTo(0));
+        assertThat(countries, equalTo(expectedCountries));
+        assertThat(continents, equalTo(expectedContinents));
+        assertThat(players, equalTo(expectedPlayers));
     }
 
     private void createObjectsToAssert(List<Continent> expectedContinents, List<Country> expectedCountries) {
@@ -71,6 +60,12 @@ class MapLoaderTest {
         country3.addNeighbours(Arrays.asList(1, 2, 4));
         country4.addNeighbours(List.of(3));
         country5.addNeighbours(Arrays.asList(2, 3));
+
+        continent1.addCountryId(1);
+        continent1.addCountryId(3);
+        continent2.addCountryId(2);
+        continent2.addCountryId(4);
+        continent2.addCountryId(5);
 
         expectedContinents.add(continent1);
         expectedContinents.add(continent2);
