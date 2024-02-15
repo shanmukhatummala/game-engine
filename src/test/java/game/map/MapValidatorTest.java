@@ -40,6 +40,12 @@ public class MapValidatorTest {
         d_country3 = new Country(3, "Holstein", d_continent1);
         d_country4 = new Country(4, "Hamburg", d_continent2);
         d_country5 = new Country(5, "Mecklenburger-Bucht", d_continent2);
+        
+        d_continent1.addCountryId(1);
+        d_continent1.addCountryId(3);
+        d_continent2.addCountryId(2);
+        d_continent2.addCountryId(4);
+        d_continent2.addCountryId(5);
     }
 
     @AfterEach
@@ -162,9 +168,9 @@ public class MapValidatorTest {
     	MapValidator l_mapVal = new MapValidator(d_map);
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
     	Continent l_continentToTest = d_map.getContinents().get(1);
-    	for (int i=0; i<l_continentToTest.getCountries().size(); i++)
+    	for (int i=0; i<l_continentToTest.getCountryIdList().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	l_expectedResult.set(1, Boolean.FALSE);
-    	assertEquals(l_expectedResult, l_mapVal.dfs(l_continentToTest.getCountries().get(0)));
+    	assertEquals(l_expectedResult, l_mapVal.dfs(l_continentToTest.getCountryIdList().get(0), l_continentToTest));
     }
 }
