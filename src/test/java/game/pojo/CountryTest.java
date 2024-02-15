@@ -27,7 +27,7 @@ class CountryTest {
     }
 
     @Test
-    void getNeighbours() {
+    void getNeighbors() {
     }
 
     @Test
