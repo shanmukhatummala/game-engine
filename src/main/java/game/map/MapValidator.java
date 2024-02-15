@@ -85,6 +85,12 @@ public class MapValidator {
 		return true;
 	}
 	
-	
+	public boolean mapAndContinentsConnected() {
+		for (Continent l_continent: d_mapToValidate.getContinents()) {
+			if (!continentIsConnected(l_continent))
+				return false;
+		}
+		return (mapIsConnected());
+	}
 	
 }
