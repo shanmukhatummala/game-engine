@@ -7,7 +7,6 @@ import static game.util.FileHelper.fileExists;
 
 import game.map.AssignCountries;
 import game.map.Map;
-import game.pojo.Player;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +52,7 @@ public class GameEngine {
                         System.out.println("It should be like, 'gameplayer -add/-remove playername'");
                     } else {
                         try {
-                            if (commandArgs[0].equals("-add")) {
+                            if (commandArgs[1].equals("-add")) {
                                 map.addPlayer(commandArgs[2]);
                             } else {
                                 map.removePlayer(commandArgs[2]);
