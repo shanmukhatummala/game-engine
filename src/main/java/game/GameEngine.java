@@ -6,6 +6,7 @@ import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
 import game.map.Map;
+import game.map.MapShower;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.io.InputStreamReader;
 
 public class GameEngine {
 
-    public static final String RESOURCES_PATH = "src/main/resources";
+    public static final String RESOURCES_PATH = "src/main/resources/";
     private final Map map;
 
     public GameEngine(Map map) {
@@ -44,8 +45,11 @@ public class GameEngine {
                         loadMap(filePath, map);
                     }
                     editMap(map, filePath);
-                    endGame();
-                } else if (commandArgs.length == 3 && "gameplayer".equals(commandArgs[0])) {
+                }
+                else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
+                    MapShower.showMap(map);
+                }
+                else if (commandArgs.length == 3 && "gameplayer".equals(commandArgs[0])) {
                     if (!isValidGamePlayerCommand(commandArgs)) {
                         System.out.println("Not a valid gameplayer command");
                         System.out.println("It should be like, 'gameplayer -add/-remove playername'");
