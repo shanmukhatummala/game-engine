@@ -10,13 +10,13 @@ public class Country {
     int id;
     String name;
     Continent continent;
-    List<Country> neighbourIdList;
+    List<Integer> neighbourIdList;
     Player player;
     int armyCount;
 
     public Country() {}
 
-    public Country(int id, String name, Continent continent, List<Country> neighbourIdList, Player player, int armyCount) {
+    public Country(int id, String name, Continent continent, List<Integer> neighbourIdList, Player player, int armyCount) {
         this.id = id;
         this.name = name;
         this.continent = continent;
@@ -33,11 +33,11 @@ public class Country {
         this(id, name, continent, null);
     }
 
-    public void addNeighbour(Country neighbourId) {
+    public void addNeighbour(Integer neighbourId) {
         this.getNeighbours().add(neighbourId);
     }
 
-    public void addNeighbours(List<Country> neighbourIds) {
+    public void addNeighbours(List<Integer> neighbourIds) {
         this.getNeighbours().addAll(neighbourIds);
     }
 
@@ -53,7 +53,7 @@ public class Country {
         return continent;
     }
 
-    public List<Country> getNeighbours() {
+    public List<Integer> getNeighbours() {
         return neighbourIdList;
     }
 
