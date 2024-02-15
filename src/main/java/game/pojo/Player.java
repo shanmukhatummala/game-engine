@@ -1,14 +1,13 @@
 package game.pojo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Player {
 
     String name;
     List<Country> countries;
     int totalArmyCount;
+    Queue<Order> d_orderList;
 
     public Player() {}
 
@@ -16,6 +15,7 @@ public class Player {
         this.name = name;
         this.countries = countries;
         this.totalArmyCount = totalArmyCount;
+        this.d_orderList = new LinkedList<>();
     }
 
     public Player(String name) {
@@ -33,6 +33,9 @@ public class Player {
     public int getTotalArmyCount() {
         return totalArmyCount;
     }
+
+
+
 
     @Override
     public boolean equals(Object other) {
