@@ -7,7 +7,10 @@ public class Player {
     String name;
     List<Country> countries;
     int totalArmyCount;
-    Queue<Order> d_orderList;
+
+
+    int d_reinforcements;
+    private Queue<Order> d_orderList;
 
     public Player() {}
 
@@ -16,6 +19,7 @@ public class Player {
         this.countries = countries;
         this.totalArmyCount = totalArmyCount;
         this.d_orderList = new LinkedList<>();
+        this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
     }
 
     public Player(String name) {
@@ -32,6 +36,23 @@ public class Player {
 
     public int getTotalArmyCount() {
         return totalArmyCount;
+    }
+    public int getReinforcements() {
+        return d_reinforcements;
+    }
+
+    public void setReinforcements(int d_reinforcements) {
+        this.d_reinforcements = d_reinforcements;
+    }
+
+    public void issue_order(Country p_destination, int p_armyNumber){
+
+       boolean l_state =  d_orderList.offer(new DeployOrder(p_destination, p_armyNumber));
+        if (l_state) {
+            d_reinforcements = d_reinforcements - p_armyNumber;
+        }else {
+            System.out.println("Problem with deployment");
+        }
     }
 
 
