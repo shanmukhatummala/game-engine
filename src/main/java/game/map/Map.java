@@ -59,6 +59,7 @@ public class Map {
         for (Player thisPlayer : players) {
             if (thisPlayer.getName().equals(playerName)) {
                 players.remove(thisPlayer);
+                return;
             }
         }
         throw new IllegalArgumentException("No player exists with this name");
