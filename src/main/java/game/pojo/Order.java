@@ -9,4 +9,6 @@ public abstract class Order {
         this.armyNumber = armyNumber;
     }
 
+    public abstract void execute();
+
 }

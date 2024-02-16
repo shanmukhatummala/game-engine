@@ -11,6 +11,7 @@ public class Country {
     Continent continent;
     List<Integer> neighbourIdList;
     Player player;
+
     int armyCount;
 
     public Country() {}
@@ -63,6 +64,10 @@ public class Country {
     public int getArmyCount() {
         return armyCount;
     }
+    public void setArmyCount(int armyCount) {
+        this.armyCount = armyCount;
+    }
+
 
     @Override
     public boolean equals(Object other) {

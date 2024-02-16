@@ -7,8 +7,6 @@ public class Player {
     String name;
     List<Country> countries;
     int totalArmyCount;
-
-
     int d_reinforcements;
     private Queue<Order> d_orderList;
 
@@ -47,15 +45,18 @@ public class Player {
 
     public void issue_order(Country p_destination, int p_armyNumber){
 
-       boolean l_state =  d_orderList.offer(new DeployOrder(p_destination, p_armyNumber));
+       boolean l_state =  this.d_orderList.offer(new DeployOrder(p_destination, p_armyNumber));
         if (l_state) {
-            d_reinforcements = d_reinforcements - p_armyNumber;
+            this.d_reinforcements = this.d_reinforcements - p_armyNumber;
         }else {
             System.out.println("Problem with deployment");
         }
     }
 
 
+    public Order next_order(){
+        return this.d_orderList.poll();
+    }
 
 
     @Override
