@@ -55,11 +55,11 @@ class MapLoaderTest {
         Country country4 = new Country(4, "Hamburg", continent2);
         Country country5 = new Country(5, "Mecklenburger-Bucht", continent2);
 
-        country1.addNeighbours(Arrays.asList(2, 3));
-        country2.addNeighbours(Arrays.asList(1, 3, 5));
-        country3.addNeighbours(Arrays.asList(1, 2, 4));
-        country4.addNeighbours(List.of(3));
-        country5.addNeighbours(Arrays.asList(2, 3));
+        country1.addNeighbors(Arrays.asList(2, 3));
+        country2.addNeighbors(Arrays.asList(1, 3, 5));
+        country3.addNeighbors(Arrays.asList(1, 2, 4));
+        country4.addNeighbors(List.of(3));
+        country5.addNeighbors(Arrays.asList(2, 3));
 
         continent1.addCountryId(1);
         continent1.addCountryId(3);

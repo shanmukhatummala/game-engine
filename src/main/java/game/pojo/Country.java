@@ -9,17 +9,17 @@ public class Country {
     int id;
     String name;
     Continent continent;
-    List<Integer> neighbourIdList;
+    List<Integer> neighborIdList;
     Player player;
     int armyCount;
 
     public Country() {}
 
-    public Country(int id, String name, Continent continent, List<Integer> neighbourIdList, Player player, int armyCount) {
+    public Country(int id, String name, Continent continent, List<Integer> neighborIdList, Player player, int armyCount) {
         this.id = id;
         this.name = name;
         this.continent = continent;
-        this.neighbourIdList = neighbourIdList;
+        this.neighborIdList = neighborIdList;
         this.player = player;
         this.armyCount = armyCount;
     }
@@ -32,12 +32,12 @@ public class Country {
         this(id, name, continent, null);
     }
 
-    public void addNeighbour(Integer neighbourId) {
-        this.getNeighbours().add(neighbourId);
+    public void addNeighbor(Integer neighborId) {
+        this.getNeighbors().add(neighborId);
     }
 
-    public void addNeighbours(List<Integer> neighbourIds) {
-        this.getNeighbours().addAll(neighbourIds);
+    public void addNeighbors(List<Integer> neighborIds) {
+        this.getNeighbors().addAll(neighborIds);
     }
 
     public int getId() {
@@ -52,8 +52,8 @@ public class Country {
         return continent;
     }
 
-    public List<Integer> getNeighbours() {
-        return neighbourIdList;
+    public List<Integer> getNeighbors() {
+        return neighborIdList;
     }
 
     public Player getPlayer() {
@@ -80,7 +80,7 @@ public class Country {
         return Objects.equals(otherCountry.id, this.id)
                 && Objects.equals(otherCountry.name, this.name)
                 && Objects.equals(otherCountry.continent, this.continent)
-                && Objects.equals(otherCountry.neighbourIdList, this.neighbourIdList)
+                && Objects.equals(otherCountry.neighborIdList, this.neighborIdList)
                 && Objects.equals(otherCountry.player, this.player)
                 && Objects.equals(otherCountry.armyCount, this.armyCount);
     }
