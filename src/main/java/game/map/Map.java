@@ -3,24 +3,30 @@ package game.map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
+/**
+ * Java Model for the Game Map
+ * All manipulation of the Map
+ * is implemented in an object of this class
+ */
+@AllArgsConstructor
+@Data
 public class Map {
 
     private final List<Continent> continents;
     private final List<Country> countries;
     private final List<Player> players;
+    private TreeMap<Integer, TreeSet<Integer>> d_neighbors;
 
     public Map() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    }
-
-    public Map(List<Continent> continents, List<Country> countries, List<Player> players) {
-        this.continents = continents;
-        this.countries = countries;
-        this.players = players;
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new TreeMap<>());
     }
 
     public void addContinent(Continent continent) {
@@ -65,16 +71,14 @@ public class Map {
         throw new IllegalArgumentException("No player exists with this name");
     }
 
-    public List<Continent> getContinents() {
-        return continents;
-    }
+    public void addNeighbor(Integer p_country_1, Integer p_country_2) {
+        if (this.d_neighbors == null) {
+            this.d_neighbors = new TreeMap<>();
+        }
 
-    public List<Country> getCountries() {
-        return countries;
-    }
+        this.d_neighbors.computeIfAbsent(p_country_1, k -> new TreeSet<>());
 
-    public List<Player> getPlayers() {
-        return players;
+        this.d_neighbors.get(p_country_1).add(p_country_2);
     }
 
 }
