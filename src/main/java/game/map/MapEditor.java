@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 public class MapEditor {
 
-    public static void editMap(Map map, String filePath) {
+    public static void editMap(Map map, String fileName) {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Enter commands to 'edit (or) validate (or) save map': ");
@@ -17,12 +17,12 @@ public class MapEditor {
                 String command = reader.readLine();
                 String[] args = command.split(" ");
                 if (args.length == 2 && "savemap".equals(args[0])) {
-                    if (!filePath.equals(args[1])) {
+                    if (!fileName.equals(args[1])) {
                         System.out.println("The file name in 'savemap' command is different from the file you are editing.");
                         System.out.println("Enter the right file name in save command!");
                         continue;
                     }
-                    saveMap(RESOURCES_PATH + args[1], map);
+                    saveMap(RESOURCES_PATH + fileName, map);
                     break;
                 } else if (args.length == 1 && "validatemap".equals(args[0])) {
                     // call validateMap() method from here

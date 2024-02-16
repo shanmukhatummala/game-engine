@@ -58,6 +58,9 @@ public class MapLoader {
                     int countryId = Integer.parseInt(countryAttributes[0]);
                     String countryName = countryAttributes[1];
                     Continent continent = getContinentWithId(map, Integer.parseInt(countryAttributes[2]));
+                    if (continent == null) {
+                        throw new IllegalArgumentException("Continent with id, " + countryAttributes[2] + ", doesn't exist");
+                    }
 
                     Country country = new Country(countryId, countryName, continent);
                     map.addCountry(country);
@@ -68,9 +71,13 @@ public class MapLoader {
                 if (readingBorders) {
                     String[] borderAttributes = line.split(" ");
                     Country currentCountry = getCountryWithId(map, Integer.parseInt(borderAttributes[0]));
+                    if (currentCountry == null) {
+                        throw new IllegalArgumentException("Continent with id, " + borderAttributes[0] + ", doesn't exist");
+                    }
+
                     for (int idx = 1; idx < borderAttributes.length; idx ++) {
-                        int neighbourId = Integer.parseInt(borderAttributes[idx]);
-                        currentCountry.addNeighbour(neighbourId);
+                        int neighborId = Integer.parseInt(borderAttributes[idx]);
+                        currentCountry.addNeighbor(neighborId);
                     }
                 }
             }
