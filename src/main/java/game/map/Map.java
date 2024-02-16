@@ -3,10 +3,14 @@ package game.map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import java.util.stream.IntStream;
 
@@ -17,11 +21,14 @@ import static java.util.stream.Collectors.toList;
  * It contains the details of countries, continents and players associated with the map
  * @author Shanmukha
  */
+//@AllArgsConstructor
+@Data
 public class Map {
 
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
+
 
     /**
      * <p>Constructor without arguments for Map</p>
@@ -116,6 +123,7 @@ public class Map {
         return d_players;
     }
 
+
     /**
      * <p>This method assigns countries to each player</p>
      *
@@ -176,8 +184,6 @@ public class Map {
                     }
                 }
     }
-
-
 
 
 }
