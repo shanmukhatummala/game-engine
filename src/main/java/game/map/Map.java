@@ -25,6 +25,7 @@ import static java.util.stream.Collectors.toList;
 @Data
 public class Map {
 
+
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
