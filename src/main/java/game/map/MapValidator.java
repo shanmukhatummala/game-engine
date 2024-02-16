@@ -36,6 +36,13 @@ public class MapValidator {
 		return dfsStep(p_startingCountry, l_isVisited);
 	}
 
+	/**
+	 * Recursive function for the DFS. The algorithm flags the current country as visited and the function is
+	 * called recursively for each neighbor that hasn't been seen yet.
+	 * @param p_currentCountry The country being visited.
+	 * @param p_countryHasBeenSeen List representing if each country is seen or not
+	 * @return The list where we can see if a country has been visited or not
+	 */
 	private List<Boolean> dfsStep(Country p_currentCountry, List<Boolean> p_countryHasBeenSeen) {
 		int l_indexCurrentCountry = d_mapToValidate.getCountries().indexOf(p_currentCountry);
 		p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
@@ -81,6 +88,14 @@ public class MapValidator {
 		return dfsStep(p_startingCountryID, p_continent, l_isVisited);
 	}
 
+	/**
+	 * Recursive function for the DFS. The algorithm flags the current country as visited and the function is
+	 * called recursively for each neighbor that hasn't been seen yet.
+	 * @param p_currentCountryID Id of the country being visited.
+	 * @param p_continent Continent where the DFS is applied
+	 * @param p_countryHasBeenSeen List representing if each country is seen or not
+	 * @return The list where we can see if a country has been visited or not
+	 */
 	private List<Boolean> dfsStep(Integer p_currentCountryID, Continent p_continent, List<Boolean> p_countryHasBeenSeen) {
 		int l_indexCurrentCountry = p_continent.getCountryIdList().indexOf(p_currentCountryID);
 		p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
