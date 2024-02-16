@@ -31,6 +31,8 @@ public class MapValidatorTest {
 	
     @BeforeEach
     void setUp() {
+    	
+    	// Initialize a simple map, where the borders can be adjusted for each test
     	d_map = new Map();
         d_continent1 = new Continent(1, "Norddeutschland", 3);
         d_continent2 = new Continent(2, "Westdeutschland", 4);
@@ -52,6 +54,9 @@ public class MapValidatorTest {
     void tearDown() {
     }
     
+    /**
+     * Tests the DFS algorithm on a connected map.
+     */
     @Test
     void testDfsConnectedMap() {
     	loadMap(d_path, d_map);
@@ -62,6 +67,9 @@ public class MapValidatorTest {
     	assertEquals(l_expectedResult, l_mapVal.dfs(d_map.getCountries().get(0)));
     }
     
+    /**
+     * Tests the DFS on a disconnected map
+     */
     @Test
     void testDfsNotConnected() {        
         // There is no connection to l_country4
@@ -89,6 +97,10 @@ public class MapValidatorTest {
     	assertEquals(l_expectedResult, l_mapVal.dfs(d_map.getCountries().get(0)));
     }
     
+    /**
+     * Tests the DFS in the case that the map is connected, but just in one direction.
+     * Every country can be reached from the starting country.
+     */
     @Test
     void testDfsConnectedOneWay() {
     	
@@ -113,6 +125,9 @@ public class MapValidatorTest {
     	assertEquals(l_expectedResult, l_mapVal.dfs(d_map.getCountries().get(0)));
     }
     
+    /**
+     * Tests the method mapIsConnected on a connected map
+     */
     @Test
     void testMapIsConnectedConnectedMap() {
     	loadMap(d_path, d_map);
@@ -120,6 +135,9 @@ public class MapValidatorTest {
     	assertTrue(l_mapVal.mapIsConnected());
     }
     
+    /**
+     * Tests the method mapIsConnected on a disconnected map
+     */
     @Test
     void testMapIsConnectedNotConnected() {        
         // There is no connection to l_country4
@@ -142,6 +160,10 @@ public class MapValidatorTest {
     	assertFalse(l_mapVal.mapIsConnected());
     }
     
+    /**
+     * Tests the method mapIsConnected on a map that is connected only in one direction.
+     * As such, the tested method should return false.
+     */
     @Test
     void testMapIsConnectedConnectedOneWay() {
     	
@@ -162,6 +184,9 @@ public class MapValidatorTest {
     	assertFalse(l_mapVal.mapIsConnected());
     }
     
+    /**
+     * Tests the DFS on a continent that is NOT a connected subgraph.
+     */
     @Test
     void testdfsConnectedContinent() {
     	loadMap(d_path, d_map);
@@ -174,6 +199,10 @@ public class MapValidatorTest {
     	assertEquals(l_expectedResult, l_mapVal.dfs(l_continentToTest.getCountryIdList().get(0), l_continentToTest));
     }
     
+    /**
+     * Tests the method mapAndContinentsConnected on a connected map where the continents are also connected subgraphs.
+     * The map used is a real Domination map.
+     */
     @Test
     void testmapAndContinentsConnectedRealMap() {
     	loadMap("src/test/resources/canada.map", d_map);
@@ -181,6 +210,9 @@ public class MapValidatorTest {
     	assertTrue(l_mapVal.mapAndContinentsConnected());
     }
     
+    /**
+     * Tests the method mapIsValid on a correct map.
+     */
     @Test
     void testisMapValidGoodMap() {
     	loadMap("src/test/resources/canada.map", d_map);
@@ -188,6 +220,9 @@ public class MapValidatorTest {
     	assertTrue(l_mapVal.isMapValid());
     }
     
+    /**
+     * Tests the method mapIsValid on a map where one continent is not a connected subgraph.
+     */
     @Test
     void testisMapValidDisconnectedContinent() {
     	loadMap(d_path, d_map);
@@ -195,6 +230,9 @@ public class MapValidatorTest {
     	assertFalse(l_mapVal.isMapValid());
     }
     
+    /**
+     * Tests the method mapIsValid on a disconnected map.
+     */
     @Test
     void testisMapValidDisconnectedMap() {
         d_country1.addNeighbors(Arrays.asList(2, 3));
