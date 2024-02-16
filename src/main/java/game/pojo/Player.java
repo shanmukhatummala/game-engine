@@ -1,5 +1,6 @@
 package game.pojo;
 
+import java.io.BufferedReader;
 import java.util.*;
 
 public class Player {
@@ -43,14 +44,40 @@ public class Player {
         this.d_reinforcements = d_reinforcements;
     }
 
-    public void issue_order(Country p_destination, int p_armyNumber){
-
-       boolean l_state =  this.d_orderList.offer(new DeployOrder(p_destination, p_armyNumber));
-        if (l_state) {
-            this.d_reinforcements = this.d_reinforcements - p_armyNumber;
-        }else {
-            System.out.println("Problem with deployment");
+    public void issue_order(){
+        String[] l_command_args = inputUserCommand();
+        if (l_command_args[0].equals("deploy")){
+            Country l_destination = getCountryByName(l_command_args[1]);
+            if(l_destination!=null){
+                int l_armyNumber = Integer.parseInt(l_command_args[2]);
+                boolean l_state =  this.d_orderList.offer(new DeployOrder(l_destination, l_armyNumber));
+                if (l_state) {
+                    this.d_reinforcements = this.d_reinforcements - l_armyNumber;
+                }else {
+                    System.out.println("Problem with deployment");
+                }
+            }else{
+                System.out.println("This country is not owned by the player");
+            }
+        }else{
+            System.out.println("Invalid command or a command that has yet to be implemented");
         }
+
+    }
+
+    private String[] inputUserCommand(){
+        Scanner scanner = new Scanner(System.in);
+        String l_command = scanner.nextLine();
+        return l_command.split(" ");
+    }
+
+    private Country getCountryByName(String p_name){
+        for(Country l_country: this.getCountries()){
+            if(l_country.getName().equals(p_name)){
+                return l_country;
+            }
+        }
+        return null;
     }
 
 
