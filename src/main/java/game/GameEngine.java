@@ -5,13 +5,15 @@ import static game.map.MapLoader.loadMap;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
-import game.map.AssignCountries;
 import game.map.Map;
 import game.map.MapShower;
+import game.pojo.Country;
+import game.pojo.Player;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class GameEngine {
 
@@ -45,7 +47,7 @@ public class GameEngine {
                     } else {
                         loadMap(filePath, map);
                     }
-                    editMap(map, filePath);
+                   // editMap(map, filePath);
                 }
                 else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
                     MapShower.showMap(map);
@@ -65,7 +67,21 @@ public class GameEngine {
                             System.out.println(e.getMessage());
                         }
                     }
-                } else {
+                }
+                else if(commandArgs.length== 1)
+                {
+                    if(commandArgs[0].equals("assigncountries")) {
+                        List<Player> players = map.getPlayers();
+                        List<Country> countries = map.getCountries();
+
+                        // Assign countries to players
+                       System.out.println( map.assignCountries(players, countries));
+                    }
+                }
+
+
+
+                else {
                     throw new IllegalArgumentException("Not a valid command");
                 }
             }
