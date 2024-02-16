@@ -26,7 +26,13 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.obsidiandynamics.pojotester</groupId>
+            <artifactId>core</artifactId>
+            <version>0.9.0</version>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

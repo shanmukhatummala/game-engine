@@ -54,6 +54,6 @@ public class Player {
 
     @Override
     public int hashCode() {
-        return this.getName().hashCode();
+        return Objects.hash(name, countries, totalArmyCount);
     }
 }

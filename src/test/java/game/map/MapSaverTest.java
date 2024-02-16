@@ -38,14 +38,14 @@ public class MapSaverTest {
     }
 
     private void linkCountries() {
-        countries.get(0).getNeighbors().addAll(List.of(1, 2, 4));
-        countries.get(1).getNeighbors().addAll(List.of(0, 2));
-        countries.get(2).getNeighbors().addAll(List.of(3, 4, 0));
-        countries.get(3).getNeighbors().addAll(List.of(1, 5));
-        countries.get(4).getNeighbors().addAll(List.of(0, 5));
-        countries.get(5).getNeighbors().addAll(List.of(0, 1));
-        countries.get(6).getNeighbors().addAll(List.of(7, 2));
-        countries.get(7).getNeighbors().addAll(List.of(6, 2, 5));
+        countries.get(0).getNeighborIdList().addAll(List.of(1, 2, 4));
+        countries.get(1).getNeighborIdList().addAll(List.of(0, 2));
+        countries.get(2).getNeighborIdList().addAll(List.of(3, 4, 0));
+        countries.get(3).getNeighborIdList().addAll(List.of(1, 5));
+        countries.get(4).getNeighborIdList().addAll(List.of(0, 5));
+        countries.get(5).getNeighborIdList().addAll(List.of(0, 1));
+        countries.get(6).getNeighborIdList().addAll(List.of(7, 2));
+        countries.get(7).getNeighborIdList().addAll(List.of(6, 2, 5));
     }
 
     @AfterEach

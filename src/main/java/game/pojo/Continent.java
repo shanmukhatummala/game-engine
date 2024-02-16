@@ -65,6 +65,6 @@ public class Continent {
 
     @Override
     public int hashCode() {
-        return this.getId();
+        return Objects.hash(id, name, countryIdList, bonus);
     }
 }

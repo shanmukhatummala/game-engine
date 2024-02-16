@@ -33,11 +33,11 @@ public class Country {
     }
 
     public void addNeighbor(Integer neighborId) {
-        this.getNeighbors().add(neighborId);
+        this.getNeighborIdList().add(neighborId);
     }
 
     public void addNeighbors(List<Integer> neighborIds) {
-        this.getNeighbors().addAll(neighborIds);
+        this.getNeighborIdList().addAll(neighborIds);
     }
 
     public int getId() {
@@ -52,7 +52,7 @@ public class Country {
         return continent;
     }
 
-    public List<Integer> getNeighbors() {
+    public List<Integer> getNeighborIdList() {
         return neighborIdList;
     }
 
@@ -87,6 +87,6 @@ public class Country {
 
     @Override
     public int hashCode() {
-        return this.getId();
+        return Objects.hash(id, name, continent, neighborIdList, player, armyCount);
     }
 }

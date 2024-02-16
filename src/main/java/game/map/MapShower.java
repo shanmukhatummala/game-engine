@@ -15,7 +15,7 @@ public class MapShower {
             System.out.println(country.getName());
             System.out.println("Neighbors:");
 
-            for (Integer neighborId : country.getNeighbors()) {
+            for (Integer neighborId : country.getNeighborIdList()) {
                 Country neighbor = getCountryById(map, neighborId);
                 assert neighbor != null;
                 System.out.println("- " + neighbor.getName());
