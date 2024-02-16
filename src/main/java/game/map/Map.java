@@ -83,21 +83,16 @@ public class Map {
     }
     public static void assignCountries(List<Player> players, List<Country> countries) {
 
-            HashMap<Player, List<Country>> playerCountryMap = new HashMap<>();
+                HashMap<Player, List<Country>> playerCountryMap = new HashMap<>();
 
-            // Check if the countries list is empty
-            if (countries.isEmpty()) {
-                System.out.println("No countries available to assign.");
+                if (countries.isEmpty()) {
+                    System.out.println("No countries available to assign.");
 
-            }
-
-            // Shuffle the countries
-            Collections.shuffle(countries);
-
-            // Calculate the number of countries each player should have
+                }
+                Collections.shuffle(countries);
 
                 int numCountriesPerPlayer = (countries.size()) / (players.size());
-                // Assign countries to players
+
                 int currentIndex = 0;
                 for (Player player : players) {
                     List<Country> assignedCountries = new ArrayList<>();
@@ -109,7 +104,6 @@ public class Map {
                     playerCountryMap.put(player, assignedCountries);
                 }
 
-                // Assign remaining countries to players randomly
                 while (currentIndex < countries.size()) {
                     List<Integer> playerIndices = IntStream.range(0, players.size()).boxed().collect(toList());
                     Collections.shuffle(playerIndices);
@@ -119,7 +113,7 @@ public class Map {
                         randomPlayer.getCountries().add(countries.get(currentIndex));
                         idxInPlayerIndices++;
                         currentIndex++;
-                        System.out.println(playerCountryMap);
+
                     }
                 }
             }

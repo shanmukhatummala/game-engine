@@ -47,7 +47,7 @@ public class GameEngine {
                     } else {
                         loadMap(filePath, map);
                     }
-                    //editMap(map, filePath);
+                    editMap(map, filePath);
                 }
                 else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
                     MapShower.showMap(map);
@@ -67,17 +67,13 @@ public class GameEngine {
                             System.out.println(e.getMessage());
                         }
                     }
-                }
-                else if(commandArgs.length== 1 && commandArgs[0].equals("assigncountries"))
-                {
-                        List<Player> players = map.getPlayers();
-                        List<Country> countries = map.getCountries();
+                } else if (commandArgs.length== 1 && commandArgs[0].equals("assigncountries")) {
 
-                        // Assign countries to players
-                        map.assignCountries(players, countries);
+                    List<Player> players = map.getPlayers();
+                    List<Country> countries = map.getCountries();
+                    map.assignCountries(players, countries);
 
-                }
-                else {
+                } else {
                     throw new IllegalArgumentException("Not a valid command");
                 }
             }
@@ -98,6 +94,4 @@ public class GameEngine {
 
         return "-add".equals(commandArgs[1]) || "-remove".equals(commandArgs[1]);
     }
-
-
 }
