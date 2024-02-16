@@ -19,6 +19,11 @@ public class MapValidator {
 	
 	private Map d_mapToValidate;
 	
+	/**
+	 * Initializes the MapValidator object with the map we want to validate.
+	 * Since the reference to the map won't change, the map can be edited without changing the MapValidator object.
+	 * @param p_mapToValidate The map we wish to validate.
+	 */
 	public MapValidator(Map p_mapToValidate) {
 		d_mapToValidate = p_mapToValidate;
 	}
