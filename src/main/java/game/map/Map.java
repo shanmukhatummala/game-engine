@@ -20,13 +20,18 @@ import java.util.TreeSet;
 @Data
 public class Map {
 
+    private List<String> d_comments;
+    private List<String> d_files;
+
     private final List<Continent> continents;
     private final List<Country> countries;
     private final List<Player> players;
+
+
     private TreeMap<Integer, TreeSet<Integer>> d_neighbors;
 
     public Map() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new TreeMap<>());
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new TreeMap<>());
     }
 
     public void addContinent(Continent continent) {

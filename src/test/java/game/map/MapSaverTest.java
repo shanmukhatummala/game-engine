@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
+import java.util.TreeMap;
 
 public class MapSaverTest {
     Map map;
@@ -17,7 +18,7 @@ public class MapSaverTest {
     void setUp() {
         continents = createContinents();
         countries = createCountries(continents);
-        map = new Map(continents, countries, new ArrayList<>());
+        map = new Map(new ArrayList<>(), new ArrayList<>(), continents, countries, new ArrayList<>(), new TreeMap<>());
         linkCountries();
     }
 
