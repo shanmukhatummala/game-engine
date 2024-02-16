@@ -31,7 +31,7 @@ public class MapValidator {
 	private List<Boolean> dfsStep(Country p_currentCountry, List<Boolean> p_countryHasBeenSeen) {
 		int l_indexCurrentCountry = d_countryList.indexOf(p_currentCountry);
 		p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
-		for (Integer l_neighbourID: p_currentCountry.getNeighbours()) {
+		for (Integer l_neighbourID: p_currentCountry.getNeighborIdList()) {
 			Country l_neighbour = getCountryWithId(d_mapToValidate, l_neighbourID);
 			int l_indexNeighbour = d_countryList.indexOf(l_neighbour);
 			if (!p_countryHasBeenSeen.get(l_indexNeighbour)) {
@@ -62,7 +62,7 @@ public class MapValidator {
 	private List<Boolean> dfsStep(Integer p_currentCountryID, Continent p_continent, List<Boolean> p_countryHasBeenSeen) {
 		int l_indexCurrentCountry = p_continent.getCountryIdList().indexOf(p_currentCountryID);
 		p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
-		for (Integer l_neighbourID: getCountryWithId(d_mapToValidate, p_currentCountryID).getNeighbours()) {
+		for (Integer l_neighbourID: getCountryWithId(d_mapToValidate, p_currentCountryID).getNeighborIdList()) {
 			Country l_neighbour = getCountryWithId(d_mapToValidate, l_neighbourID);
 			if (!l_neighbour.getContinent().equals(p_continent))
 				continue;
@@ -90,7 +90,24 @@ public class MapValidator {
 			if (!continentIsConnected(l_continent))
 				return false;
 		}
-		return (mapIsConnected());
+		return mapIsConnected();
+	}
+	
+	public boolean isMapValid() {
+		for (Continent l_continent: d_mapToValidate.getContinents()) {
+			if (l_continent.getCountryIdList().size() == 0)
+				return false;
+		}
+		for (int l_i = 0; l_i<d_mapToValidate.getCountries().size();l_i++) {
+			for (int l_j = l_i+1; l_j<d_mapToValidate.getCountries().size();l_j++) {
+				Country l_countryI = d_mapToValidate.getCountries().get(l_i);
+				Country l_countryJ = d_mapToValidate.getCountries().get(l_j);
+				if (l_countryI.getId() == l_countryJ.getId() || l_countryI.getName().equals(l_countryJ.getName()))
+					return false;
+			}
+		}
+		
+		return mapAndContinentsConnected();
 	}
 	
 }
