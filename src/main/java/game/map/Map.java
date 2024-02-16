@@ -7,8 +7,10 @@ import game.pojo.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.HashMap;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Map {
 
@@ -79,43 +81,48 @@ public class Map {
     public List<Player> getPlayers() {
         return players;
     }
+    public static void assignCountries(List<Player> players, List<Country> countries) {
 
-        public static HashMap<Player, List<Country>> assignCountries(List<Player> players, List<Country> countries) {
             HashMap<Player, List<Country>> playerCountryMap = new HashMap<>();
 
             // Check if the countries list is empty
             if (countries.isEmpty()) {
                 System.out.println("No countries available to assign.");
-                return playerCountryMap;
+
             }
 
             // Shuffle the countries
             Collections.shuffle(countries);
 
             // Calculate the number of countries each player should have
-            int numCountriesPerPlayer = 5;
 
-            // Assign countries to players
-            int currentIndex = 0;
-            for (Player player : players) {
-                List<Country> assignedCountries = new ArrayList<>();
-                for (int i = 0; i < numCountriesPerPlayer && currentIndex < countries.size(); i++) {
-                    assignedCountries.add(countries.get(currentIndex));
-                    currentIndex++;
+                int numCountriesPerPlayer = (countries.size()) / (players.size());
+                // Assign countries to players
+                int currentIndex = 0;
+                for (Player player : players) {
+                    List<Country> assignedCountries = new ArrayList<>();
+                    for (int i = 0; i < numCountriesPerPlayer; i++) {
+                        assignedCountries.add(countries.get(currentIndex));
+                        currentIndex++;
+                    }
+                    player.setAssignedCountries(assignedCountries);
+                    playerCountryMap.put(player, assignedCountries);
                 }
-                player.setAssignedCountries(assignedCountries);
-                playerCountryMap.put(player, assignedCountries);
+
+                // Assign remaining countries to players randomly
+                while (currentIndex < countries.size()) {
+                    List<Integer> playerIndices = IntStream.range(0, players.size()).boxed().collect(toList());
+                    Collections.shuffle(playerIndices);
+                    int idxInPlayerIndices = 0;
+                    while (currentIndex < countries.size()) {
+                        Player randomPlayer = players.get(playerIndices.get(idxInPlayerIndices));
+                        randomPlayer.getCountries().add(countries.get(currentIndex));
+                        idxInPlayerIndices++;
+                        currentIndex++;
+                        System.out.println(playerCountryMap);
+                    }
+                }
             }
 
-            // Assign remaining countries to players randomly
-            Random random = new Random();
-            while (currentIndex < countries.size()) {
-                int randomPlayerIndex = random.nextInt(players.size());
-                Player randomPlayer = players.get(randomPlayerIndex);
-                randomPlayer.getCountries().add(countries.get(currentIndex));
-                currentIndex++;
-            }
 
-            return playerCountryMap;
-        }
     }
