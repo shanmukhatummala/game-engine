@@ -100,7 +100,7 @@ class MapTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenRemovingNewPlayerThatDoesNotExist() {
+    void shouldThrowExceptionWhenRemovingPlayerThatDoesNotExist() {
         String playerName = "Player";
 
         assertThrows(IllegalArgumentException.class, () -> {
