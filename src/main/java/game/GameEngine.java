@@ -47,7 +47,7 @@ public class GameEngine {
                     } else {
                         loadMap(filePath, map);
                     }
-                   // editMap(map, filePath);
+                   editMap(map, filePath);
                 }
                 else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
                     MapShower.showMap(map);
