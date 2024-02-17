@@ -61,9 +61,9 @@ public class MapValidatorTest {
     void testDfsConnectedMap() {
     	loadMap(d_path, d_map);
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
-    	for (int i=0; i<d_map.getCountries().size(); i++)
+    	for (int i=0; i<d_map.getD_countries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
-    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getCountries().get(0), d_map));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getD_countries().get(0), d_map));
     }
     
     /**
@@ -88,11 +88,11 @@ public class MapValidatorTest {
         d_map.addCountry(d_country5);
         
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
-    	for (int i=0; i<d_map.getCountries().size(); i++)
+    	for (int i=0; i<d_map.getD_countries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	l_expectedResult.set(3, Boolean.FALSE);
     	
-    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getCountries().get(0), d_map));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getD_countries().get(0), d_map));
     }
     
     /**
@@ -116,10 +116,10 @@ public class MapValidatorTest {
         d_map.addCountry(d_country5);
         
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
-    	for (int i=0; i<d_map.getCountries().size(); i++)
+    	for (int i=0; i<d_map.getD_countries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	
-    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getCountries().get(0), d_map));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getD_countries().get(0), d_map));
     }
     
     /**
@@ -185,11 +185,11 @@ public class MapValidatorTest {
     void testdfsConnectedContinent() {
     	loadMap(d_path, d_map);
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
-    	Continent l_continentToTest = d_map.getContinents().get(1);
-    	for (int i=0; i<l_continentToTest.getCountryIdList().size(); i++)
+    	Continent l_continentToTest = d_map.getD_continents().get(1);
+    	for (int i=0; i<l_continentToTest.getD_countryIdList().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	l_expectedResult.set(1, Boolean.FALSE);
-    	assertEquals(l_expectedResult, d_mapVal.dfs(l_continentToTest.getCountryIdList().get(0), l_continentToTest, d_map));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(l_continentToTest.getD_countryIdList().get(0), l_continentToTest, d_map));
     }
     
     /**
