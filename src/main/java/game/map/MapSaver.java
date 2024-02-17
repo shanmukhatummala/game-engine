@@ -14,29 +14,29 @@ public class MapSaver {
             // write the continents to the file
             writer.write(continentsStarter);
             writer.newLine();
-            for (int i = 0; i < map.getContinents().size(); i++) {
-                writer.write(map.getContinents().get(i).getName()+" ");
-                writer.write(map.getContinents().get(i).getBonus()+"  \n");
+            for (int i = 0; i < map.getD_continents().size(); i++) {
+                writer.write(map.getD_continents().get(i).getD_name()+" ");
+                writer.write(map.getD_continents().get(i).getD_bonus()+"  \n");
             }
             writer.newLine();
 
             // write the countries to the file
             writer.write(countryStarter);
             writer.newLine();
-            for (int i = 0; i < map.getCountries().size(); i++) {
-                writer.write(map.getCountries().get(i).getId()+" ");
-                writer.write(map.getCountries().get(i).getName()+" ");
-                writer.write(map.getCountries().get(i).getContinent().getId()+" \n");
+            for (int i = 0; i < map.getD_countries().size(); i++) {
+                writer.write(map.getD_countries().get(i).getD_id()+" ");
+                writer.write(map.getD_countries().get(i).getD_name()+" ");
+                writer.write(map.getD_countries().get(i).getD_continent().getD_id()+" \n");
             }
             writer.newLine();
 
             // write the border to the file
             writer.write(borderStarter);
             writer.newLine();
-            for (int i = 0; i < map.getCountries().size(); i++) {
-                writer.write(map.getCountries().get(i).getId()+" ");
-                for (int j = 0; j < map.getCountries().get(i).getNeighborIdList().size(); j++) {
-                    writer.write(map.getCountries().get(i).getNeighborIdList().get(j)+" ");
+            for (int i = 0; i < map.getD_countries().size(); i++) {
+                writer.write(map.getD_countries().get(i).getD_id()+" ");
+                for (int j = 0; j < map.getD_countries().get(i).getD_neighborIdList().size(); j++) {
+                    writer.write(map.getD_countries().get(i).getD_neighborIdList().get(j)+" ");
                 }
                 writer.newLine();
             }
