@@ -1,6 +1,5 @@
 package game.pojo;
 
-import java.io.BufferedReader;
 import java.util.*;
 
 public class Player {
@@ -45,24 +44,29 @@ public class Player {
     }
 
     public void issue_order(){
-        String[] l_command_args = inputUserCommand();
-        if (l_command_args[0].equals("deploy")){
-            Country l_destination = getCountryByName(l_command_args[1]);
-            if(l_destination!=null){
-                int l_armyNumber = Integer.parseInt(l_command_args[2]);
+        boolean l_commandStateDone = false;
+        while(!l_commandStateDone){
+            System.out.println("enter the deployment command: ");
+            String[] l_command_args = inputUserCommand();
+            Map<Country, Integer> l_destinationAndArmies = processDeployCommand(l_command_args);
+            if(l_destinationAndArmies!=null){
+                Country l_destination = l_destinationAndArmies.entrySet().iterator().next().getKey();
+                int l_armyNumber = l_destinationAndArmies.entrySet().iterator().next().getValue();
                 boolean l_state =  this.d_orderList.offer(new DeployOrder(l_destination, l_armyNumber));
                 if (l_state) {
                     this.d_reinforcements = this.d_reinforcements - l_armyNumber;
                 }else {
                     System.out.println("Problem with deployment");
+                    continue;
                 }
-            }else{
-                System.out.println("This country is not owned by the player");
+                l_commandStateDone = true;
             }
-        }else{
-            System.out.println("Invalid command or a command that has yet to be implemented");
         }
+    }
 
+
+    public Order next_order(){
+        return this.d_orderList.poll();
     }
 
     private String[] inputUserCommand(){
@@ -70,6 +74,36 @@ public class Player {
         String l_command = scanner.nextLine();
         return l_command.split(" ");
     }
+    private Map<Country, Integer> processDeployCommand(String[] p_command_args){
+        if(!"deploy".equals(p_command_args[0])){
+            return errorMessage("Invalid command or a command that has yet to be implemented, try again");
+        }
+        Country l_destination = getCountryByName(p_command_args[1]);
+        if(l_destination==null){
+            return errorMessage("This country is not owned by the player");
+        }
+        int l_armyNumber = parseArmyNumber(p_command_args[2]);
+        if(l_armyNumber<0){
+            return errorMessage("invalid number of armies");
+        }
+        Map<Country, Integer> l_commandProcessed = new HashMap<>();
+        l_commandProcessed.put(l_destination, l_armyNumber);
+        return l_commandProcessed;
+    }
+
+    private Map<Country, Integer> errorMessage(String p_message) {
+        System.out.println(p_message);
+        return null;
+    }
+
+    private int parseArmyNumber(String armyNumberStr) {
+        try {
+            return Integer.parseInt(armyNumberStr);
+        } catch (NumberFormatException e) {
+            return -1; // Indicates an error in parsing
+        }
+    }
+
 
     private Country getCountryByName(String p_name){
         for(Country l_country: this.getCountries()){
@@ -79,12 +113,6 @@ public class Player {
         }
         return null;
     }
-
-
-    public Order next_order(){
-        return this.d_orderList.poll();
-    }
-
 
     @Override
     public boolean equals(Object other) {
