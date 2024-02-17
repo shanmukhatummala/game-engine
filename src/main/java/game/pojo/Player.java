@@ -57,6 +57,11 @@ public class Player {
         this.d_reinforcements = d_reinforcements;
     }
 
+
+    /**
+     * This method will wait for the command and validate this command and then will create a deploy order
+     * object on the player list of orders then reduce the number of armies in the player reinforcements
+     */
     public void issue_order(){
         boolean l_commandStateDone = false;
         while(!l_commandStateDone){
@@ -78,10 +83,19 @@ public class Player {
     }
 
 
+    /**
+     *
+     * @return the next order(first order in the queue) of the player from the order list
+     */
     public Order next_order(){
         return this.d_orderList.poll();
     }
 
+    /**
+     * takes the command from the scanner (can be from the user or an input stream as a string from the test)
+     * and split it
+     * @return array of string
+     */
     private String[] inputUserCommand(){
         if(System.in.equals(d_scanner)){
             System.out.println("enter the deployment command: ");
@@ -89,6 +103,12 @@ public class Player {
         String l_command = d_scanner.nextLine();
         return l_command.split(" ");
     }
+
+    /**
+     * this method will validate the command and return the destination of deployment and the number of armies
+     * @param p_command_args
+     * @return HashMap object that holds a Country(destination) as a key and the army number as a value
+     */
     private Map<Country, Integer> processDeployCommand(String[] p_command_args){
         if(!"deploy".equals(p_command_args[0])){
             return errorMessage("Invalid command or a command that has yet to be implemented, try again");
@@ -106,11 +126,21 @@ public class Player {
         return l_commandProcessed;
     }
 
+    /**
+     * this method print an error message if the validation of the command faild
+     * @param p_message error message
+     * @return null
+     */
     private Map<Country, Integer> errorMessage(String p_message) {
         System.out.println(p_message);
         return null;
     }
 
+    /**
+     * this method parse the last argument of the command into an integer (the number of armies)
+     * @param armyNumberStr
+     * @return army number as Integer
+     */
     private int parseArmyNumber(String armyNumberStr) {
         try {
             return Integer.parseInt(armyNumberStr);
@@ -120,6 +150,11 @@ public class Player {
     }
 
 
+    /**
+     * this method filter the player countries by name
+     * @param p_name the country name
+     * @return Country object
+     */
     private Country getCountryByName(String p_name){
         for(Country l_country: this.getD_countries()){
             if(l_country.getD_name().equals(p_name)){
