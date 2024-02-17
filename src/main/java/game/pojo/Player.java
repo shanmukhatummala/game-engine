@@ -10,16 +10,23 @@ public class Player {
     int d_reinforcements;
     private Queue<Order> d_orderList;
 
+    private Scanner scanner;
+
     public Player() {}
 
-    public Player(String name, List<Country> countries, int totalArmyCount) {
+
+    public Player(String name, List<Country> countries, int totalArmyCount,Scanner scanner) {
         this.name = name;
         this.countries = countries;
         this.totalArmyCount = totalArmyCount;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
+        this.scanner = scanner;
     }
 
+    public Player(String name, List<Country> countries, int totalArmyCount) {
+        this(name, countries, totalArmyCount, new Scanner(System.in));
+    }
     public Player(String name) {
         this(name, new ArrayList<>(), 0);
     }
@@ -42,11 +49,13 @@ public class Player {
     public void setReinforcements(int d_reinforcements) {
         this.d_reinforcements = d_reinforcements;
     }
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     public void issue_order(){
         boolean l_commandStateDone = false;
         while(!l_commandStateDone){
-            System.out.println("enter the deployment command: ");
             String[] l_command_args = inputUserCommand();
             Map<Country, Integer> l_destinationAndArmies = processDeployCommand(l_command_args);
             if(l_destinationAndArmies!=null){
@@ -70,7 +79,9 @@ public class Player {
     }
 
     private String[] inputUserCommand(){
-        Scanner scanner = new Scanner(System.in);
+        if(System.in.equals(scanner)){
+            System.out.println("enter the deployment command: ");
+        }
         String l_command = scanner.nextLine();
         return l_command.split(" ");
     }
@@ -83,7 +94,7 @@ public class Player {
             return errorMessage("This country is not owned by the player");
         }
         int l_armyNumber = parseArmyNumber(p_command_args[2]);
-        if(l_armyNumber<0){
+        if(l_armyNumber<0 || l_armyNumber > d_reinforcements){
             return errorMessage("invalid number of armies");
         }
         Map<Country, Integer> l_commandProcessed = new HashMap<>();
