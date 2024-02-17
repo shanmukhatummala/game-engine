@@ -12,27 +12,29 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- * Java Model for the Game Map
- * All manipulation of the Map
- * is implemented in an object of this class
+ * Java Model for the Game Map. All manipulation of the Map is executed on an object of this class
  */
 @AllArgsConstructor
 @Data
 public class Map {
 
-    private List<String> d_comments;
-    private List<String> d_files;
-
+  private List<String> d_comments;
+  private List<String> d_files;
     private final List<Continent> continents;
     private final List<Country> countries;
     private final List<Player> players;
+  private TreeMap<Integer, TreeSet<Integer>> d_borders;
 
 
-    private TreeMap<Integer, TreeSet<Integer>> d_neighbors;
-
-    public Map() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new TreeMap<>());
-    }
+  public Map() {
+    this(
+        new ArrayList<>(),
+        new ArrayList<>(),
+        new ArrayList<>(),
+        new ArrayList<>(),
+        new ArrayList<>(),
+        new TreeMap<>());
+  }
 
     public void addContinent(Continent continent) {
 
@@ -76,14 +78,12 @@ public class Map {
         throw new IllegalArgumentException("No player exists with this name");
     }
 
-    public void addNeighbor(Integer p_country_1, Integer p_country_2) {
-        if (this.d_neighbors == null) {
-            this.d_neighbors = new TreeMap<>();
+    public void addBorder(Integer p_country_1, Integer p_country_2) {
+        if (this.d_borders == null) {
+            this.d_borders = new TreeMap<>();
         }
-
-        this.d_neighbors.computeIfAbsent(p_country_1, k -> new TreeSet<>());
-
-        this.d_neighbors.get(p_country_1).add(p_country_2);
+          this.d_borders.computeIfAbsent(p_country_1, k -> new TreeSet<>());
+          this.d_borders.get(p_country_1).add(p_country_2);
     }
 
 }
