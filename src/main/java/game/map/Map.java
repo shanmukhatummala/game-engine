@@ -81,13 +81,13 @@ public class Map {
     public List<Player> getPlayers() {
         return players;
     }
-    public static void assignCountries(List<Player> players, List<Country> countries) {
+    public void assignCountries(List<Player> players, List<Country> countries) {
 
-                HashMap<Player, List<Country>> playerCountryMap = new HashMap<>();
+
 
                 if (countries.isEmpty()) {
                     System.out.println("No countries available to assign.");
-
+                    return;
                 }
                 Collections.shuffle(countries);
 
@@ -100,8 +100,8 @@ public class Map {
                         assignedCountries.add(countries.get(currentIndex));
                         currentIndex++;
                     }
-                    player.setAssignedCountries(assignedCountries);
-                    playerCountryMap.put(player, assignedCountries);
+                    player.getCountries().addAll(assignedCountries);
+
                 }
 
                 while (currentIndex < countries.size()) {

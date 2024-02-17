@@ -59,8 +59,4 @@ public class Player {
 
 
 
-    public void setAssignedCountries(List<Country> assignedCountries) {
-        this.countries = countries;
-    }
-
 }
