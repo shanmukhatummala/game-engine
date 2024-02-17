@@ -6,8 +6,17 @@ import static game.map.MapSaver.saveMap;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * MapEditor is used for performing edit operations on the map
+ */
 public class MapEditor {
 
+    /**
+     * <p>This method adds a continent to the list of continents in the map</p>
+     * @param p_bufferedReader used to read the commands from the user
+     * @param p_map reference to the map
+     * @param p_fileName file that the user is editing
+     */
     public static void editMap(BufferedReader p_bufferedReader, Map p_map, String p_fileName) {
 
         try {

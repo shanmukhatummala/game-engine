@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Player is a POJO representing a player
+ */
 public class Player {
 
     String d_name;

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Continent is a POJO representing the Continent in a map
+ * @author Shanmukha
+ */
 public class Continent {
 
     int d_id;

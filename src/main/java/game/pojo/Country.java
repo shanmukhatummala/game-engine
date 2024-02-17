@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Country is a POJO representing the Country in a map
+ * @author Shanmukha
+ */
 public class Country {
 
     int d_id;

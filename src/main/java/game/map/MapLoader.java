@@ -10,8 +10,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * MapLoader is used for loading the map
+ * @author Shanmukha
+ */
 public class MapLoader {
 
+    /**
+     * <p>This method loads the map into map object by reading a file</p>
+     * @param p_path path of the file
+     * @param p_map reference to the map
+     */
     public static void loadMap(String p_path, Map p_map) {
 
         try (BufferedReader l_reader = new BufferedReader(new FileReader(p_path))) {

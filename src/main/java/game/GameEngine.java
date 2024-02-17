@@ -12,6 +12,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * GameEngine is responsible for reading the main commands from the players and calling required methods to perform the actions
+ */
 public class GameEngine {
 
     public static final String RESOURCES_PATH = "src/main/resources/";
@@ -21,6 +24,9 @@ public class GameEngine {
         this.d_map = p_map;
     }
 
+    /**
+     * <p>Starts the game, and reads the input commands from the user and calls the required methods</p>
+     */
     public static void main(String[] args) {
 
         // Main method runs when we run the project. This is the starting point of the project.
@@ -83,6 +89,11 @@ public class GameEngine {
         System.exit(0);
     }
 
+    /**
+     * <p>This method checks if a gameplayer command is valid</p>
+     * @param commandArgs arguments in the gameplayer command
+     * @return true if the command is valid, else returns false
+     */
     public static boolean isValidGamePlayerCommand(String[] commandArgs) {
 
         for (int l_i = 1; l_i < commandArgs.length; l_i++) {

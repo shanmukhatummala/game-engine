@@ -7,11 +7,17 @@ import game.pojo.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Map is used for storing the details of the map
+ * It contains the details of countries, continents and players associated with the map
+ * @author Shanmukha
+ */
 public class Map {
 
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
+
 
     public Map() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
@@ -23,6 +29,11 @@ public class Map {
         this.d_players = p_players;
     }
 
+    /**
+     * <p>This method adds a continent to the list of continents in the map</p>
+     * @param p_continent the continent to be added
+     * @throws IllegalArgumentException when a continent with same id already exists
+     */
     public void addContinent(Continent p_continent) {
 
         for (Continent l_thisContinent : d_continents) {
@@ -34,6 +45,11 @@ public class Map {
         d_continents.add(p_continent);
     }
 
+    /**
+     * <p>This method adds a country to the list of countries in the map</p>
+     * @param p_country the continent to be added
+     * @throws IllegalArgumentException when a country with same id already exists
+     */
     public void addCountry(Country p_country) {
 
         for (Country l_thisCountry : d_countries) {
@@ -44,6 +60,11 @@ public class Map {
         d_countries.add(p_country);
     }
 
+    /**
+     * <p>This method adds a player to the list of players</p>
+     * @param p_playerName the player name to be added
+     * @throws IllegalArgumentException when a player with same name already exists
+     */
     public void addPlayer(String p_playerName) {
 
         for (Player l_thisPlayer : d_players) {
@@ -54,6 +75,11 @@ public class Map {
         d_players.add(new Player(p_playerName));
     }
 
+    /**
+     * <p>This method removes a player from the list of players</p>
+     * @param p_playerName the player name to be removed
+     * @throws IllegalArgumentException when a player with that name does not exist
+     */
     public void removePlayer(String p_playerName) {
 
         for (Player l_thisPlayer : d_players) {
