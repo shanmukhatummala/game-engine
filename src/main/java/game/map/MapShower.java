@@ -2,9 +2,19 @@ package game.map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-
 import java.util.List;
+
+/**
+ * MapShower displays all the information about the map in text format
+ * @author Siva
+ */
+
 public class MapShower {
+    /**
+     * showMap method is used display the map as text
+     * It shows all the continents, countries, players and armies assigned to each country and connectivity between countries
+     */
+
     public static void showMap(Map map) {
         System.out.println("---------------------------Continents---------------------------");
         List<Continent> continents = map.getContinents();
