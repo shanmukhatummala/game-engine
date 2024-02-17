@@ -53,9 +53,9 @@ public class MapSaver {
         p_writer.write(l_borderStarter);
         p_writer.newLine();
         for(Country l_country: p_map.getCountries()){
-            p_writer.write(l_country.getId()+" ");
+            p_writer.write(Integer.toString(l_country.getId()));
             for (Integer l_neighboursID: l_country.getNeighbours()) {
-                p_writer.write(l_neighboursID+" ");
+                p_writer.write(" "+l_neighboursID);
             }
             p_writer.newLine();
         }
