@@ -32,20 +32,12 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
       - name: Build, Test and Package
-        run: mvn -B clean verify package --file pom.xml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v1
-        with:
-          name: surefire-reports
-          path: target/surefire-reports/**
+        run: mvn -B clean verify package
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Generate Java docs
-        run: mvn -B javadoc:javadoc --file pom.xml
+        run: mvn -B javadoc:javadoc
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
