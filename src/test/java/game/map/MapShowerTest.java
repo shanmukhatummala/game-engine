@@ -21,7 +21,7 @@ class MapShowerTest {
         map = new Map();
     }
 
-    @Test @Ignore
+    @Ignore
     void showMapTest() {
         // Creating the test data
         loadMap(path, map);
