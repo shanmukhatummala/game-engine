@@ -20,6 +20,7 @@ import static java.util.stream.Collectors.toList;
  * Map is used for storing the details of the map
  * It contains the details of countries, continents and players associated with the map
  * @author Shanmukha
+ * Java Model for the Game Map. All manipulation of the Map is executed on an object of this class
  */
 //@AllArgsConstructor
 @Data
@@ -29,7 +30,6 @@ public class Map {
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
-
 
     /**
      * <p>Constructor without arguments for Map</p>
@@ -110,10 +110,6 @@ public class Map {
             }
         }
         throw new IllegalArgumentException("No player exists with this name");
-    }
-
-    public List<Continent> getD_continents() {
-        return d_continents;
     }
 
     public List<Country> getD_countries() {
