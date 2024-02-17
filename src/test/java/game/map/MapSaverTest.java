@@ -3,14 +3,21 @@ package game.map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
 public class MapSaverTest {
     Map map;
+    final String d_pathToSaveMapOutcome = "src/test/resources/testMapSaver.map";
     private List<Country> countries;
     private List<Continent> continents;
     @BeforeEach
@@ -32,7 +39,7 @@ public class MapSaverTest {
         List<Country> countries = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
             Continent continent = (i <= 4) ? continents.get(0) : continents.get(1);
-            countries.add(new Country(i, "country" + i, continent, new ArrayList<>(), null, 0));
+            countries.add(new Country(i, "country" + i, continent, new ArrayList<>(), 0));
         }
         return countries;
     }
@@ -50,10 +57,22 @@ public class MapSaverTest {
 
     @AfterEach
     void tearDown() {
+        Path l_pathToFile = Paths.get(d_pathToSaveMapOutcome);
+        try{
+            Files.delete(l_pathToFile);
+            System.out.println("File deleted successfully");
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     @Test
     void saveMap() throws IOException{
-        MapSaver.saveMap("src/main/resources/testMapSaver.map", map);
+        String l_pathToExpectedOutcome = "src/test/resources/expectedOutcome.map";
+        MapSaver.saveMap(d_pathToSaveMapOutcome, map);
+        List<String> l_expectedOutcome = Files.readAllLines(Paths.get(l_pathToExpectedOutcome));
+        List<String> l_saveMapOutcome = Files.readAllLines(Paths.get(d_pathToSaveMapOutcome));
+        Assertions.assertEquals(l_expectedOutcome, l_saveMapOutcome);
     }
 }
