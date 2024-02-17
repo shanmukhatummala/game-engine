@@ -9,9 +9,9 @@ class PlayerTest {
 
     @Test
     public void shouldPassAllPojoTests() {
-        final Class<Player> classUnderTest = Player.class;
+        final Class<Player> l_classUnderTest = Player.class;
 
-        assertPojoMethodsFor(classUnderTest)
+        assertPojoMethodsFor(l_classUnderTest)
                 .testing(Method.CONSTRUCTOR,
                         Method.GETTER,
                         Method.EQUALS,
