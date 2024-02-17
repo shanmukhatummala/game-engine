@@ -36,6 +36,10 @@ public class Country {
         this.getNeighborIdList().add(neighborId);
     }
 
+    public void removeNeighbor(Integer neighborId) {
+        this.getNeighborIdList().removeIf(id -> Objects.equals(id, neighborId));
+    }
+
     public void addNeighbors(List<Integer> neighborIds) {
         this.getNeighborIdList().addAll(neighborIds);
     }

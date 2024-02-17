@@ -85,7 +85,6 @@ public class Map {
   }
 
   public void removePlayer(String playerName) {
-
     for (Player thisPlayer : players) {
       if (thisPlayer.getName().equals(playerName)) {
         players.remove(thisPlayer);
@@ -95,11 +94,55 @@ public class Map {
     throw new IllegalArgumentException("No player exists with this name");
   }
 
-//  public void addNeighborToCountry(Integer p_country_id, Integer p_neighbor_country_id) {
-//    Country country = countries.stream()
-//            .filter(Objects::nonNull)
-//            .
-//  }
+  public void addNeighborToCountry(Integer p_country_id, Integer p_neighbor_country_id) {
+    Optional<Country> l_country =
+        countries.stream()
+            .filter(Objects::nonNull)
+            .filter(c -> c.getId() == p_country_id)
+            .findFirst();
+
+    Optional<Country> l_neighbor_country =
+        countries.stream()
+            .filter(Objects::nonNull)
+            .filter(c -> c.getId() == p_neighbor_country_id)
+            .findFirst();
+
+    if (l_country.isEmpty()) {
+      System.out.println("Country with input ID does not exist!");
+      return;
+    } else if (l_neighbor_country.isEmpty()) {
+      System.out.println("Neighbor Country with input ID does not exist!");
+      return;
+    }
+
+    l_country.get().addNeighbor(p_neighbor_country_id);
+    System.out.println("Neighbor Country added successfully!");
+  }
+
+  public void removeNeighborFromCountry(Integer p_country_id, Integer p_neighbor_country_id) {
+    Optional<Country> l_country =
+        countries.stream()
+            .filter(Objects::nonNull)
+            .filter(c -> c.getId() == p_country_id)
+            .findFirst();
+
+    Optional<Country> l_neighbor_country =
+        countries.stream()
+            .filter(Objects::nonNull)
+            .filter(c -> c.getId() == p_neighbor_country_id)
+            .findFirst();
+
+    if (l_country.isEmpty()) {
+      System.out.println("Country with input ID does not exist!");
+      return;
+    } else if (l_neighbor_country.isEmpty()) {
+      System.out.println("Neighbor Country with input ID does not exist!");
+      return;
+    }
+
+    l_country.get().removeNeighbor(p_neighbor_country_id);
+    System.out.println("Neighbor Country removed successfully!");
+  }
 
   public void addBorder(Integer p_country_1, Integer p_country_2) {
     if (this.d_borders == null) {
