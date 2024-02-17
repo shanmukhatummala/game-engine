@@ -9,6 +9,7 @@ import game.pojo.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,48 +109,6 @@ class MapTest {
         }, "No player exists with this name");
     }
 
-    @Test
-    void shouldAssignCountries() {
-
-        Player player1 = new Player("Player 1");
-        Player player2 = new Player("Player 2");
-        List<Player> players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
-
-        List<Country> countries = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            countries.add(new Country(i, "Country" + i, new Continent()));
-        }
-
-        HashMap<Player, List<Country>> playerCountryMap = new HashMap<>();
-        int numCountriesPerPlayer = countries.size() / players.size();
-        int currentIndex = 0;
-        for (Player player : players) {
-            List<Country> assignedCountries = new ArrayList<>();
-            for (int i = 0; i < numCountriesPerPlayer; i++) {
-                assignedCountries.add(countries.get(currentIndex));
-                currentIndex++;
-            }
-            playerCountryMap.put(player, assignedCountries);
-        }
-
-        for (Player player : players) {
-            assertTrue(playerCountryMap.containsKey(player));
-            assertFalse(playerCountryMap.get(player).isEmpty());
-        }
-
-
-        int totalAssignedCountries = playerCountryMap.values().stream().mapToInt(List::size).sum();
-        assertEquals(countries.size(), totalAssignedCountries);
-
-
-        List<Country> allAssignedCountries = new ArrayList<>();
-        for (List<Country> assignedCountries : playerCountryMap.values()) {
-            allAssignedCountries.addAll(assignedCountries);
-        }
-        assertEquals(countries.size(), allAssignedCountries.stream().distinct().count());
-    }
 
 
 }

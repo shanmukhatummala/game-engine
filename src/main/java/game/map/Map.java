@@ -91,28 +91,28 @@ public class Map {
                 }
                 Collections.shuffle(countries);
 
-                int numCountriesPerPlayer = (countries.size()) / (players.size());
+                int CountriesPerPlayer = (countries.size()) / (players.size());
 
-                int currentIndex = 0;
+                int Index = 0;
                 for (Player player : players) {
                     List<Country> assignedCountries = new ArrayList<>();
-                    for (int i = 0; i < numCountriesPerPlayer; i++) {
-                        assignedCountries.add(countries.get(currentIndex));
-                        currentIndex++;
+                    for (int i = 0; i < CountriesPerPlayer; i++) {
+                        assignedCountries.add(countries.get(Index));
+                        Index++;
                     }
                     player.getCountries().addAll(assignedCountries);
 
                 }
 
-                while (currentIndex < countries.size()) {
-                    List<Integer> playerIndices = IntStream.range(0, players.size()).boxed().collect(toList());
-                    Collections.shuffle(playerIndices);
-                    int idxInPlayerIndices = 0;
-                    while (currentIndex < countries.size()) {
-                        Player randomPlayer = players.get(playerIndices.get(idxInPlayerIndices));
-                        randomPlayer.getCountries().add(countries.get(currentIndex));
-                        idxInPlayerIndices++;
-                        currentIndex++;
+                while (Index < countries.size()) {
+                    List<Integer> player_Index = IntStream.range(0, players.size()).boxed().collect(toList());
+                    Collections.shuffle(player_Index);
+                    int idx_In_PlayerIndices = 0;
+                    while (Index < countries.size()) {
+                        Player random_Player = players.get(player_Index.get(idx_In_PlayerIndices));
+                        random_Player.getCountries().add(countries.get(Index));
+                        idx_In_PlayerIndices++;
+                        Index++;
 
                     }
                 }

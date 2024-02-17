@@ -20,6 +20,7 @@ public class Player {
 
     public Player(String name) {
         this(name, new ArrayList<>(), 0);
+
     }
 
     public String getName() {
