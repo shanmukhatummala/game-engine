@@ -4,89 +4,93 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Country is a POJO representing the Country in a map
+ * @author Shanmukha
+ */
 public class Country {
 
-    int id;
-    String name;
-    Continent continent;
-    List<Integer> neighborIdList;
-    Player player;
-    int armyCount;
+    int d_id;
+    String d_name;
+    Continent d_continent;
+    List<Integer> d_neighborIdList;
+    Player d_player;
+    int d_armyCount;
 
     public Country() {}
 
-    public Country(int id, String name, Continent continent, List<Integer> neighborIdList, Player player, int armyCount) {
-        this.id = id;
-        this.name = name;
-        this.continent = continent;
-        this.neighborIdList = neighborIdList;
-        this.player = player;
-        this.armyCount = armyCount;
+    public Country(int p_id, String p_name, Continent p_continent, List<Integer> p_neighborIdList, Player p_player, int p_armyCount) {
+        this.d_id = p_id;
+        this.d_name = p_name;
+        this.d_continent = p_continent;
+        this.d_neighborIdList = p_neighborIdList;
+        this.d_player = p_player;
+        this.d_armyCount = p_armyCount;
     }
 
-    public Country(int id, String name, Continent continent, Player player) {
-        this(id, name, continent, new ArrayList<>(), player, 0);
+    public Country(int p_id, String p_name, Continent p_continent, Player p_player) {
+        this(p_id, p_name, p_continent, new ArrayList<>(), p_player, 0);
     }
 
-    public Country(int id, String name, Continent continent) {
-        this(id, name, continent, null);
+    public Country(int p_id, String p_name, Continent p_continent) {
+        this(p_id, p_name, p_continent, null);
     }
 
-    public void addNeighbor(Integer neighborId) {
-        this.getNeighborIdList().add(neighborId);
+    public void addNeighbor(Integer p_neighborId) {
+        this.getD_neighborIdList().add(p_neighborId);
     }
 
-    public void addNeighbors(List<Integer> neighborIds) {
-        this.getNeighborIdList().addAll(neighborIds);
+    public void addNeighbors(List<Integer> p_neighborIds) {
+        this.getD_neighborIdList().addAll(p_neighborIds);
     }
 
-    public int getId() {
-        return id;
+    public int getD_id() {
+        return d_id;
     }
 
-    public String getName() {
-        return name;
+    public String getD_name() {
+        return d_name;
     }
 
-    public Continent getContinent() {
-        return continent;
+    public Continent getD_continent() {
+        return d_continent;
     }
 
-    public List<Integer> getNeighborIdList() {
-        return neighborIdList;
+    public List<Integer> getD_neighborIdList() {
+        return d_neighborIdList;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Player getD_player() {
+        return d_player;
     }
 
-    public int getArmyCount() {
-        return armyCount;
+    public int getD_armyCount() {
+        return d_armyCount;
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object p_other) {
 
-        if (other == this) {
+        if (p_other == this) {
             return true;
         }
 
-        if (!(other instanceof Country)) {
+        if (!(p_other instanceof Country)) {
             return false;
         }
 
-        Country otherCountry = (Country) other;
+        Country l_otherCountry = (Country) p_other;
 
-        return Objects.equals(otherCountry.id, this.id)
-                && Objects.equals(otherCountry.name, this.name)
-                && Objects.equals(otherCountry.continent, this.continent)
-                && Objects.equals(otherCountry.neighborIdList, this.neighborIdList)
-                && Objects.equals(otherCountry.player, this.player)
-                && Objects.equals(otherCountry.armyCount, this.armyCount);
+        return Objects.equals(l_otherCountry.d_id, this.d_id)
+                && Objects.equals(l_otherCountry.d_name, this.d_name)
+                && Objects.equals(l_otherCountry.d_continent, this.d_continent)
+                && Objects.equals(l_otherCountry.d_neighborIdList, this.d_neighborIdList)
+                && Objects.equals(l_otherCountry.d_player, this.d_player)
+                && Objects.equals(l_otherCountry.d_armyCount, this.d_armyCount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, continent, neighborIdList, player, armyCount);
+        return Objects.hash(d_id, d_name, d_continent, d_neighborIdList, d_player, d_armyCount);
     }
 }
