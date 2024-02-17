@@ -39,7 +39,7 @@ public class MapSaverTest {
         List<Country> countries = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
             Continent continent = (i <= 4) ? continents.get(0) : continents.get(1);
-            countries.add(new Country(i, "country" + i, continent, new ArrayList<>(), null, 0));
+            countries.add(new Country(i, "country" + i, continent, new ArrayList<>(), 0));
         }
         return countries;
     }
