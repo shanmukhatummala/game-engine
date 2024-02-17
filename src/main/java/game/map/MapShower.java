@@ -1,6 +1,8 @@
 package game.map;
 import game.pojo.Continent;
 import game.pojo.Country;
+import game.pojo.Player;
+
 import java.util.List;
 public class MapShower {
     public static void showMap(Map map) {
@@ -11,14 +13,27 @@ public class MapShower {
         }
         System.out.println("---------------------------Countries---------------------------");
         List<Country> countries = map.getCountries();
+        List<Player> players = map.getPlayers();
         for (Country country : countries) {
             System.out.println(country.getName());
-            System.out.println("Neighbors:");
+            boolean isOwned = false;
 
+            for (Player player : players) {
+                if (player.getCountries().contains(country)) { // Check if the player owns the country
+                    System.out.println("Country is owned by: " + player.getName());
+                    isOwned = true;
+                    break;
+                }
+            }
+            if (!isOwned) {
+                System.out.println("Country is not owned by any player yet");
+            }
+
+            System.out.println("Neighbors:");
             for (Integer neighborId : country.getNeighborIdList()) {
                 Country neighbor = getCountryById(map, neighborId);
                 assert neighbor != null;
-                System.out.println("- " + neighbor.getName());
+                System.out.println("    - " + neighbor.getName());
             }
         }
     }
