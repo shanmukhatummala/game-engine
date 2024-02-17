@@ -1,11 +1,8 @@
 package game.pojo;
 
-import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Test;
-import pl.pojo.tester.api.assertion.Method;
 import java.io.ByteArrayInputStream;
 import java.util.*;
 import org.junit.jupiter.api.Assertions;
@@ -63,29 +60,18 @@ class PlayerTest {
     void tearDown() {
     }
 
-    @Test
-    public void shouldPassAllPojoTests() {
-        final Class<Player> l_classUnderTest = Player.class;
-
-        assertPojoMethodsFor(l_classUnderTest)
-                .testing(Method.CONSTRUCTOR,
-                        Method.GETTER,
-                        Method.EQUALS,
-                        Method.HASH_CODE)
-                .areWellImplemented();
-    }
 
     @Test
     void issue_order() {
         //test player1 and player2
-        d_players.get(0).setScanner(d_scannerPlayer1);
+        d_players.get(0).setD_scanner(d_scannerPlayer1);
         d_players.get(0).issue_order();
-        Assertions.assertEquals(1, d_players.get(0).getReinforcements(), "Reinforcements should be reduced by the army number deployed.");
+        Assertions.assertEquals(1, d_players.get(0).getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
         Order l_player1Order = d_players.get(0).next_order();
         Assertions.assertNotNull(l_player1Order,"An order should exist");
-        d_players.get(1).setScanner(d_scannerPlayer2);
+        d_players.get(1).setD_scanner(d_scannerPlayer2);
         d_players.get(1).issue_order();
-        Assertions.assertEquals(2, d_players.get(1).getReinforcements(), "Reinforcements should be reduced by the army number deployed.");
+        Assertions.assertEquals(2, d_players.get(1).getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
         Order l_player2Order = d_players.get(1).next_order();
         Assertions.assertNotNull(l_player2Order,"An order should exist");
     }

@@ -29,8 +29,8 @@ public class MapSaver {
         String l_continentsStarter = "[continents]";
         p_writer.write(l_continentsStarter);
         p_writer.newLine();
-        for (Continent l_continent: p_map.getContinents()) {
-            p_writer.write(l_continent.getName()+" "+l_continent.getBonus());
+        for (Continent l_continent: p_map.getD_continents()) {
+            p_writer.write(l_continent.getD_name()+" "+l_continent.getD_bonus());
             p_writer.newLine();
         }
         p_writer.newLine();
@@ -41,8 +41,8 @@ public class MapSaver {
         String l_countryStarter = "[countries]";
         p_writer.write(l_countryStarter);
         p_writer.newLine();
-        for(Country l_country: p_map.getCountries()){
-            p_writer.write(l_country.getId()+" "+ l_country.getName()+" "+ l_country.getContinent().getId());
+        for(Country l_country: p_map.getD_countries()){
+            p_writer.write(l_country.getD_id()+" "+ l_country.getD_name()+" "+ l_country.getD_continent().getD_id());
             p_writer.newLine();
         }
         p_writer.newLine();
@@ -52,9 +52,9 @@ public class MapSaver {
         String l_borderStarter = "[borders]";
         p_writer.write(l_borderStarter);
         p_writer.newLine();
-        for(Country l_country: p_map.getCountries()){
-            p_writer.write(Integer.toString(l_country.getId()));
-            for (Integer l_neighboursID: l_country.getNeighbours()) {
+        for(Country l_country: p_map.getD_countries()){
+            p_writer.write(Integer.toString(l_country.getD_id()));
+            for (Integer l_neighboursID: l_country.getD_neighborIdList()) {
                 p_writer.write(" "+l_neighboursID);
             }
             p_writer.newLine();

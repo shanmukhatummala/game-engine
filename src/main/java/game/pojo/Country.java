@@ -67,7 +67,9 @@ public class Country {
     public int getD_armyCount() {
         return d_armyCount;
     }
-
+    public void setD_armyCount(int d_armyCount) {
+        this.d_armyCount = d_armyCount;
+    }
     @Override
     public boolean equals(Object p_other) {
 

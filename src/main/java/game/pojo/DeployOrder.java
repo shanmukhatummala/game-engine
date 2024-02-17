@@ -7,7 +7,7 @@ public class DeployOrder extends Order{
 
     @Override
     public void execute(){
-        int l_currentArmyCount = this.destination.getArmyCount();
-        this.destination.setArmyCount(l_currentArmyCount+this.armyNumber);
+        int l_currentArmyCount = this.destination.getD_armyCount();
+        this.destination.setD_armyCount(l_currentArmyCount+this.armyNumber);
     }
 }

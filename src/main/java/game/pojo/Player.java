@@ -11,19 +11,19 @@ public class Player {
     List<Country> d_countries;
     int d_totalArmyCount;
     int d_reinforcements;
-    private Queue<Order> d_orderList;
-
-    private Scanner scanner;
+    Queue<Order> d_orderList;
+    Scanner d_scanner;
 
     public Player() {}
 
-    public Player(String p_name, List<Country> p_countries, int p_totalArmyCount,Scanner scanner) {
+
+    public Player(String p_name, List<Country> p_countries, int p_totalArmyCount, Scanner scanner) {
         this.d_name = p_name;
         this.d_countries = p_countries;
         this.d_totalArmyCount = p_totalArmyCount;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
-        this.scanner = scanner;
+        this.d_scanner = scanner;
     }
 
     public Player(String name, List<Country> countries, int totalArmyCount) {
@@ -45,15 +45,16 @@ public class Player {
     public int getD_totalArmyCount() {
         return d_totalArmyCount;
     }
-    public int getReinforcements() {
+
+    public void setD_scanner(Scanner d_scanner) {
+        this.d_scanner = d_scanner;
+    }
+    public int getD_reinforcements() {
         return d_reinforcements;
     }
 
-    public void setReinforcements(int d_reinforcements) {
+    public void setD_reinforcements(int d_reinforcements) {
         this.d_reinforcements = d_reinforcements;
-    }
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
     }
 
     public void issue_order(){
@@ -82,10 +83,10 @@ public class Player {
     }
 
     private String[] inputUserCommand(){
-        if(System.in.equals(scanner)){
+        if(System.in.equals(d_scanner)){
             System.out.println("enter the deployment command: ");
         }
-        String l_command = scanner.nextLine();
+        String l_command = d_scanner.nextLine();
         return l_command.split(" ");
     }
     private Map<Country, Integer> processDeployCommand(String[] p_command_args){
