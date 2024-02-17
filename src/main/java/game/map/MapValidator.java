@@ -53,7 +53,7 @@ public class MapValidator {
 	}
 	
 	/**
-	 * Checks if the map is a connected graph. </br>
+	 * Checks if the map is a connected graph.
 	 * To do so, we apply the DFS to each country. If each country can reach any other country,
 	 * then the map is a connected graph.
 	 * @return true if the map is a connected graph, false otherwise
@@ -136,7 +136,7 @@ public class MapValidator {
 	}
 	
 	/**
-	 * Verifies if the map is valid. </br>
+	 * Verifies if the map is valid.
 	 * We consider that a map is correct when it represents a connected graph, each continent
 	 * also represents a connected subgraph, there are no empty continents and each country has to
 	 * have a unique name and id.
