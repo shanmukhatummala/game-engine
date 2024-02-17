@@ -14,26 +14,20 @@ public class Country {
     String d_name;
     Continent d_continent;
     List<Integer> d_neighborIdList;
-    Player d_player;
     int d_armyCount;
 
     public Country() {}
 
-    public Country(int p_id, String p_name, Continent p_continent, List<Integer> p_neighborIdList, Player p_player, int p_armyCount) {
+    public Country(int p_id, String p_name, Continent p_continent, List<Integer> p_neighborIdList, int p_armyCount) {
         this.d_id = p_id;
         this.d_name = p_name;
         this.d_continent = p_continent;
         this.d_neighborIdList = p_neighborIdList;
-        this.d_player = p_player;
         this.d_armyCount = p_armyCount;
     }
 
-    public Country(int p_id, String p_name, Continent p_continent, Player p_player) {
-        this(p_id, p_name, p_continent, new ArrayList<>(), p_player, 0);
-    }
-
     public Country(int p_id, String p_name, Continent p_continent) {
-        this(p_id, p_name, p_continent, null);
+        this(p_id, p_name, p_continent, new ArrayList<>(), 0);
     }
 
     public void addNeighbor(Integer p_neighborId) {
@@ -60,10 +54,6 @@ public class Country {
         return d_neighborIdList;
     }
 
-    public Player getD_player() {
-        return d_player;
-    }
-
     public int getD_armyCount() {
         return d_armyCount;
     }
@@ -87,12 +77,11 @@ public class Country {
                 && Objects.equals(l_otherCountry.d_name, this.d_name)
                 && Objects.equals(l_otherCountry.d_continent, this.d_continent)
                 && Objects.equals(l_otherCountry.d_neighborIdList, this.d_neighborIdList)
-                && Objects.equals(l_otherCountry.d_player, this.d_player)
                 && Objects.equals(l_otherCountry.d_armyCount, this.d_armyCount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(d_id, d_name, d_continent, d_neighborIdList, d_player, d_armyCount);
+        return Objects.hash(d_id, d_name, d_continent, d_neighborIdList, d_armyCount);
     }
 }
