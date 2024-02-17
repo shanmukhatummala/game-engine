@@ -6,7 +6,7 @@ name: Maven Package
 on:
   push:
     branches:
-      - master
+      - 'master'
       - 'feature/**'
       - 'feat/**'
   pull_request:
@@ -16,30 +16,44 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
+      - uses: actions/checkout@v3
 
-    - name: Build, Test and Package
-      run: mvn -B clean verify package --file pom.xml
-      working-directory:  ${{ github.workspace }}
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Generate Java docs
-      run: mvn -B javadoc:javadoc --file pom.xml
-      working-directory:  ${{ github.workspace }}
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+      - name: Build, Test and Package
+        run: mvn -B clean verify package
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload surefire reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Generate Java docs
+        run: mvn -B javadoc:javadoc
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload javadoc
+        uses: actions/upload-artifact@v3
+        with:
+          name: apidocs
+          path: target/site/apidocs/
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
