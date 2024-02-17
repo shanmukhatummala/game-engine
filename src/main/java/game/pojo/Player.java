@@ -10,8 +10,6 @@ public class Player {
     List<Country> d_countries;
     int d_totalArmyCount;
     int d_reinforcements;
-
-
     Queue<Order> d_orderList;
     public static Scanner Scanner;
 

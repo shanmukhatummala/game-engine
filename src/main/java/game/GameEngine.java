@@ -1,16 +1,19 @@
 package game;
 
-import static game.map.MapEditor.editMap;
-import static game.map.MapLoader.loadMap;
-import static game.util.FileHelper.createNewFileForMap;
-import static game.util.FileHelper.fileExists;
-
 import game.map.Map;
 import game.map.MapShower;
+import game.pojo.Country;
+import game.pojo.Player;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+
+import static game.map.MapEditor.editMap;
+import static game.map.MapLoader.loadMap;
+import static game.util.FileHelper.createNewFileForMap;
+import static game.util.FileHelper.fileExists;
 
 /**
  * GameEngine is responsible for reading the main commands from the players and calling required methods to perform the actions
@@ -72,6 +75,12 @@ public class GameEngine {
                             System.out.println(e.getMessage());
                         }
                     }
+                } else if (l_commandArgs.length== 1 && l_commandArgs[0].equals("assigncountries")) {
+
+                    List<Player> players = l_map.getD_players();
+                    List<Country> countries = l_map.getD_countries();
+                    l_map.assignCountries(players, countries);
+
                 } else {
                     throw new IllegalArgumentException("Not a valid command");
                 }

@@ -5,7 +5,12 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Map is used for storing the details of the map
@@ -102,5 +107,42 @@ public class Map {
     public List<Player> getD_players() {
         return d_players;
     }
+    public void assignCountries(List<Player> players, List<Country> countries) {
 
-}
+
+
+                if (countries.isEmpty()) {
+                    System.out.println("No countries available to assign.");
+                    return;
+                }
+                Collections.shuffle(countries);
+
+                int CountriesPerPlayer = (countries.size()) / (players.size());
+
+                int Index = 0;
+                for (Player player : players) {
+                    List<Country> assignedCountries = new ArrayList<>();
+                    for (int i = 0; i < CountriesPerPlayer; i++) {
+                        assignedCountries.add(countries.get(Index));
+                        Index++;
+                    }
+                    player.getD_countries().addAll(assignedCountries);
+
+                }
+
+                while (Index < countries.size()) {
+                    List<Integer> player_Index = IntStream.range(0, players.size()).boxed().collect(toList());
+                    Collections.shuffle(player_Index);
+                    int idx_In_PlayerIndices = 0;
+                    while (Index < countries.size()) {
+                        Player random_Player = players.get(player_Index.get(idx_In_PlayerIndices));
+                        random_Player.getD_countries().add(countries.get(Index));
+                        idx_In_PlayerIndices++;
+                        Index++;
+
+                    }
+                }
+            }
+
+
+    }
