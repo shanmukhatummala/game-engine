@@ -6,7 +6,6 @@ import java.util.*;
  * Player is a POJO representing a player
  */
 public class Player {
-
     String d_name;
     List<Country> d_countries;
     int d_totalArmyCount;
@@ -148,7 +147,6 @@ public class Player {
             return -1; // Indicates an error in parsing
         }
     }
-
 
     /**
      * this method filter the player countries by name

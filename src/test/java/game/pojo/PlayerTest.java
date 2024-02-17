@@ -60,7 +60,6 @@ class PlayerTest {
     void tearDown() {
     }
 
-
     @Test
     void issue_order() {
         //test player1 and player2
