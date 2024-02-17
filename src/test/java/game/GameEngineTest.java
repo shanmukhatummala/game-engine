@@ -10,50 +10,50 @@ public class GameEngineTest {
     @Test
     void testIsValidForSimpleAddGamePlayerCommand() {
 
-        String gamePlayerCommand = "gameplayer -add player1";
+        String l_gamePlayerCommand = "gameplayer -add player1";
 
-        boolean isValid = GameEngine.isValidGamePlayerCommand(gamePlayerCommand.split(" "));
+        boolean l_isValid = GameEngine.isValidGamePlayerCommand(l_gamePlayerCommand.split(" "));
 
-        assertThat(isValid, is(true));
+        assertThat(l_isValid, is(true));
     }
 
     @Test
     void testIsValidForSimpleRemoveGamePlayerCommand() {
 
-        String gamePlayerCommand = "gameplayer -remove player1";
+        String l_gamePlayerCommand = "gameplayer -remove player1";
 
-        boolean isValid = GameEngine.isValidGamePlayerCommand(gamePlayerCommand.split(" "));
+        boolean l_isValid = GameEngine.isValidGamePlayerCommand(l_gamePlayerCommand.split(" "));
 
-        assertThat(isValid, is(true));
+        assertThat(l_isValid, is(true));
     }
 
     @Test
     void testIsValidForGamePlayerCommand() {
 
-        String gamePlayerCommand = "gameplayer -add player1 -add player2 -remove player3 -add player4 -remove player5";
+        String l_gamePlayerCommand = "gameplayer -add player1 -add player2 -remove player3 -add player4 -remove player5";
 
-        boolean isValid = GameEngine.isValidGamePlayerCommand(gamePlayerCommand.split(" "));
+        boolean l_isValid = GameEngine.isValidGamePlayerCommand(l_gamePlayerCommand.split(" "));
 
-        assertThat(isValid, is(true));
+        assertThat(l_isValid, is(true));
     }
 
     @Test
     void testIsValidForIncorrectGamePlayerCommand() {
 
-        String gamePlayerCommand = "gameplayer -add -remove player1";
+        String l_gamePlayerCommand = "gameplayer -add -remove player1";
 
-        boolean isValid = GameEngine.isValidGamePlayerCommand(gamePlayerCommand.split(" "));
+        boolean l_isValid = GameEngine.isValidGamePlayerCommand(l_gamePlayerCommand.split(" "));
 
-        assertThat(isValid, is(false));
+        assertThat(l_isValid, is(false));
     }
 
     @Test
     void testIsValidForIncorrectGamePlayerCommandEndingWithOption() {
 
-        String gamePlayerCommand = "gameplayer -add player1 -remove";
+        String l_gamePlayerCommand = "gameplayer -add player1 -remove";
 
-        boolean isValid = GameEngine.isValidGamePlayerCommand(gamePlayerCommand.split(" "));
+        boolean l_isValid = GameEngine.isValidGamePlayerCommand(l_gamePlayerCommand.split(" "));
 
-        assertThat(isValid, is(false));
+        assertThat(l_isValid, is(false));
     }
 }

@@ -5,20 +5,20 @@ import game.pojo.Country;
 
 public class MapHelper {
 
-    public static Continent getContinentWithId(Map map, int id) {
+    public static Continent getContinentWithId(Map p_map, int p_id) {
 
-        return map.getContinents()
+        return p_map.getD_continents()
                 .stream()
-                .filter(continent -> continent.getId() == id)
+                .filter(continent -> continent.getD_id() == p_id)
                 .findFirst()
                 .orElse(null);
     }
 
-    public static Country getCountryWithId(Map map, int id) {
+    public static Country getCountryWithId(Map p_map, int p_id) {
 
-        return map.getCountries()
+        return p_map.getD_countries()
                 .stream()
-                .filter(country -> country.getId() == id)
+                .filter(country -> country.getD_id() == p_id)
                 .findFirst()
                 .orElse(null);
     }

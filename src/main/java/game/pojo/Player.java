@@ -6,54 +6,54 @@ import java.util.Objects;
 
 public class Player {
 
-    String name;
-    List<Country> countries;
-    int totalArmyCount;
+    String d_name;
+    List<Country> d_countries;
+    int d_totalArmyCount;
 
     public Player() {}
 
-    public Player(String name, List<Country> countries, int totalArmyCount) {
-        this.name = name;
-        this.countries = countries;
-        this.totalArmyCount = totalArmyCount;
+    public Player(String p_name, List<Country> p_countries, int p_totalArmyCount) {
+        this.d_name = p_name;
+        this.d_countries = p_countries;
+        this.d_totalArmyCount = p_totalArmyCount;
     }
 
-    public Player(String name) {
-        this(name, new ArrayList<>(), 0);
+    public Player(String p_name) {
+        this(p_name, new ArrayList<>(), 0);
     }
 
-    public String getName() {
-        return name;
+    public String getD_name() {
+        return d_name;
     }
 
-    public List<Country> getCountries() {
-        return countries;
+    public List<Country> getD_countries() {
+        return d_countries;
     }
 
-    public int getTotalArmyCount() {
-        return totalArmyCount;
+    public int getD_totalArmyCount() {
+        return d_totalArmyCount;
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object p_other) {
 
-        if (other == this) {
+        if (p_other == this) {
             return true;
         }
 
-        if (!(other instanceof Player)) {
+        if (!(p_other instanceof Player)) {
             return false;
         }
 
-        Player otherPlayer = (Player) other;
+        Player l_otherPlayer = (Player) p_other;
 
-        return Objects.equals(otherPlayer.name, this.name)
-                && Objects.equals(otherPlayer.countries, this.countries)
-                && Objects.equals(otherPlayer.totalArmyCount, this.totalArmyCount);
+        return Objects.equals(l_otherPlayer.d_name, this.d_name)
+                && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
+                && Objects.equals(l_otherPlayer.d_totalArmyCount, this.d_totalArmyCount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, countries, totalArmyCount);
+        return Objects.hash(d_name, d_countries, d_totalArmyCount);
     }
 }

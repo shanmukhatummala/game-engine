@@ -9,9 +9,9 @@ class CountryTest {
 
     @Test
     public void shouldPassAllPojoTests() {
-        final Class<Country> classUnderTest = Country.class;
+        final Class<Country> l_classUnderTest = Country.class;
 
-        assertPojoMethodsFor(classUnderTest)
+        assertPojoMethodsFor(l_classUnderTest)
                 .testing(Method.CONSTRUCTOR,
                         Method.GETTER,
                         Method.EQUALS,

@@ -9,72 +9,72 @@ import java.util.List;
 
 public class Map {
 
-    private final List<Continent> continents;
-    private final List<Country> countries;
-    private final List<Player> players;
+    private final List<Continent> d_continents;
+    private final List<Country> d_countries;
+    private final List<Player> d_players;
 
     public Map() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
-    public Map(List<Continent> continents, List<Country> countries, List<Player> players) {
-        this.continents = continents;
-        this.countries = countries;
-        this.players = players;
+    public Map(List<Continent> p_continents, List<Country> p_countries, List<Player> p_players) {
+        this.d_continents = p_continents;
+        this.d_countries = p_countries;
+        this.d_players = p_players;
     }
 
-    public void addContinent(Continent continent) {
+    public void addContinent(Continent p_continent) {
 
-        for (Continent thisContinent : continents) {
-            if (thisContinent.getId() == continent.getId()) {
+        for (Continent l_thisContinent : d_continents) {
+            if (l_thisContinent.getD_id() == p_continent.getD_id()) {
                 throw new IllegalArgumentException("Continent with same id already exists");
             }
         }
 
-        continents.add(continent);
+        d_continents.add(p_continent);
     }
 
-    public void addCountry(Country country) {
+    public void addCountry(Country p_country) {
 
-        for (Country thisCountry : countries) {
-            if (thisCountry.getId() == country.getId()) {
+        for (Country l_thisCountry : d_countries) {
+            if (l_thisCountry.getD_id() == p_country.getD_id()) {
                 throw new IllegalArgumentException("Country with same id already exists");
             }
         }
-        countries.add(country);
+        d_countries.add(p_country);
     }
 
-    public void addPlayer(String playerName) {
+    public void addPlayer(String p_playerName) {
 
-        for (Player thisPlayer : players) {
-            if (thisPlayer.getName().equals(playerName)) {
+        for (Player l_thisPlayer : d_players) {
+            if (l_thisPlayer.getD_name().equals(p_playerName)) {
                 throw new IllegalArgumentException("Player with same name already exists");
             }
         }
-        players.add(new Player(playerName));
+        d_players.add(new Player(p_playerName));
     }
 
-    public void removePlayer(String playerName) {
+    public void removePlayer(String p_playerName) {
 
-        for (Player thisPlayer : players) {
-            if (thisPlayer.getName().equals(playerName)) {
-                players.remove(thisPlayer);
+        for (Player l_thisPlayer : d_players) {
+            if (l_thisPlayer.getD_name().equals(p_playerName)) {
+                d_players.remove(l_thisPlayer);
                 return;
             }
         }
         throw new IllegalArgumentException("No player exists with this name");
     }
 
-    public List<Continent> getContinents() {
-        return continents;
+    public List<Continent> getD_continents() {
+        return d_continents;
     }
 
-    public List<Country> getCountries() {
-        return countries;
+    public List<Country> getD_countries() {
+        return d_countries;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public List<Player> getD_players() {
+        return d_players;
     }
 
 }
