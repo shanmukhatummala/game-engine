@@ -13,7 +13,8 @@ public class Player {
     List<Country> d_countries;
     int d_totalArmyCount;
 
-    public Player() {}
+    public Player() {
+    }
 
     public Player(String p_name, List<Country> p_countries, int p_totalArmyCount) {
         this.d_name = p_name;
@@ -21,42 +22,50 @@ public class Player {
         this.d_totalArmyCount = p_totalArmyCount;
     }
 
+
     public Player(String p_name) {
         this(p_name, new ArrayList<>(), 0);
     }
 
-    public String getD_name() {
-        return d_name;
-    }
-
-    public List<Country> getD_countries() {
-        return d_countries;
-    }
-
-    public int getD_totalArmyCount() {
-        return d_totalArmyCount;
-    }
-
-    @Override
-    public boolean equals(Object p_other) {
-
-        if (p_other == this) {
-            return true;
+        public String getD_name() {
+            return d_name;
         }
 
-        if (!(p_other instanceof Player)) {
-            return false;
+
+        public List<Country> getD_countries () {
+            if (d_countries == null) {
+                d_countries = new ArrayList<>();
+            }
+            return d_countries;
+
         }
 
-        Player l_otherPlayer = (Player) p_other;
+        public int getD_totalArmyCount () {
+            return d_totalArmyCount;
+        }
 
-        return Objects.equals(l_otherPlayer.d_name, this.d_name)
-                && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
-                && Objects.equals(l_otherPlayer.d_totalArmyCount, this.d_totalArmyCount);
-    }
+        @Override
+        public boolean equals (Object p_other){
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_totalArmyCount);
+            if (p_other == this) {
+                return true;
+            }
+
+            if (!(p_other instanceof Player)) {
+                return false;
+            }
+
+            Player l_otherPlayer = (Player) p_other;
+
+            return Objects.equals(l_otherPlayer.d_name, this.d_name)
+                    && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
+                    && Objects.equals(l_otherPlayer.d_totalArmyCount, this.d_totalArmyCount);
+        }
+
+        @Override
+        public int hashCode () {
+            return Objects.hash(d_name, d_countries, d_totalArmyCount);
+        }
+
+
     }
-}
