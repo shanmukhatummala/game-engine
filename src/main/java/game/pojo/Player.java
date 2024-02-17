@@ -2,11 +2,14 @@ package game.pojo;
 
 import java.util.*;
 
+/**
+ * Player is a POJO representing a player
+ */
 public class Player {
 
-    String name;
-    List<Country> countries;
-    int totalArmyCount;
+    String d_name;
+    List<Country> d_countries;
+    int d_totalArmyCount;
     int d_reinforcements;
     private Queue<Order> d_orderList;
 
@@ -14,11 +17,10 @@ public class Player {
 
     public Player() {}
 
-
-    public Player(String name, List<Country> countries, int totalArmyCount,Scanner scanner) {
-        this.name = name;
-        this.countries = countries;
-        this.totalArmyCount = totalArmyCount;
+    public Player(String p_name, List<Country> p_countries, int p_totalArmyCount,Scanner scanner) {
+        this.d_name = p_name;
+        this.d_countries = p_countries;
+        this.d_totalArmyCount = p_totalArmyCount;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
         this.scanner = scanner;
@@ -27,20 +29,21 @@ public class Player {
     public Player(String name, List<Country> countries, int totalArmyCount) {
         this(name, countries, totalArmyCount, new Scanner(System.in));
     }
-    public Player(String name) {
-        this(name, new ArrayList<>(), 0);
+
+    public Player(String p_name) {
+        this(p_name, new ArrayList<>(), 0);
     }
 
-    public String getName() {
-        return name;
+    public String getD_name() {
+        return d_name;
     }
 
-    public List<Country> getCountries() {
-        return countries;
+    public List<Country> getD_countries() {
+        return d_countries;
     }
 
-    public int getTotalArmyCount() {
-        return totalArmyCount;
+    public int getD_totalArmyCount() {
+        return d_totalArmyCount;
     }
     public int getReinforcements() {
         return d_reinforcements;
@@ -117,8 +120,8 @@ public class Player {
 
 
     private Country getCountryByName(String p_name){
-        for(Country l_country: this.getCountries()){
-            if(l_country.getName().equals(p_name)){
+        for(Country l_country: this.getD_countries()){
+            if(l_country.getD_name().equals(p_name)){
                 return l_country;
             }
         }
@@ -126,25 +129,25 @@ public class Player {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object p_other) {
 
-        if (other == this) {
+        if (p_other == this) {
             return true;
         }
 
-        if (!(other instanceof Player)) {
+        if (!(p_other instanceof Player)) {
             return false;
         }
 
-        Player otherPlayer = (Player) other;
+        Player l_otherPlayer = (Player) p_other;
 
-        return Objects.equals(otherPlayer.name, this.name)
-                && Objects.equals(otherPlayer.countries, this.countries)
-                && Objects.equals(otherPlayer.totalArmyCount, this.totalArmyCount);
+        return Objects.equals(l_otherPlayer.d_name, this.d_name)
+                && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
+                && Objects.equals(l_otherPlayer.d_totalArmyCount, this.d_totalArmyCount);
     }
 
     @Override
     public int hashCode() {
-        return this.getName().hashCode();
+        return Objects.hash(d_name, d_countries, d_totalArmyCount);
     }
 }

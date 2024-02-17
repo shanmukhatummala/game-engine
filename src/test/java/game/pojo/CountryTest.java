@@ -1,40 +1,21 @@
 package game.pojo;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
+
 import org.junit.jupiter.api.Test;
+import pl.pojo.tester.api.assertion.Method;
 
 class CountryTest {
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
-    void getId() {
-    }
+    public void shouldPassAllPojoTests() {
+        final Class<Country> l_classUnderTest = Country.class;
 
-    @Test
-    void getName() {
-    }
-
-    @Test
-    void getContinent() {
-    }
-
-    @Test
-    void getNeighbours() {
-    }
-
-    @Test
-    void getPlayer() {
-    }
-
-    @Test
-    void getArmyCount() {
+        assertPojoMethodsFor(l_classUnderTest)
+                .testing(Method.CONSTRUCTOR,
+                        Method.GETTER,
+                        Method.EQUALS,
+                        Method.HASH_CODE)
+                .areWellImplemented();
     }
 }

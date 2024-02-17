@@ -16,64 +16,64 @@ import java.util.List;
 
 class MapLoaderTest {
 
-    private String path;
-    private Map map;
+    private String d_path;
+    private Map d_map;
 
     @BeforeEach
     void setUp() {
-        path = "src/test/resources/test_load_map.map";
-        map = new Map();
+        d_path = "src/test/resources/test_load_map.map";
+        d_map = new Map();
     }
 
     @Test
     public void shouldLoadMapIntoJavaObjects() {
 
-        loadMap(path, map);
+        loadMap(d_path, d_map);
 
-        List<Continent> continents = map.getContinents();
-        List<Country> countries = map.getCountries();
-        List<Player> players = map.getPlayers();
+        List<Continent> l_continents = d_map.getD_continents();
+        List<Country> l_countries = d_map.getD_countries();
+        List<Player> l_players = d_map.getD_players();
 
-        List<Continent> expectedContinents = new ArrayList<>();
-        List<Country> expectedCountries = new ArrayList<>();
-        List<Player> expectedPlayers = new ArrayList<>();
+        List<Continent> l_expectedContinents = new ArrayList<>();
+        List<Country> l_expectedCountries = new ArrayList<>();
+        List<Player> l_expectedPlayers = new ArrayList<>();
 
-        createObjectsToAssert(expectedContinents, expectedCountries);
+        createObjectsToAssert(l_expectedContinents, l_expectedCountries);
 
-        assertThat(countries, equalTo(expectedCountries));
-        assertThat(continents, equalTo(expectedContinents));
-        assertThat(players, equalTo(expectedPlayers));
+        assertThat(l_countries, equalTo(l_expectedCountries));
+        assertThat(l_continents, equalTo(l_expectedContinents));
+        assertThat(l_players, equalTo(l_expectedPlayers));
     }
 
     private void createObjectsToAssert(List<Continent> expectedContinents, List<Country> expectedCountries) {
-        Continent continent1 = new Continent(1, "Norddeutschland", 3);
-        Continent continent2 = new Continent(2, "Westdeutschland", 4);
+        Continent l_continent1 = new Continent(1, "Norddeutschland", 3);
+        Continent l_continent2 = new Continent(2, "Westdeutschland", 4);
 
-        Country country1 = new Country(1, "Ostfriesland", continent1);
-        Country country2 = new Country(2, "Schleswig", continent2);
-        Country country3 = new Country(3, "Holstein", continent1);
-        Country country4 = new Country(4, "Hamburg", continent2);
-        Country country5 = new Country(5, "Mecklenburger-Bucht", continent2);
+        Country l_country1 = new Country(1, "Ostfriesland", l_continent1);
+        Country l_country2 = new Country(2, "Schleswig", l_continent2);
+        Country l_country3 = new Country(3, "Holstein", l_continent1);
+        Country l_country4 = new Country(4, "Hamburg", l_continent2);
+        Country l_country5 = new Country(5, "Mecklenburger-Bucht", l_continent2);
 
-        country1.addNeighbours(Arrays.asList(2, 3));
-        country2.addNeighbours(Arrays.asList(1, 3, 5));
-        country3.addNeighbours(Arrays.asList(1, 2, 4));
-        country4.addNeighbours(List.of(3));
-        country5.addNeighbours(Arrays.asList(2, 3));
+        l_country1.addNeighbors(Arrays.asList(2, 3));
+        l_country2.addNeighbors(Arrays.asList(1, 3, 5));
+        l_country3.addNeighbors(Arrays.asList(1, 2, 4));
+        l_country4.addNeighbors(List.of(3));
+        l_country5.addNeighbors(Arrays.asList(2, 3));
 
-        continent1.addCountryId(1);
-        continent1.addCountryId(3);
-        continent2.addCountryId(2);
-        continent2.addCountryId(4);
-        continent2.addCountryId(5);
+        l_continent1.addCountryId(1);
+        l_continent1.addCountryId(3);
+        l_continent2.addCountryId(2);
+        l_continent2.addCountryId(4);
+        l_continent2.addCountryId(5);
 
-        expectedContinents.add(continent1);
-        expectedContinents.add(continent2);
+        expectedContinents.add(l_continent1);
+        expectedContinents.add(l_continent2);
 
-        expectedCountries.add(country1);
-        expectedCountries.add(country2);
-        expectedCountries.add(country3);
-        expectedCountries.add(country4);
-        expectedCountries.add(country5);
+        expectedCountries.add(l_country1);
+        expectedCountries.add(l_country2);
+        expectedCountries.add(l_country3);
+        expectedCountries.add(l_country4);
+        expectedCountries.add(l_country5);
     }
 }

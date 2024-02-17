@@ -45,14 +45,14 @@ public class MapSaverTest {
     }
 
     private void linkCountries() {
-        countries.get(0).getNeighbours().addAll(List.of(1, 2, 4));
-        countries.get(1).getNeighbours().addAll(List.of(0, 2));
-        countries.get(2).getNeighbours().addAll(List.of(3, 4, 0));
-        countries.get(3).getNeighbours().addAll(List.of(1, 5));
-        countries.get(4).getNeighbours().addAll(List.of(0, 5));
-        countries.get(5).getNeighbours().addAll(List.of(0, 1));
-        countries.get(6).getNeighbours().addAll(List.of(7, 2));
-        countries.get(7).getNeighbours().addAll(List.of(6, 2, 5));
+        countries.get(0).getD_neighborIdList().addAll(List.of(1, 2, 4));
+        countries.get(1).getD_neighborIdList().addAll(List.of(0, 2));
+        countries.get(2).getD_neighborIdList().addAll(List.of(3, 4, 0));
+        countries.get(3).getD_neighborIdList().addAll(List.of(1, 5));
+        countries.get(4).getD_neighborIdList().addAll(List.of(0, 5));
+        countries.get(5).getD_neighborIdList().addAll(List.of(0, 1));
+        countries.get(6).getD_neighborIdList().addAll(List.of(7, 2));
+        countries.get(7).getD_neighborIdList().addAll(List.of(6, 2, 5));
     }
 
     @AfterEach

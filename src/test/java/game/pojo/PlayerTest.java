@@ -1,13 +1,17 @@
 package game.pojo;
 
+import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
+import pl.pojo.tester.api.assertion.Method;
 import java.io.ByteArrayInputStream;
 import java.util.*;
 import org.junit.jupiter.api.Assertions;
 
 class PlayerTest {
+
     private List<Player> d_players;
     private Map<String,List<Country>> d_playersCountries;
     Scanner d_scannerPlayer1;
@@ -60,15 +64,15 @@ class PlayerTest {
     }
 
     @Test
-    void getName() {
-    }
+    public void shouldPassAllPojoTests() {
+        final Class<Player> l_classUnderTest = Player.class;
 
-    @Test
-    void getCountries() {
-    }
-
-    @Test
-    void getTotalArmyCount() {
+        assertPojoMethodsFor(l_classUnderTest)
+                .testing(Method.CONSTRUCTOR,
+                        Method.GETTER,
+                        Method.EQUALS,
+                        Method.HASH_CODE)
+                .areWellImplemented();
     }
 
     @Test
