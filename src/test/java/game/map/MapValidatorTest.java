@@ -4,7 +4,6 @@ import static game.map.MapLoader.loadMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-import game.map.MapValidator;
 import game.pojo.Continent;
 import game.pojo.Country;
 
@@ -20,14 +19,15 @@ public class MapValidatorTest {
 	
 	private String d_path = "src/test/resources/test_load_map.map";
 	private Map d_map;
-    Continent d_continent1 = new Continent(1, "Norddeutschland", 3);
-    Continent d_continent2 = new Continent(2, "Westdeutschland", 4);
+    Continent d_continent1;
+    Continent d_continent2;
 
     Country d_country1;
     Country d_country2;
     Country d_country3;
     Country d_country4;
     Country d_country5;
+    MapValidator d_mapVal = new MapValidator();
 	
     @BeforeEach
     void setUp() {
@@ -60,11 +60,10 @@ public class MapValidatorTest {
     @Test
     void testDfsConnectedMap() {
     	loadMap(d_path, d_map);
-    	MapValidator l_mapVal = new MapValidator(d_map);
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
     	for (int i=0; i<d_map.getCountries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
-    	assertEquals(l_expectedResult, l_mapVal.dfs(d_map.getCountries().get(0)));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getCountries().get(0), d_map));
     }
     
     /**
@@ -88,13 +87,12 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	MapValidator l_mapVal = new MapValidator(d_map);
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
     	for (int i=0; i<d_map.getCountries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	l_expectedResult.set(3, Boolean.FALSE);
     	
-    	assertEquals(l_expectedResult, l_mapVal.dfs(d_map.getCountries().get(0)));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getCountries().get(0), d_map));
     }
     
     /**
@@ -117,12 +115,11 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	MapValidator l_mapVal = new MapValidator(d_map);
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
     	for (int i=0; i<d_map.getCountries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	
-    	assertEquals(l_expectedResult, l_mapVal.dfs(d_map.getCountries().get(0)));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getCountries().get(0), d_map));
     }
     
     /**
@@ -131,8 +128,7 @@ public class MapValidatorTest {
     @Test
     void testMapIsConnectedConnectedMap() {
     	loadMap(d_path, d_map);
-    	MapValidator l_mapVal = new MapValidator(d_map);
-    	assertTrue(l_mapVal.mapIsConnected());
+    	assertTrue(d_mapVal.mapIsConnected(d_map));
     }
     
     /**
@@ -156,8 +152,7 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	MapValidator l_mapVal = new MapValidator(d_map);
-    	assertFalse(l_mapVal.mapIsConnected());
+    	assertFalse(d_mapVal.mapIsConnected(d_map));
     }
     
     /**
@@ -180,8 +175,7 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	MapValidator l_mapVal = new MapValidator(d_map);
-    	assertFalse(l_mapVal.mapIsConnected());
+    	assertFalse(d_mapVal.mapIsConnected(d_map));
     }
     
     /**
@@ -190,13 +184,12 @@ public class MapValidatorTest {
     @Test
     void testdfsConnectedContinent() {
     	loadMap(d_path, d_map);
-    	MapValidator l_mapVal = new MapValidator(d_map);
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
     	Continent l_continentToTest = d_map.getContinents().get(1);
     	for (int i=0; i<l_continentToTest.getCountryIdList().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	l_expectedResult.set(1, Boolean.FALSE);
-    	assertEquals(l_expectedResult, l_mapVal.dfs(l_continentToTest.getCountryIdList().get(0), l_continentToTest));
+    	assertEquals(l_expectedResult, d_mapVal.dfs(l_continentToTest.getCountryIdList().get(0), l_continentToTest, d_map));
     }
     
     /**
@@ -206,8 +199,7 @@ public class MapValidatorTest {
     @Test
     void testmapAndContinentsConnectedRealMap() {
     	loadMap("src/test/resources/canada.map", d_map);
-    	MapValidator l_mapVal = new MapValidator(d_map);
-    	assertTrue(l_mapVal.mapAndContinentsConnected());
+    	assertTrue(d_mapVal.mapAndContinentsConnected(d_map));
     }
     
     /**
@@ -216,8 +208,7 @@ public class MapValidatorTest {
     @Test
     void testisMapValidGoodMap() {
     	loadMap("src/test/resources/canada.map", d_map);
-    	MapValidator l_mapVal = new MapValidator(d_map);
-    	assertTrue(l_mapVal.isMapValid());
+    	assertTrue(d_mapVal.isMapValid(d_map));
     }
     
     /**
@@ -226,8 +217,7 @@ public class MapValidatorTest {
     @Test
     void testisMapValidDisconnectedContinent() {
     	loadMap(d_path, d_map);
-    	MapValidator l_mapVal = new MapValidator(d_map);
-    	assertFalse(l_mapVal.isMapValid());
+    	assertFalse(d_mapVal.isMapValid(d_map));
     }
     
     /**
@@ -250,7 +240,6 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	MapValidator l_mapVal = new MapValidator(d_map);
-    	assertFalse(l_mapVal.isMapValid());
+    	assertFalse(d_mapVal.isMapValid(d_map));
     }
 }
