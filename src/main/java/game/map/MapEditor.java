@@ -9,12 +9,12 @@ import java.io.InputStreamReader;
 
 public class MapEditor {
 
-    public static void editMap(Map map, String fileName) {
+    public static void editMap(BufferedReader bufferedReader, Map map, String fileName) {
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
             System.out.println("Enter commands to 'edit (or) validate (or) save map': ");
             while (true) {
-                String command = reader.readLine();
+                String command = bufferedReader.readLine();
                 String[] args = command.split(" ");
                 if (args.length == 2 && "savemap".equals(args[0])) {
                     if (!fileName.equals(args[1])) {

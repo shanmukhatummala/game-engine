@@ -44,21 +44,23 @@ public class GameEngine {
                     } else {
                         loadMap(filePath, map);
                     }
-                    editMap(map, fileName);
+                    editMap(bufferedReader, map, fileName);
                 }
                 else if (commandArgs.length == 1 && "showmap".equals(commandArgs[0])) {
                     MapShower.showMap(map);
                 }
-                else if (commandArgs.length == 3 && "gameplayer".equals(commandArgs[0])) {
+                else if (commandArgs.length >= 1 && "gameplayer".equals(commandArgs[0])) {
                     if (!isValidGamePlayerCommand(commandArgs)) {
                         System.out.println("Not a valid gameplayer command");
                         System.out.println("It should be like, 'gameplayer -add/-remove playername'");
                     } else {
                         try {
-                            if (commandArgs[1].equals("-add")) {
-                                map.addPlayer(commandArgs[2]);
-                            } else {
-                                map.removePlayer(commandArgs[2]);
+                            for (int idx = 1; idx < commandArgs.length; idx = idx + 2) {
+                                if (commandArgs[idx].equals("-add")) {
+                                    map.addPlayer(commandArgs[idx + 1]);
+                                } else {
+                                    map.removePlayer(commandArgs[idx + 1]);
+                                }
                             }
                         } catch (IllegalArgumentException e) {
                             System.out.println(e.getMessage());
@@ -81,8 +83,20 @@ public class GameEngine {
         System.exit(0);
     }
 
-    private static boolean isValidGamePlayerCommand(String[] commandArgs) {
+    public static boolean isValidGamePlayerCommand(String[] commandArgs) {
 
-        return "-add".equals(commandArgs[1]) || "-remove".equals(commandArgs[1]);
+        for (int i = 1; i < commandArgs.length; i ++) {
+            if (i % 2 != 0) {
+                if (!("-add".equals(commandArgs[i]) || "-remove".equals(commandArgs[i]))) {
+                    return false;
+                }
+            } else {
+                if ("-add".equals(commandArgs[i]) || "-remove".equals(commandArgs[i])) {
+                    return false;
+                }
+            }
+        }
+
+        return !"-add".equals(commandArgs[commandArgs.length - 1]) && !"-remove".equals(commandArgs[commandArgs.length - 1]);
     }
 }
