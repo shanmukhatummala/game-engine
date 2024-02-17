@@ -109,6 +109,35 @@ class MapTest {
         }, "No player exists with this name");
     }
 
+    @Test
+    void testNoCountriesAvailable() {
+        List<Player> players = Arrays.asList(new Player(), new Player());
+        List<Country> countries = new ArrayList<>();
+        map.assignCountries(players, countries);
+        assertTrue(players.stream().allMatch(player -> player.getCountries().isEmpty()));
+    }
+    @Test
+    void testEqualDistributionWhenCountriesPerPlayerIsZero() {
+        List<Player> players = Arrays.asList(new Player(), new Player());
+        List<Country> countries = Arrays.asList(new Country(), new Country(), new Country());
+        map.assignCountries(players, countries);
+        assertEquals(2, players.get(0).getCountries().size());
+        assertEquals(1, players.get(1).getCountries().size());
+    }
+    @Test
+    void testExtraCountryAssignedToPlayerWhenCountriesPerPlayerIsNotZero() {
+        List<Player> players = Arrays.asList(new Player(), new Player(), new Player());
+        List<Country> countries = Arrays.asList(new Country(), new Country(), new Country(), new Country());
+        map.assignCountries(players, countries);
 
+        // Calculate expected number of countries per player
+        int countriesPerPlayer = countries.size() / players.size();
+        int extraCountries = countries.size() % players.size();
 
+        // Assert the number of countries assigned to each player
+        for (int i = 0; i < players.size(); i++) {
+            int expectedCountries = countriesPerPlayer + (i < extraCountries ? 1 : 0);
+            assertEquals(expectedCountries, players.get(i).getCountries().size());
+        }
+    }
 }

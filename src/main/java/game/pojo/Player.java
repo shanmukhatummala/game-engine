@@ -28,6 +28,9 @@ public class Player {
     }
 
     public List<Country> getCountries() {
+        if (countries == null) {
+            countries = new ArrayList<>();
+        }
         return countries;
     }
 
