@@ -8,10 +8,10 @@ import java.util.List;
 import game.pojo.Continent;
 import game.pojo.Country;
 /**
- * Class responsible for validating the map upon loading/saving and during the editing process </br>
+ * Class responsible for validating the map upon loading/saving and during the editing process
  * We consider that a map is correct when it represents a connected graph, each continent
  * also represents a connected subgraph, there are no empty continents and each country has to
- * have a unique name and id. </br>
+ * have a unique name and id.
  * Validation of a map is done through the method isMapValid.
  */
 public class MapValidator {
