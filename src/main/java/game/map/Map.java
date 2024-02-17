@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.*;
+
 
 import java.util.stream.IntStream;
 
@@ -25,7 +27,6 @@ import static java.util.stream.Collectors.toList;
 //@AllArgsConstructor
 @Data
 public class Map {
-
 
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
@@ -81,20 +82,52 @@ public class Map {
         d_countries.add(p_country);
     }
 
-    /**
-     * <p>This method adds a player to the list of players</p>
-     * @param p_playerName the player name to be added
-     * @throws IllegalArgumentException when a player with same name already exists
-     */
-    public void addPlayer(String p_playerName) {
+  public void addContinent(Continent continent) {
 
-        for (Player l_thisPlayer : d_players) {
-            if (l_thisPlayer.getD_name().equals(p_playerName)) {
-                throw new IllegalArgumentException("Player with same name already exists");
-            }
-        }
-        d_players.add(new Player(p_playerName));
+    for (Continent thisContinent : continents) {
+      if (thisContinent.getId() == continent.getId()) {
+        throw new IllegalArgumentException("Continent with same id already exists");
+      }
     }
+
+    continents.add(continent);
+  }
+
+  public void removeContinent(Integer p_continent_id) {
+    Boolean l_is_continent_removed =
+        continents.removeIf(continent -> continent.getId() == p_continent_id);
+
+    if (l_is_continent_removed) {
+      System.out.println("Continent removed successfully!");
+    } else {
+      System.out.println("No Continent with the given ID exists!");
+    }
+  }
+
+  /**
+   * <p>This method adds a player to the list of players</p>
+   * @param p_playerName the player name to be added
+   * @throws IllegalArgumentException when a player with same name already exists
+   */
+  public void addPlayer(String p_playerName) {
+
+    for (Player l_thisPlayer : d_players) {
+      if (l_thisPlayer.getD_name().equals(p_playerName)) {
+        throw new IllegalArgumentException("Player with same name already exists");
+      }
+    }
+    d_players.add(new Player(p_playerName));
+  }
+
+  public void addCountry(Country country) {
+
+    for (Country thisCountry : countries) {
+      if (thisCountry.getId() == country.getId()) {
+        throw new IllegalArgumentException("Country with same id already exists");
+      }
+    }
+    countries.add(country);
+  }
 
     /**
      * <p>This method removes a player from the list of players</p>
@@ -112,9 +145,30 @@ public class Map {
         throw new IllegalArgumentException("No player exists with this name");
     }
 
+  public void removeCountry(Integer p_country_id) {
+    Boolean l_is_country_removed = countries.removeIf(country -> country.getId() == p_country_id);
+
+    if (l_is_country_removed) {
+      System.out.println("Country removed successfully!");
+    } else {
+      System.out.println("No Country with the given ID exists!");
+    }
+  }
+
+
     public List<Country> getD_countries() {
         return d_countries;
     }
+
+  public void addPlayer(String playerName) {
+
+    for (Player thisPlayer : players) {
+      if (thisPlayer.getName().equals(playerName)) {
+        throw new IllegalArgumentException("Player with same name already exists");
+      }
+    }
+    players.add(new Player(playerName));
+  }
 
     public List<Player> getD_players() {
         return d_players;
@@ -181,6 +235,18 @@ public class Map {
                     }
                 }
     }
+
+
+  public void removePlayer(String playerName) {
+
+    for (Player thisPlayer : players) {
+      if (thisPlayer.getName().equals(playerName)) {
+        players.remove(thisPlayer);
+        return;
+      }
+    }
+    throw new IllegalArgumentException("No player exists with this name");
+  }
 
 
 }
