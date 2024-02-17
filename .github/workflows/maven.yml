@@ -34,12 +34,12 @@ jobs:
 
     - name: Build, Test and Package
       run: mvn -B clean verify package --file pom.xml
+      working-directory:  ${{ github.workspace }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
-        TARGET_FOLDER: target
 
     - name: Generate Java docs
       run: mvn -B javadoc:javadoc --file pom.xml
+      working-directory:  ${{ github.workspace }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
-        TARGET_FOLDER: target
