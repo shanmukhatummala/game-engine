@@ -50,9 +50,9 @@ class PlayerTest {
         for (int i = 1; i <= 8; i++) {
             Continent continent = (i <= 4) ? p_continents.get(0) : p_continents.get(1);
             if(i<5){
-                l_countriesPlayer1.add(new Country(i, "country" + i, continent, new ArrayList<>(), 0));
+                l_countriesPlayer1.add(new Country(i, "country" + i, continent, new ArrayList<>(), null, 0));
             }else{
-                l_countriesPlayer2.add(new Country(i, "country" + i, continent, new ArrayList<>(), 0));
+                l_countriesPlayer2.add(new Country(i, "country" + i, continent, new ArrayList<>(), null, 0));
             }
         }
         l_playersCountries.put("player1", l_countriesPlayer1);
