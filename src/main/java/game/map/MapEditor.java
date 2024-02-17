@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MapEditor {
+    private static final MapManipulator mapManipulator = new MapManipulator();
 
     public static void editMap(Map map, String fileName) {
 
@@ -27,8 +28,7 @@ public class MapEditor {
                 } else if (args.length == 1 && "validatemap".equals(args[0])) {
                     // call validateMap() method from here
                 } else if (args.length >= 1 && args[0].startsWith("edit")) {
-                    // edit commands are of 2 types -- add or remove
-                    // edit commands would be implemented by Joyjit. Leaving this for them.
+                    mapManipulator.processCommand(args, map);
                 } else {
                     throw new IllegalArgumentException("Not a valid command");
                 }
