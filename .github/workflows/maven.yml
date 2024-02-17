@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: surefire-reports
-          path: game-engine/target/surefire-reports/**
+          path: target/surefire-reports/**
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -53,6 +53,6 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: apidocs
-          path: game-engine/target/site/apidocs/**
+          path: target/site/apidocs/**
         env:
           GITHUB_TOKEN: ${{ github.token }}
