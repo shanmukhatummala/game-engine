@@ -10,24 +10,22 @@ public class Player {
     List<Country> d_countries;
     int d_totalArmyCount;
     int d_reinforcements;
+
+
     Queue<Order> d_orderList;
-    Scanner d_scanner;
+    public static Scanner Scanner;
 
     public Player() {}
 
 
-    public Player(String p_name, List<Country> p_countries, int p_totalArmyCount, Scanner scanner) {
+    public Player(String p_name, List<Country> p_countries, int p_totalArmyCount) {
         this.d_name = p_name;
         this.d_countries = p_countries;
         this.d_totalArmyCount = p_totalArmyCount;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
-        this.d_scanner = scanner;
     }
 
-    public Player(String name, List<Country> countries, int totalArmyCount) {
-        this(name, countries, totalArmyCount, new Scanner(System.in));
-    }
 
     public Player(String p_name) {
         this(p_name, new ArrayList<>(), 0);
@@ -45,11 +43,11 @@ public class Player {
         return d_totalArmyCount;
     }
 
-    public void setD_scanner(Scanner d_scanner) {
-        this.d_scanner = d_scanner;
-    }
     public int getD_reinforcements() {
         return d_reinforcements;
+    }
+    public Queue<Order> getD_orderList() {
+        return d_orderList;
     }
 
     public void setD_reinforcements(int d_reinforcements) {
@@ -96,10 +94,10 @@ public class Player {
      * @return array of string
      */
     private String[] inputUserCommand(){
-        if(System.in.equals(d_scanner)){
+        if(System.in.equals(Scanner)){
             System.out.println("enter the deployment command: ");
         }
-        String l_command = d_scanner.nextLine();
+        String l_command = Scanner.nextLine();
         return l_command.split(" ");
     }
 
@@ -177,11 +175,13 @@ public class Player {
 
         return Objects.equals(l_otherPlayer.d_name, this.d_name)
                 && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
-                && Objects.equals(l_otherPlayer.d_totalArmyCount, this.d_totalArmyCount);
+                && Objects.equals(l_otherPlayer.d_totalArmyCount, this.d_totalArmyCount)
+                && Objects.equals(l_otherPlayer.d_reinforcements, this.d_reinforcements)
+                && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_totalArmyCount);
+        return Objects.hash(d_name, d_countries, d_totalArmyCount, d_reinforcements, d_orderList);
     }
 }
