@@ -8,21 +8,21 @@ import java.util.*;
 import org.junit.jupiter.api.Assertions;
 
 class PlayerTest {
-    private List<Player> players;
+    private List<Player> d_players;
     private Map<String,List<Country>> d_playersCountries;
-    Scanner scannerPlayer1;
-    Scanner scannerPlayer2;
+    Scanner d_scannerPlayer1;
+    Scanner d_scannerPlayer2;
     @BeforeEach
     void setUp() {
         List<Continent> l_continents = createContinents();
         d_playersCountries = createCountries(l_continents);
-        players = createPLayers();
+        d_players = createPLayers();
         String l_userCommandPlayer1 = "deploy country1 4\n";
         String l_userCommandPlayer2 = "deploy country5 3\n";
         ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
-        scannerPlayer1 = new Scanner(l_inputStream);
+        d_scannerPlayer1 = new Scanner(l_inputStream);
         l_inputStream = new ByteArrayInputStream(l_userCommandPlayer2.getBytes());
-        scannerPlayer2 = new Scanner(l_inputStream);
+        d_scannerPlayer2 = new Scanner(l_inputStream);
     }
 
     private List<Player> createPLayers(){
@@ -50,7 +50,6 @@ class PlayerTest {
                 l_countriesPlayer2.add(new Country(i, "country" + i, continent, new ArrayList<>(), null, 0));
             }
         }
-
         l_playersCountries.put("player1", l_countriesPlayer1);
         l_playersCountries.put("player2", l_countriesPlayer2);
         return l_playersCountries;
@@ -74,17 +73,16 @@ class PlayerTest {
 
     @Test
     void issue_order() {
-        //test player1
-        players.get(0).setScanner(scannerPlayer1);
-        players.get(0).issue_order();
-        Assertions.assertEquals(1, players.get(0).getReinforcements(), "Reinforcements should be reduced by the army number deployed.");
-        Order l_player1Order = players.get(0).next_order();
+        //test player1 and player2
+        d_players.get(0).setScanner(d_scannerPlayer1);
+        d_players.get(0).issue_order();
+        Assertions.assertEquals(1, d_players.get(0).getReinforcements(), "Reinforcements should be reduced by the army number deployed.");
+        Order l_player1Order = d_players.get(0).next_order();
         Assertions.assertNotNull(l_player1Order,"An order should exist");
-        // test player2
-        players.get(1).setScanner(scannerPlayer2);
-        players.get(1).issue_order();
-        Assertions.assertEquals(2, players.get(1).getReinforcements(), "Reinforcements should be reduced by the army number deployed.");
-        Order l_player2Order = players.get(1).next_order();
+        d_players.get(1).setScanner(d_scannerPlayer2);
+        d_players.get(1).issue_order();
+        Assertions.assertEquals(2, d_players.get(1).getReinforcements(), "Reinforcements should be reduced by the army number deployed.");
+        Order l_player2Order = d_players.get(1).next_order();
         Assertions.assertNotNull(l_player2Order,"An order should exist");
     }
 
