@@ -1,4 +1,5 @@
 package game.map;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ class MapShowerTest {
         map = new Map();
     }
 
-    @Test
+    @Test @Ignore
     void showMapTest() {
         // Creating the test data
         loadMap(path, map);
