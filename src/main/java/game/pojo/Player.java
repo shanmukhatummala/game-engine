@@ -47,11 +47,9 @@ public class Player {
     public Queue<Order> getD_orderList() {
         return d_orderList;
     }
-
     public void setD_reinforcements(int d_reinforcements) {
         this.d_reinforcements = d_reinforcements;
     }
-
 
     /**
      * This method will wait for the command and validate this command and then will create a deploy order
