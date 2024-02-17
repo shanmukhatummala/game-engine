@@ -13,7 +13,8 @@ import game.pojo.Country;
  * Class responsible for validating the map upon loading/saving and during the editing process </br>
  * We consider that a map is correct when it represents a connected graph, each continent
  * also represents a connected subgraph, there are no empty continents and each country has to
- * have a unique name and id.
+ * have a unique name and id. </br>
+ * Validation of a map is done through the method isMapValid().
  */
 public class MapValidator {
 	
@@ -161,8 +162,8 @@ public class MapValidator {
 		}
 		// The name and id of each country has to be unique
 		for (int l_i = 0; l_i<d_mapToValidate.getCountries().size();l_i++) {
+			Country l_countryI = d_mapToValidate.getCountries().get(l_i);
 			for (int l_j = l_i+1; l_j<d_mapToValidate.getCountries().size();l_j++) {
-				Country l_countryI = d_mapToValidate.getCountries().get(l_i);
 				Country l_countryJ = d_mapToValidate.getCountries().get(l_j);
 				if (l_countryI.getId() == l_countryJ.getId() || l_countryI.getName().equals(l_countryJ.getName()))
 					return false;
