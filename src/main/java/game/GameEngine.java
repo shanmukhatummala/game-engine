@@ -110,7 +110,7 @@ public class GameEngine {
      * <p>The method assign army's to each player</p>
      * @param p_map map for the game
      */
-    private static void assignReinforcements(Map p_map) {
+    public static void assignReinforcements(Map p_map) {
 
         final int l_REINFORCEMENTS_PER_PLAYER = 5; // Number of reinforcements per player
 

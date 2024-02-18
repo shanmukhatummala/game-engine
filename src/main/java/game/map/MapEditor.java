@@ -2,6 +2,7 @@ package game.map;
 
 import static game.GameEngine.RESOURCES_PATH;
 import static game.map.MapSaver.saveMap;
+import static game.map.MapShower.showMap;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,7 +33,11 @@ public class MapEditor {
                     }
                     saveMap(RESOURCES_PATH + p_fileName, p_map);
                     break;
-                } else if (l_args.length == 1 && "validatemap".equals(l_args[0])) {
+                }
+                else if (l_args.length == 1 && "showmap".equals(l_args[0])) {
+                    showMap(p_map);
+                }
+                else if (l_args.length == 1 && "validatemap".equals(l_args[0])) {
                     // call validateMap() method from here
                 } else if (l_args.length >= 1 && l_args[0].startsWith("edit")) {
                     // edit commands are of 2 types -- add or remove
