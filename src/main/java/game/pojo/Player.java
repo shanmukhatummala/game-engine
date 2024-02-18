@@ -6,6 +6,9 @@ import java.util.*;
  * Player is a POJO representing a player
  */
 public class Player {
+    /**
+     * defining the scanner object as static attribute to be used in the issue_order method
+     */
     public static Scanner Scanner = new Scanner(System.in);
     private String d_name;
     private List<Country> d_countries;

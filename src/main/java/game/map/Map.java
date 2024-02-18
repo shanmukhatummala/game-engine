@@ -9,7 +9,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import java.util.*;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -62,6 +62,7 @@ public class Map {
     }
 
     d_continents.add(p_continent);
+    System.out.println("Continent added successfully!");
   }
 
   /**
@@ -104,6 +105,7 @@ public class Map {
       }
     }
     d_countries.add(p_country);
+    System.out.println("Country added successfully!");
   }
 
   /**
