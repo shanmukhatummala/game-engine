@@ -198,16 +198,16 @@ class MapTest {
         d_map.assignCountries(l_players, l_countries);
 
         List<Country> l_countriesAssignedToPlayers = new ArrayList<>();
-        int countOfCountriesAssignedToPlayers = 0;
+        int l_countOfCountriesAssignedToPlayers = 0;
 
         for (int i = 0; i < 3; i ++) {
             List<Country> l_countriesAssignedToThisPlayer = l_players.get(i).getD_countries();
             assertThat(l_countriesAssignedToThisPlayer.size(), anyOf(equalTo(3), equalTo(4)));
             l_countriesAssignedToPlayers.addAll(l_countriesAssignedToThisPlayer);
-            countOfCountriesAssignedToPlayers += l_countriesAssignedToThisPlayer.size();
+            l_countOfCountriesAssignedToPlayers += l_countriesAssignedToThisPlayer.size();
         }
 
-        assertThat(countOfCountriesAssignedToPlayers, equalTo(l_countries.size()));
+        assertThat(l_countOfCountriesAssignedToPlayers, equalTo(l_countries.size()));
         assertThat(l_countriesAssignedToPlayers, is(Matchers.containsInAnyOrder(l_countries.toArray())));
     }
 

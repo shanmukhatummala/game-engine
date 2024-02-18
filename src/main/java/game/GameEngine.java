@@ -5,11 +5,10 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static game.map.MapEditor.editMap;
 import static game.map.MapLoader.loadMap;
@@ -71,8 +70,10 @@ public class GameEngine {
                             for (int l_idx = 1; l_idx < l_commandArgs.length; l_idx = l_idx + 2) {
                                 if (l_commandArgs[l_idx].equals("-add")) {
                                     l_map.addPlayer(l_commandArgs[l_idx + 1]);
+                                    System.out.println("Player added");
                                 } else {
                                     l_map.removePlayer(l_commandArgs[l_idx + 1]);
+                                    System.out.println("Player removed");
                                 }
                             }
                         } catch (IllegalArgumentException e) {
@@ -84,6 +85,7 @@ public class GameEngine {
                     List<Player> players = l_map.getD_players();
                     List<Country> countries = l_map.getD_countries();
                     l_map.assignCountries(players, countries);
+                    System.out.println("Countries have been assigned");
                     startGameLoop(l_map);
                     System.out.println("Game over - all orders executed");
                     endGame();
@@ -113,11 +115,11 @@ public class GameEngine {
      */
     public static void assignReinforcements(Map p_map) {
 
-        final int l_REINFORCEMENTS_PER_PLAYER = 5; // Number of armies per player
+        final int l_reinforcements_per_player = 5; // Number of armies per player
 
         for (Player l_player : p_map.getD_players()) {
             int l_currentReinforcements = l_player.getD_reinforcements(); // current reinforcements
-            l_player.setD_reinforcements(l_currentReinforcements + l_REINFORCEMENTS_PER_PLAYER); // Add 5 armies
+            l_player.setD_reinforcements(l_currentReinforcements + l_reinforcements_per_player); // Add 5 armies
         }
     }
 
@@ -126,16 +128,38 @@ public class GameEngine {
      * @param p_map map for the game
      */
     private static void issueOrders(Map p_map) {
-        Set<Player> l_playersLeftToIssueOrder = new HashSet<>(p_map.getD_players());
+        List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
+        Scanner l_scanner ;
         while (!l_playersLeftToIssueOrder.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
                 if (l_player.getD_reinforcements() != 0) {
-                    l_player.issue_order();
+                    l_scanner = new Scanner(System.in);
+                    while(true){
+                        System.out.println("Enter the command: ");
+                        String l_command = l_scanner.nextLine();
+                        String[] l_commandArgs = l_command.split(" ");
+                        if("showmap".equals(l_commandArgs[0]) || "deploy".equals(l_commandArgs[0])){
+                            if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
+                                showMap(p_map);
+                            }else{
+                                ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_command.getBytes());
+                                l_scanner = new Scanner(l_inputStream);
+                                Player.Scanner = l_scanner;
+                                l_player.issue_order();
+                                System.out.println("Deploy Command has been issued");
+                                break;
+                            }
+                        }else {
+                            System.out.println("Invalid command, try again");
+                        }
+                    }
+                    System.out.println("player: "+l_player.getD_name()+", reinforcements: "+l_player.getD_reinforcements());
                 } else {
                     l_playersLeftToIssueOrder.remove(l_player);
                 }
             }
         }
+        System.out.println("Command will be executed.");
     }
 
     /**
@@ -143,7 +167,7 @@ public class GameEngine {
      * @param p_map map for the game
      */
     private static void executeOrders(Map p_map) {
-        Set<Player> l_playersLeftToExecuteOrders = new HashSet<>(p_map.getD_players());
+        List<Player> l_playersLeftToExecuteOrders = new ArrayList<>(p_map.getD_players());
         while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
                 if (!l_player.getD_orderList().isEmpty()) {
@@ -153,6 +177,7 @@ public class GameEngine {
                 }
             }
         }
+        showMap(p_map);
     }
 
     /**
