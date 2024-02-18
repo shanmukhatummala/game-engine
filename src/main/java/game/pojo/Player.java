@@ -6,27 +6,26 @@ import java.util.*;
  * Player is a POJO representing a player
  */
 public class Player {
+
+    public static Scanner Scanner;
+
     String d_name;
     List<Country> d_countries;
-    int d_totalArmyCount;
     int d_reinforcements;
     Queue<Order> d_orderList;
-    public static Scanner Scanner;
 
     public Player() {}
 
-
-    public Player(String p_name, List<Country> p_countries, int p_totalArmyCount) {
+    public Player(String p_name, List<Country> p_countries) {
         this.d_name = p_name;
         this.d_countries = p_countries;
-        this.d_totalArmyCount = p_totalArmyCount;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
     }
 
 
     public Player(String p_name) {
-        this(p_name, new ArrayList<>(), 0);
+        this(p_name, new ArrayList<>());
     }
 
     public String getD_name() {
@@ -35,10 +34,6 @@ public class Player {
 
     public List<Country> getD_countries() {
         return d_countries;
-    }
-
-    public int getD_totalArmyCount() {
-        return d_totalArmyCount;
     }
 
     public int getD_reinforcements() {
@@ -171,13 +166,12 @@ public class Player {
 
         return Objects.equals(l_otherPlayer.d_name, this.d_name)
                 && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
-                && Objects.equals(l_otherPlayer.d_totalArmyCount, this.d_totalArmyCount)
                 && Objects.equals(l_otherPlayer.d_reinforcements, this.d_reinforcements)
                 && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_totalArmyCount, d_reinforcements, d_orderList);
+        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList);
     }
 }

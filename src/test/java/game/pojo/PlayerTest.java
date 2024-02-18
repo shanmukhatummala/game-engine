@@ -32,8 +32,8 @@ class PlayerTest {
 
     private List<Player> createPLayers(){
         List<Player> players = new ArrayList<>();
-        players.add(new Player("player1",d_playersCountries.get("player1"),0));
-        players.add(new Player("player2",d_playersCountries.get("player2"),0));
+        players.add(new Player("player1",d_playersCountries.get("player1")));
+        players.add(new Player("player2",d_playersCountries.get("player2")));
         return players;
     }
     private List<Continent> createContinents() {
