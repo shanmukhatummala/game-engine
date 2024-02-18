@@ -96,6 +96,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     * <p>Starts the game loop - calls assign reinforcements, issue orders, execute orders</p>
+     * @param p_map map for the game
+     */
     private static void startGameLoop(Map p_map) {
         assignReinforcements(p_map);
         issueOrders(p_map);
@@ -104,6 +108,7 @@ public class GameEngine {
 
     /**
      * <p>The method assign army's to each player</p>
+     * @param p_map map for the game
      */
     private static void assignReinforcements(Map p_map) {
 
@@ -115,6 +120,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     * <p>Loop over all the players until they issue all the orders</p>
+     * @param p_map map for the game
+     */
     private static void issueOrders(Map p_map) {
         Set<Player> l_playersLeftToIssueOrder = new HashSet<>(p_map.getD_players());
         while (!l_playersLeftToIssueOrder.isEmpty()) {
@@ -128,6 +137,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     * <p>Loop over all the players until all the orders are executed</p>
+     * @param p_map map for the game
+     */
     private static void executeOrders(Map p_map) {
         Set<Player> l_playersLeftToExecuteOrders = new HashSet<>(p_map.getD_players());
         while (!l_playersLeftToExecuteOrders.isEmpty()) {
@@ -163,10 +176,17 @@ public class GameEngine {
         return !"-add".equals(commandArgs[commandArgs.length - 1]) && !"-remove".equals(commandArgs[commandArgs.length - 1]);
     }
 
+    /**
+     * <p>Getter for the map</p>
+     * @return map that contains all countries, continents and players
+     */
     public Map getD_map() {
         return d_map;
     }
 
+    /**
+     * <p>Stops the program or in other words ends the game</p>
+     */
     public static void endGame() {
         System.exit(0);
     }
