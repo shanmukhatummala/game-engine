@@ -4,8 +4,8 @@ package game.pojo;
  * this class extends from order class and represent the deploy order type of orders
  */
 public class DeployOrder extends Order{
-    public DeployOrder(Country destination, int armyNumber) {
-        super(destination, armyNumber);
+    public DeployOrder(Country p_destination, int p_armyNumber) {
+        super(p_destination, p_armyNumber);
     }
 
 

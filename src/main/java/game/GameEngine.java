@@ -97,7 +97,7 @@ public class GameEngine {
                     System.out.println("Game over - all orders executed");
                     endGame();
                 } else {
-                    throw new IllegalArgumentException("Not a valid command");
+                    System.out.println("Not a valid command. Try again");
                 }
             }
         } catch (IOException e) {
@@ -152,7 +152,7 @@ public class GameEngine {
                 if (l_player.getD_reinforcements() != 0) {
                     l_scanner = new Scanner(System.in);
                     while(true){
-                        System.out.println("Enter the command: ");
+                        System.out.println("Player: " + l_player.getD_name() + ", enter the command: ");
                         String l_command = l_scanner.nextLine();
                         String[] l_commandArgs = l_command.split(" ");
                         if("showmap".equals(l_commandArgs[0]) || "deploy".equals(l_commandArgs[0])){
