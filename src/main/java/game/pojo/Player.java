@@ -7,7 +7,6 @@ import java.util.*;
  */
 public class Player {
 
-    //public static Scanner Scanner;
     public static Scanner Scanner = new Scanner(System.in);
 
     private String d_name;

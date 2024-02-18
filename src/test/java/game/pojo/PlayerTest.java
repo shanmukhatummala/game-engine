@@ -1,62 +1,40 @@
 package game.pojo;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.util.*;
 import org.junit.jupiter.api.Assertions;
 import pl.pojo.tester.api.assertion.Method;
-
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 /**
  * PlayerTest is a test class for the Player POJO
  */
 class PlayerTest {
-    private List<Player> d_players;
-    private Map<String,List<Country>> d_playersCountries;
-
+    private Player d_player;
+    Scanner d_scannerPlayer1;
+    /**
+     * Setting up the Countries list and the players
+     */
     @BeforeEach
     void setUp() {
-        List<Continent> l_continents = createContinents();
-        d_playersCountries = createCountries(l_continents);
-        d_players = createPLayers();
-
+        Continent l_continent = new Continent(1, "continent1", 5);
+        List<Country> l_playerCountries = createCountries(l_continent);
+        d_player  = new Player("player1", l_playerCountries);
     }
 
-    private List<Player> createPLayers(){
-        List<Player> players = new ArrayList<>();
-        players.add(new Player("player1",d_playersCountries.get("player1")));
-        players.add(new Player("player2",d_playersCountries.get("player2")));
-        return players;
-    }
-    private List<Continent> createContinents() {
-        List<Continent> continents = new ArrayList<>();
-        continents.add(new Continent(1, "continent1", 5));
-        continents.add(new Continent(2, "continent2", 4));
-        return continents;
-    }
-
-    private Map<String,List<Country>> createCountries(List<Continent> p_continents) {
-        List<Country> l_countriesPlayer1 = new ArrayList<>();
-        List<Country> l_countriesPlayer2 = new ArrayList<>();
-        Map<String, List<Country>> l_playersCountries = new HashMap<>();
-        for (int i = 1; i <= 8; i++) {
-            Continent continent = (i <= 4) ? p_continents.get(0) : p_continents.get(1);
-            if(i<5){
-                l_countriesPlayer1.add(new Country(i, "country" + i, continent, new ArrayList<>(), 0));
-            }else{
-                l_countriesPlayer2.add(new Country(i, "country" + i, continent, new ArrayList<>(), 0));
-            }
-        }
-        l_playersCountries.put("player1", l_countriesPlayer1);
-        l_playersCountries.put("player2", l_countriesPlayer2);
-        return l_playersCountries;
-    }
-
-    @AfterEach
-    void tearDown() {
+    /**
+     * This method create the countries
+     * @param p_continent  Continent
+     * @return List of countries
+     */
+    private List<Country> createCountries(Continent p_continent) {
+        List<Country> l_countries = new ArrayList<>();
+        l_countries.add(new Country(1, "country1", p_continent, new ArrayList<>(), 0));
+        l_countries.add(new Country(2, "country2", p_continent, new ArrayList<>(), 0));
+        l_countries.add(new Country(3, "country3", p_continent, new ArrayList<>(), 0));
+        return l_countries;
     }
 
     /**
@@ -74,30 +52,49 @@ class PlayerTest {
                 .areWellImplemented();
     }
 
+    /**
+     * This method test the issue order method by providing user deploy command and assert if the player reinforcements
+     * has been affected correctly
+     */
     @Test
     void issue_order() {
-        Scanner d_scannerPlayer1;
         String l_userCommandPlayer1 = "deploy country1 4\n";
         ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
         d_scannerPlayer1 = new Scanner(l_inputStream);
         Player.Scanner = d_scannerPlayer1;
-        d_players.get(0).issue_order();
-        Assertions.assertEquals(1, d_players.get(0).getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
-        Order l_player1Order = d_players.get(0).next_order();
+        d_player.issue_order();
+        Assertions.assertEquals(1, d_player.getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
+    }
+
+    /**
+     * This method test the issue order method by providing user two deploy command one is wrong anthe other is correct
+     * and assert if the player reinforcements has been affected correctly after the right command
+     */
+    @Test
+    void issue_orderNotValidOnce() {
+        String l_userCommandPlayer1 = "test country3 3\ndeploy country3 4\n";
+        ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
+        d_scannerPlayer1 = new Scanner(l_inputStream);
+        Player.Scanner = d_scannerPlayer1;
+        d_player.issue_order();
+        Assertions.assertEquals(1, d_player.getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
+    }
+
+    /**
+     * This method test the next_order method in the player class it assert if the next order will return an object after
+     * the issue order method
+     */
+    @Test
+    void next_order() {
+        String l_userCommandPlayer1 = "deploy country2 1\n";
+        ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
+        d_scannerPlayer1 = new Scanner(l_inputStream);
+        Player.Scanner = d_scannerPlayer1;
+        d_player.issue_order();
+        Order l_player1Order = d_player.next_order();
         Assertions.assertNotNull(l_player1Order,"An order should exist");
     }
 
-    @Test
-    void issue_orderNotValidOnce() {
-        Scanner d_scannerPlayer2;
-        String l_userCommandPlayer2 = "test country5 3\ndeploy country5 4\n";
-        ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer2.getBytes());
-        d_scannerPlayer2 = new Scanner(l_inputStream);
-        Player.Scanner = d_scannerPlayer2;
-        d_players.get(1).issue_order();
-        Assertions.assertEquals(1, d_players.get(1).getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
-        Order l_player2Order = d_players.get(1).next_order();
-        Assertions.assertNotNull(l_player2Order,"An order should exist");
-    }
+
 
 }
