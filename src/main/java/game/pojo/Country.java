@@ -72,6 +72,11 @@ public class Country {
         return d_id;
     }
 
+    public void removeNeighbor(Integer neighborId) {
+        this.getD_neighborIdList().removeIf(id -> Objects.equals(id, neighborId));
+    }
+
+
     /**
      * <p>Getter for country name</p>
      * @return name of the country

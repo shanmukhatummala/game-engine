@@ -52,6 +52,11 @@ public class Continent {
         return d_id;
     }
 
+    public Continent(int id, String name) {
+        this(id, name, new ArrayList<>(), 0);
+    }
+
+
     /**
      * <p>Getter for continent name</p>
      * @return name of the continent
