@@ -7,7 +7,9 @@ import game.pojo.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static game.map.MapEditor.editMap;
 import static game.map.MapLoader.loadMap;
@@ -54,6 +56,8 @@ public class GameEngine {
                         loadMap(l_filePath, l_map);
                     }
                     editMap(l_bufferedReader, l_map, l_fileName);
+                } else if (l_commandArgs.length == 2 && "loadmap".equals(l_commandArgs[0])) {
+                    loadMap(RESOURCES_PATH + l_commandArgs[1], l_map);
                 }
                 else if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
                     showMap(l_map);
@@ -92,20 +96,10 @@ public class GameEngine {
         }
     }
 
-// Actual loop should look like this. But for now we use the below
-//    private void startGameLoop() {
-//        while (true) {
-//            assignReinforcements();
-//            issueOrders();
-//            executeOrders();
-//
-//            if (allCountriesOccupiedByOnePlayer()) {
-//                declareWinner();
-//                exitFromGame();
-//            }
-//        }
-//    }
-
+    /**
+     * <p>Starts the game loop - calls assign reinforcements, issue orders, execute orders</p>
+     * @param p_map map for the game
+     */
     private static void startGameLoop(Map p_map) {
         assignReinforcements(p_map);
         issueOrders(p_map);
@@ -114,38 +108,47 @@ public class GameEngine {
 
     /**
      * <p>The method assign army's to each player</p>
+     * @param p_map map for the game
      */
     public static void assignReinforcements(Map p_map) {
 
         final int l_REINFORCEMENTS_PER_PLAYER = 5; // Number of reinforcements per player
 
         for (Player l_player : p_map.getD_players()) {
-            int l_currentReinforcements = l_player.getD_totalArmyCount(); // Get current reinforcements
+            int l_currentReinforcements = l_player.getD_reinforcements(); // Get current reinforcements
             l_player.setD_reinforcements(l_currentReinforcements + l_REINFORCEMENTS_PER_PLAYER); // Add 5 reinforcements
         }
     }
 
+    /**
+     * <p>Loop over all the players until they issue all the orders</p>
+     * @param p_map map for the game
+     */
     private static void issueOrders(Map p_map) {
-        int l_playersLeftToIssueOrder = p_map.getD_players().size();
-        while (l_playersLeftToIssueOrder > 0) {
+        Set<Player> l_playersLeftToIssueOrder = new HashSet<>(p_map.getD_players());
+        while (!l_playersLeftToIssueOrder.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
                 if (l_player.getD_reinforcements() != 0) {
                     l_player.issue_order();
                 } else {
-                    l_playersLeftToIssueOrder--;
+                    l_playersLeftToIssueOrder.remove(l_player);
                 }
             }
         }
     }
 
+    /**
+     * <p>Loop over all the players until all the orders are executed</p>
+     * @param p_map map for the game
+     */
     private static void executeOrders(Map p_map) {
-        int l_playersLeftToExecuteOrders = p_map.getD_players().size();
-        while (l_playersLeftToExecuteOrders > 0) {
+        Set<Player> l_playersLeftToExecuteOrders = new HashSet<>(p_map.getD_players());
+        while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
                 if (!l_player.getD_orderList().isEmpty()) {
                     l_player.next_order().execute();
                 } else {
-                    l_playersLeftToExecuteOrders--;
+                    l_playersLeftToExecuteOrders.remove(l_player);
                 }
             }
         }
@@ -173,10 +176,17 @@ public class GameEngine {
         return !"-add".equals(commandArgs[commandArgs.length - 1]) && !"-remove".equals(commandArgs[commandArgs.length - 1]);
     }
 
+    /**
+     * <p>Getter for the map</p>
+     * @return map that contains all countries, continents and players
+     */
     public Map getD_map() {
         return d_map;
     }
 
+    /**
+     * <p>Stops the program or in other words ends the game</p>
+     */
     public static void endGame() {
         System.exit(0);
     }
