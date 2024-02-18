@@ -7,7 +7,8 @@ import java.util.*;
  */
 public class Player {
 
-    public static Scanner Scanner;
+    //public static Scanner Scanner;
+    public static Scanner Scanner = new Scanner(System.in);
 
     private String d_name;
     private List<Country> d_countries;
@@ -132,15 +133,15 @@ public class Player {
      */
     private Map<Country, Integer> processDeployCommand(String[] p_command_args){
         if(!"deploy".equals(p_command_args[0])){
-            return errorMessage("Invalid command or a command that has yet to be implemented, try again");
+            return errorMessage("Invalid command or a command that has yet to be implemented, try again: ");
         }
         Country l_destination = getCountryByName(p_command_args[1]);
         if(l_destination==null){
-            return errorMessage("This country is not owned by the player");
+            return errorMessage("This country is not owned by the player, try again: ");
         }
         int l_armyNumber = parseArmyNumber(p_command_args[2]);
         if(l_armyNumber<0 || l_armyNumber > d_reinforcements){
-            return errorMessage("invalid number of armies");
+            return errorMessage("invalid number of armies, try again: ");
         }
         Map<Country, Integer> l_commandProcessed = new HashMap<>();
         l_commandProcessed.put(l_destination, l_armyNumber);

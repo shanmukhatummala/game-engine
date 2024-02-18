@@ -13,6 +13,7 @@ import game.pojo.Country;
  * also represents a connected subgraph, there are no empty continents and each country has to
  * have a unique name and id.
  * Validation of a map is done through the method isMapValid.
+ * @author Luca Scistri
  */
 public class MapValidator {
 	
