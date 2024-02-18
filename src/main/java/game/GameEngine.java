@@ -7,7 +7,9 @@ import game.pojo.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static game.map.MapEditor.editMap;
 import static game.map.MapLoader.loadMap;
@@ -92,20 +94,6 @@ public class GameEngine {
         }
     }
 
-// Actual loop should look like this. But for now we use the below
-//    private void startGameLoop() {
-//        while (true) {
-//            assignReinforcements();
-//            issueOrders();
-//            executeOrders();
-//
-//            if (allCountriesOccupiedByOnePlayer()) {
-//                declareWinner();
-//                exitFromGame();
-//            }
-//        }
-//    }
-
     private static void startGameLoop(Map p_map) {
         assignReinforcements(p_map);
         issueOrders(p_map);
@@ -117,26 +105,26 @@ public class GameEngine {
     }
 
     private static void issueOrders(Map p_map) {
-        int l_playersLeftToIssueOrder = p_map.getD_players().size();
-        while (l_playersLeftToIssueOrder > 0) {
+        Set<Player> l_playersLeftToIssueOrder = new HashSet<>(p_map.getD_players());
+        while (!l_playersLeftToIssueOrder.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
                 if (l_player.getD_reinforcements() != 0) {
                     l_player.issue_order();
                 } else {
-                    l_playersLeftToIssueOrder--;
+                    l_playersLeftToIssueOrder.remove(l_player);
                 }
             }
         }
     }
 
     private static void executeOrders(Map p_map) {
-        int l_playersLeftToExecuteOrders = p_map.getD_players().size();
-        while (l_playersLeftToExecuteOrders > 0) {
+        Set<Player> l_playersLeftToExecuteOrders = new HashSet<>(p_map.getD_players());
+        while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
                 if (!l_player.getD_orderList().isEmpty()) {
                     l_player.next_order().execute();
                 } else {
-                    l_playersLeftToExecuteOrders--;
+                    l_playersLeftToExecuteOrders.remove(l_player);
                 }
             }
         }
