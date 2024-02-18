@@ -7,6 +7,7 @@ import game.pojo.Continent;
 import game.pojo.Country;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -93,7 +94,11 @@ public class MapLoader {
 
             System.out.println("Loaded the map into Java objects");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            if (e instanceof FileNotFoundException) {
+                System.out.println("The file you entered doesn't exist");
+            } else {
+                throw new RuntimeException(e.getMessage());
+            }
         }
     }
 }
