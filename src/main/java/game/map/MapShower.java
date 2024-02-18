@@ -41,7 +41,7 @@ public class MapShower {
                 System.out.println("Country is not owned by any player yet");
             }
             // Initially, no country will be given armies and the l_players need to deploy them during their turn.
-            System.out.println("Number of armies : 0");
+            System.out.println("Number of armies : "+l_country.getD_armyCount());
             System.out.println("Neighbors:");
             for (Integer l_neighborId : l_country.getD_neighborIdList()) {
                 Country l_neighbor = getCountryById(p_map, l_neighborId);

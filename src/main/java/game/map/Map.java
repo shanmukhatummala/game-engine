@@ -118,6 +118,7 @@ public class Map {
 
     /**
      * <p>This method assigns countries to each player</p>
+     *
      * @param p_player represent list of players.
      * @param p_countries represent list of countries.
      * @throws IllegalArgumentException when a player with that name does not exist

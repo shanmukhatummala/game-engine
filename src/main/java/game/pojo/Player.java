@@ -7,7 +7,6 @@ import java.util.*;
  */
 public class Player {
 
-    //public static Scanner Scanner;
     public static Scanner Scanner = new Scanner(System.in);
 
     private String d_name;
@@ -100,6 +99,10 @@ public class Player {
                     continue;
                 }
                 l_commandStateDone = true;
+            }else{
+                if(!Scanner.hasNextLine()){
+                    Scanner = new Scanner(System.in);
+                }
             }
         }
     }
@@ -120,7 +123,7 @@ public class Player {
      */
     private String[] inputUserCommand(){
         if(System.in.equals(Scanner)){
-            System.out.println("enter the deployment command: ");
+            System.out.println("Player: " + this.getD_name() + ", enter the deployment command: ");
         }
         String l_command = Scanner.nextLine();
         return l_command.split(" ");
