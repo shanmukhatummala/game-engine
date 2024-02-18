@@ -40,8 +40,8 @@ public class MapShower {
             } else {
                 System.out.println("Country is not owned by any player yet");
             }
-            // Initially, no country will be given armies and the Players need to deploy them during their turn.
-            System.out.println("Number of armies : 0");
+            // Initially, no country will be given armies and the l_players need to deploy them during their turn.
+            System.out.println("Number of armies : "+l_country.getD_armyCount());
             System.out.println("Neighbors:");
             for (Integer l_neighborId : l_country.getD_neighborIdList()) {
                 Country l_neighbor = getCountryById(p_map, l_neighborId);
@@ -51,6 +51,7 @@ public class MapShower {
             System.out.println("----------------------------------------------------------------");
         }
     }
+
 
     /**  <p>getContinentOwner - This generates the name of the owner of a continent </p>
      * @param p_continent Name of the continent
@@ -66,6 +67,8 @@ public class MapShower {
         return null;
     }
 
+
+
     /**  <p>getCountryOwner - This generates the name of the owner of a country</p>
      * @param p_country Name of the Country
      * @param p_players List of players added in the game
@@ -79,6 +82,7 @@ public class MapShower {
         }
         return null;
     }
+
 
     /**  <p>getCountryById - This generates Country name from the country id</p>
      * @param p_map reference to the map
