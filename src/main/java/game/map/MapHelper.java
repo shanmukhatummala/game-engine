@@ -2,6 +2,9 @@ package game.map;
 
 import game.pojo.Continent;
 import game.pojo.Country;
+import game.pojo.Player;
+
+import java.util.List;
 
 /**
  * MapHelper provides helper methods to get required details from the map
@@ -37,4 +40,23 @@ public class MapHelper {
                 .findFirst()
                 .orElse(null);
     }
+
+    /**  <p>playerOwnsContinent - This is a boolean to check if a continent is owned by the given single player or not</p>
+     * @param p_continent Name of the continent
+     * @param p_player A single player from the list of players added in the game
+     * @return Returns True if the given continent is owned by the given player, else returns False.
+     */
+    public static boolean playerOwnsContinent(Map p_map,Player p_player, Continent p_continent) {
+       List<Country> countriesOfThisPlayer = p_player.getD_countries();
+        for (Integer l_countryId : p_continent.getD_countryIdList()) {
+            if(!countriesOfThisPlayer.contains(getCountryWithId(p_map,l_countryId)))
+            {
+               return false;
+            }
+
+        }
+        return true;
+    }
+
+
 }

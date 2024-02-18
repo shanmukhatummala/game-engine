@@ -1,6 +1,7 @@
 package game;
 
 import game.map.Map;
+import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -12,6 +13,7 @@ import java.util.*;
 
 import static game.map.MapEditor.editMap;
 import static game.map.MapLoader.loadMap;
+import static game.map.MapHelper.playerOwnsContinent;
 import static game.map.MapShower.showMap;
 import static game.map.MapValidator.isMapValid;
 import static game.util.FileHelper.createNewFileForMap;
@@ -116,15 +118,26 @@ public class GameEngine {
     /**
      * <p>The method assign army's to each player</p>
      * @param p_map map for the game
+     * @author Naveen
      */
+
     public static void assignReinforcements(Map p_map) {
 
-        final int l_REINFORCEMENTS_PER_PLAYER = 5; // Number of reinforcements per player
+        final int l_reinforcements_per_player = 5; // Default reinforcements per player
 
         for (Player l_player : p_map.getD_players()) {
-            int l_currentReinforcements = l_player.getD_reinforcements(); // Get current reinforcements
-            l_player.setD_reinforcements(l_currentReinforcements + l_REINFORCEMENTS_PER_PLAYER); // Add 5 reinforcements
+            int l_currentReinforcements = l_player.getD_reinforcements(); // current reinforcements
+
+            for (Continent continent : p_map.getD_continents()) {
+                if (playerOwnsContinent(p_map,l_player, continent)) {
+                    // If the player owns the continent, add the bonus armies
+                    l_currentReinforcements += continent.getD_bonus();
+                }
+            }
+            // Set the total reinforcements for the player
+            l_player.setD_reinforcements(l_currentReinforcements + l_reinforcements_per_player);
         }
+        System.out.println("Reinforcement armies are assigned");
     }
 
     /**
