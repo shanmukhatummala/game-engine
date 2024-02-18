@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Java Model for the Game Map. All manipulation of the Map is executed on an object of this class
@@ -24,6 +22,7 @@ public class Map {
   private final List<Player> players;
   private TreeMap<Integer, TreeSet<Integer>> d_borders;
 
+  /** Default constructor for Map class. */
   public Map() {
     this(
         new ArrayList<>(),
@@ -34,6 +33,12 @@ public class Map {
         new TreeMap<>());
   }
 
+  /**
+   * Adds a continent to the game map.
+   *
+   * @param continent The continent to be added.
+   * @throws IllegalArgumentException If a continent with the same ID already exists.
+   */
   public void addContinent(Continent continent) {
 
     for (Continent thisContinent : continents) {
@@ -46,6 +51,11 @@ public class Map {
     System.out.println("Continent added successfully!");
   }
 
+  /**
+   * Removes a continent from the game map.
+   *
+   * @param p_continent_id The ID of the continent to be removed.
+   */
   public void removeContinent(Integer p_continent_id) {
     List<Integer> l_linked_countries =
         continents.stream()
@@ -67,6 +77,12 @@ public class Map {
     }
   }
 
+  /**
+   * Adds a country to the game map.
+   *
+   * @param country The country to be added.
+   * @throws IllegalArgumentException If a country with the same ID already exists.
+   */
   public void addCountry(Country country) {
 
     for (Country thisCountry : countries) {
@@ -78,6 +94,11 @@ public class Map {
     System.out.println("Country added successfully!");
   }
 
+  /**
+   * Removes a country from the game map.
+   *
+   * @param p_country_id The ID of the country to be removed.
+   */
   public void removeCountry(Integer p_country_id) {
     Integer l_linked_continent_id =
         countries.stream()
@@ -103,18 +124,36 @@ public class Map {
     }
   }
 
+  /**
+   * Removes a country from a continent.
+   *
+   * @param p_continent_id The ID of the continent.
+   * @param p_country_id The ID of the country to be removed from the continent.
+   */
   public void removeCountryFromContinent(Integer p_continent_id, Integer p_country_id) {
     continents.stream()
         .filter(c -> c.getId() == p_continent_id)
         .forEach(c -> c.getCountryIdList().removeIf(id -> Objects.equals(id, p_country_id)));
   }
 
+  /**
+   * Adds a country to a continent.
+   *
+   * @param p_continent_id The ID of the continent.
+   * @param p_country_id The ID of the country to be added to the continent.
+   */
   public void addCountryToContinent(Integer p_continent_id, Integer p_country_id) {
     continents.stream()
-            .filter(c -> c.getId() == p_continent_id)
-            .forEach(c -> c.getCountryIdList().add(p_country_id));
+        .filter(c -> c.getId() == p_continent_id)
+        .forEach(c -> c.getCountryIdList().add(p_country_id));
   }
 
+  /**
+   * Adds a player to the game.
+   *
+   * @param playerName The name of the player to be added.
+   * @throws IllegalArgumentException If a player with the same name already exists.
+   */
   public void addPlayer(String playerName) {
 
     for (Player thisPlayer : players) {
@@ -125,6 +164,12 @@ public class Map {
     players.add(new Player(playerName));
   }
 
+  /**
+   * Removes a player from the game.
+   *
+   * @param playerName The name of the player to be removed.
+   * @throws IllegalArgumentException If no player exists with the given name.
+   */
   public void removePlayer(String playerName) {
     for (Player thisPlayer : players) {
       if (thisPlayer.getName().equals(playerName)) {
@@ -135,6 +180,12 @@ public class Map {
     throw new IllegalArgumentException("No player exists with this name");
   }
 
+  /**
+   * Adds a neighbor to a country.
+   *
+   * @param p_country_id The ID of the country.
+   * @param p_neighbor_country_id The ID of the neighbor country to be added.
+   */
   public void addNeighborToCountry(Integer p_country_id, Integer p_neighbor_country_id) {
     Optional<Country> l_country =
         countries.stream()
@@ -160,6 +211,12 @@ public class Map {
     System.out.println("Neighbor Country added successfully!");
   }
 
+  /**
+   * Removes a neighbor from a country.
+   *
+   * @param p_country_id The ID of the country.
+   * @param p_neighbor_country_id The ID of the neighbor country to be removed.
+   */
   public void removeNeighborFromCountry(Integer p_country_id, Integer p_neighbor_country_id) {
     Optional<Country> l_country =
         countries.stream()
