@@ -10,7 +10,9 @@ import pl.pojo.tester.api.assertion.Method;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
-
+/**
+ * PlayerTest is a test class for the Player POJO
+ */
 class PlayerTest {
 
     private List<Player> d_players;
@@ -64,6 +66,9 @@ class PlayerTest {
     void tearDown() {
     }
 
+    /**
+     * <p>Tests the constructors, getters, equals and hashcode methods</p>
+     */
     @Test
     public void shouldPassAllPojoTests() {
         final Class<Player> l_classUnderTest = Player.class;
