@@ -56,6 +56,8 @@ public class GameEngine {
                         loadMap(l_filePath, l_map);
                     }
                     editMap(l_bufferedReader, l_map, l_fileName);
+                } else if (l_commandArgs.length == 2 && "loadmap".equals(l_commandArgs[0])) {
+                    loadMap(RESOURCES_PATH + l_commandArgs[1], l_map);
                 }
                 else if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
                     showMap(l_map);
