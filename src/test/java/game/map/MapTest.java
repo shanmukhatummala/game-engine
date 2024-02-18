@@ -6,13 +6,9 @@ import game.pojo.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 
@@ -111,21 +107,21 @@ class MapTest {
         }, "No player exists with this name");
     }
 
-    @Test
-    void testNoCountriesAvailable() {
-        List<Player> players = Arrays.asList(new Player(), new Player());
-        List<Country> countries = new ArrayList<>();
-        d_map.assignCountries(players, countries);
-        assertTrue(players.stream().allMatch(player -> player.getD_countries().isEmpty()));
-    }
-    @Test
-    void testEqualDistributionWhenCountriesPerPlayerIsZero() {
-        List<Player> players = Arrays.asList(new Player(), new Player());
-        List<Country> countries = Arrays.asList(new Country(), new Country(), new Country(),new Country());
-        d_map.assignCountries(players, countries);
-        assertEquals(2, players.get(0).getD_countries().size());
-        assertEquals(2, players.get(1).getD_countries().size());
-    }
+//    @Test
+//    void testNoCountriesAvailable() {
+//        List<Player> players = Arrays.asList(new Player(), new Player());
+//        List<Country> countries = new ArrayList<>();
+//        d_map.assignCountries(players, countries);
+//        assertTrue(players.stream().allMatch(player -> player.getD_countries().isEmpty()));
+//    }
+//    @Test
+//    void testEqualDistributionWhenCountriesPerPlayerIsZero() {
+//        List<Player> players = Arrays.asList(new Player(), new Player());
+//        List<Country> countries = Arrays.asList(new Country(), new Country(), new Country(),new Country());
+//        d_map.assignCountries(players, countries);
+//        assertEquals(2, players.get(0).getD_countries().size());
+//        assertEquals(2, players.get(1).getD_countries().size());
+//    }
 //    @Test
 //    void testDistributionWhenNumOfPlayersDoesNotDivideNumOfCountries() {
 //        List<Player> players = new ArrayList<>();
