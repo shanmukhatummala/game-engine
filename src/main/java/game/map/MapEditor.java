@@ -1,5 +1,7 @@
 package game.map;
 
+import game.map.MapManipulation.MapManipulator;
+
 import static game.GameEngine.RESOURCES_PATH;
 import static game.map.MapSaver.saveMap;
 import static game.map.MapValidator.isMapValid;
