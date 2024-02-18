@@ -112,8 +112,17 @@ public class GameEngine {
         executeOrders(p_map);
     }
 
+    /**
+     * <p>The method assign army's to each player</p>
+     */
     private static void assignReinforcements(Map p_map) {
-        // to assign reinforcements
+
+        final int l_REINFORCEMENTS_PER_PLAYER = 5; // Number of reinforcements per player
+
+        for (Player l_player : p_map.getD_players()) {
+            int l_currentReinforcements = l_player.getD_totalArmyCount(); // Get current reinforcements
+            l_player.setD_reinforcements(l_currentReinforcements + l_REINFORCEMENTS_PER_PLAYER); // Add 5 reinforcements
+        }
     }
 
     private static void issueOrders(Map p_map) {

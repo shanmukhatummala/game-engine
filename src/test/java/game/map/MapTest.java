@@ -1,16 +1,21 @@
 package game.map;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.AnyOf.anyOf;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 
@@ -124,20 +129,33 @@ class MapTest {
         assertEquals(2, players.get(0).getD_countries().size());
         assertEquals(2, players.get(1).getD_countries().size());
     }
-    //@Test
-//    void testExtraCountryAssignedToPlayerWhenCountriesPerPlayerIsNotZero() {
-//        List<Player> players = Arrays.asList(new Player(), new Player(), new Player());
-//        List<Country> countries = Arrays.asList(new Country(), new Country(), new Country(), new Country());
-//        d_map.assignCountries(players, countries);
-//
-//        // Calculate expected number of countries per player
-//        int countriesPerPlayer = countries.size() / players.size();
-//        int extraCountries = countries.size() % players.size();
-//
-//        // Assert the number of countries assigned to each player
-//        for (int i = 0; i < players.size(); i++) {
-//            int expectedCountries = countriesPerPlayer + (i < extraCountries ? 1 : 0);
-//            assertEquals(expectedCountries, players.get(i).getD_countries().size());
-//        }
-//    }
+    @Test
+    void testDistributionWhenNumOfPlayersDoesNotDivideNumOfCountries() {
+        List<Player> players = new ArrayList<>();
+        for (int i = 0; i < 3; i ++) {
+            players.add(new Player("Player" + i));
+            d_map.getD_players().add(players.get(i));
+        }
+
+        List<Country> countries = new ArrayList<>();
+        for (int i = 0; i < 11; i++) {
+            countries.add(new Country(i, "Country" + i, new Continent()));
+            d_map.getD_countries().add(countries.get(i));
+        }
+
+        d_map.assignCountries(players, countries);
+
+        List<Country> countriesAssignedToPlayers = new ArrayList<>();
+        int countOfCountriesAssignedToPlayers = 0;
+
+        for (int i = 0; i < 3; i ++) {
+            List<Country> countriesAssignedToThisPlayer = players.get(i).getD_countries();
+            assertThat(countriesAssignedToThisPlayer.size(), anyOf(equalTo(3), equalTo(4)));
+            countriesAssignedToPlayers.addAll(countriesAssignedToThisPlayer);
+            countOfCountriesAssignedToPlayers += countriesAssignedToThisPlayer.size();
+        }
+
+        assertThat(countOfCountriesAssignedToPlayers, equalTo(countries.size()));
+        assertThat(countriesAssignedToPlayers, is(Matchers.containsInAnyOrder(countries.toArray())));
+    }
 }
