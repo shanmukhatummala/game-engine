@@ -24,6 +24,10 @@ public class Continent {
         this(id, name, new ArrayList<>(), bonus);
     }
 
+    public Continent(int id, String name) {
+        this(id, name, new ArrayList<>(), 0);
+    }
+
     public int getId() {
         return id;
     }

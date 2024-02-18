@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Java Model for the Game Map. All manipulation of the Map is executed on an object of this class
@@ -41,13 +43,24 @@ public class Map {
     }
 
     continents.add(continent);
+    System.out.println("Continent added successfully!");
   }
 
   public void removeContinent(Integer p_continent_id) {
+    List<Integer> l_linked_countries =
+        continents.stream()
+            .filter(Objects::nonNull)
+            .filter(continent -> continent.getId() == p_continent_id)
+            .findFirst()
+            .map(continent -> new ArrayList<>(continent.getCountryIdList()))
+            .orElse(new ArrayList<>());
+
     Boolean l_is_continent_removed =
         continents.removeIf(continent -> continent.getId() == p_continent_id);
 
     if (l_is_continent_removed) {
+      l_linked_countries.forEach(this::removeCountry);
+
       System.out.println("Continent removed successfully!");
     } else {
       System.out.println("No Continent with the given ID exists!");
@@ -62,16 +75,44 @@ public class Map {
       }
     }
     countries.add(country);
+    System.out.println("Country added successfully!");
   }
 
   public void removeCountry(Integer p_country_id) {
+    Integer l_linked_continent_id =
+        countries.stream()
+            .filter(Objects::nonNull)
+            .filter(country -> country.getId() == p_country_id)
+            .findFirst()
+            .map(Country::getContinent)
+            .map(Continent::getId)
+            .orElse(null);
+
     Boolean l_is_country_removed = countries.removeIf(country -> country.getId() == p_country_id);
 
     if (l_is_country_removed) {
+      countries.forEach(country -> country.removeNeighbor(p_country_id));
+
+      if (l_linked_continent_id != null) {
+        removeCountryFromContinent(l_linked_continent_id, p_country_id);
+      }
+
       System.out.println("Country removed successfully!");
     } else {
       System.out.println("No Country with the given ID exists!");
     }
+  }
+
+  public void removeCountryFromContinent(Integer p_continent_id, Integer p_country_id) {
+    continents.stream()
+        .filter(c -> c.getId() == p_continent_id)
+        .forEach(c -> c.getCountryIdList().removeIf(id -> Objects.equals(id, p_country_id)));
+  }
+
+  public void addCountryToContinent(Integer p_continent_id, Integer p_country_id) {
+    continents.stream()
+            .filter(c -> c.getId() == p_continent_id)
+            .forEach(c -> c.getCountryIdList().add(p_country_id));
   }
 
   public void addPlayer(String playerName) {
@@ -142,13 +183,5 @@ public class Map {
 
     l_country.get().removeNeighbor(p_neighbor_country_id);
     System.out.println("Neighbor Country removed successfully!");
-  }
-
-  public void addBorder(Integer p_country_1, Integer p_country_2) {
-    if (this.d_borders == null) {
-      this.d_borders = new TreeMap<>();
-    }
-    this.d_borders.computeIfAbsent(p_country_1, k -> new TreeSet<>());
-    this.d_borders.get(p_country_1).add(p_country_2);
   }
 }
