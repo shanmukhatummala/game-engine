@@ -24,7 +24,7 @@ public class MapValidator {
 	 * @return A list that represents whether or not each country has been visited during the DFS.
 	 *  The index of the list corresponds to those in the d_coutries data attribute of the Map object.
 	 */
-	public List<Boolean> dfs(Country p_startingCountry, Map p_mapToValidate) {
+	public static List<Boolean> dfs(Country p_startingCountry, Map p_mapToValidate) {
 		List<Boolean> l_isVisited = new ArrayList<Boolean>();
 		for (int i=0; i<p_mapToValidate.getD_countries().size(); i++)
 			l_isVisited.add(Boolean.FALSE);
@@ -38,7 +38,7 @@ public class MapValidator {
 	 * @param p_countryHasBeenSeen List representing if each country is seen or not
 	 * @return The list where we can see if a country has been visited or not
 	 */
-	private List<Boolean> dfsStep(Country p_currentCountry, List<Boolean> p_countryHasBeenSeen, Map p_mapToValidate) {
+	private static List<Boolean> dfsStep(Country p_currentCountry, List<Boolean> p_countryHasBeenSeen, Map p_mapToValidate) {
 		int l_indexCurrentCountry = p_mapToValidate.getD_countries().indexOf(p_currentCountry);
 		p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
 		// We call dfsStep on each neighbor that has not been seen yet
@@ -58,7 +58,7 @@ public class MapValidator {
 	 * then the map is a connected graph.
 	 * @return true if the map is a connected graph, false otherwise
 	 */
-	public boolean mapIsConnected(Map p_mapToValidate) {
+	public static boolean mapIsConnected(Map p_mapToValidate) {
 		for(Country l_country: p_mapToValidate.getD_countries()) {
 			List<Boolean> l_dfsResult = dfs(l_country, p_mapToValidate);
 			for (Boolean l_isVisited: l_dfsResult) {
@@ -76,7 +76,7 @@ public class MapValidator {
 	 * @return A list that represents whether or not each country has been visited during the DFS.
 	 * The index of the list corresponds to those in the d_countryIdList data attribute of the Continent object.
 	 */
-	public List<Boolean> dfs(Integer p_startingCountryID, Continent p_continent, Map p_mapToValidate) {
+	public static List<Boolean> dfs(Integer p_startingCountryID, Continent p_continent, Map p_mapToValidate) {
 		List<Boolean> l_isVisited = new ArrayList<Boolean>();
 		for (int i=0; i<p_continent.getD_countryIdList().size(); i++)
 			l_isVisited.add(Boolean.FALSE);
@@ -91,7 +91,7 @@ public class MapValidator {
 	 * @param p_countryHasBeenSeen List representing if each country is seen or not
 	 * @return The list where we can see if a country has been visited or not
 	 */
-	private List<Boolean> dfsStep(Integer p_currentCountryID, Continent p_continent, List<Boolean> p_countryHasBeenSeen, Map p_mapToValidate) {
+	private static List<Boolean> dfsStep(Integer p_currentCountryID, Continent p_continent, List<Boolean> p_countryHasBeenSeen, Map p_mapToValidate) {
 		int l_indexCurrentCountry = p_continent.getD_countryIdList().indexOf(p_currentCountryID);
 		p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
 		// We call dfsStep on each neighbor (in the continent) that has not been seen yet
@@ -112,7 +112,7 @@ public class MapValidator {
 	 * @param p_continent The continent we want to evaluate.
 	 * @return true if the continent is a connected subgraph, false otherwise.
 	 */
-	public boolean continentIsConnected(Continent p_continent, Map p_mapToValidate) {
+	public static boolean continentIsConnected(Continent p_continent, Map p_mapToValidate) {
 		for(Integer l_countryId: p_continent.getD_countryIdList()) {
 			List<Boolean> l_dfsResult = dfs(l_countryId, p_continent, p_mapToValidate);
 			for (Boolean l_isVisited: l_dfsResult) {
@@ -127,7 +127,7 @@ public class MapValidator {
 	 * Checks if the map and each continent fulfill the conditions about being connected.
 	 * @return true if everything is well connected, false otherwise.
 	 */
-	public boolean mapAndContinentsConnected(Map p_mapToValidate) {
+	public static boolean mapAndContinentsConnected(Map p_mapToValidate) {
 		for (Continent l_continent: p_mapToValidate.getD_continents()) {
 			if (!continentIsConnected(l_continent, p_mapToValidate))
 				return false;
@@ -143,7 +143,7 @@ public class MapValidator {
 	 * @param p_mapToValidate The map that we want to validate.
 	 * @return true if the map is valid, false otherwise.
 	 */
-	public boolean isMapValid(Map p_mapToValidate) {
+	public static boolean isMapValid(Map p_mapToValidate) {
 		
 		// Each continent has to have at least one country
 		for (Continent l_continent: p_mapToValidate.getD_continents()) {

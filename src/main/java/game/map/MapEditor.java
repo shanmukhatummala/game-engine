@@ -2,6 +2,7 @@ package game.map;
 
 import static game.GameEngine.RESOURCES_PATH;
 import static game.map.MapSaver.saveMap;
+import static game.map.MapValidator.isMapValid;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +12,6 @@ import java.io.IOException;
  */
 public class MapEditor {
 	
-	private static MapValidator d_MapValidator = new MapValidator();
 
     /**
      * <p>This method adds a continent to the list of continents in the map</p>
@@ -32,14 +32,14 @@ public class MapEditor {
                         System.out.println("Enter the right file name in save command!");
                         continue;
                     }
-                    if (!d_MapValidator.isMapValid(p_map)) {
+                    if (!isMapValid(p_map)) {
                     	System.out.println("Current map is not valid: aborting the saving process.");
                     	continue;
                     }
                     saveMap(RESOURCES_PATH + p_fileName, p_map);
                     break;
                 } else if (l_args.length == 1 && "validatemap".equals(l_args[0])) {
-                    if (d_MapValidator.isMapValid(p_map))
+                    if (isMapValid(p_map))
                     	System.out.println("The current map is valid!");
                     else
                     	System.out.println("The current map isn't valid.");

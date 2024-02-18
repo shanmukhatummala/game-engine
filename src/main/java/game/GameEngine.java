@@ -14,6 +14,7 @@ import java.util.Set;
 import static game.map.MapEditor.editMap;
 import static game.map.MapLoader.loadMap;
 import static game.map.MapShower.showMap;
+import static game.map.MapValidator.isMapValid;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
@@ -58,6 +59,10 @@ public class GameEngine {
                     editMap(l_bufferedReader, l_map, l_fileName);
                 } else if (l_commandArgs.length == 2 && "loadmap".equals(l_commandArgs[0])) {
                     loadMap(RESOURCES_PATH + l_commandArgs[1], l_map);
+                    if (!isMapValid(l_map)) {
+                    	System.out.println("The loaded map is invalid, please load a valid map.");
+                    	l_map = new Map();
+                    }
                 }
                 else if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
                     showMap(l_map);
