@@ -217,7 +217,6 @@ public class GameEngine {
                 }
             }
         }
-
         return !"-add".equals(commandArgs[commandArgs.length - 1]) && !"-remove".equals(commandArgs[commandArgs.length - 1]);
     }
 
