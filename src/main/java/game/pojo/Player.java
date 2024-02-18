@@ -124,7 +124,7 @@ public class Player {
      */
     private String[] inputUserCommand(){
         if(System.in.equals(Scanner)){
-            System.out.println("enter the deployment command: ");
+            System.out.println("Player: " + this.getD_name() + ", enter the deployment command: ");
         }
         String l_command = Scanner.nextLine();
         return l_command.split(" ");
