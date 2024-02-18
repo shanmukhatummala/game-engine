@@ -19,8 +19,8 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * Map is used for storing the details of the map It contains the details of countries, continents
- * and players associated with the map All manipulation of the Map is executed on an object of this
- * class
+ * and players associated with the map.
+ * All manipulation of the Map is executed on an object of this class
  * @author Shanmukha
  */
 @Data
