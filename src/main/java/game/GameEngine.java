@@ -1,17 +1,19 @@
 package game;
 
 import game.map.Map;
-import game.map.MapShower;
 import game.pojo.Country;
 import game.pojo.Player;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static game.map.MapEditor.editMap;
 import static game.map.MapLoader.loadMap;
+import static game.map.MapShower.showMap;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
@@ -56,7 +58,7 @@ public class GameEngine {
                     editMap(l_bufferedReader, l_map, l_fileName);
                 }
                 else if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
-                    MapShower.showMap(l_map);
+                    showMap(l_map);
                 }
                 else if (l_commandArgs.length >= 1 && "gameplayer".equals(l_commandArgs[0])) {
                     if (!isValidGamePlayerCommand(l_commandArgs)) {
@@ -75,12 +77,14 @@ public class GameEngine {
                             System.out.println(e.getMessage());
                         }
                     }
-                } else if (l_commandArgs.length== 1 && l_commandArgs[0].equals("assigncountries")) {
+                } else if (l_commandArgs.length == 1 && l_commandArgs[0].equals("assigncountries")) {
 
                     List<Player> players = l_map.getD_players();
                     List<Country> countries = l_map.getD_countries();
                     l_map.assignCountries(players, countries);
-
+                    startGameLoop(l_map);
+                    System.out.println("Game over - all orders executed");
+                    endGame();
                 } else {
                     throw new IllegalArgumentException("Not a valid command");
                 }
@@ -90,12 +94,49 @@ public class GameEngine {
         }
     }
 
-    public Map getD_map() {
-        return d_map;
+    private static void startGameLoop(Map p_map) {
+        assignReinforcements(p_map);
+        issueOrders(p_map);
+        executeOrders(p_map);
     }
 
-    public static void endGame() {
-        System.exit(0);
+    /**
+     * <p>The method assign army's to each player</p>
+     */
+    private static void assignReinforcements(Map p_map) {
+
+        final int l_REINFORCEMENTS_PER_PLAYER = 5; // Number of reinforcements per player
+
+        for (Player l_player : p_map.getD_players()) {
+            int l_currentReinforcements = l_player.getD_reinforcements(); // Get current reinforcements
+            l_player.setD_reinforcements(l_currentReinforcements + l_REINFORCEMENTS_PER_PLAYER); // Add 5 reinforcements
+        }
+    }
+
+    private static void issueOrders(Map p_map) {
+        Set<Player> l_playersLeftToIssueOrder = new HashSet<>(p_map.getD_players());
+        while (!l_playersLeftToIssueOrder.isEmpty()) {
+            for (Player l_player : p_map.getD_players()) {
+                if (l_player.getD_reinforcements() != 0) {
+                    l_player.issue_order();
+                } else {
+                    l_playersLeftToIssueOrder.remove(l_player);
+                }
+            }
+        }
+    }
+
+    private static void executeOrders(Map p_map) {
+        Set<Player> l_playersLeftToExecuteOrders = new HashSet<>(p_map.getD_players());
+        while (!l_playersLeftToExecuteOrders.isEmpty()) {
+            for (Player l_player : p_map.getD_players()) {
+                if (!l_player.getD_orderList().isEmpty()) {
+                    l_player.next_order().execute();
+                } else {
+                    l_playersLeftToExecuteOrders.remove(l_player);
+                }
+            }
+        }
     }
 
     /**
@@ -118,5 +159,13 @@ public class GameEngine {
         }
 
         return !"-add".equals(commandArgs[commandArgs.length - 1]) && !"-remove".equals(commandArgs[commandArgs.length - 1]);
+    }
+
+    public Map getD_map() {
+        return d_map;
+    }
+
+    public static void endGame() {
+        System.exit(0);
     }
 }
