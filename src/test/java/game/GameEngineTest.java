@@ -5,8 +5,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * GameEngineTest is a test class for the GameEngine class
+ */
 public class GameEngineTest {
 
+    /**
+     * <p>Test isValidGamePlayerCommand method for a valid -add command</p>
+     */
     @Test
     void testIsValidForSimpleAddGamePlayerCommand() {
 
@@ -17,6 +23,9 @@ public class GameEngineTest {
         assertThat(l_isValid, is(true));
     }
 
+    /**
+     * <p>Test isValidGamePlayerCommand method for a valid -remove command</p>
+     */
     @Test
     void testIsValidForSimpleRemoveGamePlayerCommand() {
 
@@ -27,6 +36,9 @@ public class GameEngineTest {
         assertThat(l_isValid, is(true));
     }
 
+    /**
+     * <p>Test isValidGamePlayerCommand method for multiple -add and -remove options</p>
+     */
     @Test
     void testIsValidForGamePlayerCommand() {
 
@@ -37,6 +49,9 @@ public class GameEngineTest {
         assertThat(l_isValid, is(true));
     }
 
+    /**
+     * <p>Test isValidGamePlayerCommand method for an invalid command</p>
+     */
     @Test
     void testIsValidForIncorrectGamePlayerCommand() {
 
@@ -47,6 +62,9 @@ public class GameEngineTest {
         assertThat(l_isValid, is(false));
     }
 
+    /**
+     * <p>Test isValidGamePlayerCommand method for an invalid command ending with -add or -remove</p>
+     */
     @Test
     void testIsValidForIncorrectGamePlayerCommandEndingWithOption() {
 

@@ -14,17 +14,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * MapLoaderTest is a test class for the MapLoader class
+ */
 class MapLoaderTest {
 
     private String d_path;
     private Map d_map;
 
+    /**
+     * <p>Creates a new map before each test</p>
+     */
     @BeforeEach
     void setUp() {
         d_path = "src/test/resources/test_load_map.map";
         d_map = new Map();
     }
 
+    /**
+     * <p>Tests loadMap method to load a map</p>
+     */
     @Test
     public void shouldLoadMapIntoJavaObjects() {
 
@@ -45,6 +54,9 @@ class MapLoaderTest {
         assertThat(l_players, equalTo(l_expectedPlayers));
     }
 
+    /**
+     * <p>Create expected objects for the test to assert</p>
+     */
     private void createObjectsToAssert(List<Continent> expectedContinents, List<Country> expectedCountries) {
         Continent l_continent1 = new Continent(1, "Norddeutschland", 3);
         Continent l_continent2 = new Continent(2, "Westdeutschland", 4);

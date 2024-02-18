@@ -9,13 +9,21 @@ public class Player {
 
     public static Scanner Scanner;
 
-    String d_name;
-    List<Country> d_countries;
-    int d_reinforcements;
-    Queue<Order> d_orderList;
+    private String d_name;
+    private List<Country> d_countries;
+    private int d_reinforcements;
+    private Queue<Order> d_orderList;
 
+    /**
+     * <p>Constructor without arguments for Player</p>
+     */
     public Player() {}
 
+    /**
+     * <p>Constructor with player name and countries for Player</p>
+     * @param p_name name of the player
+     * @param p_countries list of countries that belong to this player
+     */
     public Player(String p_name, List<Country> p_countries) {
         this.d_name = p_name;
         this.d_countries = p_countries;
@@ -23,25 +31,50 @@ public class Player {
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
     }
 
-
+    /**
+     * <p>Constructor with player name</p>
+     * @param p_name name of the player
+     */
     public Player(String p_name) {
         this(p_name, new ArrayList<>());
     }
 
+    /**
+     * <p>Getter for player name</p>
+     * @return name of the player
+     */
     public String getD_name() {
         return d_name;
     }
 
+    /**
+     * <p>Getter for countries list</p>
+     * @return list of countries that belong to the player
+     */
     public List<Country> getD_countries() {
         return d_countries;
     }
 
+    /**
+     * <p>Getter for count of reinforcements</p>
+     * @return number of reinforcements
+     */
     public int getD_reinforcements() {
         return d_reinforcements;
     }
+
+    /**
+     * <p>Getter for order list</p>
+     * @return queue that contains the orders
+     */
     public Queue<Order> getD_orderList() {
         return d_orderList;
     }
+
+    /**
+     * <p>Setter for reinforcement count</p>
+     * @param d_reinforcements reinforcement count to set
+     */
     public void setD_reinforcements(int d_reinforcements) {
         this.d_reinforcements = d_reinforcements;
     }
@@ -151,6 +184,11 @@ public class Player {
         return null;
     }
 
+    /**
+     * <p>Equals method to check the equality between two player objects</p>
+     * @param p_other the object to which this object is compared
+     * @return true if the contents of the objects are equal
+     */
     @Override
     public boolean equals(Object p_other) {
 
@@ -170,6 +208,10 @@ public class Player {
                 && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList);
     }
 
+    /**
+     * <p>Gives the hashcode of a player object</p>
+     * @return hashcode of the object
+     */
     @Override
     public int hashCode() {
         return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList);

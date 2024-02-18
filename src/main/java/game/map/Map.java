@@ -23,11 +23,19 @@ public class Map {
     private final List<Country> d_countries;
     private final List<Player> d_players;
 
-
+    /**
+     * <p>Constructor without arguments for Map</p>
+     */
     public Map() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
+    /**
+     * <p>Constructor with all arguments for Map</p>
+     * @param p_continents list of continents
+     * @param p_countries list of countries
+     * @param p_players list of players
+     */
     public Map(List<Continent> p_continents, List<Country> p_countries, List<Player> p_players) {
         this.d_continents = p_continents;
         this.d_countries = p_countries;
@@ -107,23 +115,25 @@ public class Map {
     public List<Player> getD_players() {
         return d_players;
     }
+
     /**
      * <p>This method assigns countries to each player</p>
-     * @param P_player represent list of players.
-     * @param P_countries represent list of countries.
+     *
+     * @param p_player represent list of players.
+     * @param p_countries represent list of countries.
      * @throws IllegalArgumentException when a player with that name does not exist
      * @author Naveen
      */
-    public void assignCountries(List<Player> P_player, List<Country> P_countries) {
+    public void assignCountries(List<Player> p_player, List<Country> p_countries) {
 
         // This snippet checks if there are any countries available to assign.
         // If the list of countries (P_countries) is empty, it prints a message and exits the function.
-                if (P_countries.isEmpty()) {
+                if (p_countries.isEmpty()) {
                     System.out.println("No countries available to assign.");
                     return;
                 }
         // This line shuffles the list of countries randomly.
-                Collections.shuffle(P_countries);
+                Collections.shuffle(p_countries);
 
         // This determines how many countries each player ought to obtain.
         // The entire number of countries is divided by the total number of players.
@@ -131,17 +141,17 @@ public class Map {
 
 
 
-        int l_CountriesPerPlayer = (P_countries.size()) / (P_player.size());
+        int l_CountriesPerPlayer = (p_countries.size()) / (p_player.size());
 
         // This loop assigns countries to each player.
         // It iterates through each player (P_player) and assigns a number of countries equal to l_CountriesPerPlayer.
         // It creates a sublist of countries (l_assignedCountries) and adds them to the player's list of assigned countries.
 
                 int l_Index = 0;
-                for (Player l_player : P_player) {
+                for (Player l_player : p_player) {
                     List<Country> l_assignedCountries = new ArrayList<>();
                     for (int i = 0; i < l_CountriesPerPlayer; i++) {
-                        l_assignedCountries.add(P_countries.get(l_Index));
+                        l_assignedCountries.add(p_countries.get(l_Index));
                         l_Index++;
                     }
                     l_player.getD_countries().addAll(l_assignedCountries);
@@ -153,13 +163,13 @@ public class Map {
         // The player indices list (l_player_Index) is shuffled in order to vary the assignment order.
         // After then, a random player is assigned to each remaining countries.
 
-                while (l_Index < P_countries.size()) {
-                    List<Integer> l_player_Index = IntStream.range(0, P_player.size()).boxed().collect(toList());
+                while (l_Index < p_countries.size()) {
+                    List<Integer> l_player_Index = IntStream.range(0, p_player.size()).boxed().collect(toList());
                     Collections.shuffle(l_player_Index);
                     int l_idx_In_PlayerIndices = 0;
-                    while (l_Index < P_countries.size()) {
-                        Player l_random_Player = P_player.get(l_player_Index.get(l_idx_In_PlayerIndices));
-                        l_random_Player.getD_countries().add(P_countries.get(l_Index));
+                    while (l_Index < p_countries.size()) {
+                        Player l_random_Player = p_player.get(l_player_Index.get(l_idx_In_PlayerIndices));
+                        l_random_Player.getD_countries().add(p_countries.get(l_Index));
                         l_idx_In_PlayerIndices++;
                         l_Index++;
 
