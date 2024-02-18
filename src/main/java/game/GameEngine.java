@@ -128,18 +128,19 @@ public class GameEngine {
         final int l_reinforcements_per_player = 5; // Default reinforcements per player
 
         for (Player l_player : p_map.getD_players()) {
-            int l_currentReinforcements = l_player.getD_reinforcements(); // current reinforcements
+            l_player.setD_reinforcements(l_reinforcements_per_player);
 
-            for (Continent continent : p_map.getD_continents()) {
-                if (playerOwnsContinent(p_map,l_player, continent)) {
-                    // If the player owns the continent, add the bonus armies
-                    l_currentReinforcements += continent.getD_bonus();
+            int l_additionalReinforcements = 0;
+            for (Continent l_continent : p_map.getD_continents()) {
+                if (playerOwnsContinent(p_map,l_player, l_continent)) {
+                    // If the player owns the continent, add the bonus reinforcements
+                    l_additionalReinforcements += l_continent.getD_bonus();
                 }
             }
             // Set the total reinforcements for the player
-            l_player.setD_reinforcements(l_currentReinforcements + l_reinforcements_per_player);
+            l_player.setD_reinforcements(l_player.getD_reinforcements() + l_additionalReinforcements);
         }
-        System.out.println("Reinforcement armies are assigned");
+        System.out.println("Reinforcements are assigned");
     }
 
     /**

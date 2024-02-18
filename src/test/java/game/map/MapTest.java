@@ -210,23 +210,66 @@ class MapTest {
     }
 
     /**
-     * <p>Test assignReinforcements when 5 armies  assigned to each player</p>
+     * <p>Test assignReinforcements when 5 reinforcements  assigned to each player</p>
      */
     @Test
     void testAssignReinforcements() {
-        // Create players
+
         Player l_player1 = new Player("Player1");
         Player l_player2 = new Player("Player2");
-        // Add players to the map
         d_map.addPlayer(l_player1.getD_name());
         d_map.addPlayer(l_player2.getD_name());
 
-        // Call assignReinforcements method
         GameEngine.assignReinforcements(d_map);
 
-        // Verify reinforcements for each player
-        assertEquals(5, l_player1.getD_reinforcements()); // Initial reinforcements for all players are 5
+        // check reinforcements for each player
+        assertEquals(5, l_player1.getD_reinforcements()); // Initial reinforcements for two players are 5
         assertEquals(5, l_player2.getD_reinforcements());
     }
+
+    /**
+     * <p>Test assignReinforcements when bonus reinforcements assigned to each player</p>
+     */
+    @Test
+    public void testAssignReinforcementsWithContinentBonus() {
+
+
+        Player l_player1 = new Player("Player1");
+        Player l_player2 = new Player("Player2");
+
+        // Add players to the map
+        d_map.getD_players().add(l_player1);
+        d_map.getD_players().add(l_player2);
+
+        Continent l_continent1 = new Continent(1, "Continent 1", Arrays.asList(1, 3), 3);
+        Continent l_continent2 = new Continent(2, "Continent 2", Arrays.asList(2, 4), 5);
+
+        List<Continent>l_continents = Arrays.asList(l_continent1, l_continent2);
+
+        Country l_country1 = new Country(1, "country1", l_continent1);
+        Country l_country2 = new Country(2, "country2", l_continent2);
+        Country l_country3 = new Country(3, "country3", l_continent1);
+        Country l_country4 = new Country(4, "country4", l_continent2);
+
+        List<Country> l_countries = Arrays.asList(l_country1, l_country2, l_country3, l_country4);
+        // Add continents to the map
+        d_map.getD_continents().addAll(l_continents);
+        // Add countries to the map
+        d_map.getD_countries().addAll(l_countries);
+
+
+        l_player1.getD_countries().addAll(Arrays.asList(l_country1, l_country2, l_country3));
+        l_player2.getD_countries().add(l_country4);
+
+        // Assign reinforcements
+        GameEngine.assignReinforcements(d_map);
+
+        // Check player 1 received correct number of reinforcements
+        assertEquals(8, l_player1.getD_reinforcements()); // Base: 5 + Bonus: 3 = 8
+
+        // Check player 2 received correct number of reinforcements
+        assertEquals(5, l_player2.getD_reinforcements()); // Base: 5
+    }
+
 
 }
