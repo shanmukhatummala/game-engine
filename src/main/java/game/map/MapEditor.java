@@ -2,6 +2,7 @@ package game.map;
 
 import static game.GameEngine.RESOURCES_PATH;
 import static game.map.MapSaver.saveMap;
+import static game.map.MapValidator.isMapValid;
 import static game.map.MapShower.showMap;
 
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.io.IOException;
  * MapEditor is used for performing edit operations on the map
  */
 public class MapEditor {
+	
 
     /**
      * <p>This method adds a continent to the list of continents in the map</p>
@@ -31,6 +33,10 @@ public class MapEditor {
                         System.out.println("Enter the right file name in save command!");
                         continue;
                     }
+                    if (!isMapValid(p_map)) {
+                    	System.out.println("Current map is not valid: aborting the saving process.");
+                    	continue;
+                    }
                     saveMap(RESOURCES_PATH + p_fileName, p_map);
                     break;
                 }
@@ -38,7 +44,10 @@ public class MapEditor {
                     showMap(p_map);
                 }
                 else if (l_args.length == 1 && "validatemap".equals(l_args[0])) {
-                    // call validateMap() method from here
+                    if (isMapValid(p_map))
+                    	System.out.println("The current map is valid!");
+                    else
+                    	System.out.println("The current map isn't valid.");
                 } else if (l_args.length >= 1 && l_args[0].startsWith("edit")) {
                     // edit commands are of 2 types -- add or remove
                     // edit commands would be implemented by Joyjit. Leaving this for them.
