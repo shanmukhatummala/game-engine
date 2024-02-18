@@ -56,9 +56,7 @@ class MapTest {
         int l_id = 1;
         Continent l_continent1 = new Continent(l_id, "Continent1", 3);
         Continent l_continent2 = new Continent(l_id, "Continent2", 5);
-
         d_map.addContinent(l_continent1);
-
         assertThrows(IllegalArgumentException.class, () -> {
             d_map.addContinent(l_continent2);
         }, "Continent with same id already exists");
