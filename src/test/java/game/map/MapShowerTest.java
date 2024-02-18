@@ -5,12 +5,15 @@
  import org.junit.jupiter.api.BeforeEach;
  import org.junit.jupiter.api.Test;
 
+ import static game.map.MapHelper.playerOwnsContinent;
  import static game.map.MapLoader.loadMap;
  import static game.map.MapShower.showMap;
  import static org.junit.jupiter.api.Assertions.*;
 
  import java.io.ByteArrayOutputStream;
  import java.io.PrintStream;
+ import java.util.ArrayList;
+ import java.util.Arrays;
  import java.util.List;
 
  class MapShowerTest {
@@ -24,8 +27,11 @@
          map = new Map();
      }
 
+     /**
+      * Tests the showmap method when the countries are not owned by any player.
+      */
      @Test
-     void showMapTest() {
+     void showMapTestNoOwner() {
          // Creating the test data
          loadMap(path, map);
          // Redirecting the standard output for testing process
@@ -89,35 +95,38 @@
 
      }
 
+
+     /**
+      * Tests the showmap method when countries and/or continents are owned by a player.
+      */
      @Test
-     void showMapTest2() {
-         // Create continents
+     void showMapTestOwner() {
 
-         Continent norddeutschland = new Continent(1, "Norddeutschland", null, 0);
-         Continent westdeutschland = new Continent(2, "Westdeutschland", null, 0);
+         // Creating continents
+         Continent norddeutschland = new Continent(1, "Norddeutschland",List.of(1, 2), 5);
+         Continent westdeutschland = new Continent(2, "Westdeutschland",List.of(3, 4), 5);
 
-         // Create countries
-         Country ostfriesland = new Country(1, "Ostfriesland", norddeutschland);
-         Country holstein = new Country(2, "Holstein", norddeutschland);
-         Country schleswig = new Country(3, "Schleswig", westdeutschland);
-         Country hamburg = new Country(4, "Hamburg", westdeutschland);
+         // Creating countries
+         Country ostfriesland = new Country(1, "Ostfriesland", norddeutschland, new ArrayList<>(Arrays.asList(2,3)), 0);
+         Country holstein = new Country(2, "Holstein", norddeutschland, new ArrayList<>(Arrays.asList(1,3)), 0);
+         Country schleswig = new Country(3, "Schleswig", westdeutschland, new ArrayList<>(Arrays.asList(1,2,4)), 0);
+         Country hamburg = new Country(4, "Hamburg", westdeutschland, new ArrayList<>(Arrays.asList(3)),0);
 
-         // Create players
+         // Creating players
          Player player1 = new Player("Player1", List.of(ostfriesland, holstein, schleswig));
          Player player2 = new Player("Player2", List.of(hamburg));
 
-         // Assign countries to players
-         ostfriesland.setOwner(player1);
-         holstein.setOwner(player1);
-         schleswig.setOwner(player1);
-         hamburg.setOwner(player2);
+         // Loading the map with above continents, countries, players
+         map.getD_countries().addAll(Arrays.asList(ostfriesland, holstein, schleswig, hamburg));
+         map.getD_continents().addAll(Arrays.asList(norddeutschland,westdeutschland ));
+         map.getD_players().addAll(Arrays.asList(player1, player2));
 
          // Redirecting the standard output for testing process
          ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
          System.setOut(new PrintStream(outputStreamCaptor));
 
          // Calling the showMap method for testing
-         MapShower.showMap(map);
+         showMap(map);
 
          // Restore standard output
          System.setOut(System.out);
@@ -137,8 +146,8 @@
          assertEquals("Country is owned by: Player1", lines[8]);
          assertEquals("Number of armies : 0", lines[9]);
          assertEquals("Neighbors:", lines[10]);
-         assertEquals("    - Schleswig", lines[11]);
-         assertEquals("    - Holstein", lines[12]);
+         assertEquals("    - Holstein", lines[11]);
+         assertEquals("    - Schleswig", lines[12]);
          assertEquals("----------------------------------------------------------------", lines[13]);
          assertEquals("Country   : Holstein", lines[14]);
          assertEquals("Continent : Norddeutschland", lines[15]);
@@ -165,9 +174,4 @@
          assertEquals("    - Schleswig", lines[36]);
          assertEquals("----------------------------------------------------------------", lines[37]);
      }
-
-
-
-
-
  }
