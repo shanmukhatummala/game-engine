@@ -11,9 +11,11 @@ public class Player {
     int d_totalArmyCount;
     int d_reinforcements;
     Queue<Order> d_orderList;
-    public static Scanner Scanner;
+
+    public static Scanner Scanner = new Scanner(System.in);
 
     public Player() {}
+
 
 
     public Player(String p_name, List<Country> p_countries, int p_totalArmyCount) {
