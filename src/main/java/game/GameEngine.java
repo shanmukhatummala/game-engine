@@ -53,7 +53,7 @@ public class GameEngine {
                     } else {
                         loadMap(l_filePath, l_map);
                     }
-                    //editMap(l_bufferedReader, l_map, l_fileName);
+                    editMap(l_bufferedReader, l_map, l_fileName);
                 }
                 else if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
                     showMap(l_map);

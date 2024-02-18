@@ -6,13 +6,15 @@ import java.util.*;
  * Player is a POJO representing a player
  */
 public class Player {
+
+    public static Scanner Scanner;
     String d_name;
     List<Country> d_countries;
     int d_totalArmyCount;
     int d_reinforcements;
     Queue<Order> d_orderList;
 
-    public static Scanner Scanner = new Scanner(System.in);
+
 
     public Player() {}
 
