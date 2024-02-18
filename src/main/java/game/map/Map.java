@@ -3,22 +3,24 @@ package game.map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.*;
-
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
 /**
  * Map is used for storing the details of the map It contains the details of countries, continents
- * and players associated with the map All manipulation of the Map is executed on an object of this
- * class
+ * and players associated with the map.
+ * All manipulation of the Map is executed on an object of this class
+ * @author Shanmukha
  */
 @Data
 public class Map {
