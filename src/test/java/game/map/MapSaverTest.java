@@ -21,11 +21,12 @@ public class MapSaverTest {
     final String d_pathToSaveMapOutcome = "src/test/resources/testMapSaver.map";
     private List<Country> countries;
     private List<Continent> continents;
+
     @BeforeEach
     void setUp() {
         continents = createContinents();
         countries = createCountries(continents);
-        map = new Map(new ArrayList<>(), new ArrayList<>(), continents, countries, new ArrayList<>(), new TreeMap<>());
+        map = new Map(continents, countries, new ArrayList<>());
         linkCountries();
     }
 

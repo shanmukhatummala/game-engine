@@ -50,9 +50,9 @@ public class EditCountryProcessor {
     if (ValidationHelper.isInteger(p_country_id) && ValidationHelper.isInteger(p_continent_id)) {
 
       Continent l_linked_continent =
-          map.getContinents().stream()
+          map.getD_continents().stream()
               .filter(Objects::nonNull)
-              .filter(c -> c.getId() == Integer.parseInt(p_continent_id))
+              .filter(c -> c.getD_id() == Integer.parseInt(p_continent_id))
               .findFirst()
               .orElse(null);
 
