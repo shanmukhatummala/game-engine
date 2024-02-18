@@ -6,9 +6,7 @@ import java.util.*;
  * Player is a POJO representing a player
  */
 public class Player {
-
     public static Scanner Scanner = new Scanner(System.in);
-
     private String d_name;
     private List<Country> d_countries;
     private int d_reinforcements;
@@ -107,7 +105,6 @@ public class Player {
         }
     }
 
-
     /**
      *
      * @return the next order(first order in the queue) of the player from the order list
@@ -123,7 +120,7 @@ public class Player {
      */
     private String[] inputUserCommand(){
         if(System.in.equals(Scanner)){
-            System.out.println("Player: " + this.getD_name() + ", enter the deployment command: ");
+            System.out.println("enter the deployment command: ");
         }
         String l_command = Scanner.nextLine();
         return l_command.split(" ");
