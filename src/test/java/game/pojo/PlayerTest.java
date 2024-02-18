@@ -12,22 +12,15 @@ import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 
 class PlayerTest {
-
     private List<Player> d_players;
     private Map<String,List<Country>> d_playersCountries;
-    Scanner d_scannerPlayer1;
-    Scanner d_scannerPlayer2;
+
     @BeforeEach
     void setUp() {
         List<Continent> l_continents = createContinents();
         d_playersCountries = createCountries(l_continents);
         d_players = createPLayers();
-        String l_userCommandPlayer1 = "deploy country1 4\n";
-        String l_userCommandPlayer2 = "deploy country5 3\n";
-        ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
-        d_scannerPlayer1 = new Scanner(l_inputStream);
-        l_inputStream = new ByteArrayInputStream(l_userCommandPlayer2.getBytes());
-        d_scannerPlayer2 = new Scanner(l_inputStream);
+
     }
 
     private List<Player> createPLayers(){
@@ -78,15 +71,26 @@ class PlayerTest {
 
     @Test
     void issue_order() {
-        //test player1 and player2
+        Scanner d_scannerPlayer1;
+        String l_userCommandPlayer1 = "deploy country1 4\n";
+        ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
+        d_scannerPlayer1 = new Scanner(l_inputStream);
         Player.Scanner = d_scannerPlayer1;
         d_players.get(0).issue_order();
         Assertions.assertEquals(1, d_players.get(0).getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
         Order l_player1Order = d_players.get(0).next_order();
         Assertions.assertNotNull(l_player1Order,"An order should exist");
+    }
+
+    @Test
+    void issue_orderNotValidOnce() {
+        Scanner d_scannerPlayer2;
+        String l_userCommandPlayer2 = "test country5 3\ndeploy country5 4\n";
+        ByteArrayInputStream l_inputStream = new ByteArrayInputStream(l_userCommandPlayer2.getBytes());
+        d_scannerPlayer2 = new Scanner(l_inputStream);
         Player.Scanner = d_scannerPlayer2;
         d_players.get(1).issue_order();
-        Assertions.assertEquals(2, d_players.get(1).getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
+        Assertions.assertEquals(1, d_players.get(1).getD_reinforcements(), "Reinforcements should be reduced by the army number deployed.");
         Order l_player2Order = d_players.get(1).next_order();
         Assertions.assertNotNull(l_player2Order,"An order should exist");
     }
