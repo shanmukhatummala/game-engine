@@ -49,7 +49,12 @@ public class EditContinentProcessor {
    */
   private static void processAddCommand(String p_continent_id, String p_continent_value, Map map) {
     if (ValidationHelper.isInteger(p_continent_id) && StringUtils.isNotEmpty(p_continent_value)) {
-      map.addContinent(new Continent(Integer.parseInt(p_continent_id), p_continent_value));
+      try {
+        map.addContinent(new Continent(Integer.parseInt(p_continent_id), p_continent_value));
+        System.out.println("Continent Added Successfully!");
+      } catch (Exception e) {
+        System.out.println("Continent could not be added!");
+      }
     }
   }
 

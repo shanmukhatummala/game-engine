@@ -63,8 +63,13 @@ public class EditCountryProcessor {
 
       map.addCountryToContinent(Integer.parseInt(p_country_id), Integer.parseInt(p_continent_id));
 
-      map.addCountry(
-          new Country(Integer.parseInt(p_country_id), p_continent_id, l_linked_continent));
+      try {
+        map.addCountry(
+            new Country(Integer.parseInt(p_country_id), p_continent_id, l_linked_continent));
+        System.out.println("Country Added Successfully!");
+      } catch (Exception e) {
+        System.out.println("Country could not be added!");
+      }
     }
   }
 
