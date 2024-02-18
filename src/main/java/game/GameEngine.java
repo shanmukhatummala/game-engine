@@ -27,6 +27,11 @@ public class GameEngine {
     public static final String RESOURCES_PATH = "src/main/resources/";
     private final Map d_map;
 
+    /**
+     * Constructor with map argument for GameEngine
+     *
+     * @param p_map map for the game
+     */
     public GameEngine(Map p_map) {
         this.d_map = p_map;
     }
@@ -122,7 +127,6 @@ public class GameEngine {
      * @param p_map map for the game
      * @author Naveen
      */
-
     public static void assignReinforcements(Map p_map) {
 
         final int l_reinforcements_per_player = 5; // Default reinforcements per player

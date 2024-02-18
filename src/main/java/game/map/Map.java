@@ -9,8 +9,6 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.*;
 
 import java.util.stream.IntStream;
@@ -21,7 +19,6 @@ import static java.util.stream.Collectors.toList;
  * Map is used for storing the details of the map It contains the details of countries, continents
  * and players associated with the map All manipulation of the Map is executed on an object of this
  * class
- * @author Shanmukha
  */
 @Data
 public class Map {
@@ -140,10 +137,6 @@ public class Map {
     }
   }
 
-  //    public List<Player> getD_players() {
-  //        return d_players;
-  //    }
-
   /**
    * This method adds a player to the list of players
    *
@@ -176,10 +169,6 @@ public class Map {
     }
     throw new IllegalArgumentException("No player exists with this name");
   }
-
-  //    public List<Country> getD_countries() {
-  //        return d_countries;
-  //    }
 
   /**
    * Adds a country to a continent.
