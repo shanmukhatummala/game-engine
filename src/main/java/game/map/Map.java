@@ -175,10 +175,6 @@ public class Map {
         throw new IllegalArgumentException("No player exists with this name");
     }
 
-
-
-
-
     public List<Country> getD_countries() {
         return d_countries;
     }
@@ -328,7 +324,6 @@ public class Map {
       System.out.println("Neighbor Country with input ID does not exist!");
       return;
     }
-
     l_country.get().removeNeighbor(p_neighbor_country_id);
     System.out.println("Neighbor Country removed successfully!");
   }
