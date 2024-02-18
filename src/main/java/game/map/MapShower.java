@@ -4,7 +4,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 import java.util.List;
 
-import static game.map.MapHelper.getCountryWithId;
+import static game.map.MapHelper.*;
 
 /**
  * MapShower displays all the information about the map in text format
@@ -58,39 +58,24 @@ public class MapShower {
      * @param p_players List of players added in the game
      * @return Name of the player that owns the given continent or returns Null if there is no owner yet
      */
-    private static Player getContinentOwner(Map p_map,Continent p_continent, List<Player> p_players) {
-        for (Player l_player : p_players) {
-            if (MapHelper.playerOwnsContinent(p_map,l_player, p_continent)) {
-                return l_player;
-            }
-        }
-        return null;
-    }
+//    private static Player getContinentOwner(Map p_map,Continent p_continent, List<Player> p_players) {
+//        for (Player l_player : p_players) {
+//            if (MapHelper.playerOwnsContinent(p_map,l_player, p_continent)) {
+//                return l_player;
+//            }
+//        }
+//        return null;
+//    }
 
     /**  <p>getCountryOwner - This generates the name of the owner of a country</p>
      * @param p_country Name of the Country
      * @param p_players List of players added in the game
      * @return Name of the player that owns the given country or returns Null if there is no owner yet
      */
-    private static Player getCountryOwner(Country p_country, List<Player> p_players) {
-        for (Player l_player : p_players) {
-            if (l_player.getD_countries().contains(p_country)) {
-                return l_player;
-            }
-        }
-        return null;
-    }
-
-    /**  <p>getCountryById - This generates Country name from the country id</p>
-     * @param p_map reference to the map
-     * @param p_id id of the neighbor country
-     * @return Name of the neighbor country
-     */
-//    private static Country getCountryById(Map p_map, int p_id) {
-//        List<Country> countries = p_map.getD_countries();
-//        for (Country l_country : countries) {
-//            if (l_country.getD_id() == p_id) {
-//                return l_country;
+//    private static Player getCountryOwner(Country p_country, List<Player> p_players) {
+//        for (Player l_player : p_players) {
+//            if (l_player.getD_countries().contains(p_country)) {
+//                return l_player;
 //            }
 //        }
 //        return null;

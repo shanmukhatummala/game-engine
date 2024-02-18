@@ -58,5 +58,22 @@ public class MapHelper {
         return true;
     }
 
+    public static Player getContinentOwner(Map p_map,Continent p_continent, List<Player> p_players) {
+        for (Player l_player : p_players) {
+            if (MapHelper.playerOwnsContinent(p_map,l_player, p_continent)) {
+                return l_player;
+            }
+        }
+        return null;
+    }
+
+    public static Player getCountryOwner(Country p_country, List<Player> p_players) {
+        for (Player l_player : p_players) {
+            if (l_player.getD_countries().contains(p_country)) {
+                return l_player;
+            }
+        }
+        return null;
+    }
 
 }
