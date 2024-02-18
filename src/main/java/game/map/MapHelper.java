@@ -1,9 +1,7 @@
 package game.map;
-
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-
 import java.util.List;
 
 /**
@@ -42,6 +40,7 @@ public class MapHelper {
     }
 
     /**  <p>playerOwnsContinent - This is a boolean to check if a continent is owned by the given single player or not</p>
+     * @param p_map reference to the map
      * @param p_continent Name of the continent
      * @param p_player A single player from the list of players added in the game
      * @return Returns True if the given continent is owned by the given player, else returns False.

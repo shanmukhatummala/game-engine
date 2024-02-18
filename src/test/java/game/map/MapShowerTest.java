@@ -4,12 +4,9 @@
  import game.pojo.Player;
  import org.junit.jupiter.api.BeforeEach;
  import org.junit.jupiter.api.Test;
-
- import static game.map.MapHelper.playerOwnsContinent;
  import static game.map.MapLoader.loadMap;
  import static game.map.MapShower.showMap;
  import static org.junit.jupiter.api.Assertions.*;
-
  import java.io.ByteArrayOutputStream;
  import java.io.PrintStream;
  import java.util.ArrayList;
@@ -17,14 +14,13 @@
  import java.util.List;
 
  class MapShowerTest {
-
-     private String path;
-     private Map map;
+     private String d_path;
+     private Map d_map;
 
      @BeforeEach
      void setUp() {
-         path = "src/test/resources/test_load_map.map";
-         map = new Map();
+         d_path = "src/test/resources/test_load_map.map";
+         d_map = new Map();
      }
 
      /**
@@ -33,17 +29,16 @@
      @Test
      void showMapTestNoOwner() {
          // Creating the test data
-         loadMap(path, map);
-         // Redirecting the standard output for testing process
-         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-         System.setOut(new PrintStream(outputStreamCaptor));
-         // Calling the showMap method for testing
-         showMap(map);
-         // Restore standard output
-         System.setOut(System.out);
+         loadMap(d_path, d_map);
 
-         // converting the captured output into lines so that we can compare easily with the expected output
-         String[] lines = outputStreamCaptor.toString().split("\\r?\\n");
+         // Redirecting the standard output for testing process and Calling the showMap method for testing
+         ByteArrayOutputStream l_output = new ByteArrayOutputStream();
+         System.setOut(new PrintStream(l_output));
+         showMap(d_map);
+
+         // Restoring the standard output and converting the captured output into lines so that we can compare easily with the expected output
+         System.setOut(System.out);
+         String[] lines = l_output.toString().split("\\r?\\n");
 
          // Testing the output
          assertEquals("---------------------------Continents---------------------------", lines[0]);
@@ -92,9 +87,7 @@
          assertEquals("Neighbors:", lines[43]);
          assertEquals("    - " + "Schleswig", lines[44]);
          assertEquals("    - " + "Holstein", lines[45]);
-
      }
-
 
      /**
       * Tests the showmap method when countries and/or continents are owned by a player.
@@ -102,37 +95,31 @@
      @Test
      void showMapTestOwner() {
 
-         // Creating continents
-         Continent norddeutschland = new Continent(1, "Norddeutschland",List.of(1, 2), 5);
-         Continent westdeutschland = new Continent(2, "Westdeutschland",List.of(3, 4), 5);
+         // Creating continents, countries and players
+         Continent l_norddeutschland = new Continent(1, "Norddeutschland",List.of(1, 2), 5);
+         Continent l_westdeutschland = new Continent(2, "Westdeutschland",List.of(3, 4), 5);
 
-         // Creating countries
-         Country ostfriesland = new Country(1, "Ostfriesland", norddeutschland, new ArrayList<>(Arrays.asList(2,3)), 0);
-         Country holstein = new Country(2, "Holstein", norddeutschland, new ArrayList<>(Arrays.asList(1,3)), 0);
-         Country schleswig = new Country(3, "Schleswig", westdeutschland, new ArrayList<>(Arrays.asList(1,2,4)), 0);
-         Country hamburg = new Country(4, "Hamburg", westdeutschland, new ArrayList<>(Arrays.asList(3)),0);
+         Country l_ostfriesland = new Country(1, "Ostfriesland", l_norddeutschland, new ArrayList<>(Arrays.asList(2,3)), 0);
+         Country l_holstein = new Country(2, "Holstein", l_norddeutschland, new ArrayList<>(Arrays.asList(1,3)), 0);
+         Country l_schleswig = new Country(3, "Schleswig", l_westdeutschland, new ArrayList<>(Arrays.asList(1,2,4)), 0);
+         Country l_hamburg = new Country(4, "Hamburg", l_westdeutschland, new ArrayList<>(Arrays.asList(3)),0);
 
-         // Creating players
-         Player player1 = new Player("Player1", List.of(ostfriesland, holstein, schleswig));
-         Player player2 = new Player("Player2", List.of(hamburg));
+         Player l_player1 = new Player("Player1", List.of(l_ostfriesland, l_holstein, l_schleswig));
+         Player l_player2 = new Player("Player2", List.of(l_hamburg));
 
          // Loading the map with above continents, countries, players
-         map.getD_countries().addAll(Arrays.asList(ostfriesland, holstein, schleswig, hamburg));
-         map.getD_continents().addAll(Arrays.asList(norddeutschland,westdeutschland ));
-         map.getD_players().addAll(Arrays.asList(player1, player2));
+         d_map.getD_countries().addAll(Arrays.asList(l_ostfriesland, l_holstein, l_schleswig, l_hamburg));
+         d_map.getD_continents().addAll(Arrays.asList(l_norddeutschland,l_westdeutschland ));
+         d_map.getD_players().addAll(Arrays.asList(l_player1, l_player2));
 
-         // Redirecting the standard output for testing process
-         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-         System.setOut(new PrintStream(outputStreamCaptor));
+         // Redirecting the standard output for testing process and Calling the showMap method for testing
+         ByteArrayOutputStream l_output = new ByteArrayOutputStream();
+         System.setOut(new PrintStream(l_output));
+         showMap(d_map);
 
-         // Calling the showMap method for testing
-         showMap(map);
-
-         // Restore standard output
+         // Restoring the standard output and converting the captured output into lines so that we can compare easily with the expected output
          System.setOut(System.out);
-
-         // converting the captured output into lines so that we can compare easily with the expected output
-         String[] lines = outputStreamCaptor.toString().split("\\r?\\n");
+         String[] lines = l_output.toString().split("\\r?\\n");
 
          // Testing the output
          assertEquals("---------------------------Continents---------------------------", lines[0]);
