@@ -63,7 +63,6 @@ public class Map {
     }
 
     d_continents.add(p_continent);
-    System.out.println("Continent added successfully!");
   }
 
   /**
@@ -106,7 +105,6 @@ public class Map {
       }
     }
     d_countries.add(p_country);
-    System.out.println("Country added successfully!");
   }
 
   /**

@@ -15,6 +15,7 @@ public class Country {
     private Continent d_continent;
     private List<Integer> d_neighborIdList;
     private int d_armyCount;
+    private Player owner;
 
     /**
      * <p>Constructor without arguments for Country</p>
@@ -116,6 +117,10 @@ public class Country {
         this.d_armyCount = d_armyCount;
     }
 
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+    
     /**
      * <p>Equals method to check the equality between two country objects</p>
      * @param p_other the object to which this object is compared
