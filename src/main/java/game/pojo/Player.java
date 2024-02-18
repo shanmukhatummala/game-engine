@@ -100,6 +100,10 @@ public class Player {
                     continue;
                 }
                 l_commandStateDone = true;
+            }else{
+                if(!Scanner.hasNextLine()){
+                    Scanner = new Scanner(System.in);
+                }
             }
         }
     }
