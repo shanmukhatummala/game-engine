@@ -9,7 +9,6 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.*;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -62,7 +61,6 @@ public class Map {
     }
 
     d_continents.add(p_continent);
-    System.out.println("Continent added successfully!");
   }
 
   /**
@@ -105,7 +103,6 @@ public class Map {
       }
     }
     d_countries.add(p_country);
-    System.out.println("Country added successfully!");
   }
 
   /**
@@ -199,26 +196,37 @@ public class Map {
   /**
    * This method assigns countries to each player
    *
-   * @param p_player represent list of players.
+   * @param p_players represent list of players.
    * @param p_countries represent list of countries.
    * @throws IllegalArgumentException when a player with that name does not exist
    * @author Naveen
    */
-  public void assignCountries(List<Player> p_player, List<Country> p_countries) {
+  public boolean assignCountries(List<Player> p_players, List<Country> p_countries) {
 
     // This snippet checks if there are any countries available to assign.
     // If the list of countries (P_countries) is empty, it prints a message and exits the function.
     if (p_countries.isEmpty()) {
       System.out.println("No countries available to assign.");
-      return;
+      return false;
     }
+
+    if (p_players.isEmpty()) {
+      System.out.println("No players exist.");
+      return false;
+    }
+
+    if (p_players.size() > p_countries.size()) {
+      System.out.println("Player count is more than number of countries present in the map -- Edit your map and add more to play or choose a different map");
+      return false;
+    }
+
     // This line shuffles the list of countries randomly.
     Collections.shuffle(p_countries);
 
     // This determines how many countries each player ought to obtain.
     // The entire number of countries is divided by the total number of players.
 
-    int l_CountriesPerPlayer = (p_countries.size()) / (p_player.size());
+    int l_CountriesPerPlayer = (p_countries.size()) / (p_players.size());
 
     // This loop assigns countries to each player.
     // It iterates through each player (P_player) and assigns a number of countries equal to
@@ -227,7 +235,7 @@ public class Map {
     // assigned countries.
 
     int l_Index = 0;
-    for (Player l_player : p_player) {
+    for (Player l_player : p_players) {
       List<Country> l_assignedCountries = new ArrayList<>();
       for (int i = 0; i < l_CountriesPerPlayer; i++) {
         l_assignedCountries.add(p_countries.get(l_Index));
@@ -242,16 +250,18 @@ public class Map {
     // After then, a random player is assigned to each remaining countries.
 
     while (l_Index < p_countries.size()) {
-      List<Integer> l_player_Index = IntStream.range(0, p_player.size()).boxed().collect(toList());
+      List<Integer> l_player_Index = IntStream.range(0, p_players.size()).boxed().collect(toList());
       Collections.shuffle(l_player_Index);
       int l_idx_In_PlayerIndices = 0;
       while (l_Index < p_countries.size()) {
-        Player l_random_Player = p_player.get(l_player_Index.get(l_idx_In_PlayerIndices));
+        Player l_random_Player = p_players.get(l_player_Index.get(l_idx_In_PlayerIndices));
         l_random_Player.getD_countries().add(p_countries.get(l_Index));
         l_idx_In_PlayerIndices++;
         l_Index++;
       }
     }
+
+    return true;
   }
 
   /**

@@ -81,10 +81,10 @@ public class GameEngine {
                                 for (int l_idx = 1; l_idx < l_commandArgs.length; l_idx = l_idx + 2) {
                                     if (l_commandArgs[l_idx].equals("-add")) {
                                         l_map.addPlayer(l_commandArgs[l_idx + 1]);
-                                        System.out.println("Player added");
+                                        System.out.println("Player " + l_commandArgs[l_idx + 1] + " added");
                                     } else {
                                         l_map.removePlayer(l_commandArgs[l_idx + 1]);
-                                        System.out.println("Player removed");
+                                        System.out.println("Player " + l_commandArgs[l_idx + 1] + " removed");
                                     }
                                 }
                             } catch (IllegalArgumentException e) {
@@ -95,7 +95,10 @@ public class GameEngine {
 
                         List<Player> players = l_map.getD_players();
                         List<Country> countries = l_map.getD_countries();
-                        l_map.assignCountries(players, countries);
+                        boolean countriesAssigned = l_map.assignCountries(players, countries);
+                        if (!countriesAssigned) {
+                            continue;
+                        }
                         System.out.println("Countries have been assigned");
                         startGameLoop(l_map);
                         System.out.println("Game over - all orders executed");
