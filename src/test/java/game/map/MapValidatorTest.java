@@ -1,6 +1,11 @@
 package game.map;
 
 import static game.map.MapLoader.loadMap;
+import static game.map.MapValidator.isMapValid;
+import static game.map.MapValidator.dfs;
+import static game.map.MapValidator.continentIsConnected;
+import static game.map.MapValidator.mapAndContinentsConnected;
+import static game.map.MapValidator.mapIsConnected;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +20,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Class testing the MapValidator class
+ */
 public class MapValidatorTest {
 	
 	private String d_path = "src/test/resources/test_load_map.map";
@@ -27,8 +35,10 @@ public class MapValidatorTest {
     Country d_country3;
     Country d_country4;
     Country d_country5;
-    MapValidator d_mapVal = new MapValidator();
 	
+    /**
+     * Creates a small map where we can change the borders for each different test.
+     */
     @BeforeEach
     void setUp() {
     	
@@ -63,7 +73,7 @@ public class MapValidatorTest {
     	List<Boolean> l_expectedResult = new ArrayList<Boolean>();
     	for (int i=0; i<d_map.getD_countries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
-    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getD_countries().get(0), d_map));
+    	assertEquals(l_expectedResult, dfs(d_map.getD_countries().get(0), d_map));
     }
     
     /**
@@ -92,7 +102,7 @@ public class MapValidatorTest {
     		l_expectedResult.add(Boolean.TRUE);
     	l_expectedResult.set(3, Boolean.FALSE);
     	
-    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getD_countries().get(0), d_map));
+    	assertEquals(l_expectedResult, dfs(d_map.getD_countries().get(0), d_map));
     }
     
     /**
@@ -119,7 +129,7 @@ public class MapValidatorTest {
     	for (int i=0; i<d_map.getD_countries().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	
-    	assertEquals(l_expectedResult, d_mapVal.dfs(d_map.getD_countries().get(0), d_map));
+    	assertEquals(l_expectedResult, dfs(d_map.getD_countries().get(0), d_map));
     }
     
     /**
@@ -128,7 +138,7 @@ public class MapValidatorTest {
     @Test
     void testMapIsConnectedConnectedMap() {
     	loadMap(d_path, d_map);
-    	assertTrue(d_mapVal.mapIsConnected(d_map));
+    	assertTrue(mapIsConnected(d_map));
     }
     
     /**
@@ -152,7 +162,7 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	assertFalse(d_mapVal.mapIsConnected(d_map));
+    	assertFalse(mapIsConnected(d_map));
     }
     
     /**
@@ -175,7 +185,7 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	assertFalse(d_mapVal.mapIsConnected(d_map));
+    	assertFalse(mapIsConnected(d_map));
     }
     
     /**
@@ -189,7 +199,7 @@ public class MapValidatorTest {
     	for (int i=0; i<l_continentToTest.getD_countryIdList().size(); i++)
     		l_expectedResult.add(Boolean.TRUE);
     	l_expectedResult.set(1, Boolean.FALSE);
-    	assertEquals(l_expectedResult, d_mapVal.dfs(l_continentToTest.getD_countryIdList().get(0), l_continentToTest, d_map));
+    	assertEquals(l_expectedResult, dfs(l_continentToTest.getD_countryIdList().get(0), l_continentToTest, d_map));
     }
     
     /**
@@ -199,7 +209,7 @@ public class MapValidatorTest {
     @Test
     void testmapAndContinentsConnectedRealMap() {
     	loadMap("src/test/resources/canada.map", d_map);
-    	assertTrue(d_mapVal.mapAndContinentsConnected(d_map));
+    	assertTrue(mapAndContinentsConnected(d_map));
     }
     
     /**
@@ -208,7 +218,7 @@ public class MapValidatorTest {
     @Test
     void testisMapValidGoodMap() {
     	loadMap("src/test/resources/canada.map", d_map);
-    	assertTrue(d_mapVal.isMapValid(d_map));
+    	assertTrue(isMapValid(d_map));
     }
     
     /**
@@ -217,7 +227,7 @@ public class MapValidatorTest {
     @Test
     void testisMapValidDisconnectedContinent() {
     	loadMap(d_path, d_map);
-    	assertFalse(d_mapVal.isMapValid(d_map));
+    	assertFalse(isMapValid(d_map));
     }
     
     /**
@@ -240,6 +250,6 @@ public class MapValidatorTest {
         d_map.addCountry(d_country4);
         d_map.addCountry(d_country5);
         
-    	assertFalse(d_mapVal.isMapValid(d_map));
+    	assertFalse(isMapValid(d_map));
     }
 }
