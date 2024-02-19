@@ -1,0 +1,14 @@
+[continents]
+Asia 4
+
+[countries]
+2 Japan 1
+4 Russia 1
+5 Taiwan 1
+6 India 1
+
+[borders]
+2 4 6 5
+4 2
+5 4
+6 4

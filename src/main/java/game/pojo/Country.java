@@ -53,7 +53,9 @@ public class Country {
      * @param p_neighborId id of the neighbor
      */
     public void addNeighbor(Integer p_neighborId) {
-        this.getD_neighborIdList().add(p_neighborId);
+        if (!this.getD_neighborIdList().contains(p_neighborId)) {
+            this.getD_neighborIdList().add(p_neighborId);
+        }
     }
 
     /**

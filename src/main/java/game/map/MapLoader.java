@@ -23,8 +23,9 @@ public class MapLoader {
      * @param p_map reference to the map
      */
     public static void loadMap(String p_path, Map p_map) {
-
         try (BufferedReader l_reader = new BufferedReader(new FileReader(p_path))) {
+            p_map.clearMap();
+
             String l_line;
             boolean l_readingContinents = false;
             boolean l_readingCountries = false;

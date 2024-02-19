@@ -43,8 +43,8 @@ public class EditContinentProcessor {
   /**
    * Adds a continent to the game map with the specified continent ID and name.
    *
-   * @param p_continent_name The ID of the continent to be added.
-   * @param p_continent_bonus The name of the continent to be added.
+   * @param p_continent_name The Name of the continent to be added.
+   * @param p_continent_bonus The Bonus of the continent to be added.
    * @param map The game map on which the command will be executed.
    */
   private static void processAddCommand(
