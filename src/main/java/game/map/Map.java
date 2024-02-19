@@ -199,6 +199,7 @@ public class Map {
    * @param p_players represent list of players.
    * @param p_countries represent list of countries.
    * @throws IllegalArgumentException when a player with that name does not exist
+   * @return true if countries assigned, else false
    * @author Naveen
    */
   public boolean assignCountries(List<Player> p_players, List<Country> p_countries) {

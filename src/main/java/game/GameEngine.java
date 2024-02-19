@@ -24,6 +24,9 @@ import static game.util.FileHelper.fileExists;
  */
 public class GameEngine {
 
+    /**
+     * This static variable stores the path for the resources directory
+     */
     public static final String RESOURCES_PATH = "src/main/resources/";
     private final Map d_map;
 
@@ -38,6 +41,7 @@ public class GameEngine {
 
     /**
      * <p>Starts the game, and reads the input commands from the user and calls the required methods</p>
+     * @param args contains the arguments passed to main - there won't be any for build 1
      */
     public static void main(String[] args) {
 
