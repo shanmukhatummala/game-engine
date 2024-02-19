@@ -42,30 +42,33 @@ public class EditCountryProcessor {
   /**
    * Adds a country to the game map with the specified country ID and continent ID.
    *
-   * @param p_country_id The ID of the country to be added.
-   * @param p_continent_id The ID of the continent to which the country will belong.
+   * @param p_country_name The Name of the country to be added.
+   * @param p_continent_name The Name of the continent to which the country will belong.
    * @param map The game map on which the command will be executed.
    */
-  private static void processAddCommand(String p_country_id, String p_continent_id, Map map) {
-    if (ValidationHelper.isInteger(p_country_id) && ValidationHelper.isInteger(p_continent_id)) {
+  private static void processAddCommand(String p_country_name, String p_continent_name, Map map) {
+    if (StringUtils.isNotEmpty(p_country_name) && StringUtils.isNotEmpty(p_continent_name)) {
 
       Continent l_linked_continent =
           map.getD_continents().stream()
               .filter(Objects::nonNull)
-              .filter(c -> c.getD_id() == Integer.parseInt(p_continent_id))
+              .filter(c -> Objects.equals(c.getD_name(), p_continent_name))
               .findFirst()
               .orElse(null);
 
       if (l_linked_continent == null) {
-        System.out.println("Continent ID: " + p_continent_id + " does not exist!");
+        System.out.println("Continent Name: " + p_continent_name + " does not exist!");
         return;
       }
 
-      map.addCountryToContinent(Integer.parseInt(p_country_id), Integer.parseInt(p_continent_id));
-
       try {
+        Integer l_country_id = map.getMaxCountryId() + 1;
+
         map.addCountry(
-            new Country(Integer.parseInt(p_country_id), p_continent_id, l_linked_continent));
+            new Country(l_country_id, p_country_name, l_linked_continent));
+
+        map.addCountryToContinent(l_linked_continent.getD_id(), l_country_id);
+
         System.out.println("Country Added Successfully!");
       } catch (Exception e) {
         System.out.println("Country could not be added!");

@@ -43,14 +43,19 @@ public class EditContinentProcessor {
   /**
    * Adds a continent to the game map with the specified continent ID and name.
    *
-   * @param p_continent_id The ID of the continent to be added.
-   * @param p_continent_value The name of the continent to be added.
+   * @param p_continent_name The ID of the continent to be added.
+   * @param p_continent_bonus The name of the continent to be added.
    * @param map The game map on which the command will be executed.
    */
-  private static void processAddCommand(String p_continent_id, String p_continent_value, Map map) {
-    if (ValidationHelper.isInteger(p_continent_id) && StringUtils.isNotEmpty(p_continent_value)) {
+  private static void processAddCommand(
+      String p_continent_name, String p_continent_bonus, Map map) {
+    if (StringUtils.isNotEmpty(p_continent_name) && ValidationHelper.isInteger(p_continent_bonus)) {
       try {
-        map.addContinent(new Continent(Integer.parseInt(p_continent_id), p_continent_value));
+        map.addContinent(
+            new Continent(
+                map.getMaxContinentId() + 1,
+                p_continent_name,
+                Integer.parseInt(p_continent_bonus))); // check ID
         System.out.println("Continent Added Successfully!");
       } catch (Exception e) {
         System.out.println("Continent could not be added!");
@@ -61,12 +66,12 @@ public class EditContinentProcessor {
   /**
    * Removes a continent from the game map with the specified continent ID.
    *
-   * @param p_continent_id The ID of the continent to be removed.
+   * @param p_continent_name The Name of the continent to be removed.
    * @param map The game map on which the command will be executed.
    */
-  private static void processRemoveCommand(String p_continent_id, Map map) {
-    if (ValidationHelper.isInteger(p_continent_id)) {
-      map.removeContinent(Integer.parseInt(p_continent_id));
+  private static void processRemoveCommand(String p_continent_name, Map map) {
+    if (StringUtils.isNotEmpty(p_continent_name)) {
+      map.removeContinent(p_continent_name);
     }
   }
 }
