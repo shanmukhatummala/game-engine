@@ -24,10 +24,10 @@ public class MapEditor {
      * @param p_fileName file that the user is editing
      */
     public static void editMap(BufferedReader p_bufferedReader, Map p_map, String p_fileName) {
-
-        try {
-            System.out.println("Enter commands to 'edit (or) validate (or) save map': ");
             while (true) {
+            try {
+                System.out.println("Enter commands to 'edit (or) validate (or) save map': ");
+
                 String l_command = p_bufferedReader.readLine();
                 String[] l_args = l_command.split(" ");
                 if (l_args.length == 2 && "savemap".equals(l_args[0])) {
@@ -54,11 +54,11 @@ public class MapEditor {
                 } else if (l_args.length >= 1 && l_args[0].startsWith("edit")) {
                     mapManipulator.processCommand(l_args, p_map);
                 } else {
-                    throw new IllegalArgumentException("Not a valid command");
+                    System.out.println("Not a valid command");
                 }
+            } catch (Exception e) {
+                continue;
             }
-        } catch (IOException l_e) {
-            throw new RuntimeException(l_e);
         }
     }
 }

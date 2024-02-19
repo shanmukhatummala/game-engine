@@ -47,6 +47,15 @@ public class Map {
   }
 
   /**
+   * This function clears all the data in the map
+   */
+  public void clearMap() {
+    d_continents.clear();
+    d_countries.clear();
+    d_players.clear();
+  }
+
+  /**
    * This method adds a continent to the list of continents in the map
    *
    * @param p_continent the continent to be added

@@ -79,12 +79,10 @@ public class EditCountryProcessor {
   /**
    * Removes a country from the game map with the specified country ID.
    *
-   * @param p_country_id The ID of the country to be removed.
+   * @param p_country_name The Name of the country to be removed.
    * @param map The game map on which the command will be executed.
    */
-  private static void processRemoveCommand(String p_country_id, Map map) {
-    if (ValidationHelper.isInteger(p_country_id)) {
-      map.removeCountry(Integer.parseInt(p_country_id));
-    }
+  private static void processRemoveCommand(String p_country_name, Map map) {
+      map.removeCountry(p_country_name);
   }
 }
