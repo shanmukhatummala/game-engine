@@ -5,6 +5,8 @@ import game.pojo.Continent;
 import game.util.ValidationHelper;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Objects;
+
 import static game.constants.MapManipulation.ADD_PARAM;
 import static game.constants.MapManipulation.REMOVE_PARAM;
 
@@ -40,32 +42,40 @@ public class EditNeighborProcessor {
   /**
    * Adds a neighbor country to the specified country on the game map.
    *
-   * @param p_country_id The ID of the country to which the neighbor will be added.
-   * @param p_neighbor_country_id The ID of the neighbor country to be added.
+   * @param p_country_name The Name of the country to which the neighbor will be added.
+   * @param p_neighbor_country_name The Name of the neighbor country to be added.
    * @param map The game map on which the command will be executed.
    */
   private static void processAddCommand(
-      String p_country_id, String p_neighbor_country_id, Map map) {
-    if (ValidationHelper.isInteger(p_country_id)
-        && ValidationHelper.isInteger(p_neighbor_country_id)) {
-      map.addNeighborToCountry(
-          Integer.parseInt(p_country_id), Integer.parseInt(p_neighbor_country_id));
+      String p_country_name, String p_neighbor_country_name, Map map) {
+
+    Integer p_country_id = map.getCountryIdForCountryName(p_country_name);
+    Integer p_neighbor_country_id = map.getCountryIdForCountryName(p_neighbor_country_name);
+
+    if (Objects.nonNull(p_country_id) && Objects.nonNull(p_neighbor_country_id)) {
+      map.addNeighborToCountry(p_country_id, p_neighbor_country_id);
+    } else {
+      System.out.println("Invalid Country/Countries");
     }
   }
 
   /**
    * Removes a neighbor country from the specified country on the game map.
    *
-   * @param p_country_id The ID of the country from which the neighbor will be removed.
-   * @param p_neighbor_country_id The ID of the neighbor country to be removed.
+   * @param p_country_name The Name of the country from which the neighbor will be removed.
+   * @param p_neighbor_country_name The Name of the neighbor country to be removed.
    * @param map The game map on which the command will be executed.
    */
   private static void processRemoveCommand(
-      String p_country_id, String p_neighbor_country_id, Map map) {
-    if (ValidationHelper.isInteger(p_country_id)
-        && ValidationHelper.isInteger(p_neighbor_country_id)) {
-      map.removeNeighborFromCountry(
-          Integer.parseInt(p_country_id), Integer.parseInt(p_neighbor_country_id));
+          String p_country_name, String p_neighbor_country_name, Map map) {
+
+    Integer p_country_id = map.getCountryIdForCountryName(p_country_name);
+    Integer p_neighbor_country_id = map.getCountryIdForCountryName(p_neighbor_country_name);
+
+    if (Objects.nonNull(p_country_id) && Objects.nonNull(p_neighbor_country_id)) {
+      map.removeNeighborFromCountry(p_country_id, p_neighbor_country_id);
+    } else {
+      System.out.println("Invalid Country/Countries");
     }
   }
 }

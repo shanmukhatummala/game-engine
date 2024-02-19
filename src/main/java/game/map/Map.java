@@ -62,25 +62,24 @@ public class Map {
     }
 
     d_continents.add(p_continent);
-    System.out.println("Continent added successfully!");
   }
 
   /**
    * Removes a continent from the game map.
    *
-   * @param p_continent_id The ID of the continent to be removed.
+   * @param p_continent_name The Name of the continent to be removed.
    */
-  public void removeContinent(Integer p_continent_id) {
+  public void removeContinent(String p_continent_name) {
     List<Integer> l_linked_countries =
         d_continents.stream()
             .filter(Objects::nonNull)
-            .filter(continent -> continent.getD_id() == p_continent_id)
+            .filter(continent -> Objects.equals(continent.getD_name(), p_continent_name))
             .findFirst()
             .map(continent -> new ArrayList<>(continent.getD_countryIdList()))
             .orElse(new ArrayList<>());
 
     boolean l_is_continent_removed =
-        d_continents.removeIf(continent -> continent.getD_id() == p_continent_id);
+        d_continents.removeIf(continent -> Objects.equals(continent.getD_name(), p_continent_name));
 
     if (l_is_continent_removed) {
       l_linked_countries.forEach(this::removeCountry);
@@ -105,7 +104,6 @@ public class Map {
       }
     }
     d_countries.add(p_country);
-    System.out.println("Country added successfully!");
   }
 
   /**
@@ -131,6 +129,44 @@ public class Map {
 
       if (l_linked_continent_id != null) {
         removeCountryFromContinent(l_linked_continent_id, p_country_id);
+      }
+
+      System.out.println("Country removed successfully!");
+    } else {
+      System.out.println("No Country with the given ID exists!");
+    }
+  }
+
+  /**
+   * Removes a country from the game map.
+   *
+   * @param p_country_name The Name of the country to be removed.
+   */
+  public void removeCountry(String p_country_name) {
+    Integer l_linked_continent_id =
+            d_countries.stream()
+                    .filter(Objects::nonNull)
+                    .filter(country -> Objects.equals(country.getD_name(), p_country_name))
+                    .findFirst()
+                    .map(Country::getD_continent)
+                    .map(Continent::getD_id)
+                    .orElse(null);
+
+    Integer l_country_id_to_be_removed = d_countries.stream()
+            .filter(Objects::nonNull)
+            .filter(country -> Objects.equals(country.getD_name(), p_country_name))
+            .findFirst()
+            .map(Country::getD_id)
+            .orElse(null);
+
+    boolean l_is_country_removed =
+            d_countries.removeIf(country -> Objects.equals(country.getD_name(), p_country_name));
+
+    if (l_is_country_removed) {
+      d_countries.forEach(country -> country.removeNeighbor(l_country_id_to_be_removed));
+
+      if (l_linked_continent_id != null) {
+        removeCountryFromContinent(l_linked_continent_id, l_country_id_to_be_removed);
       }
 
       System.out.println("Country removed successfully!");
@@ -313,5 +349,45 @@ public class Map {
     }
     l_country.get().removeNeighbor(p_neighbor_country_id);
     System.out.println("Neighbor Country removed successfully!");
+  }
+
+
+  /**
+   * Returns the Highest existing Continent ID
+   */
+  public Integer getMaxContinentId() {
+    return this.d_continents.stream()
+            .filter(Objects::nonNull)
+            .map(Continent::getD_id)
+            .mapToInt(i -> i)
+            .max()
+            .orElse(0);
+  }
+
+  /**
+   * Returns the Highest existing Country ID
+   */
+  public Integer getMaxCountryId() {
+    return this.d_countries.stream()
+            .filter(Objects::nonNull)
+            .map(Country::getD_id)
+            .mapToInt(i -> i)
+            .max()
+            .orElse(0);
+  }
+
+  /**
+   * Retrieves the ID of a country given its name.
+   *
+   * @param p_country_name The name of the country to search for.
+   * @return The ID of the country if found, otherwise returns null.
+   */
+  public Integer getCountryIdForCountryName(String p_country_name) {
+    return this.d_countries.stream()
+            .filter(Objects::nonNull)
+            .filter(country -> Objects.equals(country.getD_name(), p_country_name))
+            .findFirst()
+            .map(Country::getD_id)
+            .orElse(null);
   }
 }
