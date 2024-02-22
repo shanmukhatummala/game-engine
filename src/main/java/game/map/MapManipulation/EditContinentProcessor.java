@@ -1,16 +1,12 @@
 package game.map.MapManipulation;
 
-import game.map.Map;
-
 import static game.constants.MapManipulation.ADD_PARAM;
 import static game.constants.MapManipulation.REMOVE_PARAM;
 
+import game.map.Map;
 import game.pojo.Continent;
-import game.pojo.Country;
 import game.util.ValidationHelper;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Objects;
 
 /**
  * The EditContinentProcessor class is responsible for processing commands related to editing

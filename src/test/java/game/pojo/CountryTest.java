@@ -7,22 +7,18 @@ import pl.pojo.tester.api.assertion.Method;
 
 /**
  * CountryTest is a test class for the Country POJO
+ *
  * @author Shanmukha
  */
 class CountryTest {
 
-    /**
-     * <p>Tests the constructors, getters, equals and hashcode methods</p>
-     */
-    @Test
-    public void shouldPassAllPojoTests() {
-        final Class<Country> l_classUnderTest = Country.class;
+  /** Tests the constructors, getters, equals and hashcode methods */
+  @Test
+  public void shouldPassAllPojoTests() {
+    final Class<Country> l_classUnderTest = Country.class;
 
-        assertPojoMethodsFor(l_classUnderTest)
-                .testing(Method.CONSTRUCTOR,
-                        Method.GETTER,
-                        Method.EQUALS,
-                        Method.HASH_CODE)
-                .areWellImplemented();
-    }
+    assertPojoMethodsFor(l_classUnderTest)
+        .testing(Method.CONSTRUCTOR, Method.GETTER, Method.EQUALS, Method.HASH_CODE)
+        .areWellImplemented();
+  }
 }

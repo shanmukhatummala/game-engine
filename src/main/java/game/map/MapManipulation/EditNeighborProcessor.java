@@ -1,14 +1,10 @@
 package game.map.MapManipulation;
 
-import game.map.Map;
-import game.pojo.Continent;
-import game.util.ValidationHelper;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Objects;
-
 import static game.constants.MapManipulation.ADD_PARAM;
 import static game.constants.MapManipulation.REMOVE_PARAM;
+
+import game.map.Map;
+import java.util.Objects;
 
 /**
  * The EditNeighborProcessor class is responsible for processing commands related to editing
@@ -67,7 +63,7 @@ public class EditNeighborProcessor {
    * @param map The game map on which the command will be executed.
    */
   private static void processRemoveCommand(
-          String p_country_name, String p_neighbor_country_name, Map map) {
+      String p_country_name, String p_neighbor_country_name, Map map) {
 
     Integer p_country_id = map.getCountryIdForCountryName(p_country_name);
     Integer p_neighbor_country_id = map.getCountryIdForCountryName(p_neighbor_country_name);
