@@ -1,8 +1,8 @@
 package game.map.MapManipulation;
 
-import game.map.Map;
-
 import static game.constants.MapManipulation.*;
+
+import game.map.Map;
 
 /**
  * The MapManipulator class is responsible for processing commands related to map manipulation. It

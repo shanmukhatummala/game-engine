@@ -1,15 +1,13 @@
 package game.map.MapManipulation;
 
+import static game.constants.MapManipulation.ADD_PARAM;
+import static game.constants.MapManipulation.REMOVE_PARAM;
+
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
-import game.util.ValidationHelper;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Objects;
-
-import static game.constants.MapManipulation.ADD_PARAM;
-import static game.constants.MapManipulation.REMOVE_PARAM;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * The EditCountryProcessor class is responsible for processing commands related to editing
@@ -64,8 +62,7 @@ public class EditCountryProcessor {
       try {
         Integer l_country_id = map.getMaxCountryId() + 1;
 
-        map.addCountry(
-            new Country(l_country_id, p_country_name, l_linked_continent));
+        map.addCountry(new Country(l_country_id, p_country_name, l_linked_continent));
 
         map.addCountryToContinent(l_linked_continent.getD_id(), l_country_id);
 
@@ -83,6 +80,6 @@ public class EditCountryProcessor {
    * @param map The game map on which the command will be executed.
    */
   private static void processRemoveCommand(String p_country_name, Map map) {
-      map.removeCountry(p_country_name);
+    map.removeCountry(p_country_name);
   }
 }

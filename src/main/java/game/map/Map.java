@@ -1,24 +1,23 @@
 package game.map;
 
+import static java.util.stream.Collectors.toList;
+
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import static java.util.stream.Collectors.toList;
+import lombok.Data;
 
 /**
  * Map is used for storing the details of the map It contains the details of countries, continents
- * and players associated with the map.
- * All manipulation of the Map is executed on an object of this class
+ * and players associated with the map. All manipulation of the Map is executed on an object of this
+ * class
+ *
  * @author Shanmukha
  */
 @Data
@@ -46,9 +45,7 @@ public class Map {
     this.d_players = p_players;
   }
 
-  /**
-   * This function clears all the data in the map
-   */
+  /** This function clears all the data in the map */
   public void clearMap() {
     d_continents.clear();
     d_countries.clear();
@@ -152,15 +149,16 @@ public class Map {
    */
   public void removeCountry(String p_country_name) {
     Integer l_linked_continent_id =
-            d_countries.stream()
-                    .filter(Objects::nonNull)
-                    .filter(country -> Objects.equals(country.getD_name(), p_country_name))
-                    .findFirst()
-                    .map(Country::getD_continent)
-                    .map(Continent::getD_id)
-                    .orElse(null);
+        d_countries.stream()
+            .filter(Objects::nonNull)
+            .filter(country -> Objects.equals(country.getD_name(), p_country_name))
+            .findFirst()
+            .map(Country::getD_continent)
+            .map(Continent::getD_id)
+            .orElse(null);
 
-    Integer l_country_id_to_be_removed = d_countries.stream()
+    Integer l_country_id_to_be_removed =
+        d_countries.stream()
             .filter(Objects::nonNull)
             .filter(country -> Objects.equals(country.getD_name(), p_country_name))
             .findFirst()
@@ -168,7 +166,7 @@ public class Map {
             .orElse(null);
 
     boolean l_is_country_removed =
-            d_countries.removeIf(country -> Objects.equals(country.getD_name(), p_country_name));
+        d_countries.removeIf(country -> Objects.equals(country.getD_name(), p_country_name));
 
     if (l_is_country_removed) {
       d_countries.forEach(country -> country.removeNeighbor(l_country_id_to_be_removed));
@@ -264,7 +262,8 @@ public class Map {
     }
 
     if (p_players.size() > p_countries.size()) {
-      System.out.println("Player count is more than number of countries present in the map -- Edit your map and add more to play or choose a different map");
+      System.out.println(
+          "Player count is more than number of countries present in the map -- Edit your map and add more to play or choose a different map");
       return false;
     }
 
@@ -373,29 +372,24 @@ public class Map {
     System.out.println("Neighbor Country removed successfully!");
   }
 
-
-  /**
-   * Returns the Highest existing Continent ID
-   */
+  /** Returns the Highest existing Continent ID */
   public Integer getMaxContinentId() {
     return this.d_continents.stream()
-            .filter(Objects::nonNull)
-            .map(Continent::getD_id)
-            .mapToInt(i -> i)
-            .max()
-            .orElse(0);
+        .filter(Objects::nonNull)
+        .map(Continent::getD_id)
+        .mapToInt(i -> i)
+        .max()
+        .orElse(0);
   }
 
-  /**
-   * Returns the Highest existing Country ID
-   */
+  /** Returns the Highest existing Country ID */
   public Integer getMaxCountryId() {
     return this.d_countries.stream()
-            .filter(Objects::nonNull)
-            .map(Country::getD_id)
-            .mapToInt(i -> i)
-            .max()
-            .orElse(0);
+        .filter(Objects::nonNull)
+        .map(Country::getD_id)
+        .mapToInt(i -> i)
+        .max()
+        .orElse(0);
   }
 
   /**
@@ -406,10 +400,10 @@ public class Map {
    */
   public Integer getCountryIdForCountryName(String p_country_name) {
     return this.d_countries.stream()
-            .filter(Objects::nonNull)
-            .filter(country -> Objects.equals(country.getD_name(), p_country_name))
-            .findFirst()
-            .map(Country::getD_id)
-            .orElse(null);
+        .filter(Objects::nonNull)
+        .filter(country -> Objects.equals(country.getD_name(), p_country_name))
+        .findFirst()
+        .map(Country::getD_id)
+        .orElse(null);
   }
 }
