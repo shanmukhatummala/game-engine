@@ -39,27 +39,34 @@ public class StartUpCommandValidator implements CommandValidator{
 
 
     private boolean validateEditCountryCommand(Command command){
+        // editCountry command validation
         return true;
     }
 
     private boolean validateEditContinentCommand(Command command){
+        // editContinent command validation
         return true;
     }
 
     private boolean validateEditNeighborCommand(Command command){
+        // editNeighbor command validation
         return true;
     }
 
     private boolean validateEditMapCommand(Command command){
+        // editMap command validation
         return true;
     }
 
     private boolean validateGamePlayerCommand(Command command){
+        // game player command validation
         return true;
     }
 
     private boolean validateLoadMapCommand(Command command){
-        return true;}
+        // load map command validation
+        return true;
+    }
 
 
 

@@ -1,8 +1,10 @@
 package game.commands;
-import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.List;
+import java.util.ArrayList;
+import org.junit.jupiter.api.Assertions;
 
 public class CommandParserTest {
 
@@ -19,10 +21,15 @@ public class CommandParserTest {
 
     @Test
     public void parseTest() {
+        List<String> expectedArgs= new ArrayList<>();
+        expectedArgs.add("-add");
+        expectedArgs.add("playerName");
+        expectedArgs.add("-add");
+        expectedArgs.add("playername2");
+        String expectedCommandType = "gameplayer";
         Command command = parser.parse(inputCommand);
-        System.out.println(command.toString());
-        command = parser.parse(inputCommand2);
-        System.out.println(command.toString());
+        Assertions.assertEquals(expectedCommandType,command.getCommandType());
+        Assertions.assertArrayEquals(expectedArgs.toArray(),command.getArgs().toArray());
     }
 
 }
