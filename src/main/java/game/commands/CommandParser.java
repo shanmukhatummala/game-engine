@@ -19,26 +19,10 @@ public class CommandParser {
         return command;
     }
 
-    private boolean isValidCommand(String commandType){
-        String phase = "startup";
-        return switch (phase) {
-            case "startup" -> isValidStartupCommand(commandType);
-            case "order" -> isValidOrderCommand(commandType);
-            default -> false;
-        };
-    }
 
 
-    private boolean isValidStartupCommand(String commandType) {
-        List<String> validCommands = Arrays.asList(
-                "editcontinent", "editcountry", "editneighbor", "showmap",
-                "savemap", "editmap", "validatemap", "gameplayer", "loadmap");
-        return validCommands.contains(commandType);
-    }
 
-    private boolean isValidOrderCommand(String commandType) {
-        List<String> validCommands = Arrays.asList(
-                "deploy", "showmap", "advance", "bomb", "blockade");
-        return validCommands.contains(commandType);
-    }
+
+
+
 }
