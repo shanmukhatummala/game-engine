@@ -1,6 +1,9 @@
-package game.pojo;
+package game.order;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
+
+import game.pojo.Continent;
+import game.pojo.Country;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

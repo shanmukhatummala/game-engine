@@ -1,4 +1,6 @@
-package game.pojo;
+package game.order;
+
+import game.pojo.Country;
 
 /** and abstract class to represent the type of order a player can give */
 public abstract class Order {

@@ -2,6 +2,8 @@ package game.pojo;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
+import game.order.Order;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

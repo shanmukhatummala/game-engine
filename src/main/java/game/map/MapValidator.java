@@ -168,7 +168,7 @@ public class MapValidator {
 
         // Each continent has to have at least one country
         for (Continent l_continent : p_mapToValidate.getD_continents()) {
-            if (l_continent.getD_countryIdList().size() == 0) return false;
+            if (l_continent.getD_countryIdList().isEmpty()) return false;
         }
         // The name and id of each country has to be unique
         for (int l_i = 0; l_i < p_mapToValidate.getD_countries().size(); l_i++) {

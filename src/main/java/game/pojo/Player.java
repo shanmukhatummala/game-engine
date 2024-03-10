@@ -1,5 +1,8 @@
 package game.pojo;
 
+import game.order.DeployOrder;
+import game.order.Order;
+
 import java.util.*;
 
 /** Player is a POJO representing a player */

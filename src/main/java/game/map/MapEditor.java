@@ -44,15 +44,20 @@ public class MapEditor {
                 } else if (l_args.length == 1 && "showmap".equals(l_args[0])) {
                     showMap(p_map);
                 } else if (l_args.length == 1 && "validatemap".equals(l_args[0])) {
-                    if (isMapValid(p_map)) System.out.println("The current map is valid!");
-                    else System.out.println("The current map isn't valid.");
+                    if (isMapValid(p_map)) {
+                        System.out.println("The current map is valid!");
+                    } else {
+                        System.out.println("The current map isn't valid.");
+                    }
                 } else if (l_args.length >= 1 && l_args[0].startsWith("edit")) {
                     mapManipulator.processCommand(l_args, p_map);
                 } else {
                     System.out.println("Not a valid command");
                 }
             } catch (Exception e) {
-                continue;
+                System.out.println(
+                        "Something went wrong when executing your command. Error: "
+                                + e.getMessage());
             }
         }
     }

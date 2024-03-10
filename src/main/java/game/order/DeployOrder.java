@@ -1,4 +1,6 @@
-package game.pojo;
+package game.order;
+
+import game.pojo.Country;
 
 /** this class extends from order class and represent the deploy order type of orders */
 public class DeployOrder extends Order {
