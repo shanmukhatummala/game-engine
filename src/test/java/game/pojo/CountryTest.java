@@ -3,6 +3,7 @@ package game.pojo;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 import org.junit.jupiter.api.Test;
+
 import pl.pojo.tester.api.assertion.Method;
 
 /**
@@ -12,13 +13,13 @@ import pl.pojo.tester.api.assertion.Method;
  */
 class CountryTest {
 
-  /** Tests the constructors, getters, equals and hashcode methods */
-  @Test
-  public void shouldPassAllPojoTests() {
-    final Class<Country> l_classUnderTest = Country.class;
+    /** Tests the constructors, getters, equals and hashcode methods */
+    @Test
+    public void shouldPassAllPojoTests() {
+        final Class<Country> l_classUnderTest = Country.class;
 
-    assertPojoMethodsFor(l_classUnderTest)
-        .testing(Method.CONSTRUCTOR, Method.GETTER, Method.EQUALS, Method.HASH_CODE)
-        .areWellImplemented();
-  }
+        assertPojoMethodsFor(l_classUnderTest)
+                .testing(Method.CONSTRUCTOR, Method.GETTER, Method.EQUALS, Method.HASH_CODE)
+                .areWellImplemented();
+    }
 }

@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Test;
 
 class MapEditorTest {
 
-  @BeforeEach
-  void setUp() {}
+    @BeforeEach
+    void setUp() {}
 
-  @AfterEach
-  void tearDown() {}
+    @AfterEach
+    void tearDown() {}
 
-  @Test
-  void editMap() {}
+    @Test
+    void editMap() {}
 
-  @Test
-  void validateEditCommand() {}
+    @Test
+    void validateEditCommand() {}
 }
