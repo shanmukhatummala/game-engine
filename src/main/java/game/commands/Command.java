@@ -3,12 +3,12 @@ import java.util.List;
 public class Command {
     private String commandType;
     private List<String> args;
-    private String phase;
 
-    public Command(String commandType, List<String> args, String phase){
+
+    public Command(String commandType, List<String> args){
         this.commandType = commandType;
         this.args = args;
-        this.phase = phase;
+
     }
 
     public String getCommandType() {
@@ -19,8 +19,17 @@ public class Command {
         return args;
     }
 
-    public String getPhase() {
-        return phase;
+
+    @Override
+    public String toString(){
+        StringBuilder s = new StringBuilder(commandType + " ");
+        for (int i = 0; i < args.size(); i++) {
+            s.append(args.get(i));
+            if (i< args.size()-1){
+                s.append(" ");
+            }
+        }
+        return s.toString();
     }
 
 
