@@ -5,8 +5,8 @@ import java.util.List;
 
 public class CommandParser {
     private CommandValidator validator;
-    public CommandParser(){
-        this.validator = new StartUpCommandValidator();
+    public CommandParser(CommandValidator validator){
+        this.validator = validator;
     }
     public Command parse(String inputCommand) throws IllegalArgumentException{
         String[] commandParts = inputCommand.trim().split("\\s+");

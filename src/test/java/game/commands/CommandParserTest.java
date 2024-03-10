@@ -12,7 +12,7 @@ public class CommandParserTest {
     @BeforeEach
     void setUp() {
         inputCommand = "gameplayer -add playerName -add playername2";
-        parser = new StartUpPhaseCommandParser();
+        parser = new CommandParser(new StartUpCommandValidator());
         inputCommand2 = "showmap";
     }
 
