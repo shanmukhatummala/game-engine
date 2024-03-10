@@ -23,7 +23,7 @@ import java.util.List;
 /** Class testing the MapValidator class */
 public class MapValidatorTest {
 
-    private String d_path = "src/test/resources/test_load_map.map";
+    private String d_path = "src/test/resources/germany_test.map";
     private Map d_map;
     Continent d_continent1;
     Continent d_continent2;
@@ -192,14 +192,14 @@ public class MapValidatorTest {
      */
     @Test
     void testmapAndContinentsConnectedRealMap() {
-        loadMap("src/test/resources/canada.map", d_map);
+        loadMap("src/test/resources/canada_test.map", d_map);
         assertTrue(mapAndContinentsConnected(d_map));
     }
 
     /** Tests the method mapIsValid on a correct map. */
     @Test
     void testisMapValidGoodMap() {
-        loadMap("src/test/resources/canada.map", d_map);
+        loadMap("src/test/resources/canada_test.map", d_map);
         assertTrue(isMapValid(d_map));
     }
 
