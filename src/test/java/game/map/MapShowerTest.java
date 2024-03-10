@@ -48,14 +48,14 @@ class MapShowerTest {
 
         // Testing the output
         assertEquals("---------------------------Continents---------------------------", lines[0]);
-        assertEquals("Norddeutschland", lines[1]);
-        assertEquals("    - Continent is not owned by any player yet", lines[2]);
-        assertEquals("Westdeutschland", lines[3]);
-        assertEquals("    - Continent is not owned by any player yet", lines[4]);
+        assertEquals("Norddeutschland (bonus: 3)", lines[1]);
+        assertEquals("    - does not belong to any player", lines[2]);
+        assertEquals("Westdeutschland (bonus: 4)", lines[3]);
+        assertEquals("    - does not belong to any player", lines[4]);
         assertEquals("---------------------------Countries---------------------------", lines[5]);
         assertEquals("Country   : Ostfriesland", lines[6]);
         assertEquals("Continent : Norddeutschland", lines[7]);
-        assertEquals("Country is not owned by any player yet", lines[8]);
+        assertEquals("Country does not belong to any player", lines[8]);
         assertEquals("Number of armies : 0", lines[9]);
         assertEquals("Neighbors:", lines[10]);
         assertEquals("    - " + "Schleswig", lines[11]);
@@ -63,7 +63,7 @@ class MapShowerTest {
         assertEquals("----------------------------------------------------------------", lines[13]);
         assertEquals("Country   : Schleswig", lines[14]);
         assertEquals("Continent : Westdeutschland", lines[15]);
-        assertEquals("Country is not owned by any player yet", lines[16]);
+        assertEquals("Country does not belong to any player", lines[16]);
         assertEquals("Number of armies : 0", lines[17]);
         assertEquals("Neighbors:", lines[18]);
         assertEquals("    - " + "Ostfriesland", lines[19]);
@@ -72,7 +72,7 @@ class MapShowerTest {
         assertEquals("----------------------------------------------------------------", lines[22]);
         assertEquals("Country   : Holstein", lines[23]);
         assertEquals("Continent : Norddeutschland", lines[24]);
-        assertEquals("Country is not owned by any player yet", lines[25]);
+        assertEquals("Country does not belong to any player", lines[25]);
         assertEquals("Number of armies : 0", lines[26]);
         assertEquals("Neighbors:", lines[27]);
         assertEquals("    - " + "Ostfriesland", lines[28]);
@@ -81,14 +81,14 @@ class MapShowerTest {
         assertEquals("----------------------------------------------------------------", lines[31]);
         assertEquals("Country   : Hamburg", lines[32]);
         assertEquals("Continent : Westdeutschland", lines[33]);
-        assertEquals("Country is not owned by any player yet", lines[34]);
+        assertEquals("Country does not belong to any player", lines[34]);
         assertEquals("Number of armies : 0", lines[35]);
         assertEquals("Neighbors:", lines[36]);
         assertEquals("    - " + "Holstein", lines[37]);
         assertEquals("----------------------------------------------------------------", lines[38]);
         assertEquals("Country   : Mecklenburger-Bucht", lines[39]);
         assertEquals("Continent : Westdeutschland", lines[40]);
-        assertEquals("Country is not owned by any player yet", lines[41]);
+        assertEquals("Country does not belong to any player", lines[41]);
         assertEquals("Number of armies : 0", lines[42]);
         assertEquals("Neighbors:", lines[43]);
         assertEquals("    - " + "Schleswig", lines[44]);
@@ -146,14 +146,14 @@ class MapShowerTest {
 
         // Testing the output
         assertEquals("---------------------------Continents---------------------------", lines[0]);
-        assertEquals("Norddeutschland", lines[1]);
-        assertEquals("    - Continent is owned by: Player1", lines[2]);
-        assertEquals("Westdeutschland", lines[3]);
-        assertEquals("    - Continent is not owned by any player yet", lines[4]);
+        assertEquals("Norddeutschland (bonus: 5)", lines[1]);
+        assertEquals("    - belongs to: Player1", lines[2]);
+        assertEquals("Westdeutschland (bonus: 5)", lines[3]);
+        assertEquals("    - does not belong to any player", lines[4]);
         assertEquals("---------------------------Countries---------------------------", lines[5]);
         assertEquals("Country   : Ostfriesland", lines[6]);
         assertEquals("Continent : Norddeutschland", lines[7]);
-        assertEquals("Country is owned by: Player1", lines[8]);
+        assertEquals("Country belongs to: Player1", lines[8]);
         assertEquals("Number of armies : 0", lines[9]);
         assertEquals("Neighbors:", lines[10]);
         assertEquals("    - Holstein", lines[11]);
@@ -161,7 +161,7 @@ class MapShowerTest {
         assertEquals("----------------------------------------------------------------", lines[13]);
         assertEquals("Country   : Holstein", lines[14]);
         assertEquals("Continent : Norddeutschland", lines[15]);
-        assertEquals("Country is owned by: Player1", lines[16]);
+        assertEquals("Country belongs to: Player1", lines[16]);
         assertEquals("Number of armies : 0", lines[17]);
         assertEquals("Neighbors:", lines[18]);
         assertEquals("    - Ostfriesland", lines[19]);
@@ -169,7 +169,7 @@ class MapShowerTest {
         assertEquals("----------------------------------------------------------------", lines[21]);
         assertEquals("Country   : Schleswig", lines[22]);
         assertEquals("Continent : Westdeutschland", lines[23]);
-        assertEquals("Country is owned by: Player1", lines[24]);
+        assertEquals("Country belongs to: Player1", lines[24]);
         assertEquals("Number of armies : 0", lines[25]);
         assertEquals("Neighbors:", lines[26]);
         assertEquals("    - Ostfriesland", lines[27]);
@@ -178,7 +178,7 @@ class MapShowerTest {
         assertEquals("----------------------------------------------------------------", lines[30]);
         assertEquals("Country   : Hamburg", lines[31]);
         assertEquals("Continent : Westdeutschland", lines[32]);
-        assertEquals("Country is owned by: Player2", lines[33]);
+        assertEquals("Country belongs to: Player2", lines[33]);
         assertEquals("Number of armies : 0", lines[34]);
         assertEquals("Neighbors:", lines[35]);
         assertEquals("    - Schleswig", lines[36]);
