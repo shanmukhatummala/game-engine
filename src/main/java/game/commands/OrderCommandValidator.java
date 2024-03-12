@@ -17,14 +17,14 @@ public class OrderCommandValidator implements CommandValidator {
 
     public OrderCommandValidator(Player p_player) {
         d_player = p_player;
-        Map<String, Method> d_methodMap = new HashMap<String, Method>();
+        d_methodMap = new HashMap<String, Method>();
 
         for (int l_i = 0; l_i < d_validCommands.size(); l_i++) {
             try {
                 String orderType = d_validCommands.get(l_i);
                 d_methodMap.put(
                         orderType,
-                        OrderCommandValidator.class.getMethod(
+                        OrderCommandValidator.class.getDeclaredMethod(
                                 "validate"
                                         + orderType.substring(0, 1).toUpperCase()
                                         + orderType.substring(1)
@@ -47,7 +47,7 @@ public class OrderCommandValidator implements CommandValidator {
         }
         if (d_methodMap.containsKey(l_commandType)) {
             try {
-                return (boolean) d_methodMap.get(l_commandType).invoke(p_command.getArgs());
+                return (boolean) d_methodMap.get(l_commandType).invoke(this, p_command);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -57,40 +57,43 @@ public class OrderCommandValidator implements CommandValidator {
 
     private boolean isCountryOwned(String p_countryName) {
         return (d_player.getD_countries().stream()
-                .allMatch(l_country -> l_country.getD_name().equals(p_countryName)));
+                .anyMatch(l_country -> l_country.getD_name().equals(p_countryName)));
     }
 
-    private boolean validateDeployCommand(List<String> p_commandArgs) {
-        if (p_commandArgs.size() != 2) {
+    private boolean validateDeployCommand(Command p_command) {
+        if (p_command.getArgs().size() != 2) {
+            System.out.println("in");
             return false;
         }
-        String l_countryName = p_commandArgs.get(0);
-        int l_numArmies = Integer.parseInt(p_commandArgs.get(1));
+        List<String> l_commandArgs = p_command.getArgs();
+
+        String l_countryName = l_commandArgs.get(0);
+        int l_numArmies = Integer.parseInt(l_commandArgs.get(1));
 
         return (isCountryOwned(l_countryName) && l_numArmies <= d_player.getD_reinforcements());
     }
 
-    private boolean validateAdvanceCommand(List<String> p_commandArgs) {
+    private boolean validateAdvanceCommand(Command p_command) {
         // editContinent command validation
         return true;
     }
 
-    private boolean validateBombCommand(List<String> p_commandArgs) {
+    private boolean validateBombCommand(Command p_command) {
         // editNeighbor command validation
         return true;
     }
 
-    private boolean validateBlockadeCommand(List<String> p_commandArgs) {
+    private boolean validateBlockadeCommand(Command p_command) {
         // editMap command validation
         return true;
     }
 
-    private boolean validateAirliftCommand(List<String> p_commandArgs) {
+    private boolean validateAirliftCommand(Command p_command) {
         // game player command validation
         return true;
     }
 
-    private boolean validateNegotiateCommand(List<String> p_commandArgs) {
+    private boolean validateNegotiateCommand(Command p_command) {
         // load map command validation
         return true;
     }

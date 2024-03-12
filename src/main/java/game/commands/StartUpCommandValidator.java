@@ -36,11 +36,6 @@ public class StartUpCommandValidator implements CommandValidator {
                                 Command.class));
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
-                System.out.println(
-                        "validate"
-                                + orderType.substring(0, 1).toUpperCase()
-                                + orderType.substring(1)
-                                + "Command");
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
@@ -65,18 +60,18 @@ public class StartUpCommandValidator implements CommandValidator {
             return false;
         }
         List<Player> l_players = d_engine.getD_map().getD_players();
-        List<String> l_args = p_command.getArgs();
+        List<String> l_commandArgs = p_command.getArgs();
 
-        if (l_args.get(0).equals("-add")) {
+        if (l_commandArgs.get(0).equals("-add")) {
             if (l_players.size() == 0) {
                 return true;
             }
-            return (!l_players.stream()
-                    .allMatch(l_player -> l_player.getD_name().equals(l_args.get(1))));
-        }
-        if (l_args.get(0).equals("-remove")) {
             return (l_players.stream()
-                    .allMatch(l_player -> l_player.getD_name().equals(l_args.get(1))));
+                    .noneMatch(l_player -> l_player.getD_name().equals(l_commandArgs.get(1))));
+        }
+        if (l_commandArgs.get(0).equals("-remove")) {
+            return (l_players.stream()
+                    .anyMatch(l_player -> l_player.getD_name().equals(l_commandArgs.get(1))));
         }
 
         return false;

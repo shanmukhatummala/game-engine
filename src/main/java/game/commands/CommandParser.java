@@ -50,7 +50,9 @@ public class CommandParser {
         Command l_command = l_commandList.get(0);
         if (!l_orderValidator.validate(l_command)) {
             throw new IllegalArgumentException(
-                    "Invalid command for issuing orders: " + l_command.getCommandType());
+                    "Invalid command for issuing orders: "
+                            + l_command.getCommandType()
+                            + l_command.getArgs());
         }
         return l_command;
     }
@@ -61,7 +63,9 @@ public class CommandParser {
         for (Command l_command : l_commandList) {
             if (!l_orderValidator.validate(l_command)) {
                 throw new IllegalArgumentException(
-                        "Invalid command for the startup phase: " + l_command.getCommandType());
+                        "Invalid command for the startup phase: "
+                                + l_command.getCommandType()
+                                + l_command.getArgs());
             }
         }
         return l_commandList;
