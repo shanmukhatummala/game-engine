@@ -5,6 +5,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
+import java.util.Optional;
 
 /** MapHelper provides helper methods to get required details from the map */
 public class MapHelper {
@@ -91,5 +92,18 @@ public class MapHelper {
             }
         }
         return null;
+    }
+
+    public static boolean isAdjacent(List<Country> p_countries, Country p_targetCountry) {
+
+        Optional<Country> l_adjacentCountries =
+                p_countries.stream()
+                        .filter(
+                                country ->
+                                        country.getD_neighborIdList()
+                                                .contains(p_targetCountry.getD_id()))
+                        .findAny();
+
+        return l_adjacentCountries.isPresent();
     }
 }

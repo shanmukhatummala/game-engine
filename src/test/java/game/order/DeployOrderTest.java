@@ -4,6 +4,7 @@ import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 import game.pojo.Continent;
 import game.pojo.Country;
+import game.pojo.Player;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,7 @@ public class DeployOrderTest {
     void setUp() {
         Continent l_continent = new Continent(1, "continent1", 5);
         d_Countries = createCountries(l_continent);
-        d_deployOrder = new DeployOrder(d_Countries.get(0), 4);
+        d_deployOrder = new DeployOrder(d_Countries.get(0), new Player(), 4);
     }
 
     /**
