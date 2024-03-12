@@ -1,6 +1,7 @@
 package game.order;
 
 import static game.map.MapHelper.isAdjacent;
+import static game.pojo.Player.Card.BOMB;
 
 import game.pojo.Country;
 import game.pojo.Player;
@@ -39,7 +40,12 @@ public class BombOrder extends Order {
     @Override
     public void execute() {
 
-        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+        List<Country> l_countriesOfInitiator = getD_initiator().getD_countries();
+
+        if (!getD_initiator().getD_cards().contains(BOMB)) {
+            System.out.println("You don't have a BOMB card. So, cannot execute bomb order.");
+            return;
+        }
 
         if (l_countriesOfInitiator.contains(d_target)) {
             System.out.println(
@@ -55,5 +61,6 @@ public class BombOrder extends Order {
 
         int l_armyCountAfterBombing = d_target.getD_armyCount() / 2;
         d_target.setD_armyCount(l_armyCountAfterBombing);
+        getD_initiator().getD_cards().remove(BOMB);
     }
 }

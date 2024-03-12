@@ -7,13 +7,23 @@ import java.util.*;
 
 /** Player is a POJO representing a player */
 public class Player {
+
     /** defining the scanner object as static attribute to be used in the issue_order method */
     public static Scanner Scanner = new Scanner(System.in);
+
+    public enum Card {
+        BOMB,
+        REINFORCEMENT,
+        BLOCKADE,
+        AIRLIFT,
+        DIPLOMACY
+    }
 
     private String d_name;
     private List<Country> d_countries;
     private int d_reinforcements;
     private Queue<Order> d_orderList;
+    private List<Card> d_cards;
 
     /** Constructor without arguments for Player */
     public Player() {}
@@ -29,6 +39,7 @@ public class Player {
         this.d_countries = p_countries;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
+        this.d_cards = new ArrayList<>();
     }
 
     /**
@@ -77,12 +88,30 @@ public class Player {
     }
 
     /**
+     * Getter for cards
+     *
+     * @return cards of the player
+     */
+    public List<Card> getD_cards() {
+        return d_cards;
+    }
+
+    /**
      * Setter for reinforcement count
      *
      * @param d_reinforcements reinforcement count to set
      */
     public void setD_reinforcements(int d_reinforcements) {
         this.d_reinforcements = d_reinforcements;
+    }
+
+    /**
+     * Adds a card to the player's cards
+     *
+     * @param card the card to be added
+     */
+    public void addCard(Card card) {
+        d_cards.add(card);
     }
 
     /**
@@ -225,7 +254,8 @@ public class Player {
         return Objects.equals(l_otherPlayer.d_name, this.d_name)
                 && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
                 && Objects.equals(l_otherPlayer.d_reinforcements, this.d_reinforcements)
-                && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList);
+                && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList)
+                && Objects.equals(l_otherPlayer.d_cards, this.d_cards);
     }
 
     /**
@@ -235,6 +265,6 @@ public class Player {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList);
+        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList, d_cards);
     }
 }

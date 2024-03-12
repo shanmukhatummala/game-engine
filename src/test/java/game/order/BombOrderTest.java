@@ -1,5 +1,7 @@
 package game.order;
 
+import static game.pojo.Player.Card.BOMB;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -30,10 +32,27 @@ public class BombOrderTest {
 
     /**
      * Tests that the target is bombed when the target is adjacent to the initiator's countries and
-     * belongs to an opponent
+     * belongs to an opponent and the user has a BOMB card
      */
     @Test
-    public void shouldBombWhenTargetIsAdjacentAndBelongsToAnOpponent() {
+    public void happyPathShouldExecuteBombOrder() {
+
+        Continent l_continent = new Continent();
+        Country l_country1 = new Country(1, "Country1", l_continent);
+        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        l_country1.addNeighbor(l_country2.getD_id());
+        Player l_player = new Player("Player", List.of(l_country1));
+        l_player.addCard(BOMB);
+        BombOrder l_bombOrder = new BombOrder(l_country2, l_player);
+
+        l_bombOrder.execute();
+
+        assertThat(l_country2.getD_armyCount(), equalTo(5));
+    }
+
+    /** Tests that the target is not bombed when the user doesn't have a BOMB card */
+    @Test
+    public void shouldNotBombWhenUserDoesNotHaveBombCard() {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent);
@@ -44,7 +63,7 @@ public class BombOrderTest {
 
         l_bombOrder.execute();
 
-        assertThat(l_country2.getD_armyCount(), equalTo(5));
+        assertThat(l_country2.getD_armyCount(), equalTo(10));
     }
 
     /**
@@ -58,6 +77,7 @@ public class BombOrderTest {
         Country l_country1 = new Country(1, "Country1", l_continent);
         Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
+        l_player.addCard(BOMB);
         BombOrder l_bombOrder = new BombOrder(l_country2, l_player);
 
         l_bombOrder.execute();
@@ -72,6 +92,7 @@ public class BombOrderTest {
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
+        l_player.addCard(BOMB);
         BombOrder l_bombOrder = new BombOrder(l_country1, l_player);
 
         l_bombOrder.execute();
