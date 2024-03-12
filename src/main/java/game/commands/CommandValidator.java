@@ -1,5 +1,6 @@
 package game.commands;
 
 public interface CommandValidator {
-    boolean validate(Command command) throws IllegalArgumentException;
+
+    abstract boolean validate(Command command) throws IllegalArgumentException;
 }

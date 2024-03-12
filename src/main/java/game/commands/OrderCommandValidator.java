@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderCommandValidator implements CommandValidator {
-    List<String> d_validCommands =
+    static List<String> d_validCommands =
             Arrays.asList("deploy", "advance", "bomb", "blockade", "airlift", "negotiate");
 
     Map<String, Method> d_methodMap;
@@ -28,7 +28,8 @@ public class OrderCommandValidator implements CommandValidator {
                                 "validate"
                                         + orderType.substring(0, 1).toUpperCase()
                                         + orderType.substring(1)
-                                        + "Order"));
+                                        + "Command",
+                                Command.class));
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (SecurityException e) {
@@ -59,7 +60,7 @@ public class OrderCommandValidator implements CommandValidator {
                 .allMatch(l_country -> l_country.getD_name().equals(p_countryName)));
     }
 
-    private boolean validateDeployOrder(List<String> p_commandArgs) {
+    private boolean validateDeployCommand(List<String> p_commandArgs) {
         if (p_commandArgs.size() != 2) {
             return false;
         }
@@ -69,27 +70,27 @@ public class OrderCommandValidator implements CommandValidator {
         return (isCountryOwned(l_countryName) && l_numArmies <= d_player.getD_reinforcements());
     }
 
-    private boolean validateAdvanceOrder(List<String> p_commandArgs) {
+    private boolean validateAdvanceCommand(List<String> p_commandArgs) {
         // editContinent command validation
         return true;
     }
 
-    private boolean validateBombOrder(List<String> p_commandArgs) {
+    private boolean validateBombCommand(List<String> p_commandArgs) {
         // editNeighbor command validation
         return true;
     }
 
-    private boolean validateBlockadeOrder(List<String> p_commandArgs) {
+    private boolean validateBlockadeCommand(List<String> p_commandArgs) {
         // editMap command validation
         return true;
     }
 
-    private boolean validateAirliftOrder(List<String> p_commandArgs) {
+    private boolean validateAirliftCommand(List<String> p_commandArgs) {
         // game player command validation
         return true;
     }
 
-    private boolean validateNegotiateOrder(List<String> p_commandArgs) {
+    private boolean validateNegotiateCommand(List<String> p_commandArgs) {
         // load map command validation
         return true;
     }
