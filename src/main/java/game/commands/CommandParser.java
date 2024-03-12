@@ -3,23 +3,18 @@ package game.commands;
 import game.pojo.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class CommandParser {
-    private CommandValidator validator;
-    private static Scanner scan = new Scanner(System.in);
 
-    public CommandParser(CommandValidator validator) {
-        this.validator = validator;
-    }
+    private static Scanner scan = new Scanner(System.in);
 
     public boolean isCommandOption(String p_commandPart) {
         return (p_commandPart.charAt(0) == '-');
     }
 
-    public List<Command> parse() {
+    private List<Command> parse() {
         String[] l_commandParts = scan.nextLine().trim().split("\\s+");
         String l_commandType = l_commandParts[0];
         List<Command> l_commandList = new ArrayList<Command>();
@@ -49,17 +44,16 @@ public class CommandParser {
         return l_commandList;
     }
 
-    // old parsing method
-    public Command parse(String inputCommand) throws IllegalArgumentException {
-        String[] commandParts = inputCommand.trim().split("\\s+");
-        String commandType = commandParts[0];
-        List<String> commandArgs = Arrays.asList(commandParts).subList(1, commandParts.length);
-        Command command = new Command(commandType, commandArgs);
-        if (!validator.validate(command)) {
-            throw new IllegalArgumentException("Invalid command for startup phase" + commandType);
+    public Command parse(Player p_player) {
+        CommandValidator l_orderValidator = new OrderCommandValidator(p_player);
+        List<Command> l_commandList = parse();
+        if (l_commandList.size() > 1)
+            throw new IllegalArgumentException("Can't have more than one command for Player");
+        Command l_command = l_commandList.get(0);
+        if (!l_orderValidator.validate(l_command)) {
+            throw new IllegalArgumentException(
+                    "Invalid command for issuing orders " + l_command.getCommandType());
         }
-        return command;
+        return l_command;
     }
-
-    public Command parse(Player p_player) {}
 }
