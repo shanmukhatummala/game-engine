@@ -11,11 +11,15 @@ import static game.map.MapHelper.isAdjacent;
 public class Advance_order extends Order {
     /**
      * This class extends from order class and represents the Advance_order
-     * @param destination represents the destination country where armies are being deployed or moved.
-     * @param armyNumber represents number of armies to be deployed or moved to the destination country.
+     *
+     * @param destination represents the destination country where armies are being deployed or
+     *     moved.
+     * @param armyNumber represents number of armies to be deployed or moved to the destination
+     *     country.
      * @author Naveen
      */
     private Country destination;
+
     private int armyNumber;
 
     /**
@@ -33,14 +37,15 @@ public class Advance_order extends Order {
 
     /**
      * Executes the deployment of armies to a specified destination country.
-     * <p>
-     * This method checks if the destination country is owned by the initiator of the order.
-     * If the destination is owned by the initiator, it adds the specified number of armies to the destination's army count.
-     * If the destination is not adjacent to any of the initiator's countries, it initiates an attack on the destination.
-     * </p>
-     * @throws IllegalArgumentException if the destination country is not adjacent to any of the initiator's countries and an attack is attempted.
+     *
+     * <p>This method checks if the destination country is owned by the initiator of the order. If
+     * the destination is owned by the initiator, it adds the specified number of armies to the
+     * destination's army count. If the destination is not adjacent to any of the initiator's
+     * countries, it initiates an attack on the destination.
+     *
+     * @throws IllegalArgumentException if the destination country is not adjacent to any of the
+     *     initiator's countries and an attack is attempted.
      */
-
     @Override
     public void execute() {
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
@@ -57,11 +62,12 @@ public class Advance_order extends Order {
 
     /**
      * An attack on a target territory by simulating battles between attacking and defending armies.
-     * <p>
-     * This method uses a random number generator to simulate the outcome of battles between the attacking and defending armies.
-     * Each attacking army has a 60% chance of killing one defending army, and each defending army has a 70% chance of killing one attacking army.
-     * The battle continues until either all attacking or defending armies are eliminated.
-     * </p>
+     *
+     * <p>This method uses a random number generator to simulate the outcome of battles between the
+     * attacking and defending armies. Each attacking army has a 60% chance of killing one defending
+     * army, and each defending army has a 70% chance of killing one attacking army. The battle
+     * continues until either all attacking or defending armies are eliminated.
+     *
      * @param target The target {@link Country} to attack.
      * @param armyNumber The number of armies to use in the attack.
      */
@@ -84,7 +90,6 @@ public class Advance_order extends Order {
                     Attacking_Armies--;
                 }
             }
-
         }
     }
 }
