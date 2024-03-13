@@ -8,19 +8,17 @@ import java.util.List;
 import static game.map.MapHelper.isAdjacent;
 
 public class Advance_order extends Order {
-
-    private int d_armyCount;
-
     /**
-     * This class extends from order class and represents the move order type of orders
+     * This class extends from order class and represents the Advance_order
+     * @param destination represents the destination country where armies are being deployed or moved.
+     * @param armyNumber represents number of armies to be deployed or moved to the destination country.
      * @author Naveen
      */
     private Country destination;
-
     private int armyNumber;
 
     /**
-     * Constructor for AdvanceOrder
+     * Constructor for Advance_order
      *
      * @param destination Country object representing the destination territory
      * @param initiator Player object who initiated the order
@@ -33,7 +31,13 @@ public class Advance_order extends Order {
     }
 
     /**
-     * Executes the Advance order, moving armies from the source territory to the destination territory
+     * Executes the deployment of armies to a specified destination country.
+     * <p>
+     * This method checks if the destination country is owned by the initiator of the order.
+     * If the destination is owned by the initiator, it adds the specified number of armies to the destination's army count.
+     * If the destination is not adjacent to any of the initiator's countries, it initiates an attack on the destination.
+     * </p>
+     * @throws IllegalArgumentException if the destination country is not adjacent to any of the initiator's countries and an attack is attempted.
      */
 
     @Override
@@ -50,6 +54,8 @@ public class Advance_order extends Order {
         }
     }
 
-    private void attackTerritory(Country target, int armyNumber) {}
+    private void attackTerritory(Country target, int armyNumber) {
+
+    }
 
 }
