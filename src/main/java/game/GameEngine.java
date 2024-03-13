@@ -8,6 +8,8 @@ import static game.map.MapValidator.isMapValid;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
+import game.commands.Command;
+import game.commands.CommandParser;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -57,66 +59,54 @@ public class GameEngine {
             while (true) {
                 try {
                     System.out.println("Enter the command: ");
-                    String l_command = l_bufferedReader.readLine();
-                    String[] l_commandArgs = l_command.split(" ");
+                    String l_usrInput = l_bufferedReader.readLine();
+                    List<Command> l_commandList = CommandParser.parse(l_usrInput);
 
-                    if (l_commandArgs.length == 2 && "editmap".equals(l_commandArgs[0])) {
-                        String l_fileName = l_commandArgs[1];
-                        String l_filePath = RESOURCES_PATH + l_fileName;
-                        if (!fileExists(l_filePath)) {
-                            createNewFileForMap(l_filePath);
-                        } else {
-                            loadMap(l_filePath, d_map);
-                        }
-                        editMap(l_bufferedReader, d_map, l_fileName);
-                    } else if (l_commandArgs.length == 2 && "loadmap".equals(l_commandArgs[0])) {
-                        loadMap(RESOURCES_PATH + l_commandArgs[1], d_map);
-                        if (!isMapValid(d_map)) {
-                            System.out.println(
-                                    "The loaded map is invalid, please load a valid map.");
-                            d_map.clearMap();
-                        }
-                    } else if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
-                        showMap(d_map);
-                    } else if (l_commandArgs.length >= 1 && "gameplayer".equals(l_commandArgs[0])) {
-                        if (!isValidGamePlayerCommand(l_commandArgs)) {
-                            System.out.println("Not a valid gameplayer command");
-                            System.out.println(
-                                    "It should be like, 'gameplayer -add/-remove playername'");
-                        } else {
-                            try {
-                                for (int l_idx = 1;
-                                        l_idx < l_commandArgs.length;
-                                        l_idx = l_idx + 2) {
-                                    if (l_commandArgs[l_idx].equals("-add")) {
-                                        d_map.addPlayer(l_commandArgs[l_idx + 1]);
-                                        System.out.println(
-                                                "Player " + l_commandArgs[l_idx + 1] + " added");
-                                    } else {
-                                        d_map.removePlayer(l_commandArgs[l_idx + 1]);
-                                        System.out.println(
-                                                "Player " + l_commandArgs[l_idx + 1] + " removed");
-                                    }
-                                }
-                            } catch (IllegalArgumentException e) {
-                                System.out.println(e.getMessage());
+                    if (l_commandList.get(0).getCommandType().equals("gameplayer")) {
+                        for (Command l_command : l_commandList) {
+                            List<String> l_commandArgs = l_command.getArgs();
+                            if (l_commandArgs.get(0).equals("-add")) {
+                                l_map.addPlayer(l_commandArgs.get(1));
+                                System.out.println("Player " + l_commandArgs.get(1) + " added");
+                            } else {
+                                l_map.removePlayer(l_commandArgs.get(1));
+                                System.out.println("Player " + l_commandArgs.get(1) + " removed");
                             }
                         }
-                    } else if (l_commandArgs.length == 1
-                            && l_commandArgs[0].equals("assigncountries")) {
-
-                        List<Player> players = d_map.getD_players();
-                        List<Country> countries = d_map.getD_countries();
-                        boolean countriesAssigned = d_map.assignCountries(players, countries);
-                        if (!countriesAssigned) {
-                            continue;
-                        }
-                        System.out.println("Countries have been assigned");
-                        startGameLoop(d_map, l_bufferedReader);
-                        System.out.println("Game over - all orders executed");
-                        endGame();
                     } else {
-                        System.out.println("Not a valid command. Try again");
+                        Command l_command = l_commandList.get(0);
+                        if ("editmap".equals(l_command.getCommandType())) {
+                            String l_fileName = l_command.getArgs().get(0);
+                            String l_filePath = RESOURCES_PATH + l_fileName;
+                            if (!fileExists(l_filePath)) {
+                                createNewFileForMap(l_filePath);
+                            } else {
+                                loadMap(l_filePath, l_map);
+                            }
+                            editMap(l_bufferedReader, l_map, l_fileName);
+                        } else if ("loadmap".equals(l_command.getCommandType())) {
+                            loadMap(RESOURCES_PATH + l_command.getArgs().get(0), l_map);
+                            if (!isMapValid(l_map)) {
+                                System.out.println(
+                                        "The loaded map is invalid, please load a valid map.");
+                                l_map.clearMap();
+                            }
+                        } else if ("showmap".equals(l_command.getCommandType())) {
+                            showMap(l_map);
+                        } else if ("assigncountries".equals(l_command.getCommandType())) {
+                            List<Player> players = l_map.getD_players();
+                            List<Country> countries = l_map.getD_countries();
+                            boolean countriesAssigned = l_map.assignCountries(players, countries);
+                            if (!countriesAssigned) {
+                                continue;
+                            }
+                            System.out.println("Countries have been assigned");
+                            startGameLoop(l_map, l_bufferedReader);
+                            System.out.println("Game over - all orders executed");
+                            endGame();
+                        } else {
+                            System.out.println("Not a valid command. Try again");
+                        }
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
