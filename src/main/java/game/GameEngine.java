@@ -41,6 +41,7 @@ public class GameEngine {
         this.d_map = p_map;
     }
 
+
     /**
      * Starts the game, and reads the input commands from the user and calls the required methods
      *
@@ -117,6 +118,15 @@ public class GameEngine {
             throw new RuntimeException(e);
         }
     }
+
+
+
+    public void startGame(){
+
+    }
+
+
+
 
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders

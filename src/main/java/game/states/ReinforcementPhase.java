@@ -1,4 +1,4 @@
 package game.states;
 
-public class ReinforcementPhase {
+public class ReinforcementPhase implements Phase{
 }
