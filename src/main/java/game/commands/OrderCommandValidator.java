@@ -55,22 +55,18 @@ public class OrderCommandValidator implements CommandValidator {
         return false;
     }
 
-    private boolean isCountryOwned(String p_countryName) {
-        return (d_player.getD_countries().stream()
-                .anyMatch(l_country -> l_country.getD_name().equals(p_countryName)));
-    }
-
     private boolean validateDeployCommand(Command p_command) {
         if (p_command.getArgs().size() != 2) {
-            System.out.println("in");
             return false;
         }
         List<String> l_commandArgs = p_command.getArgs();
 
-        String l_countryName = l_commandArgs.get(0);
-        int l_numArmies = Integer.parseInt(l_commandArgs.get(1));
-
-        return (isCountryOwned(l_countryName) && l_numArmies <= d_player.getD_reinforcements());
+        try {
+            int l_numArmies = Integer.parseInt(l_commandArgs.get(1));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     private boolean validateAdvanceCommand(Command p_command) {

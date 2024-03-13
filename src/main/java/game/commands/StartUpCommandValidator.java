@@ -1,7 +1,6 @@
 package game.commands;
 
 import game.GameEngine;
-import game.pojo.Player;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -59,36 +58,20 @@ public class StartUpCommandValidator implements CommandValidator {
         if (p_command.getArgs().size() != 2) {
             return false;
         }
-        List<Player> l_players = d_engine.getD_map().getD_players();
         List<String> l_commandArgs = p_command.getArgs();
 
-        if (l_commandArgs.get(0).equals("-add")) {
-            if (l_players.size() == 0) {
-                return true;
-            }
-            return (l_players.stream()
-                    .noneMatch(l_player -> l_player.getD_name().equals(l_commandArgs.get(1))));
-        }
-        if (l_commandArgs.get(0).equals("-remove")) {
-            return (l_players.stream()
-                    .anyMatch(l_player -> l_player.getD_name().equals(l_commandArgs.get(1))));
-        }
-
-        return false;
+        return (l_commandArgs.get(0).equals("-add") || l_commandArgs.get(0).equals("-remove"));
     }
 
     public boolean validateLoadmapCommand(Command p_command) {
-        // load map command validation
-        return true;
+        return (p_command.getArgs().size() == 1);
     }
 
     public boolean validateShowmapCommand(Command p_command) {
-        // load map command validation
-        return true;
+        return (p_command.getArgs().size() == 0);
     }
 
     public boolean validateAssigncountriesCommand(Command p_command) {
-        // load map command validation
-        return true;
+        return (p_command.getArgs().size() == 0);
     }
 }
