@@ -35,6 +35,11 @@ public class Blockade extends Order {
 
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
 
+        if (!getD_initiator().hasBlockadeCard()) {
+            System.out.println("Player does not have a blockade card. Cannot perform the operation");
+            return;
+        }
+
         if (!l_countriesOfInitiator.contains(d_target)) {
             System.out.println("Target country does not belong to the initiator. So, cannot blockade the country.");
             return;
