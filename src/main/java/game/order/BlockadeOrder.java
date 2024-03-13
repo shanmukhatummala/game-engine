@@ -48,6 +48,6 @@ public class BlockadeOrder extends Order {
 
         int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
         d_target.setD_armyCount(l_armyCountAfterBlockade);
-        l_countriesOfInitiator.remove(d_target);
+        // l_countriesOfInitiator.remove(d_target);
     }
 }
