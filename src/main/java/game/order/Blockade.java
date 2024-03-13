@@ -35,6 +35,11 @@ public class Blockade extends Order {
 
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
 
+        if (!l_countriesOfInitiator.contains(d_target)) {
+            System.out.println("Target country does not belong to the initiator. So, cannot blockade the country.");
+            return;
+        }
+
         int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
         d_target.setD_armyCount(l_armyCountAfterBlockade);
         l_countriesOfInitiator.remove(d_target);
