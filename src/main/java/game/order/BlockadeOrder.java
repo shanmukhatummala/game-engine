@@ -6,7 +6,7 @@ import game.pojo.Player;
 import java.util.List;
 
 /** Class representing a blockade order */
-public class Blockade extends Order {
+public class BlockadeOrder extends Order {
     private Country d_target;
 
     /**
@@ -15,7 +15,7 @@ public class Blockade extends Order {
      * @param p_target The name of the country to be blockaded
      * @param p_initiator player who initiated the order
      */
-    public Blockade(Country p_target, Player p_initiator) {
+    public BlockadeOrder(Country p_target, Player p_initiator) {
         super(p_initiator); // Call the superclass constructor with null destination
         this.d_target = p_target;
     }
@@ -48,6 +48,6 @@ public class Blockade extends Order {
 
         int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
         d_target.setD_armyCount(l_armyCountAfterBlockade);
-        l_countriesOfInitiator.remove(d_target);
+        // l_countriesOfInitiator.remove(d_target);
     }
 }
