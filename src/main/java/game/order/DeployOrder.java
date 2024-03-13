@@ -46,7 +46,32 @@ public class DeployOrder extends Order {
      */
     @Override
     public void execute() {
-        int l_currentArmyCount = this.getD_destination().getD_armyCount();
-        this.getD_destination().setD_armyCount(l_currentArmyCount + this.getD_armyNumber());
+
+        if (valid()) {
+            int l_currentReinforcementsOfInitiator = this.getD_initiator().getD_reinforcements();
+
+            int l_currentArmyCount = this.getD_destination().getD_armyCount();
+            this.getD_destination().setD_armyCount(l_currentArmyCount + this.getD_armyNumber());
+            this.getD_initiator()
+                    .setD_reinforcements(
+                            l_currentReinforcementsOfInitiator - this.getD_armyNumber());
+        }
+    }
+
+    @Override
+    public boolean valid() {
+
+        if (!this.getD_initiator().getD_countries().contains(d_destination)) {
+            System.out.println(d_destination + " is not owned by " + getD_initiator());
+            return false;
+        }
+
+        if (this.getD_armyNumber() < 0
+                || this.getD_armyNumber() > this.getD_initiator().getD_reinforcements()) {
+            System.out.println("Invalid number of armies");
+            return false;
+        }
+
+        return true;
     }
 }

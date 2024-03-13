@@ -25,7 +25,7 @@ public class DeployOrderTest {
     void setUp() {
         Continent l_continent = new Continent(1, "continent1", 5);
         d_Countries = createCountries(l_continent);
-        d_deployOrder = new DeployOrder(d_Countries.get(0), new Player(), 4);
+        d_deployOrder = new DeployOrder(d_Countries.get(0), new Player("player", d_Countries), 4);
     }
 
     /**

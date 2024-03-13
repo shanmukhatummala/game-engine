@@ -1,5 +1,6 @@
 package game.pojo;
 
+import game.order.BombOrder;
 import game.order.DeployOrder;
 import game.order.Order;
 
@@ -19,14 +20,11 @@ public class Player {
         DIPLOMACY
     }
 
-    private String d_name;
-    private List<Country> d_countries;
+    private final String d_name;
+    private final List<Country> d_countries;
     private int d_reinforcements;
-    private Queue<Order> d_orderList;
-    private List<Card> d_cards;
-
-    /** Constructor without arguments for Player */
-    public Player() {}
+    private final Queue<Order> d_orderList;
+    private final List<Card> d_cards;
 
     /**
      * Constructor with player name and countries for Player
@@ -114,36 +112,62 @@ public class Player {
         d_cards.add(card);
     }
 
-    /**
-     * This method will wait for the command and validate this command and then will create a deploy
-     * order object on the player list of orders then reduce the number of armies in the player
-     * reinforcements
-     */
-    public void issue_order() {
-        boolean l_commandStateDone = false;
-        while (!l_commandStateDone) {
-            String[] l_command_args = inputUserCommand();
-            Map<Country, Integer> l_destinationAndArmies = processDeployCommand(l_command_args);
-            if (l_destinationAndArmies != null) {
-                Country l_destination =
-                        l_destinationAndArmies.entrySet().iterator().next().getKey();
-                int l_armyNumber = l_destinationAndArmies.entrySet().iterator().next().getValue();
-                boolean l_state =
-                        this.d_orderList.offer(new DeployOrder(l_destination, this, l_armyNumber));
-                if (l_state) {
-                    this.d_reinforcements = this.d_reinforcements - l_armyNumber;
-                } else {
-                    System.out.println("Problem with deployment");
-                    continue;
-                }
-                l_commandStateDone = true;
-            } else {
-                if (!Scanner.hasNextLine()) {
-                    Scanner = new Scanner(System.in);
-                }
+    public void createOrder(String[] p_command) {
+
+        // validate command
+
+        if ("deploy".equals(p_command[0])) {
+            String l_countryId = p_command[1];
+            int l_numArmies = 0;
+            try {
+                l_numArmies = Integer.parseInt(p_command[2]);
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid number of armies");
             }
+
+            d_orderList.add(new DeployOrder(getCountryByName(l_countryId), this, l_numArmies));
+        } else if ("bomb".equals(p_command[0])) {
+            String l_target = p_command[1];
+
+            d_orderList.add(new BombOrder(getCountryByName(l_target), this));
         }
     }
+
+    //    /**
+    //     * This method will wait for the command and validate this command and then will create a
+    // deploy
+    //     * order object on the player list of orders then reduce the number of armies in the
+    // player
+    //     * reinforcements
+    //     */
+    //    public void issue_order() {
+    //        boolean l_commandStateDone = false;
+    //        while (!l_commandStateDone) {
+    //            String[] l_command_args = inputUserCommand();
+    //            Map<Country, Integer> l_destinationAndArmies =
+    // processDeployCommand(l_command_args);
+    //            if (l_destinationAndArmies != null) {
+    //                Country l_destination =
+    //                        l_destinationAndArmies.entrySet().iterator().next().getKey();
+    //                int l_armyNumber =
+    // l_destinationAndArmies.entrySet().iterator().next().getValue();
+    //                boolean l_state =
+    //                        this.d_orderList.offer(new DeployOrder(l_destination, this,
+    // l_armyNumber));
+    //                if (l_state) {
+    //                    this.d_reinforcements = this.d_reinforcements - l_armyNumber;
+    //                } else {
+    //                    System.out.println("Problem with deployment");
+    //                    continue;
+    //                }
+    //                l_commandStateDone = true;
+    //            } else {
+    //                if (!Scanner.hasNextLine()) {
+    //                    Scanner = new Scanner(System.in);
+    //                }
+    //            }
+    //        }
+    //    }
 
     /**
      * @return the next order(first order in the queue) of the player from the order list

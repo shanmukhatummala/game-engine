@@ -14,7 +14,6 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -113,7 +112,7 @@ public class GameEngine {
                             continue;
                         }
                         System.out.println("Countries have been assigned");
-                        startGameLoop(d_map);
+                        startGameLoop(d_map, l_bufferedReader);
                         System.out.println("Game over - all orders executed");
                         endGame();
                     } else {
@@ -133,9 +132,9 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private static void startGameLoop(Map p_map) {
+    private static void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
         assignReinforcements(p_map);
-        issueOrders(p_map);
+        issueOrders(p_map, p_bufferedReader);
         executeOrders(p_map);
     }
 
@@ -171,40 +170,43 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private static void issueOrders(Map p_map) {
+    private static void issueOrders(Map p_map, BufferedReader p_bufferedReader) {
         List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
-        Scanner l_scanner;
         while (!l_playersLeftToIssueOrder.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
                 if (l_player.getD_reinforcements() != 0 || !l_player.getD_cards().isEmpty()) {
-                    l_scanner = new Scanner(System.in);
                     while (true) {
-                        System.out.println(
-                                "Player: " + l_player.getD_name() + ", enter the command: ");
-                        String l_command = l_scanner.nextLine();
-                        String[] l_commandArgs = l_command.split(" ");
-                        if ("showmap".equals(l_commandArgs[0])
-                                || "deploy".equals(l_commandArgs[0])) {
+                        try {
+                            System.out.println(
+                                    "Player: " + l_player.getD_name() + ", enter the command: ");
+
+                            String l_command = p_bufferedReader.readLine();
+                            String[] l_commandArgs = l_command.split(" ");
+
                             if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
                                 showMap(p_map);
-                            } else {
-                                ByteArrayInputStream l_inputStream =
-                                        new ByteArrayInputStream(l_command.getBytes());
-                                l_scanner = new Scanner(l_inputStream);
-                                Player.Scanner = l_scanner;
-                                l_player.issue_order();
-                                System.out.println("Deploy Command has been issued");
-                                break;
+                                continue;
                             }
-                        } else {
-                            System.out.println("Invalid command, try again");
+
+                            if (Arrays.asList("deploy", "bomb").contains(l_commandArgs[0])) {
+                                l_player.createOrder(l_commandArgs);
+                            } else {
+                                System.out.println("Invalid command. Try again: ");
+                            }
+                            break;
+                        } catch (IOException e) {
+                            System.out.println(
+                                    "Error when reading command. Error message: " + e.getMessage());
                         }
                     }
                     System.out.println(
                             "player: "
                                     + l_player.getD_name()
                                     + ", reinforcements: "
-                                    + l_player.getD_reinforcements());
+                                    + l_player.getD_reinforcements()
+                                    + (l_player.getD_cards().isEmpty()
+                                            ? ""
+                                            : ", cards " + l_player.getD_cards()));
                 } else {
                     l_playersLeftToIssueOrder.remove(l_player);
                 }

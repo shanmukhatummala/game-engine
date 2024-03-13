@@ -40,27 +40,35 @@ public class BombOrder extends Order {
     @Override
     public void execute() {
 
+        if (valid()) {
+            int l_armyCountAfterBombing = d_target.getD_armyCount() / 2;
+            d_target.setD_armyCount(l_armyCountAfterBombing);
+            getD_initiator().getD_cards().remove(BOMB);
+        }
+    }
+
+    @Override
+    public boolean valid() {
+
         List<Country> l_countriesOfInitiator = getD_initiator().getD_countries();
 
         if (!getD_initiator().getD_cards().contains(BOMB)) {
             System.out.println("You don't have a BOMB card. So, cannot execute bomb order.");
-            return;
+            return false;
         }
 
         if (l_countriesOfInitiator.contains(d_target)) {
             System.out.println(
                     "Target country belong to the initiator. So, cannot bomb your own country.");
-            return;
+            return false;
         }
 
         if (!isAdjacent(l_countriesOfInitiator, d_target)) {
             System.out.println(
-                    "Target country is not adjacent to the player. So, cannot bomb this country.");
-            return;
+                    "Target country is not adjacent to the player. So, cannot bomb this country. Try another: ");
+            return false;
         }
 
-        int l_armyCountAfterBombing = d_target.getD_armyCount() / 2;
-        d_target.setD_armyCount(l_armyCountAfterBombing);
-        getD_initiator().getD_cards().remove(BOMB);
+        return true;
     }
 }
