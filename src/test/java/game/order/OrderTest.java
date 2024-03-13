@@ -1,4 +1,4 @@
-package game.pojo;
+package game.order;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import pl.pojo.tester.api.assertion.Method;
 
-/** OrderTest is a test class for the Order POJO */
+/** OrderTest is a test class for the Order class */
 public class OrderTest {
 
     /** Tests the constructors, getters */

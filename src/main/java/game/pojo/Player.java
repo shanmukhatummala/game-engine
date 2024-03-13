@@ -1,5 +1,8 @@
 package game.pojo;
 
+import game.order.DeployOrder;
+import game.order.Order;
+
 import java.util.*;
 
 /** Player is a POJO representing a player */
@@ -97,7 +100,7 @@ public class Player {
                         l_destinationAndArmies.entrySet().iterator().next().getKey();
                 int l_armyNumber = l_destinationAndArmies.entrySet().iterator().next().getValue();
                 boolean l_state =
-                        this.d_orderList.offer(new DeployOrder(l_destination, l_armyNumber));
+                        this.d_orderList.offer(new DeployOrder(l_destination, this, l_armyNumber));
                 if (l_state) {
                     this.d_reinforcements = this.d_reinforcements - l_armyNumber;
                 } else {

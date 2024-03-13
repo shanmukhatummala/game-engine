@@ -25,7 +25,7 @@ class MapLoaderTest {
     /** Creates a new map before each test */
     @BeforeEach
     void setUp() {
-        d_path = "src/test/resources/test_load_map.map";
+        d_path = "src/test/resources/germany_test.map";
         d_map = new Map();
     }
 

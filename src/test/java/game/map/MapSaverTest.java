@@ -92,7 +92,7 @@ public class MapSaverTest {
      */
     @Test
     void saveMap() throws IOException {
-        String l_pathToExpectedOutcome = "src/test/resources/expectedOutcome.map";
+        String l_pathToExpectedOutcome = "src/test/resources/expected_outcome.map";
         MapSaver.saveMap(d_pathToSaveMapOutcome, d_map);
         List<String> l_expectedOutcome = Files.readAllLines(Paths.get(l_pathToExpectedOutcome));
         List<String> l_saveMapOutcome = Files.readAllLines(Paths.get(d_pathToSaveMapOutcome));
