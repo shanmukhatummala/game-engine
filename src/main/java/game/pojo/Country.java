@@ -16,6 +16,7 @@ public class Country {
     private Continent d_continent;
     private List<Integer> d_neighborIdList;
     private int d_armyCount;
+    private String player;
 
     /** Constructor without arguments for Country */
     public Country() {}
@@ -136,6 +137,7 @@ public class Country {
         this.d_armyCount = d_armyCount;
     }
 
+
     /**
      * Equals method to check the equality between two country objects
      *
@@ -170,5 +172,9 @@ public class Country {
     @Override
     public int hashCode() {
         return Objects.hash(d_id, d_name, d_continent, d_neighborIdList, d_armyCount);
+    }
+
+    public void setD_initiator(String player) {
+        this.player=player;
     }
 }
