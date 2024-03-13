@@ -26,4 +26,6 @@ public abstract class Order {
 
     /** this method is responsible for the behavior of the orders */
     public abstract void execute();
+
+    public abstract boolean valid();
 }
