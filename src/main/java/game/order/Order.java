@@ -24,7 +24,6 @@ public abstract class Order {
         return d_initiator;
     }
 
-
     /** this method is responsible for the behavior of the orders */
     public abstract void execute();
 }
