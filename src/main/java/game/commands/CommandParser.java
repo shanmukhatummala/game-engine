@@ -9,11 +9,11 @@ import java.util.List;
 
 public class CommandParser {
 
-    private boolean isCommandOption(String p_commandPart) {
+    private static boolean isCommandOption(String p_commandPart) {
         return (p_commandPart.charAt(0) == '-');
     }
 
-    private List<Command> parse(String p_inputStr) {
+    private static List<Command> parse(String p_inputStr) {
         String[] l_commandParts = p_inputStr.trim().split("\\s+");
         String l_commandType = l_commandParts[0];
         List<Command> l_commandList = new ArrayList<Command>();
@@ -43,7 +43,8 @@ public class CommandParser {
         return l_commandList;
     }
 
-    public Command parse(Player p_player, String p_inputStr) {
+    public static Command parse(Player p_player, String p_inputStr)
+            throws IllegalArgumentException {
         CommandValidator l_orderValidator = new OrderCommandValidator();
         List<Command> l_commandList = parse(p_inputStr);
         if (l_commandList.size() > 1)
@@ -58,7 +59,8 @@ public class CommandParser {
         return l_command;
     }
 
-    public List<Command> parse(GameEngine p_engine, String p_inputStr) {
+    public static List<Command> parse(GameEngine p_engine, String p_inputStr)
+            throws IllegalArgumentException {
         CommandValidator l_startUpValidator = new StartUpCommandValidator();
         List<Command> l_commandList = parse(p_inputStr);
         for (Command l_command : l_commandList) {
@@ -72,7 +74,8 @@ public class CommandParser {
         return l_commandList;
     }
 
-    public List<Command> parse(MapEditor p_editor, String p_inputStr) {
+    public static List<Command> parse(MapEditor p_editor, String p_inputStr)
+            throws IllegalArgumentException {
         CommandValidator l_editValidator = new EditCommandValidator();
         List<Command> l_commandList = parse(p_inputStr);
         for (Command l_command : l_commandList) {
