@@ -1,7 +1,5 @@
 package game.commands;
 
-import game.pojo.Player;
-
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,10 +11,8 @@ public class OrderCommandValidator implements CommandValidator {
             Arrays.asList("deploy", "advance", "bomb", "blockade", "airlift", "negotiate");
 
     Map<String, Method> d_methodMap;
-    Player d_player;
 
-    public OrderCommandValidator(Player p_player) {
-        d_player = p_player;
+    public OrderCommandValidator() {
         d_methodMap = new HashMap<String, Method>();
 
         for (int l_i = 0; l_i < d_validCommands.size(); l_i++) {
@@ -70,27 +66,42 @@ public class OrderCommandValidator implements CommandValidator {
     }
 
     private boolean validateAdvanceCommand(Command p_command) {
-        // editContinent command validation
+        if (p_command.getArgs().size() != 3) {
+            return false;
+        }
+        List<String> l_commandArgs = p_command.getArgs();
+
+        try {
+            int l_numArmies = Integer.parseInt(l_commandArgs.get(2));
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
     private boolean validateBombCommand(Command p_command) {
-        // editNeighbor command validation
-        return true;
+        return (p_command.getArgs().size() == 1);
     }
 
     private boolean validateBlockadeCommand(Command p_command) {
-        // editMap command validation
-        return true;
+        return (p_command.getArgs().size() == 1);
     }
 
     private boolean validateAirliftCommand(Command p_command) {
-        // game player command validation
+        if (p_command.getArgs().size() != 3) {
+            return false;
+        }
+        List<String> l_commandArgs = p_command.getArgs();
+
+        try {
+            int l_numArmies = Integer.parseInt(l_commandArgs.get(2));
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
     private boolean validateNegotiateCommand(Command p_command) {
-        // load map command validation
-        return true;
+        return (p_command.getArgs().size() == 1);
     }
 }

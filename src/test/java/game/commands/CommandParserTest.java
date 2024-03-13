@@ -2,6 +2,7 @@ package game.commands;
 
 import game.GameEngine;
 import game.map.Map;
+import game.map.MapEditor;
 import game.pojo.Player;
 
 import org.junit.jupiter.api.Assertions;
@@ -21,8 +22,9 @@ public class CommandParserTest {
     @BeforeEach
     void setUp() {
         inputCommand = "gameplayer -add playerName -add playername2 -remove playername1";
+        inputCommand1 = "deploy country1 4";
         parser = new CommandParser();
-        inputCommand2 = "deploy country1 4";
+        inputCommand2 = "editcontinent -add Europe 3";
     }
 
     @Test
@@ -61,9 +63,26 @@ public class CommandParserTest {
         expectedArgs.add("4");
 
         String expectedCommandType = "deploy";
-        Command l_command = parser.parse(l_player, inputCommand2);
+        Command l_command = parser.parse(l_player, inputCommand1);
 
         Assertions.assertEquals(expectedCommandType, l_command.getCommandType());
         Assertions.assertEquals(expectedArgs, l_command.getArgs());
+    }
+
+    @Test
+    public void parseEditcontinentTest() {
+
+        MapEditor l_editor = new MapEditor();
+
+        List<String> expectedArgs = new ArrayList<>();
+        expectedArgs.add("-add");
+        expectedArgs.add("Europe");
+        expectedArgs.add("3");
+
+        String expectedCommandType = "editcontinent";
+        List<Command> l_commandList = parser.parse(l_editor, inputCommand2);
+
+        Assertions.assertEquals(expectedCommandType, l_commandList.get(0).getCommandType());
+        Assertions.assertEquals(expectedArgs, l_commandList.get(0).getArgs());
     }
 }

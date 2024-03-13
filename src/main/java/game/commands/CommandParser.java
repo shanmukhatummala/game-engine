@@ -1,6 +1,7 @@
 package game.commands;
 
 import game.GameEngine;
+import game.map.MapEditor;
 import game.pojo.Player;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class CommandParser {
     }
 
     public Command parse(Player p_player, String p_inputStr) {
-        CommandValidator l_orderValidator = new OrderCommandValidator(p_player);
+        CommandValidator l_orderValidator = new OrderCommandValidator();
         List<Command> l_commandList = parse(p_inputStr);
         if (l_commandList.size() > 1)
             throw new IllegalArgumentException("Can't have more than one command for Player");
@@ -58,12 +59,26 @@ public class CommandParser {
     }
 
     public List<Command> parse(GameEngine p_engine, String p_inputStr) {
-        CommandValidator l_orderValidator = new StartUpCommandValidator(p_engine);
+        CommandValidator l_startUpValidator = new StartUpCommandValidator();
         List<Command> l_commandList = parse(p_inputStr);
         for (Command l_command : l_commandList) {
-            if (!l_orderValidator.validate(l_command)) {
+            if (!l_startUpValidator.validate(l_command)) {
                 throw new IllegalArgumentException(
                         "Invalid command for the startup phase: "
+                                + l_command.getCommandType()
+                                + l_command.getArgs());
+            }
+        }
+        return l_commandList;
+    }
+
+    public List<Command> parse(MapEditor p_editor, String p_inputStr) {
+        CommandValidator l_editValidator = new EditCommandValidator();
+        List<Command> l_commandList = parse(p_inputStr);
+        for (Command l_command : l_commandList) {
+            if (!l_editValidator.validate(l_command)) {
+                throw new IllegalArgumentException(
+                        "Invalid command for the edit phase: "
                                 + l_command.getCommandType()
                                 + l_command.getArgs());
             }
