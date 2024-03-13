@@ -4,6 +4,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
+import java.util.Random;
 
 import static game.map.MapHelper.isAdjacent;
 
@@ -54,8 +55,36 @@ public class Advance_order extends Order {
         }
     }
 
+    /**
+     * An attack on a target territory by simulating battles between attacking and defending armies.
+     * <p>
+     * This method uses a random number generator to simulate the outcome of battles between the attacking and defending armies.
+     * Each attacking army has a 60% chance of killing one defending army, and each defending army has a 70% chance of killing one attacking army.
+     * The battle continues until either all attacking or defending armies are eliminated.
+     * </p>
+     * @param target The target {@link Country} to attack.
+     * @param armyNumber The number of armies to use in the attack.
+     */
     private void attackTerritory(Country target, int armyNumber) {
+        Random random = new Random();
+        int Attacking_Armies = armyNumber;
+        int Defending_Armies = target.getD_armyCount();
 
+        while (Attacking_Armies > 0 && Defending_Armies > 0) {
+            // Each attacking army has 60% chance of killing one defending army
+            for (int i = 0; i < Attacking_Armies; i++) {
+                if (random.nextDouble() <= 0.6) {
+                    Defending_Armies--;
+                }
+            }
+
+            // Each defending army has 70% chance of killing one attacking army
+            for (int i = 0; i < Defending_Armies; i++) {
+                if (random.nextDouble() <= 0.7) {
+                    Attacking_Armies--;
+                }
+            }
+
+        }
     }
-
 }
