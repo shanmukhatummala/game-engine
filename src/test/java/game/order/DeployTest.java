@@ -14,10 +14,10 @@ import pl.pojo.tester.api.assertion.Method;
 
 import java.util.*;
 
-/** This class test the DeployOrder class */
-public class DeployOrderTest {
+/** This class test the Deploy class */
+public class DeployTest {
 
-    DeployOrder d_deployOrder;
+    Deploy d_deploy;
     private List<Country> d_Countries;
 
     /** Setting up the deployOrder object for testing */
@@ -25,7 +25,7 @@ public class DeployOrderTest {
     void setUp() {
         Continent l_continent = new Continent(1, "continent1", 5);
         d_Countries = createCountries(l_continent);
-        d_deployOrder = new DeployOrder(d_Countries.get(0), new Player("player", d_Countries), 4);
+        d_deploy = new Deploy(d_Countries.get(0), new Player("player", d_Countries), 4);
     }
 
     /**
@@ -44,7 +44,7 @@ public class DeployOrderTest {
     /** Tests the constructors, getters */
     @Test
     public void shouldPassAllPojoTests() {
-        final Class<DeployOrder> l_classUnderTest = DeployOrder.class;
+        final Class<Deploy> l_classUnderTest = Deploy.class;
         assertPojoMethodsFor(l_classUnderTest)
                 .testing(Method.CONSTRUCTOR, Method.GETTER)
                 .areWellImplemented();
@@ -56,7 +56,7 @@ public class DeployOrderTest {
      */
     @Test
     public void executeTest() {
-        d_deployOrder.execute();
+        d_deploy.execute();
         int l_expectedArmyCount = 4;
         Assertions.assertEquals(l_expectedArmyCount, d_Countries.get(0).getD_armyCount());
     }

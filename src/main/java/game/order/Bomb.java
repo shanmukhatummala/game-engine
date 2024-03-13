@@ -9,17 +9,17 @@ import game.pojo.Player;
 import java.util.List;
 
 /** This class is used for performing the Bomb operation */
-public class BombOrder extends Order {
+public class Bomb extends Order {
 
     private Country d_target;
 
     /**
-     * Constructor for BombOrder class
+     * Constructor for Bomb class
      *
      * @param p_target target country to bomb
      * @param p_initiator player who initiated the order
      */
-    public BombOrder(Country p_target, Player p_initiator) {
+    public Bomb(Country p_target, Player p_initiator) {
         super(p_initiator);
         this.d_target = p_target;
     }

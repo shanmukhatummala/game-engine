@@ -1,7 +1,7 @@
 package game.pojo;
 
-import game.order.BombOrder;
-import game.order.DeployOrder;
+import game.order.Bomb;
+import game.order.Deploy;
 import game.order.Order;
 
 import java.util.*;
@@ -125,11 +125,11 @@ public class Player {
                 System.out.println("Not a valid number of armies");
             }
 
-            d_orderList.add(new DeployOrder(getCountryByName(l_countryId), this, l_numArmies));
+            d_orderList.add(new Deploy(getCountryByName(l_countryId), this, l_numArmies));
         } else if ("bomb".equals(p_command[0])) {
             String l_target = p_command[1];
 
-            d_orderList.add(new BombOrder(getCountryByName(l_target), this));
+            d_orderList.add(new Bomb(getCountryByName(l_target), this));
         }
     }
 
@@ -152,7 +152,7 @@ public class Player {
     //                int l_armyNumber =
     // l_destinationAndArmies.entrySet().iterator().next().getValue();
     //                boolean l_state =
-    //                        this.d_orderList.offer(new DeployOrder(l_destination, this,
+    //                        this.d_orderList.offer(new Deploy(l_destination, this,
     // l_armyNumber));
     //                if (l_state) {
     //                    this.d_reinforcements = this.d_reinforcements - l_armyNumber;

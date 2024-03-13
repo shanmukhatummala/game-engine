@@ -18,13 +18,13 @@ import pl.pojo.tester.api.assertion.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Test for BombOrder class */
-public class BombOrderTest {
+/** Test for Bomb class */
+public class BombTest {
 
     /** Tests if constructor and getters are implemented properly */
     @Test
     public void shouldPassAllPojoTests() {
-        final Class<BombOrder> l_classUnderTest = BombOrder.class;
+        final Class<Bomb> l_classUnderTest = Bomb.class;
         assertPojoMethodsFor(l_classUnderTest)
                 .testing(Method.CONSTRUCTOR, Method.GETTER)
                 .areWellImplemented();
@@ -43,9 +43,9 @@ public class BombOrderTest {
         l_country1.addNeighbor(l_country2.getD_id());
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
-        BombOrder l_bombOrder = new BombOrder(l_country2, l_player);
+        Bomb l_bomb = new Bomb(l_country2, l_player);
 
-        l_bombOrder.execute();
+        l_bomb.execute();
 
         assertThat(l_country2.getD_armyCount(), equalTo(5));
     }
@@ -59,9 +59,9 @@ public class BombOrderTest {
         Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
         l_country1.addNeighbor(l_country2.getD_id());
         Player l_player = new Player("Player", List.of(l_country1));
-        BombOrder l_bombOrder = new BombOrder(l_country2, l_player);
+        Bomb l_bomb = new Bomb(l_country2, l_player);
 
-        l_bombOrder.execute();
+        l_bomb.execute();
 
         assertThat(l_country2.getD_armyCount(), equalTo(10));
     }
@@ -78,9 +78,9 @@ public class BombOrderTest {
         Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
-        BombOrder l_bombOrder = new BombOrder(l_country2, l_player);
+        Bomb l_bomb = new Bomb(l_country2, l_player);
 
-        l_bombOrder.execute();
+        l_bomb.execute();
 
         assertThat(l_country2.getD_armyCount(), equalTo(10));
     }
@@ -93,9 +93,9 @@ public class BombOrderTest {
         Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
-        BombOrder l_bombOrder = new BombOrder(l_country1, l_player);
+        Bomb l_bomb = new Bomb(l_country1, l_player);
 
-        l_bombOrder.execute();
+        l_bomb.execute();
 
         assertThat(l_country1.getD_armyCount(), equalTo(10));
     }

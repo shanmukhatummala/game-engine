@@ -3,8 +3,6 @@ package game.order;
 import game.pojo.Country;
 import game.pojo.Player;
 
-import java.util.List;
-
 /** Class representing a blockade order */
 public class Blockade extends Order {
     private Country d_target;
@@ -32,22 +30,28 @@ public class Blockade extends Order {
     /** Executes the blockade order */
     public void execute() {
 
-        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+        if (valid()) {
 
+            int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
+            d_target.setD_armyCount(l_armyCountAfterBlockade);
+            this.getD_initiator().getD_countries().remove(d_target);
+        }
+    }
+
+    @Override
+    public boolean valid() {
         //        if (!getD_initiator().hasBlockadeCard()) {
         //            System.out.println("Player does not have a blockade card. Cannot perform the
         // operation");
-        //            return;
+        //            return false;
         //        }
 
-        if (!l_countriesOfInitiator.contains(d_target)) {
+        if (!this.getD_initiator().getD_countries().contains(d_target)) {
             System.out.println(
                     "Target country does not belong to the initiator. So, cannot blockade the country.");
-            return;
+            return false;
         }
 
-        int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
-        d_target.setD_armyCount(l_armyCountAfterBlockade);
-        l_countriesOfInitiator.remove(d_target);
+        return true;
     }
 }

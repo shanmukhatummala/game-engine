@@ -4,7 +4,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 /** this class extends from order class and represent the deploy order type of orders */
-public class DeployOrder extends Order {
+public class Deploy extends Order {
 
     private Country d_destination;
     private int d_armyNumber;
@@ -16,7 +16,7 @@ public class DeployOrder extends Order {
      * @param p_destination Country object of where the army will be deployed
      * @param p_armyNumber Integer of the army count
      */
-    public DeployOrder(Country p_destination, Player p_initiator, int p_armyNumber) {
+    public Deploy(Country p_destination, Player p_initiator, int p_armyNumber) {
         super(p_initiator);
         this.d_destination = p_destination;
         this.d_armyNumber = p_armyNumber;
