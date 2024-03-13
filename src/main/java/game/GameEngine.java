@@ -169,20 +169,13 @@ public class GameEngine {
                         try {
                             System.out.println(
                                     "Player: " + l_player.getD_name() + ", enter the command: ");
-
-                            String l_command = p_bufferedReader.readLine();
-                            String[] l_commandArgs = l_command.split(" ");
-
-                            if (l_commandArgs.length == 1 && "showmap".equals(l_commandArgs[0])) {
+                            String l_commandString = p_bufferedReader.readLine();
+                            Command command = CommandParser.parse(l_commandString).get(0);
+                            if ("showmap".equals(command.getCommandType())) {
                                 showMap(p_map);
                                 continue;
                             }
-
-                            if (Arrays.asList("deploy", "bomb").contains(l_commandArgs[0])) {
-                                l_player.createOrder(l_commandArgs);
-                            } else {
-                                System.out.println("Invalid command. Try again: ");
-                            }
+                            l_player.issue_order(p_map, command);
                             break;
                         } catch (IOException e) {
                             System.out.println(
@@ -222,38 +215,6 @@ public class GameEngine {
             }
         }
         showMap(p_map);
-    }
-
-    /**
-     * This method checks if a gameplayer command is valid
-     *
-     * @param commandArgs arguments in the gameplayer command
-     * @return true if the command is valid, else returns false
-     */
-    public static boolean isValidGamePlayerCommand(String[] commandArgs) {
-
-        for (int l_i = 1; l_i < commandArgs.length; l_i++) {
-            if (l_i % 2 != 0) {
-                if (!("-add".equals(commandArgs[l_i]) || "-remove".equals(commandArgs[l_i]))) {
-                    return false;
-                }
-            } else {
-                if ("-add".equals(commandArgs[l_i]) || "-remove".equals(commandArgs[l_i])) {
-                    return false;
-                }
-            }
-        }
-        return !"-add".equals(commandArgs[commandArgs.length - 1])
-                && !"-remove".equals(commandArgs[commandArgs.length - 1]);
-    }
-
-    /**
-     * Getter for the map
-     *
-     * @return map that contains all countries, continents and players
-     */
-    public Map getD_map() {
-        return d_map;
     }
 
     /** Stops the program or in other words ends the game */

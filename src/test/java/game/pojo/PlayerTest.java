@@ -1,39 +1,102 @@
 package game.pojo;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
+
+import static java.util.Arrays.asList;
+
+import game.commands.Command;
+import game.commands.CommandParser;
+import game.map.Map;
+import game.order.Bomb;
+import game.order.Deploy;
+import game.order.Order;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import pl.pojo.tester.api.assertion.Method;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /** PlayerTest is a test class for the Player POJO */
 class PlayerTest {
-    private Player d_player;
-    Scanner d_scannerPlayer1;
+
+    private Map d_map;
+    private Player d_player1;
+    private Country d_country1;
+    private Country d_country2;
+    private Country d_country3;
 
     /** Setting up the Countries list and the players */
     @BeforeEach
     void setUp() {
         Continent l_continent = new Continent(1, "continent1", 5);
-        List<Country> l_playerCountries = createCountries(l_continent);
-        d_player = new Player("player1", l_playerCountries);
+        d_country1 = new Country(1, "country1", l_continent, new ArrayList<>(), 0);
+        d_country2 = new Country(2, "country2", l_continent, new ArrayList<>(), 0);
+        d_country3 = new Country(3, "country3", l_continent, new ArrayList<>(), 0);
+        d_player1 = new Player("player1");
+        d_map = new Map();
+        d_map.getD_continents().add(l_continent);
+        d_map.getD_countries().addAll(asList(d_country1, d_country2, d_country3));
+        d_map.getD_players().add(d_player1);
     }
 
-    /**
-     * This method create the countries
-     *
-     * @param p_continent Continent
-     * @return List of countries
-     */
-    private List<Country> createCountries(Continent p_continent) {
-        List<Country> l_countries = new ArrayList<>();
-        l_countries.add(new Country(1, "country1", p_continent, new ArrayList<>(), 0));
-        l_countries.add(new Country(2, "country2", p_continent, new ArrayList<>(), 0));
-        l_countries.add(new Country(3, "country3", p_continent, new ArrayList<>(), 0));
-        return l_countries;
+    /** Tests if the orders are added to the order list */
+    @Test
+    void shouldIssueOrders() {
+        d_player1.getD_countries().add(d_country1);
+        d_country1.addNeighbor(2);
+        String l_userCommandPlayer1 = "deploy country1 4";
+        String l_userCommandPlayer2 = "bomb country2";
+        Command deployCommand = CommandParser.parse(l_userCommandPlayer1).get(0);
+        Command bombCommand = CommandParser.parse(l_userCommandPlayer2).get(0);
+
+        d_player1.issue_order(d_map, deployCommand);
+        d_player1.issue_order(d_map, bombCommand);
+
+        assertThat(d_player1.getD_orderList().size(), equalTo(2));
+
+        Order firstOrder = d_player1.getD_orderList().poll();
+        Order secondOrder = d_player1.getD_orderList().poll();
+
+        assertThat(firstOrder, instanceOf(Deploy.class));
+        assertThat(firstOrder.getD_initiator(), equalTo(d_player1));
+        assertThat(((Deploy) firstOrder).getD_destination(), equalTo(d_country1));
+        assertThat(((Deploy) firstOrder).getD_armyNumber(), equalTo(4));
+        assertThat(secondOrder, instanceOf(Bomb.class));
+        assertThat(secondOrder.getD_initiator(), equalTo(d_player1));
+        assertThat(((Bomb) secondOrder).getD_target(), equalTo(d_country2));
+    }
+
+    /** Tests if the next_order returns the correct order */
+    @Test
+    void shouldReturnNextOrder() {
+        d_player1.getD_countries().add(d_country1);
+        d_country1.addNeighbor(2);
+        String l_userCommandPlayer1 = "deploy country1 4";
+        String l_userCommandPlayer2 = "bomb country2";
+        Command deployCommand = CommandParser.parse(l_userCommandPlayer1).get(0);
+        Command bombCommand = CommandParser.parse(l_userCommandPlayer2).get(0);
+
+        d_player1.issue_order(d_map, deployCommand);
+        d_player1.issue_order(d_map, bombCommand);
+        Order firstOrder = d_player1.next_order();
+        Order secondOrder = d_player1.next_order();
+        Order thirdOrder = d_player1.next_order();
+
+        assertThat(firstOrder, instanceOf(Deploy.class));
+        assertThat(firstOrder.getD_initiator(), equalTo(d_player1));
+        assertThat(((Deploy) firstOrder).getD_destination(), equalTo(d_country1));
+        assertThat(((Deploy) firstOrder).getD_armyNumber(), equalTo(4));
+        assertThat(secondOrder, instanceOf(Bomb.class));
+        assertThat(secondOrder.getD_initiator(), equalTo(d_player1));
+        assertThat(((Bomb) secondOrder).getD_target(), equalTo(d_country2));
+        assertThat(thirdOrder, nullValue());
     }
 
     /** Tests the constructors, getters, equals and hashcode methods */
@@ -45,61 +108,4 @@ class PlayerTest {
                 .testing(Method.CONSTRUCTOR, Method.GETTER, Method.EQUALS, Method.HASH_CODE)
                 .areWellImplemented();
     }
-
-    //    /**
-    //     * This method test the issue order method by providing user deploy command and assert if
-    // the
-    //     * player reinforcements has been affected correctly
-    //     */
-    //    @Test
-    //    void issue_order() {
-    //        String l_userCommandPlayer1 = "deploy country1 4\n";
-    //        ByteArrayInputStream l_inputStream =
-    //                new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
-    //        d_scannerPlayer1 = new Scanner(l_inputStream);
-    //        Player.Scanner = d_scannerPlayer1;
-    //        d_player.issue_order();
-    //        Assertions.assertEquals(
-    //                1,
-    //                d_player.getD_reinforcements(),
-    //                "Reinforcements should be reduced by the army number deployed.");
-    //    }
-
-    //    /**
-    //     * This method test the issue order method by providing user two deploy command one is
-    // wrong
-    //     * anthe other is correct and assert if the player reinforcements has been affected
-    // correctly
-    //     * after the right command
-    //     */
-    //    @Test
-    //    void issue_orderNotValidOnce() {
-    //        String l_userCommandPlayer1 = "test country3 3\ndeploy country3 4\n";
-    //        ByteArrayInputStream l_inputStream =
-    //                new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
-    //        d_scannerPlayer1 = new Scanner(l_inputStream);
-    //        Player.Scanner = d_scannerPlayer1;
-    //        d_player.issue_order();
-    //        Assertions.assertEquals(
-    //                1,
-    //                d_player.getD_reinforcements(),
-    //                "Reinforcements should be reduced by the army number deployed.");
-    //    }
-    //
-    //    /**
-    //     * This method test the next_order method in the player class it assert if the next order
-    // will
-    //     * return an object after the issue order method
-    //     */
-    //    @Test
-    //    void next_order() {
-    //        String l_userCommandPlayer1 = "deploy country2 1\n";
-    //        ByteArrayInputStream l_inputStream =
-    //                new ByteArrayInputStream(l_userCommandPlayer1.getBytes());
-    //        d_scannerPlayer1 = new Scanner(l_inputStream);
-    //        Player.Scanner = d_scannerPlayer1;
-    //        d_player.issue_order();
-    //        Order l_player1Order = d_player.next_order();
-    //        Assertions.assertNotNull(l_player1Order, "An order should exist");
-    //    }
 }

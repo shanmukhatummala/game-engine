@@ -17,7 +17,7 @@ public class MapHelper {
      * @param p_id id of the continent
      * @return continent reference
      */
-    public static Continent getContinentWithId(Map p_map, int p_id) {
+    public static Continent getContinentById(Map p_map, int p_id) {
 
         return p_map.getD_continents().stream()
                 .filter(continent -> continent.getD_id() == p_id)
@@ -32,12 +32,27 @@ public class MapHelper {
      * @param p_id id of the country
      * @return country reference
      */
-    public static Country getCountryWithId(Map p_map, int p_id) {
+    public static Country getCountryById(Map p_map, int p_id) {
 
         return p_map.getD_countries().stream()
                 .filter(country -> country.getD_id() == p_id)
                 .findFirst()
                 .orElse(null);
+    }
+
+    /**
+     * To get a Country object by name
+     *
+     * @param p_name the country name
+     * @return Country object
+     */
+    public static Country getCountryByName(Map p_map, String p_name) {
+        for (Country l_country : p_map.getD_countries()) {
+            if (l_country.getD_name().equals(p_name)) {
+                return l_country;
+            }
+        }
+        return null;
     }
 
     /**
@@ -52,7 +67,7 @@ public class MapHelper {
     public static boolean playerOwnsContinent(Map p_map, Player p_player, Continent p_continent) {
         List<Country> countriesOfThisPlayer = p_player.getD_countries();
         for (Integer l_countryId : p_continent.getD_countryIdList()) {
-            if (!countriesOfThisPlayer.contains(getCountryWithId(p_map, l_countryId))) {
+            if (!countriesOfThisPlayer.contains(getCountryById(p_map, l_countryId))) {
                 return false;
             }
         }
@@ -94,9 +109,16 @@ public class MapHelper {
         return null;
     }
 
+    /**
+     * Checks if the target country is adjacent to any one of the list of countries
+     *
+     * @param p_countries list of countries
+     * @param p_targetCountry target country
+     * @return true if adjacent, false if not
+     */
     public static boolean isAdjacent(List<Country> p_countries, Country p_targetCountry) {
 
-        Optional<Country> l_adjacentCountries =
+        Optional<Country> l_adjacentToCountry =
                 p_countries.stream()
                         .filter(
                                 country ->
@@ -104,6 +126,6 @@ public class MapHelper {
                                                 .contains(p_targetCountry.getD_id()))
                         .findAny();
 
-        return l_adjacentCountries.isPresent();
+        return l_adjacentToCountry.isPresent();
     }
 }

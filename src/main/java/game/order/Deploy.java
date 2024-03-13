@@ -49,7 +49,6 @@ public class Deploy extends Order {
 
         if (valid()) {
             int l_currentReinforcementsOfInitiator = this.getD_initiator().getD_reinforcements();
-
             int l_currentArmyCount = this.getD_destination().getD_armyCount();
             this.getD_destination().setD_armyCount(l_currentArmyCount + this.getD_armyNumber());
             this.getD_initiator()
@@ -60,7 +59,6 @@ public class Deploy extends Order {
 
     @Override
     public boolean valid() {
-
         if (!this.getD_initiator().getD_countries().contains(d_destination)) {
             System.out.println(d_destination + " is not owned by " + getD_initiator());
             return false;

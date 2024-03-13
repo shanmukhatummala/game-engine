@@ -1,5 +1,7 @@
 package game.order;
 
+import static game.pojo.Player.Card.BLOCKADE;
+
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -31,7 +33,6 @@ public class Blockade extends Order {
     public void execute() {
 
         if (valid()) {
-
             int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
             d_target.setD_armyCount(l_armyCountAfterBlockade);
             this.getD_initiator().getD_countries().remove(d_target);
@@ -40,11 +41,11 @@ public class Blockade extends Order {
 
     @Override
     public boolean valid() {
-        //        if (!getD_initiator().hasBlockadeCard()) {
-        //            System.out.println("Player does not have a blockade card. Cannot perform the
-        // operation");
-        //            return false;
-        //        }
+        if (!getD_initiator().getD_cards().contains(BLOCKADE)) {
+            System.out.println(
+                    "You don't have a BLOCKADE card. So, cannot execute blockade order.");
+            return false;
+        }
 
         if (!this.getD_initiator().getD_countries().contains(d_target)) {
             System.out.println(
