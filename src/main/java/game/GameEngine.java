@@ -64,27 +64,11 @@ public class GameEngine {
                     List<Command> l_commandList = CommandParser.parse(l_gameEngine, l_usrInput);
 
                     if (l_commandList.get(0).getCommandType().equals("gameplayer")) {
-                        for (Command l_command : l_commandList) {
-                            List<String> l_commandArgs = l_command.getArgs();
-                            if (l_commandArgs.get(0).equals("-add")) {
-                                l_map.addPlayer(l_commandArgs.get(1));
-                                System.out.println("Player " + l_commandArgs.get(1) + " added");
-                            } else {
-                                l_map.removePlayer(l_commandArgs.get(1));
-                                System.out.println("Player " + l_commandArgs.get(1) + " removed");
-                            }
-                        }
+                        l_gameEngine.gamePlayerHandler(l_commandList,l_map);
                     } else {
                         Command l_command = l_commandList.get(0);
                         if ("editmap".equals(l_command.getCommandType())) {
-                            String l_fileName = l_command.getArgs().get(0);
-                            String l_filePath = RESOURCES_PATH + l_fileName;
-                            if (!fileExists(l_filePath)) {
-                                createNewFileForMap(l_filePath);
-                            } else {
-                                loadMap(l_filePath, l_map);
-                            }
-                            editMap(l_bufferedReader, l_map, l_fileName);
+                            l_gameEngine.editMapHandler(l_command, l_map, l_bufferedReader);
                         } else if ("loadmap".equals(l_command.getCommandType())) {
                             loadMap(RESOURCES_PATH + l_command.getArgs().get(0), l_map);
                             if (!isMapValid(l_map)) {
@@ -117,6 +101,38 @@ public class GameEngine {
             throw new RuntimeException(e);
         }
     }
+
+
+
+    private void gamePlayerHandler(List<Command> p_commandList, Map p_map) {
+        for (Command l_command : p_commandList) {
+            List<String> l_commandArgs = l_command.getArgs();
+            if (l_commandArgs.get(0).equals("-add")) {
+                p_map.addPlayer(l_commandArgs.get(1));
+                System.out.println("Player " + l_commandArgs.get(1) + " added");
+            } else {
+                p_map.removePlayer(l_commandArgs.get(1));
+                System.out.println("Player " + l_commandArgs.get(1) + " removed");
+            }
+        }
+    }
+
+
+    private void editMapHandler(Command p_command, Map p_map, BufferedReader p_bufferedReader) {
+        String l_fileName = p_command.getArgs().get(0);
+        String l_filePath = RESOURCES_PATH + l_fileName;
+        if (!fileExists(l_filePath)) {
+            createNewFileForMap(l_filePath);
+        } else {
+            loadMap(l_filePath, p_map);
+        }
+        editMap(p_bufferedReader, p_map, l_fileName);
+    }
+
+
+
+
+
 
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
