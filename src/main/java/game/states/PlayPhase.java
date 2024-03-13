@@ -1,6 +1,6 @@
 package game.states;
 
-public class StartUpPhase implements Phase{
+public class PlayPhase implements Phase{
     @Override
     public void loadMapHandler() {
 

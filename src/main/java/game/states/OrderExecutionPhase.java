@@ -1,4 +1,4 @@
 package game.states;
 
-public class OrderExecutionPhase implements Phase{
+public class OrderExecutionPhase extends PlayPhase{
 }
