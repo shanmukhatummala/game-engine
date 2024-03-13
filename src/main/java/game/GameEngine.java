@@ -61,7 +61,7 @@ public class GameEngine {
                 try {
                     System.out.println("Enter the command: ");
                     String l_usrInput = l_bufferedReader.readLine();
-                    List<Command> l_commandList = CommandParser.parse(l_gameEngine, l_usrInput);
+                    List<Command> l_commandList = CommandParser.parse(l_usrInput);
 
                     if (l_commandList.get(0).getCommandType().equals("gameplayer")) {
                         for (Command l_command : l_commandList) {

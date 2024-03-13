@@ -1,10 +1,5 @@
 package game.commands;
 
-import game.GameEngine;
-import game.map.Map;
-import game.map.MapEditor;
-import game.pojo.Player;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +24,7 @@ public class CommandParserTest {
 
     @Test
     public void parseStartUpGameplayerTest() {
-        Map l_map = new Map();
-        GameEngine l_engine = new GameEngine(l_map);
+
         List<String> expectedArgs1 = new ArrayList<>();
         expectedArgs1.add("-add");
         expectedArgs1.add("playerName");
@@ -41,7 +35,7 @@ public class CommandParserTest {
         expectedArgs3.add("-remove");
         expectedArgs3.add("playername1");
         String expectedCommandType = "gameplayer";
-        List<Command> l_commandList = parser.parse(l_engine, inputCommand);
+        List<Command> l_commandList = parser.parse(inputCommand);
 
         Assertions.assertEquals(expectedCommandType, l_commandList.get(0).getCommandType());
         Assertions.assertEquals(expectedArgs1, l_commandList.get(0).getArgs());
@@ -56,14 +50,13 @@ public class CommandParserTest {
     @Test
     public void parseDeployTest() {
 
-        Player l_player = new Player();
-
         List<String> expectedArgs = new ArrayList<>();
         expectedArgs.add("country1");
         expectedArgs.add("4");
 
         String expectedCommandType = "deploy";
-        Command l_command = parser.parse(l_player, inputCommand1);
+        List<Command> l_commandList = parser.parse(inputCommand1);
+        Command l_command = l_commandList.get(0);
 
         Assertions.assertEquals(expectedCommandType, l_command.getCommandType());
         Assertions.assertEquals(expectedArgs, l_command.getArgs());
@@ -72,15 +65,13 @@ public class CommandParserTest {
     @Test
     public void parseEditcontinentTest() {
 
-        MapEditor l_editor = new MapEditor();
-
         List<String> expectedArgs = new ArrayList<>();
         expectedArgs.add("-add");
         expectedArgs.add("Europe");
         expectedArgs.add("3");
 
         String expectedCommandType = "editcontinent";
-        List<Command> l_commandList = parser.parse(l_editor, inputCommand2);
+        List<Command> l_commandList = parser.parse(inputCommand2);
 
         Assertions.assertEquals(expectedCommandType, l_commandList.get(0).getCommandType());
         Assertions.assertEquals(expectedArgs, l_commandList.get(0).getArgs());
