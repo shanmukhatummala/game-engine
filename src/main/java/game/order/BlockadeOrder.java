@@ -12,7 +12,7 @@ public class BlockadeOrder extends Order {
     /**
      * Constructor for the Blockade order
      *
-     * @param p_target   The name of the country to be blockaded
+     * @param p_target The name of the country to be blockaded
      * @param p_initiator player who initiated the order
      */
     public BlockadeOrder(Country p_target, Player p_initiator) {
@@ -28,27 +28,26 @@ public class BlockadeOrder extends Order {
     public Country getD_target() {
         return d_target;
     }
-    /**
-     * Executes the blockade order
-     */
+
+    /** Executes the blockade order */
     public void execute() {
 
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
 
-//        if (!getD_initiator().hasBlockadeCard()) {
-//            System.out.println("Player does not have a blockade card. Cannot perform the operation");
-//            return;
-//        }
+        //        if (!getD_initiator().hasBlockadeCard()) {
+        //            System.out.println("Player does not have a blockade card. Cannot perform the
+        // operation");
+        //            return;
+        //        }
 
         if (!l_countriesOfInitiator.contains(d_target)) {
-            System.out.println("Target country does not belong to the initiator. So, cannot blockade the country.");
+            System.out.println(
+                    "Target country does not belong to the initiator. So, cannot blockade the country.");
             return;
         }
 
         int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
         d_target.setD_armyCount(l_armyCountAfterBlockade);
         l_countriesOfInitiator.remove(d_target);
-
     }
-
 }
