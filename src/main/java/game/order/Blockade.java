@@ -31,11 +31,11 @@ public class Blockade extends Order {
 
     /** Executes the blockade order */
     public void execute() {
-
         if (valid()) {
             int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
             d_target.setD_armyCount(l_armyCountAfterBlockade);
-            //            this.getD_initiator().getD_countries().remove(d_target);
+            this.getD_initiator().getD_countries().remove(d_target);
+            getD_initiator().getD_cards().remove(BLOCKADE);
         }
     }
 
@@ -46,13 +46,11 @@ public class Blockade extends Order {
                     "You don't have a BLOCKADE card. So, cannot execute blockade order.");
             return false;
         }
-
         if (!this.getD_initiator().getD_countries().contains(d_target)) {
             System.out.println(
                     "Target country does not belong to the initiator. So, cannot blockade the country.");
             return false;
         }
-
         return true;
     }
 }
