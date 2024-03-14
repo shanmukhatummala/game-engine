@@ -1,18 +1,16 @@
 package game.pojo;
 
-import static game.map.MapHelper.getCountryByName;
-
 import game.commands.Command;
 import game.map.Map;
+import game.order.Advance_order;
 import game.order.Bomb;
 import game.order.Deploy;
 import game.order.Order;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
+
+import static game.map.MapHelper.getCountryByName;
+import static game.map.MapHelper.getCountryOwner;
 
 /** Player is a POJO representing a player */
 public class Player {
@@ -128,6 +126,12 @@ public class Player {
         } else if ("bomb".equals(commandType)) {
             String l_target = p_command.getArgs().get(0);
             d_orderList.add(new Bomb(getCountryByName(p_map, l_target), this));
+        } else if ("advance".equals(commandType)) {
+            String l_target = p_command.getArgs().get(0);
+            Country l_targetCountry = getCountryByName(p_map, l_target);
+            Player l_targetOwner = getCountryOwner(l_targetCountry, p_map.getD_players());
+            int l_numArmies = Integer.parseInt(p_command.getArgs().get(1));
+            d_orderList.add(new Advance_order(l_targetCountry,l_targetOwner,this,l_numArmies));
         }
     }
 
