@@ -1,22 +1,35 @@
 package game.pojo;
 
-import game.order.DeployOrder;
+import static game.map.MapHelper.getCountryByName;
+
+import game.commands.Command;
+import game.map.Map;
+import game.order.Bomb;
+import game.order.Deploy;
 import game.order.Order;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Queue;
 
 /** Player is a POJO representing a player */
 public class Player {
-    /** defining the scanner object as static attribute to be used in the issue_order method */
-    public static Scanner Scanner = new Scanner(System.in);
 
-    private String d_name;
-    private List<Country> d_countries;
+    public enum Card {
+        BOMB,
+        REINFORCEMENT,
+        BLOCKADE,
+        AIRLIFT,
+        DIPLOMACY
+    }
+
+    private final String d_name;
+    private final List<Country> d_countries;
     private int d_reinforcements;
-    private Queue<Order> d_orderList;
-
-    /** Constructor without arguments for Player */
-    public Player() {}
+    private final Queue<Order> d_orderList;
+    private final List<Card> d_cards;
 
     /**
      * Constructor with player name and countries for Player
@@ -29,6 +42,7 @@ public class Player {
         this.d_countries = p_countries;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
+        this.d_cards = new ArrayList<>();
     }
 
     /**
@@ -77,6 +91,15 @@ public class Player {
     }
 
     /**
+     * Getter for cards
+     *
+     * @return cards of the player
+     */
+    public List<Card> getD_cards() {
+        return d_cards;
+    }
+
+    /**
      * Setter for reinforcement count
      *
      * @param d_reinforcements reinforcement count to set
@@ -86,33 +109,25 @@ public class Player {
     }
 
     /**
-     * This method will wait for the command and validate this command and then will create a deploy
-     * order object on the player list of orders then reduce the number of armies in the player
-     * reinforcements
+     * Adds a card to the player's cards
+     *
+     * @param card the card to be added
      */
-    public void issue_order() {
-        boolean l_commandStateDone = false;
-        while (!l_commandStateDone) {
-            String[] l_command_args = inputUserCommand();
-            Map<Country, Integer> l_destinationAndArmies = processDeployCommand(l_command_args);
-            if (l_destinationAndArmies != null) {
-                Country l_destination =
-                        l_destinationAndArmies.entrySet().iterator().next().getKey();
-                int l_armyNumber = l_destinationAndArmies.entrySet().iterator().next().getValue();
-                boolean l_state =
-                        this.d_orderList.offer(new DeployOrder(l_destination, this, l_armyNumber));
-                if (l_state) {
-                    this.d_reinforcements = this.d_reinforcements - l_armyNumber;
-                } else {
-                    System.out.println("Problem with deployment");
-                    continue;
-                }
-                l_commandStateDone = true;
-            } else {
-                if (!Scanner.hasNextLine()) {
-                    Scanner = new Scanner(System.in);
-                }
-            }
+    public void addCard(Card card) {
+        d_cards.add(card);
+    }
+
+    public void issue_order(Map p_map, Command p_command) {
+
+        String commandType = p_command.getCommandType();
+
+        if ("deploy".equals(commandType)) {
+            String l_countryId = p_command.getArgs().get(0);
+            int l_numArmies = Integer.parseInt(p_command.getArgs().get(1));
+            d_orderList.add(new Deploy(getCountryByName(p_map, l_countryId), this, l_numArmies));
+        } else if ("bomb".equals(commandType)) {
+            String l_target = p_command.getArgs().get(0);
+            d_orderList.add(new Bomb(getCountryByName(p_map, l_target), this));
         }
     }
 
@@ -121,86 +136,6 @@ public class Player {
      */
     public Order next_order() {
         return this.d_orderList.poll();
-    }
-
-    /**
-     * takes the command from the scanner (can be from the user or an input stream as a string from
-     * the test) and split it
-     *
-     * @return array of string
-     */
-    private String[] inputUserCommand() {
-        if (System.in.equals(Scanner)) {
-            System.out.println("enter the deployment command: ");
-        }
-        String l_command = Scanner.nextLine();
-        return l_command.split(" ");
-    }
-
-    /**
-     * this method will validate the command and return the destination of deployment and the number
-     * of armies
-     *
-     * @param p_command_args
-     * @return HashMap object that holds a Country(destination) as a key and the army number as a
-     *     value
-     */
-    private Map<Country, Integer> processDeployCommand(String[] p_command_args) {
-        if (!"deploy".equals(p_command_args[0])) {
-            return errorMessage(
-                    "Invalid command or a command that has yet to be implemented, try again: ");
-        }
-        Country l_destination = getCountryByName(p_command_args[1]);
-        if (l_destination == null) {
-            return errorMessage("This country is not owned by the player, try again: ");
-        }
-        int l_armyNumber = parseArmyNumber(p_command_args[2]);
-        if (l_armyNumber < 0 || l_armyNumber > d_reinforcements) {
-            return errorMessage("invalid number of armies, try again: ");
-        }
-        Map<Country, Integer> l_commandProcessed = new HashMap<>();
-        l_commandProcessed.put(l_destination, l_armyNumber);
-        return l_commandProcessed;
-    }
-
-    /**
-     * this method print an error message if the validation of the command faild
-     *
-     * @param p_message error message
-     * @return null
-     */
-    private Map<Country, Integer> errorMessage(String p_message) {
-        System.out.println(p_message);
-        return null;
-    }
-
-    /**
-     * this method parse the last argument of the command into an integer (the number of armies)
-     *
-     * @param armyNumberStr
-     * @return army number as Integer
-     */
-    private int parseArmyNumber(String armyNumberStr) {
-        try {
-            return Integer.parseInt(armyNumberStr);
-        } catch (NumberFormatException e) {
-            return -1; // Indicates an error in parsing
-        }
-    }
-
-    /**
-     * this method filter the player countries by name
-     *
-     * @param p_name the country name
-     * @return Country object
-     */
-    private Country getCountryByName(String p_name) {
-        for (Country l_country : this.getD_countries()) {
-            if (l_country.getD_name().equals(p_name)) {
-                return l_country;
-            }
-        }
-        return null;
     }
 
     /**
@@ -225,7 +160,8 @@ public class Player {
         return Objects.equals(l_otherPlayer.d_name, this.d_name)
                 && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
                 && Objects.equals(l_otherPlayer.d_reinforcements, this.d_reinforcements)
-                && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList);
+                && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList)
+                && Objects.equals(l_otherPlayer.d_cards, this.d_cards);
     }
 
     /**
@@ -235,6 +171,6 @@ public class Player {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList);
+        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList, d_cards);
     }
 }

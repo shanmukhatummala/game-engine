@@ -64,7 +64,7 @@ public class MapShower {
             System.out.println("Number of armies : " + l_country.getD_armyCount());
             System.out.println("Neighbors:");
             for (Integer l_neighborId : l_country.getD_neighborIdList()) {
-                Country l_neighbor = getCountryWithId(p_map, l_neighborId);
+                Country l_neighbor = getCountryById(p_map, l_neighborId);
                 if (l_neighbor != null) {
                     System.out.println("    - " + l_neighbor.getD_name());
                 }

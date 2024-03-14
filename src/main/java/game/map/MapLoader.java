@@ -1,7 +1,7 @@
 package game.map;
 
-import static game.map.MapHelper.getContinentWithId;
-import static game.map.MapHelper.getCountryWithId;
+import static game.map.MapHelper.getContinentById;
+import static game.map.MapHelper.getCountryById;
 
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -74,7 +74,7 @@ public class MapLoader {
                     int l_countryId = Integer.parseInt(l_countryAttributes[0]);
                     String l_countryName = l_countryAttributes[1];
                     Continent l_continent =
-                            getContinentWithId(p_map, Integer.parseInt(l_countryAttributes[2]));
+                            getContinentById(p_map, Integer.parseInt(l_countryAttributes[2]));
                     if (l_continent == null) {
                         throw new IllegalArgumentException(
                                 "Continent with id, " + l_countryAttributes[2] + ", doesn't exist");
@@ -89,7 +89,7 @@ public class MapLoader {
                 if (l_readingBorders) {
                     String[] l_borderAttributes = l_line.split(" ");
                     Country l_currentCountry =
-                            getCountryWithId(p_map, Integer.parseInt(l_borderAttributes[0]));
+                            getCountryById(p_map, Integer.parseInt(l_borderAttributes[0]));
                     if (l_currentCountry == null) {
                         throw new IllegalArgumentException(
                                 "Continent with id, " + l_borderAttributes[0] + ", doesn't exist");
