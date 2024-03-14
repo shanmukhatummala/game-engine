@@ -54,8 +54,12 @@ public class Advance_order extends Order {
             System.out.println(armies);
 
         } else {
-            if (!isAdjacent(l_countriesOfInitiator, destination)) {
+            if (isAdjacent(l_countriesOfInitiator, destination)) {
                 attackTerritory(destination, armyNumber);
+            }
+            else
+            {
+                System.out.println("Cannot Advance armies to the territory.");
             }
         }
     }
@@ -91,5 +95,19 @@ public class Advance_order extends Order {
                 }
             }
         }
+        // Update territory armies based on the outcome of the attack
+        if (Defending_Armies <= 0) {
+            // Attacker wins
+            target.setD_armyCount(Attacking_Armies);
+
+
+        } else {
+            // Defender wins
+            target.setD_armyCount(Defending_Armies);
+        }
     }
+
+
+
+
 }
