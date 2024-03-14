@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Test for BombOrder class */
-public class BlockadeOrderTest {
+public class BlockadeTest {
 
     /** Tests if constructor and getters are implemented properly */
     @Test
     public void shouldPassAllPojoTests() {
-        final Class<BlockadeOrder> l_classUnderTest = BlockadeOrder.class;
+        final Class<Blockade> l_classUnderTest = Blockade.class;
         assertPojoMethodsFor(l_classUnderTest)
                 .testing(Method.CONSTRUCTOR, Method.GETTER)
                 .areWellImplemented();
@@ -34,10 +34,10 @@ public class BlockadeOrderTest {
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
-        BlockadeOrder l_blockadeOrder = new BlockadeOrder(l_country1, l_player);
+        Blockade l_blockadeOrder = new Blockade(l_country1, l_player);
 
         l_blockadeOrder.execute();
 
-        assertThat(l_country1.getD_armyCount(), equalTo(30));
+        assertThat(l_country1.getD_armyCount(), equalTo(10));
     }
 }

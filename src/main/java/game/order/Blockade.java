@@ -1,9 +1,9 @@
 package game.order;
 
+import static game.pojo.Player.Card.BLOCKADE;
+
 import game.pojo.Country;
 import game.pojo.Player;
-
-import java.util.List;
 
 /** Class representing a blockade order */
 public class Blockade extends Order {
@@ -35,7 +35,7 @@ public class Blockade extends Order {
         if (valid()) {
             int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
             d_target.setD_armyCount(l_armyCountAfterBlockade);
-//            this.getD_initiator().getD_countries().remove(d_target);
+            //            this.getD_initiator().getD_countries().remove(d_target);
         }
     }
 
