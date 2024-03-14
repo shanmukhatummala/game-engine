@@ -8,7 +8,7 @@ import java.util.Random;
 
 import static game.map.MapHelper.isAdjacent;
 
-public class Advance_order extends Order {
+public abstract class Advance_order extends Order {
     /**
      * This class extends from order class and represents the Advance_order
      *
@@ -19,18 +19,19 @@ public class Advance_order extends Order {
      * @author Naveen
      */
     private Country destination;
-
     private int armyNumber;
 
+    public Player player;
     /**
      * Constructor for Advance_order
      *
      * @param destination Country object representing the destination territory
-     * @param initiator Player object who initiated the order
+     * @param player Player object who initiated the order
      * @param armyNumber Integer representing the number of armies to move
      */
-    public Advance_order(Country destination, Player initiator, int armyNumber) {
-        super(initiator);
+    public Advance_order(Country destination, Player player, int armyNumber) {
+        super(null);
+        this.player=player;
         this.destination = destination;
         this.armyNumber = armyNumber;
     }
@@ -65,15 +66,16 @@ public class Advance_order extends Order {
     }
 
     /**
-     * An attack on a target territory by simulating battles between attacking and defending armies.
-     *
-     * <p>This method uses a random number generator to simulate the outcome of battles between the
+     * Simulates an attack on a target territory by simulating battles between attacking and defending armies.
+     * This method uses a random number generator to simulate the outcome of battles between the
      * attacking and defending armies. Each attacking army has a 60% chance of killing one defending
      * army, and each defending army has a 70% chance of killing one attacking army. The battle
      * continues until either all attacking or defending armies are eliminated.
      *
-     * @param target The target {@link Country} to attack.
-     * @param armyNumber The number of armies to use in the attack.
+     * @param target The target {@link Country} to attack. This country represents the defending territory.
+     * @param armyNumber The number of armies to use in the attack. This represents the attacking force.
+     * @see Country#getD_armyCount()
+     * @see Player#getD_countries()
      */
     private void attackTerritory(Country target, int armyNumber) {
         Random random = new Random();
@@ -99,14 +101,14 @@ public class Advance_order extends Order {
         if (Defending_Armies <= 0) {
             // Attacker wins
             target.setD_armyCount(Attacking_Armies);
-
+            player.getD_countries().add(target);
 
         } else {
             // Defender wins
             target.setD_armyCount(Defending_Armies);
+            player.getD_countries().remove(target);
         }
     }
-
 
 
 
