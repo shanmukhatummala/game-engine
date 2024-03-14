@@ -1,12 +1,12 @@
 package game.order;
 
+import static game.pojo.Player.Card.BLOCKADE;
+
 import game.pojo.Country;
 import game.pojo.Player;
 
-import java.util.List;
-
 /** Class representing a blockade order */
-public class BlockadeOrder extends Order {
+public class Blockade extends Order {
     private Country d_target;
 
     /**
@@ -15,7 +15,7 @@ public class BlockadeOrder extends Order {
      * @param p_target The name of the country to be blockaded
      * @param p_initiator player who initiated the order
      */
-    public BlockadeOrder(Country p_target, Player p_initiator) {
+    public Blockade(Country p_target, Player p_initiator) {
         super(p_initiator); // Call the superclass constructor with null destination
         this.d_target = p_target;
     }
@@ -32,22 +32,27 @@ public class BlockadeOrder extends Order {
     /** Executes the blockade order */
     public void execute() {
 
-        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+        if (valid()) {
+            int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
+            d_target.setD_armyCount(l_armyCountAfterBlockade);
+            //            this.getD_initiator().getD_countries().remove(d_target);
+        }
+    }
 
-        //        if (!getD_initiator().hasBlockadeCard()) {
-        //            System.out.println("Player does not have a blockade card. Cannot perform the
-        // operation");
-        //            return;
-        //        }
-
-        if (!l_countriesOfInitiator.contains(d_target)) {
+    @Override
+    public boolean valid() {
+        if (!getD_initiator().getD_cards().contains(BLOCKADE)) {
             System.out.println(
-                    "Target country does not belong to the initiator. So, cannot blockade the country.");
-            return;
+                    "You don't have a BLOCKADE card. So, cannot execute blockade order.");
+            return false;
         }
 
-        int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
-        d_target.setD_armyCount(l_armyCountAfterBlockade);
-        // l_countriesOfInitiator.remove(d_target);
+        if (!this.getD_initiator().getD_countries().contains(d_target)) {
+            System.out.println(
+                    "Target country does not belong to the initiator. So, cannot blockade the country.");
+            return false;
+        }
+
+        return true;
     }
 }

@@ -1,6 +1,6 @@
 package game.map;
 
-import static game.map.MapHelper.getCountryWithId;
+import static game.map.MapHelper.getCountryById;
 
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -49,7 +49,7 @@ public class MapValidator {
         p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
         // We call dfsStep on each neighbor that has not been seen yet
         for (Integer l_neighbourID : p_currentCountry.getD_neighborIdList()) {
-            Country l_neighbour = getCountryWithId(p_mapToValidate, l_neighbourID);
+            Country l_neighbour = getCountryById(p_mapToValidate, l_neighbourID);
             int l_indexNeighbour = p_mapToValidate.getD_countries().indexOf(l_neighbour);
             if (!p_countryHasBeenSeen.get(l_indexNeighbour)) {
                 dfsStep(l_neighbour, p_countryHasBeenSeen, p_mapToValidate);
@@ -114,8 +114,8 @@ public class MapValidator {
         p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
         // We call dfsStep on each neighbor (in the continent) that has not been seen yet
         for (Integer l_neighbourID :
-                getCountryWithId(p_mapToValidate, p_currentCountryID).getD_neighborIdList()) {
-            Country l_neighbour = getCountryWithId(p_mapToValidate, l_neighbourID);
+                getCountryById(p_mapToValidate, p_currentCountryID).getD_neighborIdList()) {
+            Country l_neighbour = getCountryById(p_mapToValidate, l_neighbourID);
             if (!l_neighbour.getD_continent().equals(p_continent)) continue;
             int l_indexNeighbour = p_continent.getD_countryIdList().indexOf(l_neighbourID);
             if (!p_countryHasBeenSeen.get(l_indexNeighbour)) {
