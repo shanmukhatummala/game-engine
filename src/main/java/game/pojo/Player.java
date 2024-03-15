@@ -1,18 +1,17 @@
 package game.pojo;
 
 import static game.map.MapHelper.getCountryByName;
+import static game.map.MapHelper.getCountryOwner;
 
 import game.commands.Command;
 import game.map.Map;
+import game.order.Advance_order;
 import game.order.Bomb;
 import game.order.Deploy;
 import game.order.Order;
+import game.util.IssueOrderHelper;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 
 /** Player is a POJO representing a player */
 public class Player {
@@ -117,17 +116,30 @@ public class Player {
         d_cards.add(card);
     }
 
-    public void issue_order(Map p_map, Command p_command) {
+    public void issue_order() {
 
-        String commandType = p_command.getCommandType();
+        Map l_map = IssueOrderHelper.getMap();
+        Command l_command = IssueOrderHelper.getCommand();
+
+        String commandType = l_command.getCommandType();
 
         if ("deploy".equals(commandType)) {
-            String l_countryId = p_command.getArgs().get(0);
-            int l_numArmies = Integer.parseInt(p_command.getArgs().get(1));
-            d_orderList.add(new Deploy(getCountryByName(p_map, l_countryId), this, l_numArmies));
+            String l_countryId = l_command.getArgs().get(0);
+            int l_numArmies = Integer.parseInt(l_command.getArgs().get(1));
+            d_orderList.add(new Deploy(getCountryByName(l_map, l_countryId), this, l_numArmies));
         } else if ("bomb".equals(commandType)) {
-            String l_target = p_command.getArgs().get(0);
-            d_orderList.add(new Bomb(getCountryByName(p_map, l_target), this));
+            String l_target = l_command.getArgs().get(0);
+            d_orderList.add(new Bomb(getCountryByName(l_map, l_target), this));
+        } else if ("advance".equals(commandType)) {
+            String l_source = l_command.getArgs().get(0);
+            Country l_sourceCountry = getCountryByName(l_map, l_source);
+            String l_target = l_command.getArgs().get(1);
+            Country l_targetCountry = getCountryByName(l_map, l_target);
+            Player l_targetOwner = getCountryOwner(l_targetCountry, l_map.getD_players());
+            int l_numArmies = Integer.parseInt(l_command.getArgs().get(2));
+            d_orderList.add(
+                    new Advance_order(
+                            l_targetCountry, l_sourceCountry, l_targetOwner, this, l_numArmies));
         }
     }
 

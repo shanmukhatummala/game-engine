@@ -8,34 +8,38 @@ import game.pojo.Player;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Advance_order extends Order {
-    /**
-     * This class extends from order class and represents the Advance_order
-     *
-     * @param destination represents the destination country where armies are being deployed or
-     *     moved.
-     * @param armyNumber represents number of armies to be deployed or moved to the destination
-     *     country.
-     * @author Naveen
-     */
-    private Country destination;
+/**
+ * This class extends from order class and represents the Advance_order
+ *
+ * @author Naveen
+ */
+public class Advance_order extends Order {
 
-    private int armyNumber;
-
-    public Player player;
+    private final Country destination;
+    private final Country source;
+    private final Player destinationOwner;
+    private final int armyNumber;
+    private Player initiator;
 
     /**
      * Constructor for Advance_order
      *
      * @param destination Country object representing the destination territory
-     * @param player Player object who initiated the order
+     * @param destinationOwner Player object represents owner of the destination country
+     * @param initiator Player object who initiated the order
      * @param armyNumber Integer representing the number of armies to move
      */
-    public Advance_order(Country destination, Player player, int armyNumber) {
-        super(null);
-        this.player = player;
+    public Advance_order(
+            Country destination,
+            Country source,
+            Player destinationOwner,
+            Player initiator,
+            int armyNumber) {
+        super(initiator);
+        this.source = source;
         this.destination = destination;
         this.armyNumber = armyNumber;
+        this.destinationOwner = destinationOwner;
     }
 
     /**
@@ -51,18 +55,33 @@ public abstract class Advance_order extends Order {
      */
     @Override
     public void execute() {
-        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
-        if (destination.getD_name().equals(this.getD_initiator())) {
-            int armies = destination.getD_armyCount() + armyNumber;
-            System.out.println(armies);
+        if (valid()) {
+            List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+            source.setD_armyCount(source.getD_armyCount() - armyNumber);
 
-        } else {
-            if (isAdjacent(l_countriesOfInitiator, destination)) {
-                attackTerritory(destination, armyNumber);
+            if (l_countriesOfInitiator.contains(destination)) {
+                destination.setD_armyCount(destination.getD_armyCount() + armyNumber);
             } else {
-                System.out.println("Cannot Advance armies to the territory.");
+                attackTerritory(destination, armyNumber, destinationOwner, initiator);
             }
+        } else {
+            System.out.println("Cannot Advance armies to the territory.");
         }
+    }
+
+    @Override
+    public boolean valid() {
+        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+
+        if (!l_countriesOfInitiator.contains(source)) {
+            return false;
+        }
+
+        if (l_countriesOfInitiator.contains(destination)) {
+            return true;
+        }
+
+        return isAdjacent(l_countriesOfInitiator, destination);
     }
 
     /**
@@ -79,7 +98,8 @@ public abstract class Advance_order extends Order {
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */
-    private void attackTerritory(Country target, int armyNumber) {
+    private void attackTerritory(
+            Country target, int armyNumber, Player destinationOwner, Player initiator) {
         Random random = new Random();
         int Attacking_Armies = armyNumber;
         int Defending_Armies = target.getD_armyCount();
@@ -103,12 +123,11 @@ public abstract class Advance_order extends Order {
         if (Defending_Armies <= 0) {
             // Attacker wins
             target.setD_armyCount(Attacking_Armies);
-            player.getD_countries().add(target);
-
+            initiator.getD_countries().add(target);
+            destinationOwner.getD_countries().remove(target);
         } else {
             // Defender wins
             target.setD_armyCount(Defending_Armies);
-            player.getD_countries().remove(target);
         }
     }
 }
