@@ -67,4 +67,14 @@ public class StartUpPhase implements Phase{
     public void assignCountriesHandler() {
 
     }
+
+    @Override
+    public void saveMapHandler(String p_fileName, Command p_command, Map p_map) {
+
+    }
+
+    @Override
+    public void validateMapHandler(Map p_map) {
+
+    }
 }

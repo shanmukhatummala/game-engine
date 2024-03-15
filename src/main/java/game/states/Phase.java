@@ -30,4 +30,7 @@ public interface Phase {
     public void editMapHandler();
     public void showMapHandler(Map p_map);
     public void assignCountriesHandler();
+    public void saveMapHandler(String p_fileName, Command p_command, Map p_map);
+    public void validateMapHandler(Map p_map);
+
 }
