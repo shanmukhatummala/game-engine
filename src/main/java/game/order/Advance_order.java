@@ -1,15 +1,16 @@
 package game.order;
 
+import static game.map.MapHelper.isAdjacent;
+
 import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
 import java.util.Random;
 
-import static game.map.MapHelper.isAdjacent;
-
 /**
  * This class extends from order class and represents the Advance_order
+ *
  * @author Naveen
  */
 public class Advance_order extends Order {
@@ -28,7 +29,12 @@ public class Advance_order extends Order {
      * @param initiator Player object who initiated the order
      * @param armyNumber Integer representing the number of armies to move
      */
-    public Advance_order(Country destination, Country source, Player destinationOwner, Player initiator, int armyNumber) {
+    public Advance_order(
+            Country destination,
+            Country source,
+            Player destinationOwner,
+            Player initiator,
+            int armyNumber) {
         super(initiator);
         this.source = source;
         this.destination = destination;
@@ -49,20 +55,18 @@ public class Advance_order extends Order {
      */
     @Override
     public void execute() {
-      if(valid()) {
-          List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
-          source.setD_armyCount(source.getD_armyCount() - armyNumber);
+        if (valid()) {
+            List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+            source.setD_armyCount(source.getD_armyCount() - armyNumber);
 
-          if (l_countriesOfInitiator.contains(destination)) {
-              destination.setD_armyCount(destination.getD_armyCount() + armyNumber);
-          }
-          else {
-              attackTerritory(destination, armyNumber, destinationOwner, initiator);
-          }
-      }
-      else {
-          System.out.println("Cannot Advance armies to the territory.");
-      }
+            if (l_countriesOfInitiator.contains(destination)) {
+                destination.setD_armyCount(destination.getD_armyCount() + armyNumber);
+            } else {
+                attackTerritory(destination, armyNumber, destinationOwner, initiator);
+            }
+        } else {
+            System.out.println("Cannot Advance armies to the territory.");
+        }
     }
 
     @Override
@@ -94,7 +98,8 @@ public class Advance_order extends Order {
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */
-    private void attackTerritory(Country target, int armyNumber, Player destinationOwner, Player initiator) {
+    private void attackTerritory(
+            Country target, int armyNumber, Player destinationOwner, Player initiator) {
         Random random = new Random();
         int Attacking_Armies = armyNumber;
         int Defending_Armies = target.getD_armyCount();

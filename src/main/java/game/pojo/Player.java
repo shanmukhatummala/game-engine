@@ -1,5 +1,8 @@
 package game.pojo;
 
+import static game.map.MapHelper.getCountryByName;
+import static game.map.MapHelper.getCountryOwner;
+
 import game.commands.Command;
 import game.map.Map;
 import game.order.Advance_order;
@@ -8,9 +11,6 @@ import game.order.Deploy;
 import game.order.Order;
 
 import java.util.*;
-
-import static game.map.MapHelper.getCountryByName;
-import static game.map.MapHelper.getCountryOwner;
 
 /** Player is a POJO representing a player */
 public class Player {
@@ -133,7 +133,9 @@ public class Player {
             Country l_targetCountry = getCountryByName(p_map, l_target);
             Player l_targetOwner = getCountryOwner(l_targetCountry, p_map.getD_players());
             int l_numArmies = Integer.parseInt(p_command.getArgs().get(2));
-            d_orderList.add(new Advance_order(l_targetCountry, l_sourceCountry, l_targetOwner,this, l_numArmies));
+            d_orderList.add(
+                    new Advance_order(
+                            l_targetCountry, l_sourceCountry, l_targetOwner, this, l_numArmies));
         }
     }
 

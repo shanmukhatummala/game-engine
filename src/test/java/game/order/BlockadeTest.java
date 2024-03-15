@@ -1,6 +1,7 @@
 package game.order;
 
 import static game.pojo.Player.Card.BLOCKADE;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
