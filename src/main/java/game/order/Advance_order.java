@@ -1,8 +1,11 @@
 package game.order;
+
 import game.pojo.Country;
 import game.pojo.Player;
+
 import java.util.List;
 import java.util.Random;
+
 import static game.map.MapHelper.isAdjacent;
 
 /**
@@ -12,7 +15,8 @@ import static game.map.MapHelper.isAdjacent;
 public class Advance_order extends Order {
 
     private final Country destination;
-    private final Player destinationPlayer;
+    private final Country source;
+    private final Player destinationOwner;
     private final int armyNumber;
     private Player initiator;
 
@@ -20,15 +24,16 @@ public class Advance_order extends Order {
      * Constructor for Advance_order
      *
      * @param destination Country object representing the destination territory
-     * @param destinationPlayer Player object represents owner of the destination country
+     * @param destinationOwner Player object represents owner of the destination country
      * @param initiator Player object who initiated the order
      * @param armyNumber Integer representing the number of armies to move
      */
-    public Advance_order(Country destination, Player destinationPlayer, Player initiator,int armyNumber) {
+    public Advance_order(Country destination, Country source, Player destinationOwner, Player initiator, int armyNumber) {
         super(initiator);
+        this.source = source;
         this.destination = destination;
         this.armyNumber = armyNumber;
-        this.destinationPlayer=destinationPlayer;
+        this.destinationOwner = destinationOwner;
     }
 
     /**
@@ -44,24 +49,35 @@ public class Advance_order extends Order {
      */
     @Override
     public void execute() {
-        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
-        if (destination.getD_name().equals(this.getD_initiator())) {
-            int armies = destination.getD_armyCount() + armyNumber;
-            System.out.println(armies);
+      if(valid()) {
+          List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+          source.setD_armyCount(source.getD_armyCount() - armyNumber);
 
-        } else {
-            if (isAdjacent(l_countriesOfInitiator, destination)) {
-
-                attackTerritory(destination, armyNumber,destinationPlayer,initiator);
-            } else {
-                System.out.println("Cannot Advance armies to the territory.");
-            }
-        }
+          if (l_countriesOfInitiator.contains(destination)) {
+              destination.setD_armyCount(destination.getD_armyCount() + armyNumber);
+          }
+          else {
+              attackTerritory(destination, armyNumber, destinationOwner, initiator);
+          }
+      }
+      else {
+          System.out.println("Cannot Advance armies to the territory.");
+      }
     }
 
     @Override
     public boolean valid() {
-        return false;
+        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+
+        if (!l_countriesOfInitiator.contains(source)) {
+            return false;
+        }
+
+        if (l_countriesOfInitiator.contains(destination)) {
+            return true;
+        }
+
+        return isAdjacent(l_countriesOfInitiator, destination);
     }
 
     /**
@@ -78,7 +94,7 @@ public class Advance_order extends Order {
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */
-    private void attackTerritory(Country target, int armyNumber, Player destinationPlayer, Player initiator) {
+    private void attackTerritory(Country target, int armyNumber, Player destinationOwner, Player initiator) {
         Random random = new Random();
         int Attacking_Armies = armyNumber;
         int Defending_Armies = target.getD_armyCount();
@@ -103,13 +119,10 @@ public class Advance_order extends Order {
             // Attacker wins
             target.setD_armyCount(Attacking_Armies);
             initiator.getD_countries().add(target);
-            destinationPlayer.getD_countries().remove(target);
-
+            destinationOwner.getD_countries().remove(target);
         } else {
             // Defender wins
             target.setD_armyCount(Defending_Armies);
         }
     }
-
-
 }

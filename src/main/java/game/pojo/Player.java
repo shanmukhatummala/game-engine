@@ -127,11 +127,13 @@ public class Player {
             String l_target = p_command.getArgs().get(0);
             d_orderList.add(new Bomb(getCountryByName(p_map, l_target), this));
         } else if ("advance".equals(commandType)) {
-            String l_target = p_command.getArgs().get(0);
+            String l_source = p_command.getArgs().get(0);
+            Country l_sourceCountry = getCountryByName(p_map, l_source);
+            String l_target = p_command.getArgs().get(1);
             Country l_targetCountry = getCountryByName(p_map, l_target);
             Player l_targetOwner = getCountryOwner(l_targetCountry, p_map.getD_players());
-            int l_numArmies = Integer.parseInt(p_command.getArgs().get(1));
-            d_orderList.add(new Advance_order(l_targetCountry,l_targetOwner,this,l_numArmies));
+            int l_numArmies = Integer.parseInt(p_command.getArgs().get(2));
+            d_orderList.add(new Advance_order(l_targetCountry, l_sourceCountry, l_targetOwner,this, l_numArmies));
         }
     }
 
