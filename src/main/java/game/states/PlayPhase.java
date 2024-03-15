@@ -9,6 +9,7 @@ import static game.map.MapValidator.isMapValid;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
+import game.GameEngine;
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.map.Map;
@@ -27,7 +28,7 @@ import java.util.*;
 
 public class PlayPhase implements Phase{
     @Override
-    public void handleLoadMap(Command p_command, Map p_map) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
 
     }
 

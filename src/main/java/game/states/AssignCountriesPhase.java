@@ -6,7 +6,7 @@ import game.pojo.Player;
 
 import java.util.List;
 
-public class AssignCountriesPhase extends StartUpPhase{
+public class AssignCountriesPhase extends PlaySetupPhase{
 
     @Override
     public void handleAssignCountries(Map p_map) {

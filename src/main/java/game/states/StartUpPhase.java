@@ -11,6 +11,7 @@ import static game.map.MapValidator.isMapValid;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
 
+import game.GameEngine;
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.map.Map;
@@ -28,15 +29,18 @@ import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 
 public class StartUpPhase implements Phase{
+
     public static final String RESOURCES_PATH = "src/main/resources/";
     @Override
-    public void handleLoadMap(Command p_command, Map p_map) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
         loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
         if (!isMapValid(p_map)) {
             System.out.println(
                     "The loaded map is invalid, please load a valid map.");
             p_map.clearMap();
+            return;
         }
+        ge.setGamePhase(new PlaySetupPhase());
     }
 
     @Override
