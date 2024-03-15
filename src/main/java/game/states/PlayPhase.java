@@ -26,7 +26,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 
-public class PlayPhase implements Phase{
+public abstract class PlayPhase implements Phase{
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
 
@@ -60,6 +60,26 @@ public class PlayPhase implements Phase{
 
     @Override
     public void handleValidateMap(Map p_map) {
+
+    }
+
+    @Override
+    public void handleDeployOrder() {
+
+    }
+
+    @Override
+    public void handleAdvanceOrder() {
+
+    }
+
+    @Override
+    public void handleUseCardOrder() {
+
+    }
+
+    @Override
+    public void handleCommit() {
 
     }
 }

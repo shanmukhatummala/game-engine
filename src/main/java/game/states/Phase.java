@@ -17,6 +17,11 @@ public interface Phase {
     public void handleAssignCountries(Map p_map, GameEngine ge);
     public void handleSaveMap(String p_fileName, Command p_command, Map p_map);
     public void handleValidateMap(Map p_map);
+    public void handleDeployOrder();
+    public void handleAdvanceOrder();
+    public void handleUseCardOrder();
+    public void handleCommit();
+
     default public void handleShowMap(Map p_map){
         showMap(p_map);
     }

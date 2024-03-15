@@ -49,7 +49,7 @@ public class PlaySetupPhase extends StartUpPhase{
             //it should throw an exception
 //            continue;
         }
-        ge.setGamePhase(new OrderCreationPhase());
+        ge.setGamePhase(new IssueOrderPhase());
     }
 
     @Override
@@ -62,6 +62,9 @@ public class PlaySetupPhase extends StartUpPhase{
         String message = "Invalid Command in state"+this.getClass().getSimpleName()+" you can't save a map here";
         printInvalidCommandMessage(message);
     }
+
+
+
 
 
 }
