@@ -1,6 +1,7 @@
 package game.order;
 
 import static game.pojo.Player.Card.BLOCKADE;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -17,7 +18,7 @@ import pl.pojo.tester.api.assertion.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Test for BlockadeOrder class */
+/** Test for Blockade class */
 public class BlockadeTest {
 
     /** Tests if constructor and getters are implemented properly */
@@ -29,6 +30,7 @@ public class BlockadeTest {
                 .areWellImplemented();
     }
 
+    /** Tests that the target is not blockaded when the target is not owned by the initiator */
     @Test
     public void shouldNotBlockadeWhenPlayerIsNotOwner() {
 
@@ -42,6 +44,8 @@ public class BlockadeTest {
         assertThat(l_country1.getD_armyCount(), equalTo(10));
     }
 
+
+    /** Tests that the target is not blockaded when the user doesn't have a BLOCKADE card */
     @Test
     public void shouldNotBlockadeWhenPlayerHasNoBlockadeCard() {
 
@@ -57,6 +61,11 @@ public class BlockadeTest {
         assertThat(l_country2.getD_armyCount(), equalTo(10));
     }
 
+
+    /**
+     * Tests that the target is Blockaded when the target is owned by the initiator and
+     * the user has a BLOCKADE card
+     */
     @Test
     public void happyPathShouldExecuteBlockadeOrder() {
 
