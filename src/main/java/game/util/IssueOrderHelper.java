@@ -1,4 +1,4 @@
-package game;
+package game.util;
 
 import game.commands.Command;
 import game.map.Map;
@@ -27,12 +27,12 @@ public class IssueOrderHelper {
     }
 
     /** Sets the map which can used when Player creates Order */
-    public static void setMap(Map map) {
-        Map = map;
+    public static void setMap(Map p_map) {
+        Map = p_map;
     }
 
     /** Sets the command which can used when Player creates Order */
-    public static void setCommand(Command command) {
-        Command = command;
+    public static void setCommand(Command p_command) {
+        Command = p_command;
     }
 }

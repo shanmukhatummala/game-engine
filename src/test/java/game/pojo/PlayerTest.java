@@ -9,13 +9,13 @@ import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 import static java.util.Arrays.asList;
 
-import game.IssueOrderHelper;
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.map.Map;
 import game.order.Bomb;
 import game.order.Deploy;
 import game.order.Order;
+import game.util.IssueOrderHelper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
