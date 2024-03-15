@@ -29,7 +29,7 @@ public interface Phase {
     public void gamePlayerHandler(List<Command> p_commandList, Map p_map);
     public void editMapHandler();
     public void showMapHandler(Map p_map);
-    public void assignCountriesHandler();
+    public void assignCountriesHandler(Map p_map);
     public void saveMapHandler(String p_fileName, Command p_command, Map p_map);
     public void validateMapHandler(Map p_map);
 

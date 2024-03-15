@@ -64,7 +64,7 @@ public class StartUpPhase implements Phase{
     }
 
     @Override
-    public void assignCountriesHandler() {
+    public void assignCountriesHandler(Map p_map) {
 
     }
 
