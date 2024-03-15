@@ -9,9 +9,11 @@ import java.util.*;
 
 import static game.map.MapShower.showMap;
 
+
 public interface Phase {
 
     public void handleLoadMap(Command p_command, Map p_map, GameEngine ge);
+
     public void handleGamePlayer(List<Command> p_commandList, Map p_map);
     public void handleEditMap(GameEngine ge);
     public void handleAssignCountries(Map p_map, GameEngine ge);
