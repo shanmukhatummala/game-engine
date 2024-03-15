@@ -3,6 +3,7 @@ package game.pojo;
 import static game.map.MapHelper.getCountryByName;
 import static game.map.MapHelper.getCountryOwner;
 
+import game.IssueOrderHelper;
 import game.commands.Command;
 import game.map.Map;
 import game.order.Advance_order;
@@ -115,24 +116,27 @@ public class Player {
         d_cards.add(card);
     }
 
-    public void issue_order(Map p_map, Command p_command) {
+    public void issue_order() {
 
-        String commandType = p_command.getCommandType();
+        Map l_map = IssueOrderHelper.getMap();
+        Command l_command = IssueOrderHelper.getCommand();
+
+        String commandType = l_command.getCommandType();
 
         if ("deploy".equals(commandType)) {
-            String l_countryId = p_command.getArgs().get(0);
-            int l_numArmies = Integer.parseInt(p_command.getArgs().get(1));
-            d_orderList.add(new Deploy(getCountryByName(p_map, l_countryId), this, l_numArmies));
+            String l_countryId = l_command.getArgs().get(0);
+            int l_numArmies = Integer.parseInt(l_command.getArgs().get(1));
+            d_orderList.add(new Deploy(getCountryByName(l_map, l_countryId), this, l_numArmies));
         } else if ("bomb".equals(commandType)) {
-            String l_target = p_command.getArgs().get(0);
-            d_orderList.add(new Bomb(getCountryByName(p_map, l_target), this));
+            String l_target = l_command.getArgs().get(0);
+            d_orderList.add(new Bomb(getCountryByName(l_map, l_target), this));
         } else if ("advance".equals(commandType)) {
-            String l_source = p_command.getArgs().get(0);
-            Country l_sourceCountry = getCountryByName(p_map, l_source);
-            String l_target = p_command.getArgs().get(1);
-            Country l_targetCountry = getCountryByName(p_map, l_target);
-            Player l_targetOwner = getCountryOwner(l_targetCountry, p_map.getD_players());
-            int l_numArmies = Integer.parseInt(p_command.getArgs().get(2));
+            String l_source = l_command.getArgs().get(0);
+            Country l_sourceCountry = getCountryByName(l_map, l_source);
+            String l_target = l_command.getArgs().get(1);
+            Country l_targetCountry = getCountryByName(l_map, l_target);
+            Player l_targetOwner = getCountryOwner(l_targetCountry, l_map.getD_players());
+            int l_numArmies = Integer.parseInt(l_command.getArgs().get(2));
             d_orderList.add(
                     new Advance_order(
                             l_targetCountry, l_sourceCountry, l_targetOwner, this, l_numArmies));

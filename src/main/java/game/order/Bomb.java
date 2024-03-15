@@ -65,7 +65,7 @@ public class Bomb extends Order {
 
         if (!isAdjacent(l_countriesOfInitiator, d_target)) {
             System.out.println(
-                    "Target country is not adjacent to the player. So, cannot bomb this country. Try another: ");
+                    "Target country is not adjacent to the player. So, cannot bomb this country.");
             return false;
         }
 

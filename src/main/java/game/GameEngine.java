@@ -170,12 +170,14 @@ public class GameEngine {
                             System.out.println(
                                     "Player: " + l_player.getD_name() + ", enter the command: ");
                             String l_commandString = p_bufferedReader.readLine();
-                            Command command = CommandParser.parse(l_commandString).get(0);
-                            if ("showmap".equals(command.getCommandType())) {
+                            Command l_command = CommandParser.parse(l_commandString).get(0);
+                            if ("showmap".equals(l_command.getCommandType())) {
                                 showMap(p_map);
                                 continue;
                             }
-                            l_player.issue_order(p_map, command);
+                            IssueOrderHelper.setCommand(l_command);
+                            IssueOrderHelper.setMap(p_map);
+                            l_player.issue_order();
                             break;
                         } catch (IOException e) {
                             System.out.println(
@@ -189,7 +191,7 @@ public class GameEngine {
                                     + l_player.getD_reinforcements()
                                     + (l_player.getD_cards().isEmpty()
                                             ? ""
-                                            : ", cards " + l_player.getD_cards()));
+                                            : ", cards: " + l_player.getD_cards()));
                 } else {
                     l_playersLeftToIssueOrder.remove(l_player);
                 }
