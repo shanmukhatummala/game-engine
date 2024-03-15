@@ -217,10 +217,13 @@ public class GameEngine {
      */
     private static void executeOrders(Map p_map) {
         List<Player> l_playersLeftToExecuteOrders = new ArrayList<>(p_map.getD_players());
+
+        Set<Player> l_playersToAssignCard = new HashSet<>();
+
         while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
 
-                Set<Integer> countryIdsBeforeExecution =
+                Set<Integer> l_countryIdsBeforeExecution =
                         l_player.getD_countries().stream()
                                 .map(Country::getD_id)
                                 .collect(Collectors.toSet());
@@ -231,15 +234,17 @@ public class GameEngine {
                     l_playersLeftToExecuteOrders.remove(l_player);
                 }
 
-                Set<Integer> countryIdsAfterExecution =
+                Set<Integer> l_countryIdsAfterExecution =
                         l_player.getD_countries().stream()
                                 .map(Country::getD_id)
                                 .collect(Collectors.toSet());
-                if (!countryIdsBeforeExecution.containsAll(countryIdsAfterExecution)) {
-                    new AssignResourcesPhase().assignRandomCard(l_player);
+                if (!l_countryIdsBeforeExecution.containsAll(l_countryIdsAfterExecution)) {
+                    l_playersToAssignCard.add(l_player);
                 }
             }
         }
+
+        new AssignResourcesPhase().assignRandomCard(l_playersToAssignCard);
         showMap(p_map);
     }
 

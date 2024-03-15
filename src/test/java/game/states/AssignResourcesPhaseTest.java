@@ -15,26 +15,41 @@ import game.pojo.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /** Test class for AssignResourcesPhase class */
 public class AssignResourcesPhaseTest {
 
     private AssignResourcesPhase d_assignResourcesPhase;
-    private Player d_player;
+    private Set<Player> d_players;
+    private Player d_player1;
+    private Player d_player2;
 
     @BeforeEach
     public void setUp() {
         d_assignResourcesPhase = new AssignResourcesPhase();
-        d_player = new Player("player");
+        d_players = new HashSet<>();
+        d_player1 = new Player("d_player1");
+        d_player2 = new Player("d_player2");
+        d_players.add(d_player1);
+        d_players.add(d_player1);
+        d_players.add(d_player2);
     }
 
     @Test
-    public void shouldAssignCardToPlayer() {
+    public void shouldAssignCardToPlayers() {
 
-        d_assignResourcesPhase.assignRandomCard(d_player);
+        d_assignResourcesPhase.assignRandomCard(d_players);
 
-        assertThat(d_player.getD_cards().size(), equalTo(1));
+        assertThat(d_players.size(), equalTo(2));
+        assertThat(d_player1.getD_cards().size(), equalTo(1));
         assertThat(
-                d_player.getD_cards().get(0),
+                d_player1.getD_cards().get(0),
+                anyOf(is(BOMB), is(BLOCKADE), is(AIRLIFT), is(DIPLOMACY)));
+        assertThat(d_player2.getD_cards().size(), equalTo(1));
+        assertThat(
+                d_player2.getD_cards().get(0),
                 anyOf(is(BOMB), is(BLOCKADE), is(AIRLIFT), is(DIPLOMACY)));
     }
 }
