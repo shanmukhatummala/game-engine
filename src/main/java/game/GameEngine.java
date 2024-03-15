@@ -16,8 +16,9 @@ import game.pojo.Country;
 import game.pojo.Player;
 import game.states.AssignResourcesPhase;
 import game.states.Phase;
-import lombok.Setter;
 import game.util.IssueOrderHelper;
+
+import lombok.Setter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,8 +35,7 @@ public class GameEngine {
     /** This static variable stores the path for the resources directory */
     public static final String RESOURCES_PATH = "src/main/resources/";
 
-    @Setter
-    private Phase gamePhase;
+    @Setter private Phase gamePhase;
 
     private final Map d_map;
 
@@ -125,13 +125,7 @@ public class GameEngine {
         }
     }
 
-
-    public void startGame(){
-
-    }
-
-
-
+    public void startGame() {}
 
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
@@ -226,7 +220,10 @@ public class GameEngine {
         while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
 
-                Set<Integer> countryIdsBeforeExecution = l_player.getD_countries().stream().map(Country::getD_id).collect(Collectors.toSet());
+                Set<Integer> countryIdsBeforeExecution =
+                        l_player.getD_countries().stream()
+                                .map(Country::getD_id)
+                                .collect(Collectors.toSet());
 
                 if (!l_player.getD_orderList().isEmpty()) {
                     l_player.next_order().execute();
@@ -234,7 +231,10 @@ public class GameEngine {
                     l_playersLeftToExecuteOrders.remove(l_player);
                 }
 
-                Set<Integer> countryIdsAfterExecution = l_player.getD_countries().stream().map(Country::getD_id).collect(Collectors.toSet());
+                Set<Integer> countryIdsAfterExecution =
+                        l_player.getD_countries().stream()
+                                .map(Country::getD_id)
+                                .collect(Collectors.toSet());
                 if (!countryIdsBeforeExecution.containsAll(countryIdsAfterExecution)) {
                     new AssignResourcesPhase().assignRandomCard(l_player);
                 }

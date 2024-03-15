@@ -1,4 +1,3 @@
 package game.states;
 
-public class ReinforcementPhase extends PlayPhase{
-}
+public class ReinforcementPhase extends PlayPhase {}

@@ -4,18 +4,18 @@ import static game.pojo.Player.Card.AIRLIFT;
 import static game.pojo.Player.Card.BLOCKADE;
 import static game.pojo.Player.Card.BOMB;
 import static game.pojo.Player.Card.DIPLOMACY;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 import game.pojo.Player;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test class for AssignResourcesPhase class
- */
+/** Test class for AssignResourcesPhase class */
 public class AssignResourcesPhaseTest {
 
     private AssignResourcesPhase d_assignResourcesPhase;
@@ -33,6 +33,8 @@ public class AssignResourcesPhaseTest {
         d_assignResourcesPhase.assignRandomCard(d_player);
 
         assertThat(d_player.getD_cards().size(), equalTo(1));
-        assertThat(d_player.getD_cards().get(0), anyOf(is(BOMB), is(BLOCKADE), is(AIRLIFT), is(DIPLOMACY)));
+        assertThat(
+                d_player.getD_cards().get(0),
+                anyOf(is(BOMB), is(BLOCKADE), is(AIRLIFT), is(DIPLOMACY)));
     }
 }

@@ -6,7 +6,7 @@ import game.pojo.Player;
 
 import java.util.List;
 
-public class AssignCountriesPhase extends PlaySetupPhase{
+public class AssignCountriesPhase extends PlaySetupPhase {
 
     @Override
     public void handleAssignCountries(Map p_map) {
@@ -15,9 +15,9 @@ public class AssignCountriesPhase extends PlaySetupPhase{
         List<Country> countries = p_map.getD_countries();
         boolean countriesAssigned = p_map.assignCountries(players, countries);
         if (!countriesAssigned) {
-            //throw an exception
-//            continue;
+            // throw an exception
+            //            continue;
         }
-        //change phase
+        // change phase
     }
 }

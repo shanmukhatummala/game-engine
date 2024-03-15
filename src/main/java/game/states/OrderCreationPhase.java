@@ -1,4 +1,3 @@
 package game.states;
 
-public class OrderCreationPhase extends PlayPhase{
-}
+public class OrderCreationPhase extends PlayPhase {}
