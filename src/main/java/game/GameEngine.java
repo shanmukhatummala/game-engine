@@ -14,6 +14,7 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import game.states.AssignResourcesPhase;
 import game.states.Phase;
 import lombok.Setter;
 import game.util.IssueOrderHelper;
@@ -22,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * GameEngine is responsible for reading the main commands from the players and calling required
@@ -223,10 +225,18 @@ public class GameEngine {
         List<Player> l_playersLeftToExecuteOrders = new ArrayList<>(p_map.getD_players());
         while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
+
+                Set<Integer> countryIdsBeforeExecution = l_player.getD_countries().stream().map(Country::getD_id).collect(Collectors.toSet());
+
                 if (!l_player.getD_orderList().isEmpty()) {
                     l_player.next_order().execute();
                 } else {
                     l_playersLeftToExecuteOrders.remove(l_player);
+                }
+
+                Set<Integer> countryIdsAfterExecution = l_player.getD_countries().stream().map(Country::getD_id).collect(Collectors.toSet());
+                if (!countryIdsBeforeExecution.containsAll(countryIdsAfterExecution)) {
+                    new AssignResourcesPhase().assignRandomCard(l_player);
                 }
             }
         }
