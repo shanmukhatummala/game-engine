@@ -1,12 +1,12 @@
 package game.order;
 
+import static game.map.MapHelper.isAdjacent;
+
 import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
 import java.util.Random;
-
-import static game.map.MapHelper.isAdjacent;
 
 public abstract class Advance_order extends Order {
     /**
@@ -19,9 +19,11 @@ public abstract class Advance_order extends Order {
      * @author Naveen
      */
     private Country destination;
+
     private int armyNumber;
 
     public Player player;
+
     /**
      * Constructor for Advance_order
      *
@@ -31,7 +33,7 @@ public abstract class Advance_order extends Order {
      */
     public Advance_order(Country destination, Player player, int armyNumber) {
         super(null);
-        this.player=player;
+        this.player = player;
         this.destination = destination;
         this.armyNumber = armyNumber;
     }
@@ -57,23 +59,23 @@ public abstract class Advance_order extends Order {
         } else {
             if (isAdjacent(l_countriesOfInitiator, destination)) {
                 attackTerritory(destination, armyNumber);
-            }
-            else
-            {
+            } else {
                 System.out.println("Cannot Advance armies to the territory.");
             }
         }
     }
 
     /**
-     * Simulates an attack on a target territory by simulating battles between attacking and defending armies.
-     * This method uses a random number generator to simulate the outcome of battles between the
-     * attacking and defending armies. Each attacking army has a 60% chance of killing one defending
-     * army, and each defending army has a 70% chance of killing one attacking army. The battle
-     * continues until either all attacking or defending armies are eliminated.
+     * Simulates an attack on a target territory by simulating battles between attacking and
+     * defending armies. This method uses a random number generator to simulate the outcome of
+     * battles between the attacking and defending armies. Each attacking army has a 60% chance of
+     * killing one defending army, and each defending army has a 70% chance of killing one attacking
+     * army. The battle continues until either all attacking or defending armies are eliminated.
      *
-     * @param target The target {@link Country} to attack. This country represents the defending territory.
-     * @param armyNumber The number of armies to use in the attack. This represents the attacking force.
+     * @param target The target {@link Country} to attack. This country represents the defending
+     *     territory.
+     * @param armyNumber The number of armies to use in the attack. This represents the attacking
+     *     force.
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */
@@ -109,7 +111,4 @@ public abstract class Advance_order extends Order {
             player.getD_countries().remove(target);
         }
     }
-
-
-
 }
