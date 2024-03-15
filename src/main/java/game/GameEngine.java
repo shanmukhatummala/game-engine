@@ -14,6 +14,8 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import game.states.Phase;
+import lombok.Setter;
 import game.util.IssueOrderHelper;
 
 import java.io.BufferedReader;
@@ -29,6 +31,9 @@ public class GameEngine {
 
     /** This static variable stores the path for the resources directory */
     public static final String RESOURCES_PATH = "src/main/resources/";
+
+    @Setter
+    private Phase gamePhase;
 
     private final Map d_map;
 
@@ -117,6 +122,14 @@ public class GameEngine {
             throw new RuntimeException(e);
         }
     }
+
+
+    public void startGame(){
+
+    }
+
+
+
 
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
