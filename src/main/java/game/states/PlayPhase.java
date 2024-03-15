@@ -48,7 +48,7 @@ public class PlayPhase implements Phase{
     }
 
     @Override
-    public void handleAssignCountries(Map p_map) {
+    public void handleAssignCountries(Map p_map, GameEngine ge) {
 
     }
 
