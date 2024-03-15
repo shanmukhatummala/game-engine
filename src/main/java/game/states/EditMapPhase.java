@@ -3,18 +3,11 @@ package game.states;
 import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
-import game.pojo.Country;
-import game.pojo.Player;
 
 import java.util.List;
 
-import static game.GameEngine.RESOURCES_PATH;
-import static game.map.MapLoader.loadMap;
 import static game.map.MapSaver.saveMap;
 import static game.map.MapValidator.isMapValid;
-
-import game.commands.Command;
-import game.map.Map;
 
 public class EditMapPhase extends StartUpPhase {
 
