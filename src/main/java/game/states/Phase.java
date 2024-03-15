@@ -26,7 +26,7 @@ import java.util.*;
 public interface Phase {
 
     public void loadMapHandler(Command p_command, Map p_map);
-    public void gamePlayerHandler();
+    public void gamePlayerHandler(List<Command> p_commandList, Map p_map);
     public void editMapHandler();
     public void showMapHandler(Map p_map);
     public void assignCountriesHandler();

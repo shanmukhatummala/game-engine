@@ -32,7 +32,7 @@ public class PlayPhase implements Phase{
     }
 
     @Override
-    public void gamePlayerHandler() {
+    public void gamePlayerHandler(List<Command> p_commandList, Map p_map) {
 
     }
 

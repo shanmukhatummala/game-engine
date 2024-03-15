@@ -40,8 +40,17 @@ public class StartUpPhase implements Phase{
     }
 
     @Override
-    public void gamePlayerHandler() {
-
+    public void gamePlayerHandler(List<Command> p_commandList, Map p_map) {
+        for (Command l_command : p_commandList) {
+            List<String> l_commandArgs = l_command.getArgs();
+            if (l_commandArgs.get(0).equals("-add")) {
+                p_map.addPlayer(l_commandArgs.get(1));
+                System.out.println("Player " + l_commandArgs.get(1) + " added");
+            } else {
+                p_map.removePlayer(l_commandArgs.get(1));
+                System.out.println("Player " + l_commandArgs.get(1) + " removed");
+            }
+        }
     }
 
     @Override
