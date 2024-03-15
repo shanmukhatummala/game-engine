@@ -10,7 +10,7 @@ import static game.map.MapValidator.isMapValid;
 public class EditMapPhase extends StartUpPhase{
 
     @Override
-    public void saveMapHandler(String p_fileName, Command p_command, Map p_map) {
+    public void handleSaveMap(String p_fileName, Command p_command, Map p_map) {
         if (!p_fileName.equals(p_command.getArgs().get(0))) {
             System.out.println(
                     "The file name in 'savemap' command is different from the file you are editing.");
@@ -28,7 +28,7 @@ public class EditMapPhase extends StartUpPhase{
     }
 
     @Override
-    public void validateMapHandler(Map p_map) {
+    public void handleValidateMap(Map p_map) {
         if (isMapValid(p_map)) {
             System.out.println("The current map is valid!");
         } else {

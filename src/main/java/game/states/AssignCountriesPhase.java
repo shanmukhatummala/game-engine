@@ -9,7 +9,7 @@ import java.util.List;
 public class AssignCountriesPhase extends StartUpPhase{
 
     @Override
-    public void assignCountriesHandler(Map p_map) {
+    public void handleAssignCountries(Map p_map) {
 
         List<Player> players = p_map.getD_players();
         List<Country> countries = p_map.getD_countries();

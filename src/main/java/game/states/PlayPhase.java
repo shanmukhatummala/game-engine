@@ -27,37 +27,37 @@ import java.util.*;
 
 public class PlayPhase implements Phase{
     @Override
-    public void loadMapHandler(Command p_command, Map p_map) {
+    public void handleLoadMap(Command p_command, Map p_map) {
 
     }
 
     @Override
-    public void gamePlayerHandler(List<Command> p_commandList, Map p_map) {
+    public void handleGamePlayer(List<Command> p_commandList, Map p_map) {
 
     }
 
     @Override
-    public void editMapHandler() {
+    public void handleEditMap() {
 
     }
 
     @Override
-    public void showMapHandler(Map p_map) {
+    public void handleShowMap(Map p_map) {
 
     }
 
     @Override
-    public void assignCountriesHandler(Map p_map) {
+    public void handleAssignCountries(Map p_map) {
 
     }
 
     @Override
-    public void saveMapHandler(String p_fileName, Command p_command, Map p_map) {
+    public void handleSaveMap(String p_fileName, Command p_command, Map p_map) {
 
     }
 
     @Override
-    public void validateMapHandler(Map p_map) {
+    public void handleValidateMap(Map p_map) {
 
     }
 }
