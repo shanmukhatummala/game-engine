@@ -38,8 +38,9 @@ public class PlayPhase implements Phase{
     }
 
     @Override
-    public void handleEditMap() {
-
+    public void handleEditMap(GameEngine ge) {
+        String message = "Invalid Command in state"+this.getClass().getSimpleName()+ " you can't edit a map in the play mode.";
+        printInvalidCommandMessage(message);
     }
 
     @Override
