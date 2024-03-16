@@ -1,12 +1,12 @@
 package game.order;
 
-import static game.map.MapHelper.isAdjacent;
-
 import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
 import java.util.Random;
+
+import static game.map.MapHelper.isAdjacent;
 
 /**
  * This class extends from order class and represents the Advance
@@ -22,7 +22,7 @@ public class Advance extends Order {
 
     /**
      * Constructor for Advance
-     *
+     * @param source Country object representing the source territory
      * @param destination Country object representing the destination territory
      * @param destinationOwner Player object represents owner of the destination country
      * @param initiator Player object who initiated the order
@@ -44,10 +44,10 @@ public class Advance extends Order {
     /**
      * Executes the deployment of armies to a specified destination country.
      *
-     * <p>This method checks if the destination country is owned by the initiator of the order. If
-     * the destination is owned by the initiator, it adds the specified number of armies to the
+     * <p>This method checks if the destination country is owned by the initiator of the order. <p>
+     * If the destination is owned by the initiator, it adds the specified number of armies to the
      * destination's army count. If the destination is not adjacent to any of the initiator's
-     * countries, it initiates an attack on the destination.
+     * countries it first checks is their any negotiation between the players if not  it initiates an attack on the destination.
      *
      * @throws IllegalArgumentException if the destination country is not adjacent to any of the
      *     initiator's countries and an attack is attempted.
@@ -87,6 +87,13 @@ public class Advance extends Order {
         }
     }
 
+    /**
+     * Checks the validity of the connection between the source and destination countries.
+     * The connection is considered valid if the source country is associated with the initiator
+     * and either directly connected to the destination country or indirectly through adjacency.
+     *
+     * @return {@code true} if the connection is valid, {@code false} otherwise.
+     */
     @Override
     public boolean valid() {
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
@@ -109,10 +116,10 @@ public class Advance extends Order {
      * killing one defending army, and each defending army has a 70% chance of killing one attacking
      * army. The battle continues until either all attacking or defending armies are eliminated.
      *
-     * @param target The target {@link Country} to attack. This country represents the defending
-     *     territory.
-     * @param armyNumber The number of armies to use in the attack. This represents the attacking
-     *     force.
+     * @param target The target {@link Country} to attack. This country represents the defending territory.
+     * @param armyNumber The number of armies to use in the attack. This represents the attacking force.
+     * @param destinationOwner Player object represents owner of the destination country
+     * @param initiator Player object who initiated the order
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */

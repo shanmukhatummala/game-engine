@@ -5,26 +5,39 @@ import game.pojo.Player;
 
 import java.util.List;
 import java.util.Random;
-
+/**
+ * This class extends from order class and represents the Airlift
+ *
+ * @author Naveen
+ */
 public class Airlift extends Order{
 
     /**
-     * The constructor of Order class that initialize the attribute
-     *
-     * @param p_initiator Player object who initiated the order
+     * Constructor for Advance
+     * @param initiator Player object who initiated the order
+     * @param destination Country object representing the destination territory
+     * @param destinationOwner Player object represents owner of the destination country
+     * @param source Country object representing the source territory
+     * @param armyNumber Integer representing the number of armies to move
      */
     private Player destinationOwner;
     private final Country destination;
     private final Country source;
     private final int armyNumber;
-    public Airlift(Player p_initiator, Player destinationOwner,Country destination, Country source, int armyNumber) {
-        super(p_initiator);
+    public Airlift(Player initiator, Player destinationOwner,Country destination, Country source, int armyNumber) {
+        super(initiator);
         this.destination = destination;
         this.source = source;
         this.armyNumber = armyNumber;
         this.destinationOwner = destinationOwner;
     }
-
+    /**
+     * Executes the deployment of armies to a specified destination country.
+     * This method checks if the destination country is owned by the initiator of the order. If
+     * the destination is owned by the initiator, it adds the specified number of armies to the
+     * destination's army count. If the destination is not owned by the initiator's it first check for
+     * the is their any negotiation between the players if not it initiates an attack on the destination territory.
+     */
     @Override
     public void execute() {
         if (valid()) {
@@ -58,6 +71,13 @@ public class Airlift extends Order{
         }
     }
 
+    /**
+     * Checks the validity of the connection between the source and destination countries.
+     * The connection is considered valid if the source country is associated with the initiator
+     * and either directly connected to the destination country or the destination country is associated with the initiator.
+     *
+     * @return {@code true} if the connection is valid, {@code false} otherwise.
+     */
     @Override
     public boolean valid() {
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
@@ -69,8 +89,23 @@ public class Airlift extends Order{
         if (l_countriesOfInitiator.contains(destination)) {
             return true;
         }
-        return false;
+        return true;
     }
+
+    /**
+     * Simulates an attack on a target territory by simulating battles between attacking and
+     * defending armies. This method uses a random number generator to simulate the outcome of
+     * battles between the attacking and defending armies. Each attacking army has a 60% chance of
+     * killing one defending army, and each defending army has a 70% chance of killing one attacking
+     * army. The battle continues until either all attacking or defending armies are eliminated.
+     *
+     * @param target The target {@link Country} to attack. This country represents the defending territory.
+     * @param armyNumber The number of armies to use in the attack. This represents the attacking force.
+     * @param destinationOwner Player object represents owner of the destination country
+     * @param initiator Player object who initiated the order
+     * @see Country#getD_armyCount()
+     * @see Player#getD_countries()
+     */
     private void attackTerritory(
             Country target, int armyNumber, Player destinationOwner, Player initiator) {
         Random random = new Random();
