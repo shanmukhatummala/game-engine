@@ -3,6 +3,8 @@ package game.order;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import static java.util.Collections.singletonList;
+
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -10,10 +12,9 @@ import game.pojo.Player;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-/** This class contains test cases for the Advance_order class. */
+/** This class contains test cases for the Advance class. */
 public class AdvanceOrderTest {
 
     /**
@@ -24,16 +25,10 @@ public class AdvanceOrderTest {
     public void testExecuteAdvanceOrderDestinationOwnerIsAdjacentToInitiator() {
         Continent l_continent = new Continent();
         Country source =
-                new Country(
-                        1,
-                        "Country1",
-                        l_continent,
-                        new ArrayList<>(Collections.singletonList(2)),
-                        10);
+                new Country(1, "Country1", l_continent, new ArrayList<>(singletonList(2)), 10);
         Country destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
         Player initiator = new Player("Player1", List.of(source, destination));
-        Advance_order advanceOrder =
-                new Advance_order(destination, source, initiator, initiator, 5);
+        Advance advanceOrder = new Advance(destination, source, initiator, initiator, 5);
         advanceOrder.execute();
         assertEquals(15, destination.getD_armyCount());
         assertEquals(5, source.getD_armyCount());
@@ -51,8 +46,7 @@ public class AdvanceOrderTest {
         Player initiator = new Player("Player1", List.of(source));
         Player destinationPlayer = new Player("player2", List.of(destination));
         int initialDestinationArmyCount = destination.getD_armyCount();
-        Advance_order advanceOrder =
-                new Advance_order(destination, source, destinationPlayer, initiator, 5);
+        Advance advanceOrder = new Advance(destination, source, destinationPlayer, initiator, 5);
         advanceOrder.execute();
         assertEquals(initialDestinationArmyCount, destination.getD_armyCount());
     }
@@ -65,8 +59,22 @@ public class AdvanceOrderTest {
         Country source = new Country(1, "Country1", l_continent);
         Country destination = null;
         Player destinationPlayer = null;
-        Advance_order advanceOrder =
-                new Advance_order(destination, source, destinationPlayer, d_player1, 5);
+        Advance advanceOrder = new Advance(destination, source, destinationPlayer, d_player1, 5);
         assertFalse(advanceOrder.valid());
+    }
+
+    @Test
+    public void testExecuteAdvanceOrderWhenDestinationOwnerAndInitiatorAreNegotiatedPlayers() {
+        Continent l_continent = new Continent();
+        Country l_source = new Country(1, "Country1", l_continent, singletonList(2), 10);
+        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Player l_initiator = new Player("Player1", List.of(l_source));
+        Player l_destinationOwner = new Player("Player2", List.of(l_destination));
+        l_initiator.getD_negotiatedPlayers().add("Player2");
+        Advance l_advanceOrder =
+                new Advance(l_destination, l_source, l_destinationOwner, l_initiator, 5);
+        l_advanceOrder.execute();
+        assertEquals(10, l_destination.getD_armyCount());
+        assertEquals(10, l_source.getD_armyCount());
     }
 }
