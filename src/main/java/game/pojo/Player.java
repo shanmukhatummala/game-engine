@@ -31,7 +31,6 @@ public class Player {
     private final List<Card> d_cards;
     private Set<String> d_negotiatedPlayers;
 
-
     /**
      * Constructor with player name and countries for Player
      *
@@ -196,6 +195,7 @@ public class Player {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList, d_cards, d_negotiatedPlayers);
+        return Objects.hash(
+                d_name, d_countries, d_reinforcements, d_orderList, d_cards, d_negotiatedPlayers);
     }
 }
