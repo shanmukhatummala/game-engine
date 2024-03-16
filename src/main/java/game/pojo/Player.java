@@ -5,7 +5,7 @@ import static game.map.MapHelper.getCountryOwner;
 
 import game.commands.Command;
 import game.map.Map;
-import game.order.Advance_order;
+import game.order.Advance;
 import game.order.Bomb;
 import game.order.Deploy;
 import game.order.Order;
@@ -18,7 +18,6 @@ public class Player {
 
     public enum Card {
         BOMB,
-        REINFORCEMENT,
         BLOCKADE,
         AIRLIFT,
         DIPLOMACY
@@ -29,8 +28,7 @@ public class Player {
     private int d_reinforcements;
     private final Queue<Order> d_orderList;
     private final List<Card> d_cards;
-    private Set<String> d_negotiatedPlayers;
-
+    private final Set<String> d_negotiatedPlayers;
 
     /**
      * Constructor with player name and countries for Player
@@ -140,8 +138,13 @@ public class Player {
             int l_numArmies = Integer.parseInt(l_command.getArgs().get(1));
             d_orderList.add(new Deploy(getCountryByName(l_map, l_countryId), this, l_numArmies));
         } else if ("bomb".equals(commandType)) {
-            String l_target = l_command.getArgs().get(0);
-            d_orderList.add(new Bomb(getCountryByName(l_map, l_target), this));
+            String l_targetCountryString = l_command.getArgs().get(0);
+            Country l_targetCountry = getCountryByName(l_map, l_targetCountryString);
+            d_orderList.add(
+                    new Bomb(
+                            l_targetCountry,
+                            getCountryOwner(l_targetCountry, l_map.getD_players()),
+                            this));
         } else if ("advance".equals(commandType)) {
             String l_source = l_command.getArgs().get(0);
             Country l_sourceCountry = getCountryByName(l_map, l_source);
@@ -150,7 +153,7 @@ public class Player {
             Player l_targetOwner = getCountryOwner(l_targetCountry, l_map.getD_players());
             int l_numArmies = Integer.parseInt(l_command.getArgs().get(2));
             d_orderList.add(
-                    new Advance_order(
+                    new Advance(
                             l_targetCountry, l_sourceCountry, l_targetOwner, this, l_numArmies));
         }
     }
@@ -196,6 +199,7 @@ public class Player {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList, d_cards, d_negotiatedPlayers);
+        return Objects.hash(
+                d_name, d_countries, d_reinforcements, d_orderList, d_cards, d_negotiatedPlayers);
     }
 }

@@ -10,8 +10,14 @@ import game.pojo.Player;
 import java.util.Random;
 import java.util.Set;
 
+/** Assigns resources after the completion of each round in the game */
 public class AssignResourcesPhase {
 
+    /**
+     * Assigns a random card to all players who are eligible for a card
+     *
+     * @param p_players players eligible to get a card
+     */
     public void assignRandomCard(Set<Player> p_players) {
 
         p_players.forEach(

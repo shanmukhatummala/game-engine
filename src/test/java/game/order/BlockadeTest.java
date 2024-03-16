@@ -36,7 +36,8 @@ public class BlockadeTest {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
-        Player l_player = new Player("Player", List.of(l_country1));
+        Player l_player = new Player("Player");
+        l_player.addCard(Player.Card.BLOCKADE);
         Blockade l_blockadeOrder = new Blockade(l_country1, l_player);
 
         l_blockadeOrder.execute();
@@ -61,11 +62,11 @@ public class BlockadeTest {
     }
 
     /**
-     * Tests that the target is Blockaded when the target is owned by the initiator and
-     * the user has a BLOCKADE card
+     * Tests that the target is Blockaded when the target is owned by the initiator and the user has
+     * a BLOCKADE card
      */
     @Test
-    public void happyPathShouldExecuteBlockadeOrder() {
+    public void ShouldExecuteBlockadeOrderWhenPlayerIsOwnerAndHasBlockadeCard() {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
