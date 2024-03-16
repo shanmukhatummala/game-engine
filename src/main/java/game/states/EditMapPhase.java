@@ -1,20 +1,22 @@
 package game.states;
 
+import static game.map.MapSaver.saveMap;
+import static game.map.MapValidator.isMapValid;
+
 import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
 
 import java.util.List;
 
-import static game.map.MapSaver.saveMap;
-import static game.map.MapValidator.isMapValid;
-
 public class EditMapPhase extends StartUpPhase {
-
 
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
-        String message = "Invalid Command in state"+this.getClass().getSimpleName()+ " you can't load a map here.";
+        String message =
+                "Invalid Command in state"
+                        + this.getClass().getSimpleName()
+                        + " you can't load a map here.";
         printInvalidCommandMessage(message);
     }
 
@@ -44,10 +46,9 @@ public class EditMapPhase extends StartUpPhase {
         }
     }
 
-
     @Override
     public void handleAssignCountries(Map p_map, GameEngine ge) {
-        String message = "Invalid Command in state"+this.getClass().getSimpleName();
+        String message = "Invalid Command in state" + this.getClass().getSimpleName();
         printInvalidCommandMessage(message);
     }
 
@@ -59,11 +60,10 @@ public class EditMapPhase extends StartUpPhase {
 
     @Override
     public void handleGamePlayer(List<Command> p_commandList, Map p_map) {
-        String message = "Invalid Command in state"+this.getClass().getSimpleName()+" you can't add or remove player while editing a map";
+        String message =
+                "Invalid Command in state"
+                        + this.getClass().getSimpleName()
+                        + " you can't add or remove player while editing a map";
         printInvalidCommandMessage(message);
     }
-
-
-
-
 }

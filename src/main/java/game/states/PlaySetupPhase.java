@@ -1,5 +1,8 @@
 package game.states;
 
+import static game.map.MapLoader.loadMap;
+import static game.map.MapValidator.isMapValid;
+
 import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
@@ -8,17 +11,13 @@ import game.pojo.Player;
 
 import java.util.List;
 
-import static game.map.MapLoader.loadMap;
-import static game.map.MapValidator.isMapValid;
-
-public class PlaySetupPhase extends StartUpPhase{
+public class PlaySetupPhase extends StartUpPhase {
 
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
         loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
         if (!isMapValid(p_map)) {
-            System.out.println(
-                    "The loaded map is invalid, please load a valid map.");
+            System.out.println("The loaded map is invalid, please load a valid map.");
             p_map.clearMap();
             return;
         }
@@ -46,8 +45,8 @@ public class PlaySetupPhase extends StartUpPhase{
         List<Country> countries = p_map.getD_countries();
         boolean countriesAssigned = p_map.assignCountries(players, countries);
         if (!countriesAssigned) {
-            //it should throw an exception
-//            continue;
+            // it should throw an exception
+            //            continue;
         }
         ge.setGamePhase(new IssueOrderPhase());
     }
@@ -59,12 +58,10 @@ public class PlaySetupPhase extends StartUpPhase{
 
     @Override
     public void handleSaveMap(String p_fileName, Command p_command, Map p_map) {
-        String message = "Invalid Command in state"+this.getClass().getSimpleName()+" you can't save a map here";
+        String message =
+                "Invalid Command in state"
+                        + this.getClass().getSimpleName()
+                        + " you can't save a map here";
         printInvalidCommandMessage(message);
     }
-
-
-
-
-
 }
