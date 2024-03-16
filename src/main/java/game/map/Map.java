@@ -419,4 +419,18 @@ public class Map {
                 .map(Country::getD_id)
                 .orElse(null);
     }
+
+    /**
+     * Retrieves the Country object given its name.
+     *
+     * @param p_country_name The name of the country to search for.
+     * @return The Country object if found, otherwise returns null.
+     */
+    public Country getCountryForCountryName(String p_country_name) {
+        return this.d_countries.stream()
+                .filter(Objects::nonNull)
+                .filter(country -> Objects.equals(country.getD_name(), p_country_name))
+                .findFirst()
+                .orElse(null);
+    }
 }

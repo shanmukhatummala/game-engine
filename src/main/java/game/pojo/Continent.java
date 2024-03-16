@@ -1,5 +1,7 @@
 package game.pojo;
 
+import lombok.Builder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +11,7 @@ import java.util.Objects;
  *
  * @author Shanmukha
  */
+@Builder
 public class Continent {
 
     private int d_id;

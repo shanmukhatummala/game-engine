@@ -1,5 +1,8 @@
 package game.pojo;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +12,8 @@ import java.util.Objects;
  *
  * @author Shanmukha
  */
+@Builder
+@Data
 public class Country {
 
     private int d_id;
@@ -70,6 +75,10 @@ public class Country {
      * @param p_neighborIds ids of the neighbors
      */
     public void addNeighbors(List<Integer> p_neighborIds) {
+        if (this.getD_neighborIdList() == null) {
+            this.setD_neighborIdList(new ArrayList<>());
+        }
+
         this.getD_neighborIdList().addAll(p_neighborIds);
     }
 
