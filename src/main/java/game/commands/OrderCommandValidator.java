@@ -38,7 +38,8 @@ public class OrderCommandValidator implements CommandValidator {
     public boolean validate(Command p_command) throws IllegalArgumentException {
         String l_commandType = p_command.getCommandType();
         List<String> l_commandArgs = p_command.getArgs();
-        if (l_commandType.equals("showmap") && l_commandArgs.isEmpty()) {
+        if ((l_commandType.equals("showmap") || l_commandType.equals("commit"))
+                && l_commandArgs.isEmpty()) {
             return true;
         }
         if (d_methodMap.containsKey(l_commandType)) {
@@ -99,6 +100,10 @@ public class OrderCommandValidator implements CommandValidator {
             return false;
         }
         return true;
+    }
+
+    private boolean validateCommitCommand(Command p_command) {
+        return (p_command.getArgs().size() == 1);
     }
 
     private boolean validateNegotiateCommand(Command p_command) {

@@ -7,6 +7,7 @@ import game.pojo.Player;
 
 /** Class representing a blockade order */
 public class Blockade extends Order {
+
     private Country d_target;
 
     /**
@@ -29,7 +30,10 @@ public class Blockade extends Order {
         return d_target;
     }
 
-    /** Executes the blockade order */
+    /**
+     * Executes the blockade order by increasing the armies in the target country by 3 times and
+     * making it as a neutral country
+     */
     public void execute() {
         if (valid()) {
             int l_armyCountAfterBlockade = d_target.getD_armyCount() * 3;
@@ -39,6 +43,7 @@ public class Blockade extends Order {
         }
     }
 
+    /** Checks the validity of the Blockade command */
     @Override
     public boolean valid() {
         if (!getD_initiator().getD_cards().contains(BLOCKADE)) {
