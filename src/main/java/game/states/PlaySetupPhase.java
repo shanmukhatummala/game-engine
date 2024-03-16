@@ -14,14 +14,14 @@ import java.util.List;
 public class PlaySetupPhase extends StartUpPhase {
 
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
         loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
         if (!isMapValid(p_map)) {
             System.out.println("The loaded map is invalid, please load a valid map.");
             p_map.clearMap();
             return;
         }
-        ge.setGamePhase(new PlaySetupPhase());
+        p_ge.setGamePhase(new PlaySetupPhase());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleAssignCountries(Map p_map, GameEngine ge) {
+    public void handleAssignCountries(Map p_map, GameEngine p_ge) {
 
         List<Player> players = p_map.getD_players();
         List<Country> countries = p_map.getD_countries();
@@ -48,7 +48,7 @@ public class PlaySetupPhase extends StartUpPhase {
             // it should throw an exception
             //            continue;
         }
-        ge.setGamePhase(new IssueOrderPhase());
+        p_ge.setGamePhase(new IssueOrderPhase());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine ge) {
+    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine p_ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()

@@ -8,7 +8,7 @@ import java.util.*;
 
 public abstract class PlayPhase implements Phase {
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
@@ -36,7 +36,7 @@ public abstract class PlayPhase implements Phase {
 
 
     @Override
-    public void handleAssignCountries(Map p_map, GameEngine ge) {
+    public void handleAssignCountries(Map p_map, GameEngine p_ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
@@ -45,7 +45,7 @@ public abstract class PlayPhase implements Phase {
     }
 
     @Override
-    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine ge) {
+    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine p_ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()

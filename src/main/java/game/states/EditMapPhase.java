@@ -12,7 +12,7 @@ import java.util.List;
 public class EditMapPhase extends StartUpPhase {
 
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine ge) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
@@ -22,7 +22,7 @@ public class EditMapPhase extends StartUpPhase {
 
 
     @Override
-    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine ge) {
+    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine p_ge) {
         if (!p_fileName.equals(p_command.getArgs().get(0))) {
             System.out.println(
                     "The file name in 'savemap' command is different from the file you are editing.");
@@ -36,7 +36,7 @@ public class EditMapPhase extends StartUpPhase {
         saveMap(RESOURCES_PATH + p_fileName, p_map);
         // change phase
         //        break;
-        ge.setGamePhase(new PlaySetupPhase());
+        p_ge.setGamePhase(new PlaySetupPhase());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleAssignCountries(Map p_map, GameEngine ge) {
+    public void handleAssignCountries(Map p_map, GameEngine p_ge) {
         String message = "Invalid Command in state" + this.getClass().getSimpleName();
         printInvalidCommandMessage(message);
     }
