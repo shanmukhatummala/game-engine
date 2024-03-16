@@ -26,6 +26,7 @@ public class AssignResourcesPhaseTest {
     private Player d_player1;
     private Player d_player2;
 
+    /** Sets up the required objects for the execution of tests */
     @BeforeEach
     public void setUp() {
         d_assignResourcesPhase = new AssignResourcesPhase();
@@ -37,6 +38,7 @@ public class AssignResourcesPhaseTest {
         d_players.add(d_player2);
     }
 
+    /** Tests if assigning a random card to players is working as expected */
     @Test
     public void shouldAssignCardToPlayers() {
 

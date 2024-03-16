@@ -12,6 +12,7 @@ import java.util.List;
 public class Bomb extends Order {
 
     private Country d_target;
+    private Player d_targetOwner;
 
     /**
      * Constructor for Bomb class
@@ -19,8 +20,9 @@ public class Bomb extends Order {
      * @param p_target target country to bomb
      * @param p_initiator player who initiated the order
      */
-    public Bomb(Country p_target, Player p_initiator) {
+    public Bomb(Country p_target, Player p_targetOwner, Player p_initiator) {
         super(p_initiator);
+        this.d_targetOwner = p_targetOwner;
         this.d_target = p_target;
     }
 
@@ -34,6 +36,15 @@ public class Bomb extends Order {
     }
 
     /**
+     * Getter for the target country owner
+     *
+     * @return player to whom the target country belongs to
+     */
+    public Player getD_targetOwner() {
+        return d_targetOwner;
+    }
+
+    /**
      * Destroys half of the armies located on an opponent’s territory that is adjacent to one of the
      * current player’s territories
      */
@@ -41,6 +52,23 @@ public class Bomb extends Order {
     public void execute() {
 
         if (valid()) {
+
+            if (d_targetOwner != null
+                    && (getD_initiator()
+                                    .getD_negotiatedPlayers()
+                                    .contains(d_targetOwner.getD_name())
+                            || d_targetOwner
+                                    .getD_negotiatedPlayers()
+                                    .contains(getD_initiator().getD_name()))) {
+                System.out.println(
+                        "Both players, "
+                                + d_targetOwner.getD_name()
+                                + " and "
+                                + getD_initiator().getD_name()
+                                + " are under negotiation. So, cannot attack.");
+                return;
+            }
+
             int l_armyCountAfterBombing = d_target.getD_armyCount() / 2;
             d_target.setD_armyCount(l_armyCountAfterBombing);
             getD_initiator().getD_cards().remove(BOMB);
