@@ -1,18 +1,15 @@
 package game.order;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import static java.util.Collections.singletonList;
-
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Collections.singletonList;
+import static org.junit.Assert.*;
 
 /** This class contains test cases for the Advance class. */
 public class AdvanceOrderTest {
@@ -77,4 +74,17 @@ public class AdvanceOrderTest {
         assertEquals(10, l_destination.getD_armyCount());
         assertEquals(10, l_source.getD_armyCount());
     }
+    @Test
+    void testAttackTerritory_AttackerWins() {
+        // Setup: Ensure the attacker has more armies than the defender
+        Continent l_continent = new Continent();
+        Country l_country1 = new Country(1, "Country1", l_continent,new ArrayList<>(), 100);
+        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
+        Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_country1)));
+        Player l_targetOwner = new Player("Player2",new ArrayList<>(List.of(l_country2)));
+        Airlift airlift  = new Airlift(l_initiator, l_targetOwner, l_country2, l_country1, 70);
+        airlift.execute();
+        assertTrue(l_initiator.getD_countries().contains(l_country2));
+    }
+
 }

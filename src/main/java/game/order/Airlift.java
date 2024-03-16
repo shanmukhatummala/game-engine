@@ -81,15 +81,7 @@ public class Airlift extends Order{
     @Override
     public boolean valid() {
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
-
-        if (!l_countriesOfInitiator.contains(source)) {
-            return false;
-        }
-
-        if (l_countriesOfInitiator.contains(destination)) {
-            return true;
-        }
-        return true;
+        return l_countriesOfInitiator.contains(source);
     }
 
     /**
@@ -106,7 +98,7 @@ public class Airlift extends Order{
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */
-    private void attackTerritory(
+    public void attackTerritory(
             Country target, int armyNumber, Player destinationOwner, Player initiator) {
         Random random = new Random();
         int attackingArmyCount = armyNumber;
@@ -130,12 +122,12 @@ public class Airlift extends Order{
         // Update territory armies based on the outcome of the attack
         if (defendingArmyCount <= 0) {
             // Attacker wins
-            target.setD_armyCount(attackingArmyCount);
+        target.setD_armyCount(attackingArmyCount);
             initiator.getD_countries().add(target);
             destinationOwner.getD_countries().remove(target);
         } else {
             // Defender wins
-            target.setD_armyCount(defendingArmyCount);
+          target.setD_armyCount(defendingArmyCount);
         }
     }
 }
