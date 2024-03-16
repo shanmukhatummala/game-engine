@@ -20,6 +20,7 @@ public class NegotiateTest {
     private Player d_targetPlayer;
     private Map d_map;
 
+
     @BeforeEach
     void setUp() {
         d_initiator = new Player("initiator", null);
@@ -44,6 +45,7 @@ public class NegotiateTest {
         assertThat(negotiate.valid(), equalTo(false));
     }
 
+    /** Tests that negotiation cannot be executed without having a valid target player */
     @Test
     public void shouldNotExecuteNegotiationWithoutValidTargetPlayer() {
         d_initiator.addCard(Player.Card.DIPLOMACY);
@@ -51,6 +53,10 @@ public class NegotiateTest {
         assertThat(negotiate.valid(), equalTo(false));
     }
 
+    /**
+     * Tests that the Negotiation is successful when the target player is valid and
+     * the initiator has a DIPLOMACY card
+     */
     @Test
     public void shouldExecuteNegotiationWithValidDiplomacyCardAndTargetPlayer() {
         d_map.getD_players().add(d_targetPlayer);
