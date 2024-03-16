@@ -61,8 +61,8 @@ public class BlockadeTest {
     }
 
     /**
-     * Tests that the target is Blockaded when the target is owned by the initiator and the user has
-     * a BLOCKADE card
+     * Tests that the target is Blockaded when the target is owned by the initiator and
+     * the user has a BLOCKADE card
      */
     @Test
     public void happyPathShouldExecuteBlockadeOrder() {
