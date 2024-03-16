@@ -2,7 +2,6 @@ package game.order;
 
 import static game.pojo.Player.Card.DIPLOMACY;
 import game.map.Map;
-import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
@@ -12,17 +11,19 @@ import java.util.List;
 public class Negotiate extends Order {
     private Player d_initiator;
     private Player d_targetPlayer;
-    Map map;
+    private Map map;
 
     /**
      * Constructor for the Negotiate order
      *
-     *  @param p_initiator      player who initiated the negotiation
-     *  @param p_targetPlayer   The name of the target player to be negotiated with
+     * @param p_initiator    player who initiated the negotiation
+     * @param p_targetPlayer The name of the target player to be negotiated with
+     * @param p_map reference to the map
      */
-    public Negotiate(Player p_initiator, Player p_targetPlayer) {
+    public Negotiate(Player p_initiator, Player p_targetPlayer, Map p_map) {
         super(p_initiator);
         this.d_targetPlayer = p_targetPlayer;
+        this.map = p_map;
     }
 
     /**

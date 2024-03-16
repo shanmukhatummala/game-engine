@@ -18,22 +18,24 @@ public class NegotiateTest {
 
     @BeforeEach
     void setUp() {
-        d_initiator = new Player("initiator");
-        d_targetPlayer = new Player("targetPlayer");
+        d_initiator = new Player("initiator", null);
+        d_targetPlayer = new Player("targetPlayer", null);
         d_map = new Map();
     }
 
     /** Tests that negotiation cannot be executed without having a diplomacy card */
     @Test
     public void shouldNotExecuteNegotiationWithoutDiplomacyCard() {
-        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer);
+        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer, new Map());
         assertThat(negotiate.valid(), equalTo(false));
     }
 
     @Test
     public  void shouldNotExecuteNegotiationWithoutValidTargetPlayer() {
-        Negotiate negotiate = new Negotiate(d_initiator, null);
+        d_initiator.addCard(Player.Card.DIPLOMACY);
+        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer, new Map());
         assertThat(negotiate.valid(), equalTo(false));
     }
+
 
 }
