@@ -14,14 +14,17 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import game.states.AssignResourcesPhase;
 import game.states.Phase;
-import lombok.Setter;
 import game.util.IssueOrderHelper;
+
+import lombok.Setter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * GameEngine is responsible for reading the main commands from the players and calling required
@@ -32,8 +35,7 @@ public class GameEngine {
     /** This static variable stores the path for the resources directory */
     public static final String RESOURCES_PATH = "src/main/resources/";
 
-    @Setter
-    private Phase gamePhase;
+    @Setter private Phase gamePhase;
 
     private final Map d_map;
 
@@ -123,13 +125,7 @@ public class GameEngine {
         }
     }
 
-
-    public void startGame(){
-
-    }
-
-
-
+    public void startGame() {}
 
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
@@ -221,15 +217,34 @@ public class GameEngine {
      */
     private static void executeOrders(Map p_map) {
         List<Player> l_playersLeftToExecuteOrders = new ArrayList<>(p_map.getD_players());
+
+        Set<Player> l_playersToAssignCard = new HashSet<>();
+
         while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
+
+                Set<Integer> l_countryIdsBeforeExecution =
+                        l_player.getD_countries().stream()
+                                .map(Country::getD_id)
+                                .collect(Collectors.toSet());
+
                 if (!l_player.getD_orderList().isEmpty()) {
                     l_player.next_order().execute();
                 } else {
                     l_playersLeftToExecuteOrders.remove(l_player);
                 }
+
+                Set<Integer> l_countryIdsAfterExecution =
+                        l_player.getD_countries().stream()
+                                .map(Country::getD_id)
+                                .collect(Collectors.toSet());
+                if (!l_countryIdsBeforeExecution.containsAll(l_countryIdsAfterExecution)) {
+                    l_playersToAssignCard.add(l_player);
+                }
             }
         }
+
+        new AssignResourcesPhase().assignRandomCard(l_playersToAssignCard);
         showMap(p_map);
     }
 

@@ -44,7 +44,6 @@ public class BlockadeTest {
         assertThat(l_country1.getD_armyCount(), equalTo(10));
     }
 
-
     /** Tests that the target is not blockaded when the user doesn't have a BLOCKADE card */
     @Test
     public void shouldNotBlockadeWhenPlayerHasNoBlockadeCard() {
@@ -61,10 +60,9 @@ public class BlockadeTest {
         assertThat(l_country2.getD_armyCount(), equalTo(10));
     }
 
-
     /**
-     * Tests that the target is Blockaded when the target is owned by the initiator and
-     * the user has a BLOCKADE card
+     * Tests that the target is Blockaded when the target is owned by the initiator and the user has
+     * a BLOCKADE card
      */
     @Test
     public void happyPathShouldExecuteBlockadeOrder() {
