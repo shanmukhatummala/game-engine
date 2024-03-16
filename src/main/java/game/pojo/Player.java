@@ -29,6 +29,8 @@ public class Player {
     private int d_reinforcements;
     private final Queue<Order> d_orderList;
     private final List<Card> d_cards;
+    private Set<String> d_negotiatedPlayers;
+
 
     /**
      * Constructor with player name and countries for Player
@@ -42,6 +44,7 @@ public class Player {
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
         this.d_cards = new ArrayList<>();
+        this.d_negotiatedPlayers = new HashSet<>();
     }
 
     /**
@@ -96,6 +99,15 @@ public class Player {
      */
     public List<Card> getD_cards() {
         return d_cards;
+    }
+
+    /**
+     * Getter for Negotiated players
+     *
+     * @return Names of players involved in negotiation
+     */
+    public Set<String> getD_negotiatedPlayers() {
+        return d_negotiatedPlayers;
     }
 
     /**
@@ -173,7 +185,8 @@ public class Player {
                 && Objects.equals(l_otherPlayer.d_countries, this.d_countries)
                 && Objects.equals(l_otherPlayer.d_reinforcements, this.d_reinforcements)
                 && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList)
-                && Objects.equals(l_otherPlayer.d_cards, this.d_cards);
+                && Objects.equals(l_otherPlayer.d_cards, this.d_cards)
+                && Objects.equals(l_otherPlayer.d_negotiatedPlayers, this.d_negotiatedPlayers);
     }
 
     /**
@@ -183,6 +196,6 @@ public class Player {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList, d_cards);
+        return Objects.hash(d_name, d_countries, d_reinforcements, d_orderList, d_cards, d_negotiatedPlayers);
     }
 }
