@@ -9,71 +9,83 @@ import java.util.List;
 
 public class CommandParserTest {
 
-    CommandParser parser;
-    String inputCommand;
-    String inputCommand1;
-    String inputCommand2;
+    String d_inputCommand;
+    String d_inputCommand1;
+    String d_inputCommand2;
+    String d_inputCommand3;
 
     @BeforeEach
     void setUp() {
-        inputCommand = "gameplayer -add playerName -add playername2 -remove playername1";
-        inputCommand1 = "deploy country1 4";
-        parser = new CommandParser();
-        inputCommand2 = "editcontinent -add Europe 3";
+        d_inputCommand = "gameplayer -add playerName -add playername2 -remove playername1";
+        d_inputCommand1 = "deploy country1 4";
+        d_inputCommand2 = "editcontinent -add Europe 3";
+        d_inputCommand3 = "commit";
     }
 
     @Test
     public void parseStartUpGameplayerTest() {
 
-        List<String> expectedArgs1 = new ArrayList<>();
-        expectedArgs1.add("-add");
-        expectedArgs1.add("playerName");
-        List<String> expectedArgs2 = new ArrayList<>();
-        expectedArgs2.add("-add");
-        expectedArgs2.add("playername2");
-        List<String> expectedArgs3 = new ArrayList<>();
-        expectedArgs3.add("-remove");
-        expectedArgs3.add("playername1");
-        String expectedCommandType = "gameplayer";
-        List<Command> l_commandList = parser.parse(inputCommand);
+        List<String> l_expectedArgs1 = new ArrayList<>();
+        l_expectedArgs1.add("-add");
+        l_expectedArgs1.add("playerName");
+        List<String> l_expectedArgs2 = new ArrayList<>();
+        l_expectedArgs2.add("-add");
+        l_expectedArgs2.add("playername2");
+        List<String> l_expectedArgs3 = new ArrayList<>();
+        l_expectedArgs3.add("-remove");
+        l_expectedArgs3.add("playername1");
+        String l_expectedCommandType = "gameplayer";
+        List<Command> l_commandList = CommandParser.parse(d_inputCommand);
 
-        Assertions.assertEquals(expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(expectedArgs1, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
+        Assertions.assertEquals(l_expectedArgs1, l_commandList.get(0).getArgs());
 
-        Assertions.assertEquals(expectedCommandType, l_commandList.get(1).getCommandType());
-        Assertions.assertEquals(expectedArgs2, l_commandList.get(1).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(1).getCommandType());
+        Assertions.assertEquals(l_expectedArgs2, l_commandList.get(1).getArgs());
 
-        Assertions.assertEquals(expectedCommandType, l_commandList.get(2).getCommandType());
-        Assertions.assertEquals(expectedArgs3, l_commandList.get(2).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(2).getCommandType());
+        Assertions.assertEquals(l_expectedArgs3, l_commandList.get(2).getArgs());
     }
 
     @Test
     public void parseDeployTest() {
 
-        List<String> expectedArgs = new ArrayList<>();
-        expectedArgs.add("country1");
-        expectedArgs.add("4");
+        List<String> l_expectedArgs = new ArrayList<>();
+        l_expectedArgs.add("country1");
+        l_expectedArgs.add("4");
 
-        String expectedCommandType = "deploy";
-        List<Command> l_commandList = parser.parse(inputCommand1);
+        String l_expectedCommandType = "deploy";
+        List<Command> l_commandList = CommandParser.parse(d_inputCommand1);
         Command l_command = l_commandList.get(0);
 
-        Assertions.assertEquals(expectedCommandType, l_command.getCommandType());
-        Assertions.assertEquals(expectedArgs, l_command.getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_command.getCommandType());
+        Assertions.assertEquals(l_expectedArgs, l_command.getArgs());
     }
 
     @Test
     public void parseEditcontinentTest() {
 
-        List<String> expectedArgs = new ArrayList<>();
-        expectedArgs.add("-add");
-        expectedArgs.add("Europe");
-        expectedArgs.add("3");
+        List<String> l_expectedArgs = new ArrayList<>();
+        l_expectedArgs.add("-add");
+        l_expectedArgs.add("Europe");
+        l_expectedArgs.add("3");
 
-        String expectedCommandType = "editcontinent";
-        List<Command> l_commandList = parser.parse(inputCommand2);
+        String l_expectedCommandType = "editcontinent";
+        List<Command> l_commandList = CommandParser.parse(d_inputCommand2);
 
-        Assertions.assertEquals(expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(expectedArgs, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
+        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getArgs());
+    }
+
+    @Test
+    public void parseCommitCommandTest() {
+
+        List<String> l_expectedArgs = new ArrayList<>();
+
+        String l_expectedCommandType = "commit";
+        List<Command> l_commandList = CommandParser.parse(d_inputCommand3);
+
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
+        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getArgs());
     }
 }
