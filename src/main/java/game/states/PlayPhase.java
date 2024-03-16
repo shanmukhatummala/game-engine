@@ -4,7 +4,6 @@ import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
 
-import java.io.BufferedReader;
 import java.util.*;
 
 public abstract class PlayPhase implements Phase {
@@ -27,7 +26,7 @@ public abstract class PlayPhase implements Phase {
     }
 
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, BufferedReader p_bufferedReader) {
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
@@ -46,7 +45,7 @@ public abstract class PlayPhase implements Phase {
     }
 
     @Override
-    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
@@ -62,6 +61,16 @@ public abstract class PlayPhase implements Phase {
                         + " you can't Validate a map in play mode";
         printInvalidCommandMessage(message);
     }
+
+    @Override
+    public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
+        String message =
+                "Invalid Command in state"
+                        + this.getClass().getSimpleName()
+                        + " you can't edit map in the play phase";
+        printInvalidCommandMessage(message);
+    }
+
 
     @Override
     public void handleDeployOrder() {}

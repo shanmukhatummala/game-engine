@@ -7,6 +7,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,10 +29,12 @@ public class Map {
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
+    @Getter
+    private String d_mapName;
 
     /** Constructor without arguments for Map */
     public Map() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "Unknown Name");
     }
 
     /**
@@ -41,10 +44,11 @@ public class Map {
      * @param p_countries list of countries
      * @param p_players list of players
      */
-    public Map(List<Continent> p_continents, List<Country> p_countries, List<Player> p_players) {
+    public Map(List<Continent> p_continents, List<Country> p_countries, List<Player> p_players, String p_mapName) {
         this.d_continents = p_continents;
         this.d_countries = p_countries;
         this.d_players = p_players;
+        this.d_mapName = p_mapName;
     }
 
     /** This function clears all the data in the map */

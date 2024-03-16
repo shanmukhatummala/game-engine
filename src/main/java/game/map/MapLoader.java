@@ -26,14 +26,17 @@ public class MapLoader {
      */
     public static void loadMap(String p_path, Map p_map) {
         try (BufferedReader l_reader = new BufferedReader(new FileReader(p_path))) {
+            String l_fileName = p_path.split("/")[3];
             p_map.clearMap();
 
+            p_map.setD_mapName(l_fileName);
             String l_line;
             boolean l_readingContinents = false;
             boolean l_readingCountries = false;
             boolean l_readingBorders = false;
 
             int l_continentID = 1;
+
 
             while ((l_line = l_reader.readLine()) != null) {
                 if ("[continents]".equals(l_line)) {

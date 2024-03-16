@@ -137,7 +137,8 @@ public class GameEngine {
             while (true) {
                 try {
                     // take the command and validate it
-                    System.out.println("Enter the command: ");
+                    String message = (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))?"Enter commands to 'edit (or) validate (or) save map':":"Enter the command";
+                    System.out.println(message);
                     String l_usrInput = l_bufferedReader.readLine();
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
                     String l_commandType = l_commandList.get(0).getCommandType();
@@ -146,14 +147,19 @@ public class GameEngine {
                     } else {
                         Command l_command = l_commandList.get(0);
                         if ("editmap".equals(l_commandType)) {
-                            System.out.println("Enter commands to 'edit (or) validate (or) save map': ");
-                            gamePhase.handleEditMap(this,l_command, d_map, l_bufferedReader);
+                            gamePhase.handleEditMap(this,l_command, d_map);
                         } else if ("loadmap".equals(l_commandType)) {
                             gamePhase.handleLoadMap(l_command,d_map,this);
                         } else if ("showmap".equals(l_commandType)) {
                             gamePhase.handleShowMap(d_map);
                         } else if ("assigncountries".equals(l_commandType)) {
                             gamePhase.handleAssignCountries(d_map,this);
+                        } else if ("savemap".equals(l_commandType)) {
+                            gamePhase.handleSaveMap(l_command,d_map,this);
+                        } else if ("validatemap".equals(l_commandType)) {
+                            gamePhase.handleValidateMap(d_map);
+                        } else if ("editcontinent".equals(l_commandType) || "editcountry".equals(l_commandType) ||"editneighbor".equals(l_commandType)) {
+                            gamePhase.handleEditCountriesOrContinentOrNeighbor(l_usrInput.split(" "), d_map);
                         }
                     }
                 } catch (Exception e) {

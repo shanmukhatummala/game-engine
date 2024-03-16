@@ -1,5 +1,6 @@
 package game.states;
 
+import game.map.MapManipulation.MapManipulator;
 import static game.map.MapSaver.saveMap;
 import static game.map.MapValidator.isMapValid;
 
@@ -7,7 +8,6 @@ import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
 
-import java.io.BufferedReader;
 import java.util.List;
 
 public class EditMapPhase extends StartUpPhase {
@@ -23,20 +23,18 @@ public class EditMapPhase extends StartUpPhase {
 
 
     @Override
-    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine p_ge) {
-        if (!p_fileName.equals(p_command.getArgs().get(0))) {
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
+        if (!p_map.getD_mapName().equals(p_command.getArgs().get(0))) {
             System.out.println(
                     "The file name in 'savemap' command is different from the file you are editing.");
             System.out.println("Enter the right file name in save command!");
-            //            continue;
+            return;
         }
         if (!isMapValid(p_map)) {
             System.out.println("Current map is not valid: aborting the saving process.");
             //            continue;
         }
-        saveMap(RESOURCES_PATH + p_fileName, p_map);
-        // change phase
-        //        break;
+        saveMap(RESOURCES_PATH + p_map.getD_mapName(), p_map);
         p_ge.setGamePhase(new PlaySetupPhase());
     }
 
@@ -50,6 +48,13 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     @Override
+    public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
+        final MapManipulator mapManipulator = new MapManipulator();
+        mapManipulator.processCommand(p_args, p_map);
+    }
+
+
+    @Override
     public void handleAssignCountries(Map p_map, GameEngine p_ge) {
         String message = "Invalid Command in state" + this.getClass().getSimpleName();
         printInvalidCommandMessage(message);
@@ -57,7 +62,7 @@ public class EditMapPhase extends StartUpPhase {
 
 
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, BufferedReader p_bufferedReader) {
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
         String message = "Invalid Command you are already in the Edit Map mode";
         printInvalidCommandMessage(message);
     }
