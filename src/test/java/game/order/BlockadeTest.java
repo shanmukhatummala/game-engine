@@ -66,7 +66,7 @@ public class BlockadeTest {
      * a BLOCKADE card
      */
     @Test
-    public void happyPathShouldExecuteBlockadeOrder() {
+    public void ShouldExecuteBlockadeOrderWhenPlayerIsOwnerAndHasBlockadeCard() {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
