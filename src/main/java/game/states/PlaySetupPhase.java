@@ -64,6 +64,7 @@ public class PlaySetupPhase extends StartUpPhase {
         String l_filePath = RESOURCES_PATH + l_fileName;
         if (!fileExists(l_filePath)) {
             createNewFileForMap(l_filePath);
+            p_map.setD_mapName(l_fileName);
         } else {
             loadMap(l_filePath, p_map);
         }
