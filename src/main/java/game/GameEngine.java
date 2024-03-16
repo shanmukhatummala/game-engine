@@ -16,6 +16,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 import game.states.AssignResourcesPhase;
 import game.states.Phase;
+import game.states.PlaySetupPhase;
 import game.util.IssueOrderHelper;
 
 import lombok.Setter;
@@ -46,6 +47,7 @@ public class GameEngine {
      */
     public GameEngine(Map p_map) {
         this.d_map = p_map;
+        this.gamePhase = new PlaySetupPhase();
     }
 
     /** Constructor without arguments for GameEngine */
@@ -125,7 +127,51 @@ public class GameEngine {
         }
     }
 
-    public void startGame() {}
+    public void startGame() {
+
+        // Main method runs when we run the project. This is the starting point of the project.
+
+        try (BufferedReader l_bufferedReader =
+                     new BufferedReader(new InputStreamReader(System.in))) {
+
+            while (true) {
+                try {
+                    // take the command and validate it
+                    System.out.println("Enter the command: ");
+                    String l_usrInput = l_bufferedReader.readLine();
+                    List<Command> l_commandList = CommandParser.parse(l_usrInput);
+                    String l_commandType = l_commandList.get(0).getCommandType();
+                    if (l_commandType.equals("gameplayer")) {
+                        gamePhase.handleGamePlayer(l_commandList,d_map);
+                    } else {
+                        Command l_command = l_commandList.get(0);
+                        if ("editmap".equals(l_commandType)) {
+                            System.out.println("Enter commands to 'edit (or) validate (or) save map': ");
+                            gamePhase.handleEditMap(this);
+                        } else if ("loadmap".equals(l_commandType)) {
+                            gamePhase.handleLoadMap(l_command,d_map,this);
+                        } else if ("showmap".equals(l_commandType)) {
+                            gamePhase.handleShowMap(d_map);
+                        } else if ("assigncountries".equals(l_commandType)) {
+                            gamePhase.handleAssignCountries(d_map,this);
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+//
+//
+//        startGameLoop(d_map, l_bufferedReader);
+//        System.out.println("Game over - all orders executed");
+//        endGame();
+
+
+    }
 
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
