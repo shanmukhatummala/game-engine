@@ -15,6 +15,7 @@ public interface Phase {
     public void handleGamePlayer(List<Command> p_commandList, Map p_map);
 
     public void handleEditMap(GameEngine ge, Command p_command, Map p_map);
+
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map);
 
     public void handleAssignCountries(Map p_map, GameEngine p_ge);

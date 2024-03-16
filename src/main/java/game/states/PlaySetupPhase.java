@@ -49,14 +49,11 @@ public class PlaySetupPhase extends StartUpPhase {
         if (!countriesAssigned) {
             System.out.println("try again.");
             return;
-
         }
         System.out.println("Countries have been assigned.");
         System.out.println("You have entered the play mode.");
         p_ge.setGamePhase(new IssueOrderPhase());
     }
-
-
 
     @Override
     public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
@@ -70,7 +67,6 @@ public class PlaySetupPhase extends StartUpPhase {
         }
         ge.setGamePhase(new EditMapPhase());
         System.out.println("You have entered the editing mode.");
-
     }
 
     @Override
@@ -82,7 +78,6 @@ public class PlaySetupPhase extends StartUpPhase {
         printInvalidCommandMessage(message);
     }
 
-
     @Override
     public void handleValidateMap(Map p_map) {
         String message =
@@ -91,6 +86,7 @@ public class PlaySetupPhase extends StartUpPhase {
                         + " you can't Validate a map here";
         printInvalidCommandMessage(message);
     }
+
     @Override
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
         String message =
@@ -99,5 +95,4 @@ public class PlaySetupPhase extends StartUpPhase {
                         + " you can't edit map while not in the edit mode phase";
         printInvalidCommandMessage(message);
     }
-
 }

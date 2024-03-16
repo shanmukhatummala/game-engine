@@ -21,8 +21,8 @@ public class NegotiateTest {
     private Map d_map;
 
     /**
-     * Sets up the test environment before each test method is executed.
-     * Initializes the test data including the initiator, target player, map.
+     * Sets up the test environment before each test method is executed. Initializes the test data
+     * including the initiator, target player, map.
      */
     @BeforeEach
     void setUp() {
@@ -57,8 +57,8 @@ public class NegotiateTest {
     }
 
     /**
-     * Tests that the Negotiation is successful when the target player is valid and
-     * the initiator has a DIPLOMACY card
+     * Tests that the Negotiation is successful when the target player is valid and the initiator
+     * has a DIPLOMACY card
      */
     @Test
     public void shouldExecuteNegotiationWithValidDiplomacyCardAndTargetPlayer() {

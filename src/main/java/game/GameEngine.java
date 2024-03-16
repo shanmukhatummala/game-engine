@@ -132,34 +132,40 @@ public class GameEngine {
         // Main method runs when we run the project. This is the starting point of the project.
 
         try (BufferedReader l_bufferedReader =
-                     new BufferedReader(new InputStreamReader(System.in))) {
+                new BufferedReader(new InputStreamReader(System.in))) {
 
             while (true) {
                 try {
                     // take the command and validate it
-                    String message = (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))?"Enter commands to 'edit (or) validate (or) save map':":"Enter the command";
+                    String message =
+                            (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
+                                    ? "Enter commands to 'edit (or) validate (or) save map':"
+                                    : "Enter the command";
                     System.out.println(message);
                     String l_usrInput = l_bufferedReader.readLine();
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
                     String l_commandType = l_commandList.get(0).getCommandType();
                     if (l_commandType.equals("gameplayer")) {
-                        gamePhase.handleGamePlayer(l_commandList,d_map);
+                        gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else {
                         Command l_command = l_commandList.get(0);
                         if ("editmap".equals(l_commandType)) {
-                            gamePhase.handleEditMap(this,l_command, d_map);
+                            gamePhase.handleEditMap(this, l_command, d_map);
                         } else if ("loadmap".equals(l_commandType)) {
-                            gamePhase.handleLoadMap(l_command,d_map,this);
+                            gamePhase.handleLoadMap(l_command, d_map, this);
                         } else if ("showmap".equals(l_commandType)) {
                             gamePhase.handleShowMap(d_map);
                         } else if ("assigncountries".equals(l_commandType)) {
-                            gamePhase.handleAssignCountries(d_map,this);
+                            gamePhase.handleAssignCountries(d_map, this);
                         } else if ("savemap".equals(l_commandType)) {
-                            gamePhase.handleSaveMap(l_command,d_map,this);
+                            gamePhase.handleSaveMap(l_command, d_map, this);
                         } else if ("validatemap".equals(l_commandType)) {
                             gamePhase.handleValidateMap(d_map);
-                        } else if ("editcontinent".equals(l_commandType) || "editcountry".equals(l_commandType) ||"editneighbor".equals(l_commandType)) {
-                            gamePhase.handleEditCountriesOrContinentOrNeighbor(l_usrInput.split(" "), d_map);
+                        } else if ("editcontinent".equals(l_commandType)
+                                || "editcountry".equals(l_commandType)
+                                || "editneighbor".equals(l_commandType)) {
+                            gamePhase.handleEditCountriesOrContinentOrNeighbor(
+                                    l_usrInput.split(" "), d_map);
                         }
                     }
                 } catch (Exception e) {
@@ -170,12 +176,11 @@ public class GameEngine {
             throw new RuntimeException(e);
         }
 
-//
-//
-//        startGameLoop(d_map, l_bufferedReader);
-//        System.out.println("Game over - all orders executed");
-//        endGame();
-
+        //
+        //
+        //        startGameLoop(d_map, l_bufferedReader);
+        //        System.out.println("Game over - all orders executed");
+        //        endGame();
 
     }
 

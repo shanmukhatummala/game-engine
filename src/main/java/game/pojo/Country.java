@@ -1,5 +1,7 @@
 package game.pojo;
 
+import game.map.Map;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -64,8 +66,22 @@ public class Country {
      * @param p_neighborId id of the neighbor
      */
     public void addNeighbor(Integer p_neighborId) {
+        addNeighbor(p_neighborId, null);
+    }
+
+    /**
+     * Adds a neighbor to the list of neighbors
+     *
+     * @param p_neighborId id of the neighbor
+     * @param p_map Map object whose d_neighborsGraph to modify if !=null
+     */
+    public void addNeighbor(Integer p_neighborId, Map p_map) {
         if (!this.getD_neighborIdList().contains(p_neighborId)) {
             this.getD_neighborIdList().add(p_neighborId);
+        }
+
+        if (p_map != null) {
+            p_map.addNeighborToNeighborsGraph(this.getD_id(), p_neighborId);
         }
     }
 
@@ -75,11 +91,25 @@ public class Country {
      * @param p_neighborIds ids of the neighbors
      */
     public void addNeighbors(List<Integer> p_neighborIds) {
+        addNeighbors(p_neighborIds, null);
+    }
+
+    /**
+     * Adds multiple neighbor to the list of neighbors
+     *
+     * @param p_neighborIds ids of the neighbors
+     * @param p_map Map object whose d_neighborsGraph to modify if !=null
+     */
+    public void addNeighbors(List<Integer> p_neighborIds, Map p_map) {
         if (this.getD_neighborIdList() == null) {
             this.setD_neighborIdList(new ArrayList<>());
         }
 
         this.getD_neighborIdList().addAll(p_neighborIds);
+
+        if (p_map != null) {
+            p_map.addNeighborsToNeighborsGraph(this.getD_id(), p_neighborIds);
+        }
     }
 
     /**
@@ -97,7 +127,21 @@ public class Country {
      * @param p_neighbor_id id of the neighbor to be removed
      */
     public void removeNeighbor(Integer p_neighbor_id) {
+        removeNeighbor(p_neighbor_id, null);
+    }
+
+    /**
+     * Removes a neighbor from the list of neighbors
+     *
+     * @param p_neighbor_id id of the neighbor to be removed
+     * @param p_map Map object whose d_neighborsGraph to modify if !=null
+     */
+    public void removeNeighbor(Integer p_neighbor_id, Map p_map) {
         this.getD_neighborIdList().removeIf(id -> Objects.equals(id, p_neighbor_id));
+
+        if (p_map != null) {
+            p_map.removeNeighborFromNeighborsGraph(this.getD_id(), p_neighbor_id);
+        }
     }
 
     /**
