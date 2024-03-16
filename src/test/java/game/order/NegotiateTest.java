@@ -20,7 +20,10 @@ public class NegotiateTest {
     private Player d_targetPlayer;
     private Map d_map;
 
-
+    /**
+     * Sets up the test environment before each test method is executed.
+     * Initializes the test data including the initiator, target player, map.
+     */
     @BeforeEach
     void setUp() {
         d_initiator = new Player("initiator", null);
