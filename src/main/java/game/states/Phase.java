@@ -18,7 +18,7 @@ public interface Phase {
 
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map);
 
-    public void handleAssignCountries(Map p_map, GameEngine p_ge);
+    public void handleAssignCountries(Map p_map, GameEngine p_ge) throws Exception;
 
     public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge);
 

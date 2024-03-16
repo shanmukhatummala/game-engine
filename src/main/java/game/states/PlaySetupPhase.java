@@ -41,14 +41,13 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleAssignCountries(Map p_map, GameEngine p_ge) {
+    public void handleAssignCountries(Map p_map, GameEngine p_ge) throws Exception {
 
         List<Player> players = p_map.getD_players();
         List<Country> countries = p_map.getD_countries();
         boolean countriesAssigned = p_map.assignCountries(players, countries);
         if (!countriesAssigned) {
-            System.out.println("try again.");
-            return;
+            throw new Exception("try again.");
         }
         System.out.println("Countries have been assigned.");
         System.out.println("You have entered the play mode.");
