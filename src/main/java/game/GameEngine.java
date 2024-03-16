@@ -134,8 +134,20 @@ public class GameEngine {
      */
     private static void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
         assignReinforcements(p_map);
-        issueOrders(p_map, p_bufferedReader);
-        executeOrders(p_map);
+
+        while (p_map.getD_players().size() > 1) {
+            issueOrders(p_map, p_bufferedReader);
+            Set<Player> l_playersToAssignCard = new HashSet<>();
+            executeOrders(p_map, l_playersToAssignCard);
+            new AssignResourcesPhase().assignRandomCard(l_playersToAssignCard);
+            p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
+            showMap(p_map);
+        }
+
+        if (p_map.getD_players().size() == 1) {
+            System.out.println(
+                    "Congratulations, " + p_map.getD_players().get(0) + ", you are the winner!");
+        }
     }
 
     /**
@@ -174,37 +186,37 @@ public class GameEngine {
         List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
         while (!l_playersLeftToIssueOrder.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
-                if (l_player.getD_reinforcements() != 0 || !l_player.getD_cards().isEmpty()) {
-                    while (true) {
-                        try {
-                            System.out.println(
-                                    "Player: " + l_player.getD_name() + ", enter the command: ");
-                            String l_commandString = p_bufferedReader.readLine();
-                            Command l_command = CommandParser.parse(l_commandString).get(0);
-                            if ("showmap".equals(l_command.getCommandType())) {
-                                showMap(p_map);
-                                continue;
-                            }
-                            IssueOrderHelper.setCommand(l_command);
-                            IssueOrderHelper.setMap(p_map);
-                            l_player.issue_order();
+                while (true) {
+                    try {
+                        System.out.println(
+                                "Player: " + l_player.getD_name() + ", enter the command: ");
+                        String l_commandString = p_bufferedReader.readLine();
+                        Command l_command = CommandParser.parse(l_commandString).get(0);
+                        if ("showmap".equals(l_command.getCommandType())) {
+                            showMap(p_map);
+                            continue;
+                        } else if ("commit".equals(l_command.getCommandType())) {
+                            l_playersLeftToIssueOrder.remove(l_player);
                             break;
-                        } catch (IOException e) {
-                            System.out.println(
-                                    "Error when reading command. Error message: " + e.getMessage());
                         }
+
+                        IssueOrderHelper.setCommand(l_command);
+                        IssueOrderHelper.setMap(p_map);
+                        l_player.issue_order();
+                        break;
+                    } catch (IOException e) {
+                        System.out.println(
+                                "Error when reading command. Error message: " + e.getMessage());
                     }
-                    System.out.println(
-                            "player: "
-                                    + l_player.getD_name()
-                                    + ", reinforcements: "
-                                    + l_player.getD_reinforcements()
-                                    + (l_player.getD_cards().isEmpty()
-                                            ? ""
-                                            : ", cards: " + l_player.getD_cards()));
-                } else {
-                    l_playersLeftToIssueOrder.remove(l_player);
                 }
+                System.out.println(
+                        "player: "
+                                + l_player.getD_name()
+                                + ", reinforcements: "
+                                + l_player.getD_reinforcements()
+                                + (l_player.getD_cards().isEmpty()
+                                        ? ""
+                                        : ", cards: " + l_player.getD_cards()));
             }
         }
         System.out.println("Command will be executed.");
@@ -215,11 +227,8 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private static void executeOrders(Map p_map) {
+    private static void executeOrders(Map p_map, Set<Player> p_playersToAssignCard) {
         List<Player> l_playersLeftToExecuteOrders = new ArrayList<>(p_map.getD_players());
-
-        Set<Player> l_playersToAssignCard = new HashSet<>();
-
         while (!l_playersLeftToExecuteOrders.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
 
@@ -228,24 +237,21 @@ public class GameEngine {
                                 .map(Country::getD_id)
                                 .collect(Collectors.toSet());
 
-                if (!l_player.getD_orderList().isEmpty()) {
-                    l_player.next_order().execute();
-                } else {
+                if (l_player.getD_orderList().isEmpty()) {
                     l_playersLeftToExecuteOrders.remove(l_player);
+                    continue;
                 }
+                l_player.next_order().execute();
 
                 Set<Integer> l_countryIdsAfterExecution =
                         l_player.getD_countries().stream()
                                 .map(Country::getD_id)
                                 .collect(Collectors.toSet());
                 if (!l_countryIdsBeforeExecution.containsAll(l_countryIdsAfterExecution)) {
-                    l_playersToAssignCard.add(l_player);
+                    p_playersToAssignCard.add(l_player);
                 }
             }
         }
-
-        new AssignResourcesPhase().assignRandomCard(l_playersToAssignCard);
-        showMap(p_map);
     }
 
     /** Stops the program or in other words ends the game */
