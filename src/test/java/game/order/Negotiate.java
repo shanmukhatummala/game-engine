@@ -14,27 +14,39 @@ public class Negotiate extends Order {
     private Player d_targetPlayer;
     Map map;
 
-
+    /**
+     * Constructor for the Negotiate order
+     *
+     *  @param p_initiator      player who initiated the negotiation
+     *  @param p_targetPlayer   The name of the target player to be negotiated with
+     */
     public Negotiate(Player p_initiator, Player p_targetPlayer) {
         super(p_initiator);
         this.d_targetPlayer = p_targetPlayer;
     }
 
-
+    /**
+     * Getter for the target Player to Negotiate with
+     *
+     * @return target player with whom the initiator want to negotiate with
+     */
     public Player getD_targetPlayer() {
         return d_targetPlayer;
     }
 
-
+    /**
+     * Executes the Negotiate order and both the initiator and target player can not attack each other
+     * till the end of the current turn
+     */
     public void execute() {
         if (valid()) {
             //both players in the set should not attack each other
             getD_initiator().getD_negotiatedPlayers().add(d_targetPlayer.getD_name());
-
             getD_initiator().getD_cards().remove(DIPLOMACY);
         }
     }
 
+    /** Checks the validity of the Diplomacy/Negotiate command */
     @Override
     public boolean valid() {
 
