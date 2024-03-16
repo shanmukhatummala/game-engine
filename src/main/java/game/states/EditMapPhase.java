@@ -20,8 +20,9 @@ public class EditMapPhase extends StartUpPhase {
         printInvalidCommandMessage(message);
     }
 
+
     @Override
-    public void handleSaveMap(String p_fileName, Command p_command, Map p_map) {
+    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine ge) {
         if (!p_fileName.equals(p_command.getArgs().get(0))) {
             System.out.println(
                     "The file name in 'savemap' command is different from the file you are editing.");
@@ -35,6 +36,7 @@ public class EditMapPhase extends StartUpPhase {
         saveMap(RESOURCES_PATH + p_fileName, p_map);
         // change phase
         //        break;
+        ge.setGamePhase(new PlaySetupPhase());
     }
 
     @Override

@@ -57,11 +57,22 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleSaveMap(String p_fileName, Command p_command, Map p_map) {
+    public void handleSaveMap(String p_fileName, Command p_command, Map p_map, GameEngine ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
                         + " you can't save a map here";
         printInvalidCommandMessage(message);
     }
+
+
+    @Override
+    public void handleValidateMap(Map p_map) {
+        String message =
+                "Invalid Command in state"
+                        + this.getClass().getSimpleName()
+                        + " you can't Validate a map here";
+        printInvalidCommandMessage(message);
+    }
+
 }

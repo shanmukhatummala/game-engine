@@ -8,8 +8,6 @@ abstract class StartUpPhase implements Phase {
 
     public static final String RESOURCES_PATH = "src/main/resources/";
 
-    @Override
-    public void handleValidateMap(Map p_map) {}
 
     @Override
     public void handleDeployOrder() {
