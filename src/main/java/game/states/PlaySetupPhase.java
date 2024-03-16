@@ -1,7 +1,10 @@
 package game.states;
 
+import static game.map.MapEditor.editMap;
 import static game.map.MapLoader.loadMap;
 import static game.map.MapValidator.isMapValid;
+import static game.util.FileHelper.createNewFileForMap;
+import static game.util.FileHelper.fileExists;
 
 import game.GameEngine;
 import game.commands.Command;
@@ -9,6 +12,7 @@ import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
+import java.io.BufferedReader;
 import java.util.List;
 
 public class PlaySetupPhase extends StartUpPhase {
@@ -54,10 +58,18 @@ public class PlaySetupPhase extends StartUpPhase {
         p_ge.setGamePhase(new IssueOrderPhase());
     }
 
-    @Override
-    public void handleEditMap(GameEngine ge) {
-        ge.setGamePhase(new EditMapPhase());
 
+    @Override
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, BufferedReader p_bufferedReader) {
+        String l_fileName = p_command.getArgs().get(0);
+        String l_filePath = RESOURCES_PATH + l_fileName;
+        if (!fileExists(l_filePath)) {
+            createNewFileForMap(l_filePath);
+        } else {
+            loadMap(l_filePath, p_map);
+        }
+        ge.setGamePhase(new EditMapPhase());
+        editMap(p_bufferedReader, p_map, l_fileName);
     }
 
     @Override

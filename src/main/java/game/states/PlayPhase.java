@@ -4,6 +4,7 @@ import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
 
+import java.io.BufferedReader;
 import java.util.*;
 
 public abstract class PlayPhase implements Phase {
@@ -26,7 +27,7 @@ public abstract class PlayPhase implements Phase {
     }
 
     @Override
-    public void handleEditMap(GameEngine ge) {
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, BufferedReader p_bufferedReader) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()

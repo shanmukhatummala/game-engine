@@ -7,6 +7,7 @@ import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
 
+import java.io.BufferedReader;
 import java.util.List;
 
 public class EditMapPhase extends StartUpPhase {
@@ -54,8 +55,9 @@ public class EditMapPhase extends StartUpPhase {
         printInvalidCommandMessage(message);
     }
 
+
     @Override
-    public void handleEditMap(GameEngine ge) {
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, BufferedReader p_bufferedReader) {
         String message = "Invalid Command you are already in the Edit Map mode";
         printInvalidCommandMessage(message);
     }

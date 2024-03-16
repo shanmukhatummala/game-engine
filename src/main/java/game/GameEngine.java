@@ -147,7 +147,7 @@ public class GameEngine {
                         Command l_command = l_commandList.get(0);
                         if ("editmap".equals(l_commandType)) {
                             System.out.println("Enter commands to 'edit (or) validate (or) save map': ");
-                            gamePhase.handleEditMap(this);
+                            gamePhase.handleEditMap(this,l_command, d_map, l_bufferedReader);
                         } else if ("loadmap".equals(l_commandType)) {
                             gamePhase.handleLoadMap(l_command,d_map,this);
                         } else if ("showmap".equals(l_commandType)) {
