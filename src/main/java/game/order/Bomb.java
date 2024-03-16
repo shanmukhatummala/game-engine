@@ -65,7 +65,7 @@ public class Bomb extends Order {
                                 + d_targetOwner.getD_name()
                                 + " and "
                                 + getD_initiator().getD_name()
-                                + " are under negotiation. So, cannot attack.");
+                                + ", are under negotiation. So, cannot attack.");
                 return;
             }
 
@@ -81,19 +81,27 @@ public class Bomb extends Order {
         List<Country> l_countriesOfInitiator = getD_initiator().getD_countries();
 
         if (!getD_initiator().getD_cards().contains(BOMB)) {
-            System.out.println("You don't have a BOMB card. So, cannot execute bomb order.");
+            System.out.println(
+                    getD_initiator().getD_name()
+                            + " doesn't have a BOMB card. So, cannot execute bomb order.");
             return false;
         }
 
         if (l_countriesOfInitiator.contains(d_target)) {
             System.out.println(
-                    "Target country belong to the initiator. So, cannot bomb your own country.");
+                    "Target country, "
+                            + d_target
+                            + ", belongs to the initiator, "
+                            + getD_initiator().getD_name()
+                            + ". So, cannot bomb your own country.");
             return false;
         }
 
         if (!isAdjacent(l_countriesOfInitiator, d_target)) {
             System.out.println(
-                    "Target country is not adjacent to the player. So, cannot bomb this country.");
+                    "Target country, "
+                            + d_target
+                            + ", is not adjacent to the player. So, cannot bomb this country.");
             return false;
         }
 

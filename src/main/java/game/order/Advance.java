@@ -75,7 +75,7 @@ public class Advance extends Order {
                                     + destinationOwner.getD_name()
                                     + " and "
                                     + getD_initiator().getD_name()
-                                    + " are under negotiation. So, cannot attack.");
+                                    + ", are under negotiation. So, cannot attack.");
                     return;
                 }
 
