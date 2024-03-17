@@ -14,6 +14,7 @@ import game.pojo.Player;
 
 import java.util.List;
 
+/** Represents the phase in the game where initial setup actions are performed. */
 public class PlaySetupPhase extends StartUpPhase {
 
     /**
@@ -24,6 +25,13 @@ public class PlaySetupPhase extends StartUpPhase {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 
+    /**
+     * Handles the command to load a map and transitions to the play setup phase.
+     *
+     * @param p_command The command to load a map.
+     * @param p_map The current map.
+     * @param p_ge The game engine managing the game state.
+     */
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
         loadMap(RESOURCES_PATH + p_command.getD_args().get(0), p_map);
@@ -36,6 +44,12 @@ public class PlaySetupPhase extends StartUpPhase {
         p_ge.setD_gamePhase(new PlaySetupPhase());
     }
 
+    /**
+     * Handles commands related to adding or removing players from the game.
+     *
+     * @param p_commandList The list of commands to add or remove players.
+     * @param p_map The current map.
+     */
     @Override
     public void handleGamePlayer(List<Command> p_commandList, Map p_map) {
         for (Command l_command : p_commandList) {
@@ -52,6 +66,13 @@ public class PlaySetupPhase extends StartUpPhase {
         }
     }
 
+    /**
+     * Assigns countries to players and transitions to the assign resources phase.
+     *
+     * @param p_map The current map.
+     * @param p_ge The game engine managing the game state.
+     * @throws Exception If countries cannot be assigned.
+     */
     @Override
     public void handleCountriesAssignment(Map p_map, GameEngine p_ge) throws Exception {
 
@@ -68,6 +89,13 @@ public class PlaySetupPhase extends StartUpPhase {
         p_ge.setD_gamePhase(new AssignResourcesPhase());
     }
 
+    /**
+     * Handles the command to edit a map. If the map file does not exist, creates a new file.
+     *
+     * @param p_ge The game engine managing the game state.
+     * @param p_command The command to edit the map.
+     * @param p_map The current map.
+     */
     @Override
     public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map) {
         String l_fileName = p_command.getD_args().get(0);
@@ -83,6 +111,14 @@ public class PlaySetupPhase extends StartUpPhase {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("You have entered the editing mode.");
     }
 
+    /**
+     * Handles the command to save a map. Displays an invalid command message as saving a map
+     * is not allowed during setup.
+     *
+     * @param p_command The command to save the map.
+     * @param p_map The current map.
+     * @param p_ge The game engine managing the game state.
+     */
     @Override
     public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
         String l_message =
@@ -92,6 +128,12 @@ public class PlaySetupPhase extends StartUpPhase {
         printInvalidCommandMessage(l_message);
     }
 
+    /**
+     * Handles the command to validate a map. Displays an invalid command message as validating
+     * a map is not allowed during setup.
+     *
+     * @param p_map The current map.
+     */
     @Override
     public void handleValidateMap(Map p_map) {
         String l_message =
@@ -101,6 +143,13 @@ public class PlaySetupPhase extends StartUpPhase {
         printInvalidCommandMessage(l_message);
     }
 
+    /**
+     * Handles the command to edit countries, continents, or neighbors. Displays an invalid
+     * command message as editing a map is not allowed during setup.
+     *
+     * @param p_args The command arguments.
+     * @param p_map The current map.
+     */
     @Override
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
         String l_message =
