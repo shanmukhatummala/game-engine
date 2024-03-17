@@ -105,6 +105,7 @@ public class EditMapPhase extends StartUpPhase {
         printInvalidCommandMessage(l_message);
     }
 
+
     /**
      * Handles the command to edit the map and displays an invalid command message as the game is
      * already in the edit map mode.
