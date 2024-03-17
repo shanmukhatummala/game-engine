@@ -1,10 +1,8 @@
 package game.states;
 
-import game.GameEngine;
-
-import java.util.List;
-
 import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
+
+import game.GameEngine;
 
 public class EndGamePhase extends PlayPhase {
 

@@ -1,25 +1,29 @@
 package game.order;
 
+import static game.map.MapHelper.getCountryByName;
+
 import game.GameEngine;
+import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
 /** this class extends from order class and represent the deploy order type of orders */
 public class Deploy extends Order {
 
-    private Country d_destination;
+    private String d_destinationCountryName;
     private int d_armyNumber;
 
     /**
      * The constructor of the class: calls the super constructor (parent constructor) class and
      * providing the parameters
      *
-     * @param p_destination Country object of where the army will be deployed
+     * @param p_destinationCountryName Country name where the army will be deployed
      * @param p_armyNumber Integer of the army count
      */
-    public Deploy(Country p_destination, Player p_initiator, int p_armyNumber) {
-        super(p_initiator);
-        this.d_destination = p_destination;
+    public Deploy(
+            String p_destinationCountryName, Player p_initiator, int p_armyNumber, Map p_map) {
+        super(p_initiator, p_map);
+        this.d_destinationCountryName = p_destinationCountryName;
         this.d_armyNumber = p_armyNumber;
     }
 
@@ -28,8 +32,8 @@ public class Deploy extends Order {
      *
      * @return the destination country to deploy reinforcements
      */
-    public Country getD_destination() {
-        return d_destination;
+    public String getD_destinationCountryName() {
+        return d_destinationCountryName;
     }
 
     /**
@@ -49,25 +53,39 @@ public class Deploy extends Order {
     public void execute() {
 
         if (valid()) {
-            int l_currentReinforcementsOfInitiator = this.getD_initiator().getD_reinforcements();
-            int l_currentArmyCount = this.getD_destination().getD_armyCount();
-            this.getD_destination().setD_armyCount(l_currentArmyCount + this.getD_armyNumber());
+            Country l_destination = getCountryByName(getD_map(), d_destinationCountryName);
+            int l_currentArmyCount = l_destination.getD_armyCount();
+            l_destination.setD_armyCount(l_currentArmyCount + this.getD_armyNumber());
             this.getD_initiator()
                     .setD_reinforcements(
-                            l_currentReinforcementsOfInitiator - this.getD_armyNumber());
+                            getD_initiator().getD_reinforcements() - this.getD_armyNumber());
         }
     }
 
     @Override
     public boolean valid() {
-        if (!this.getD_initiator().getD_countries().contains(d_destination)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(d_destination + " is not owned by " + getD_initiator());
+
+        Country l_destination = getCountryByName(getD_map(), d_destinationCountryName);
+
+        if (l_destination == null) {
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    d_destinationCountryName
+                            + " doesn't exist in the map now. So, cannot deploy in this country.");
             return false;
         }
 
-        if (this.getD_armyNumber() < 0
-                || this.getD_armyNumber() > this.getD_initiator().getD_reinforcements()) {
-            GameEngine.d_logEntryBuffer.addLogEntry("Invalid number of armies");
+        if (!getD_initiator().getD_countries().contains(l_destination)) {
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    l_destination.getD_name() + " is not owned by " + getD_initiator().getD_name());
+            return false;
+        }
+
+        if (getD_armyNumber() < 0 || getD_armyNumber() > getD_initiator().getD_reinforcements()) {
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    "Invalid number of armies ("
+                            + d_armyNumber
+                            + ") to deploy on "
+                            + d_destinationCountryName);
             return false;
         }
 

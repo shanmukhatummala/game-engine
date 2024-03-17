@@ -24,7 +24,8 @@ public class PlaySetupPhase extends StartUpPhase {
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
         loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
         if (!isMapValid(p_map)) {
-            GameEngine.d_logEntryBuffer.addLogEntry("The loaded map is invalid, please load a valid map.");
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    "The loaded map is invalid, please load a valid map.");
             p_map.clearMap();
             return;
         }
@@ -37,10 +38,12 @@ public class PlaySetupPhase extends StartUpPhase {
             List<String> l_commandArgs = l_command.getArgs();
             if (l_commandArgs.get(0).equals("-add")) {
                 p_map.addPlayer(l_commandArgs.get(1));
-                GameEngine.d_logEntryBuffer.addLogEntry("Player " + l_commandArgs.get(1) + " added");
+                GameEngine.d_logEntryBuffer.addLogEntry(
+                        "Player " + l_commandArgs.get(1) + " added");
             } else {
                 p_map.removePlayer(l_commandArgs.get(1));
-                GameEngine.d_logEntryBuffer.addLogEntry("Player " + l_commandArgs.get(1) + " removed");
+                GameEngine.d_logEntryBuffer.addLogEntry(
+                        "Player " + l_commandArgs.get(1) + " removed");
             }
         }
     }
@@ -55,10 +58,8 @@ public class PlaySetupPhase extends StartUpPhase {
             throw new Exception("try again.");
         }
 
-        GameEngine.d_logEntryBuffer.addLogEntries(List.of(
-                "Countries have been assigned.",
-                "You have entered the play mode."
-        ));
+        GameEngine.d_logEntryBuffer.addLogEntries(
+                List.of("Countries have been assigned.", "You have entered the play mode."));
 
         p_ge.setGamePhase(new AssignResourcesPhase());
     }

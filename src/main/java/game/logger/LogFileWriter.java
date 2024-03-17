@@ -8,15 +8,13 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * This class is responsible for writing log entries to a file. It implements the Observer interface to observe changes
- * in a LogEntryBuffer and write new log entries to the specified file.
+ * This class is responsible for writing log entries to a file. It implements the Observer interface
+ * to observe changes in a LogEntryBuffer and write new log entries to the specified file.
  */
 @RequiredArgsConstructor
 public class LogFileWriter implements Observer {
 
-    /**
-     * The name of the file to which log entries will be written.
-     */
+    /** The name of the file to which log entries will be written. */
     private final String d_fileName;
 
     /**
@@ -38,8 +36,7 @@ public class LogFileWriter implements Observer {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    }
-            );
+                    });
 
             l_fileWriter.flush();
             l_fileWriter.close();

@@ -12,7 +12,6 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Player;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 

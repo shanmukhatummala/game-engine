@@ -3,11 +3,9 @@ package game.pojo;
 import game.map.Map;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -139,7 +137,6 @@ public class Country {
      * @param p_neighbor_id id of the neighbor to be removed
      * @param p_map Map object whose d_neighborsGraph to modify if !=null
      */
-
     public void removeNeighbor(Integer p_neighbor_id, Map p_map) {
         this.getD_neighborIdList().removeIf(id -> Objects.equals(id, p_neighbor_id));
 

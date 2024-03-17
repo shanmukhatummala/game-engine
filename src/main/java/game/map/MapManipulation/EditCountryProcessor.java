@@ -58,7 +58,8 @@ public class EditCountryProcessor {
                             .orElse(null);
 
             if (l_linked_continent == null) {
-                GameEngine.d_logEntryBuffer.addLogEntry("Continent Name: " + p_continent_name + " does not exist!");
+                GameEngine.d_logEntryBuffer.addLogEntry(
+                        "Continent Name: " + p_continent_name + " does not exist!");
                 return;
             }
 

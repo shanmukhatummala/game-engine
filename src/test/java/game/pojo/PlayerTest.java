@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import pl.pojo.tester.api.assertion.Method;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /** PlayerTest is a test class for the Player POJO */
@@ -72,11 +71,14 @@ class PlayerTest {
 
         assertThat(l_firstOrder, instanceOf(Deploy.class));
         assertThat(l_firstOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Deploy) l_firstOrder).getD_destination(), equalTo(d_country1));
+        assertThat(
+                ((Deploy) l_firstOrder).getD_destinationCountryName(),
+                equalTo(d_country1.getD_name()));
         assertThat(((Deploy) l_firstOrder).getD_armyNumber(), equalTo(4));
         assertThat(l_secondOrder, instanceOf(Bomb.class));
         assertThat(l_secondOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Bomb) l_secondOrder).getD_target(), equalTo(d_country2));
+        assertThat(
+                ((Bomb) l_secondOrder).getD_targetCountryName(), equalTo(d_country2.getD_name()));
     }
 
     /** Tests if the next_order returns the correct order */
@@ -102,11 +104,14 @@ class PlayerTest {
 
         assertThat(l_firstOrder, instanceOf(Deploy.class));
         assertThat(l_firstOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Deploy) l_firstOrder).getD_destination(), equalTo(d_country1));
+        assertThat(
+                ((Deploy) l_firstOrder).getD_destinationCountryName(),
+                equalTo(d_country1.getD_name()));
         assertThat(((Deploy) l_firstOrder).getD_armyNumber(), equalTo(4));
         assertThat(l_secondOrder, instanceOf(Bomb.class));
         assertThat(l_secondOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Bomb) l_secondOrder).getD_target(), equalTo(d_country2));
+        assertThat(
+                ((Bomb) l_secondOrder).getD_targetCountryName(), equalTo(d_country2.getD_name()));
         assertThat(l_thirdOrder, nullValue());
     }
 

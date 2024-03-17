@@ -1,13 +1,12 @@
 package game.pojo;
 
-import static game.map.MapHelper.getCountryByName;
-import static game.map.MapHelper.getCountryOwner;
-
 import game.commands.Command;
 import game.map.Map;
 import game.order.Advance;
+import game.order.Blockade;
 import game.order.Bomb;
 import game.order.Deploy;
+import game.order.Negotiate;
 import game.order.Order;
 import game.util.IssueOrderHelper;
 
@@ -134,31 +133,23 @@ public class Player {
         String commandType = l_command.getCommandType();
 
         if ("deploy".equals(commandType)) {
-            String l_countryId = l_command.getArgs().get(0);
+            String l_countryName = l_command.getArgs().get(0);
             int l_numArmies = Integer.parseInt(l_command.getArgs().get(1));
-            d_orderList.add(new Deploy(getCountryByName(l_map, l_countryId), this, l_numArmies));
-            if (IssueOrderHelper.validateDeploy(this,getCountryByName(l_map, l_countryId),l_numArmies)) {
-                this.setD_reinforcements(d_reinforcements-l_numArmies);
-            }
-
+            d_orderList.add(new Deploy(l_countryName, this, l_numArmies, l_map));
         } else if ("bomb".equals(commandType)) {
             String l_targetCountryString = l_command.getArgs().get(0);
-            Country l_targetCountry = getCountryByName(l_map, l_targetCountryString);
-            d_orderList.add(
-                    new Bomb(
-                            l_targetCountry,
-                            getCountryOwner(l_targetCountry, l_map.getD_players()),
-                            this));
+            d_orderList.add(new Bomb(l_targetCountryString, this, l_map));
         } else if ("advance".equals(commandType)) {
             String l_source = l_command.getArgs().get(0);
-            Country l_sourceCountry = getCountryByName(l_map, l_source);
             String l_target = l_command.getArgs().get(1);
-            Country l_targetCountry = getCountryByName(l_map, l_target);
-            Player l_targetOwner = getCountryOwner(l_targetCountry, l_map.getD_players());
             int l_numArmies = Integer.parseInt(l_command.getArgs().get(2));
-            d_orderList.add(
-                    new Advance(
-                            l_targetCountry, l_sourceCountry, l_targetOwner, this, l_numArmies));
+            d_orderList.add(new Advance(l_target, l_source, this, l_numArmies, l_map));
+        } else if ("blockade".equals(commandType)) {
+            String l_targetCountryString = l_command.getArgs().get(0);
+            d_orderList.add(new Blockade(l_targetCountryString, this, l_map));
+        } else if ("negotiate".equals(commandType)) {
+            String l_targetPlayerName = l_command.getArgs().get(0);
+            d_orderList.add(new Negotiate(this, l_targetPlayerName, l_map));
         }
     }
 

@@ -1,8 +1,6 @@
 package game.util;
 
-/**
- * This class provides helper methods for logging.
- */
+/** This class provides helper methods for logging. */
 public class LoggingHelper {
 
     /**

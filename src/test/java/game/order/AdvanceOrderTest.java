@@ -1,16 +1,19 @@
 package game.order;
 
+import static org.junit.Assert.*;
+
+import static java.util.Collections.singletonList;
+
+import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import static java.util.Collections.singletonList;
-import static org.junit.Assert.*;
 
 /**
  * This class contains test cases for the Advance class.
@@ -26,10 +29,17 @@ public class AdvanceOrderTest {
     @Test
     public void testExecuteAdvanceOrderDestinationOwnerIsAdjacentToInitiator() {
         Continent l_continent = new Continent();
-        Country l_source = new Country(1, "Country1", l_continent, new HashSet<>(singletonList(2)), 10);
+        Country l_source =
+                new Country(1, "Country1", l_continent, new HashSet<>(singletonList(2)), 10);
         Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         Player l_initiator = new Player("Player1", List.of(l_source, l_destination));
-        Advance l_advanceOrder = new Advance(l_destination, l_source, l_initiator, l_initiator, 5);
+        Map l_map = new Map();
+        l_map.getD_continents().add(l_continent);
+        l_map.getD_countries().add(l_source);
+        l_map.getD_countries().add(l_destination);
+        l_map.getD_players().add(l_initiator);
+        Advance l_advanceOrder =
+                new Advance(l_destination.getD_name(), l_source.getD_name(), l_initiator, 5, l_map);
         l_advanceOrder.execute();
         assertEquals(15, l_destination.getD_armyCount());
         assertEquals(5, l_source.getD_armyCount());
@@ -47,7 +57,14 @@ public class AdvanceOrderTest {
         Player l_initiator = new Player("Player1", List.of(l_source));
         Player l_destinationOwner = new Player("player2", List.of(l_destination));
         int l_initialDestinationArmyCount = l_destination.getD_armyCount();
-        Advance l_advanceOrder = new Advance(l_destination, l_source, l_destinationOwner, l_initiator, 5);
+        Map l_map = new Map();
+        l_map.getD_continents().add(l_continent);
+        l_map.getD_countries().add(l_source);
+        l_map.getD_countries().add(l_destination);
+        l_map.getD_players().add(l_initiator);
+        l_map.getD_players().add(l_destinationOwner);
+        Advance l_advanceOrder =
+                new Advance(l_destination.getD_name(), l_source.getD_name(), l_initiator, 5, l_map);
         l_advanceOrder.execute();
         assertEquals(l_initialDestinationArmyCount, l_destination.getD_armyCount());
     }
@@ -57,10 +74,12 @@ public class AdvanceOrderTest {
     public void testValidMethodWhenDestinationIsNotValid() {
         Continent l_continent = new Continent();
         Player l_initiator = new Player("player1");
-        Country source = new Country(1, "Country1", l_continent);
-        Country destination = null;
-        Player l_destinationOwner = null;
-        Advance l_advanceOrder = new Advance(destination, source, l_destinationOwner, l_initiator, 5);
+        Country l_source = new Country(1, "Country1", l_continent);
+        Map l_map = new Map();
+        l_map.getD_continents().add(l_continent);
+        l_map.getD_countries().add(l_source);
+        l_map.getD_players().add(l_initiator);
+        Advance l_advanceOrder = new Advance(null, l_source.getD_name(), l_initiator, 5, l_map);
         assertFalse(l_advanceOrder.valid());
     }
 
@@ -71,29 +90,44 @@ public class AdvanceOrderTest {
     @Test
     public void testExecuteAdvanceOrderWhenDestinationOwnerAndInitiatorAreNegotiatedPlayers() {
         Continent l_continent = new Continent();
-        Country l_source = new Country(1, "Country1", l_continent, new HashSet<>(singletonList(2)), 10);
-        Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(new ArrayList<>()), 10);
+        Country l_source =
+                new Country(1, "Country1", l_continent, new HashSet<>(singletonList(2)), 10);
+        Country l_destination =
+                new Country(2, "Country2", l_continent, new HashSet<>(new ArrayList<>()), 10);
         Player l_initiator = new Player("Player1", List.of(l_source));
         Player l_destinationOwner = new Player("Player2", List.of(l_destination));
         l_initiator.getD_negotiatedPlayers().add("Player2");
+        Map l_map = new Map();
+        l_map.getD_continents().add(l_continent);
+        l_map.getD_countries().add(l_source);
+        l_map.getD_countries().add(l_destination);
+        l_map.getD_players().add(l_initiator);
+        l_map.getD_players().add(l_destinationOwner);
         Advance l_advanceOrder =
-                new Advance(l_destination, l_source, l_destinationOwner, l_initiator, 5);
+                new Advance(l_destination.getD_name(), l_source.getD_name(), l_initiator, 5, l_map);
         l_advanceOrder.execute();
         assertEquals(10, l_destination.getD_armyCount());
         assertEquals(10, l_source.getD_armyCount());
     }
 
-    /** Test case to verify the outcome of
-     *  an attack on a territory when the attacker wins. */
+    /** Test case to verify the outcome of an attack on a territory when the attacker wins. */
     @Test
     void testAttackTerritory_AttackerWins() {
         Continent l_continent = new Continent();
         Country l_source = new Country(1, "Country1", l_continent, new HashSet<>(), 100);
         Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(), 5);
+        l_source.addNeighbor(2);
         Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_source)));
         Player l_destinationOwner = new Player("Player2", new ArrayList<>(List.of(l_destination)));
-        Airlift l_airlift = new Airlift(l_initiator, l_destinationOwner, l_destination, l_source, 70);
-        l_airlift.execute();
+        Map l_map = new Map();
+        l_map.getD_continents().add(l_continent);
+        l_map.getD_countries().add(l_source);
+        l_map.getD_countries().add(l_destination);
+        l_map.getD_players().add(l_initiator);
+        l_map.getD_players().add(l_destinationOwner);
+        Advance l_advance =
+                new Advance(l_destination.getD_name(), l_source.getD_name(), l_initiator, 5, l_map);
+        l_advance.execute();
         assertTrue(l_initiator.getD_countries().contains(l_destination));
     }
 }

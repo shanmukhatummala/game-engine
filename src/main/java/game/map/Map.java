@@ -361,7 +361,8 @@ public class Map {
             GameEngine.d_logEntryBuffer.addLogEntry("Country with input ID does not exist!");
             return;
         } else if (l_neighbor_country.isEmpty()) {
-            GameEngine.d_logEntryBuffer.addLogEntry("Neighbor Country with input ID does not exist!");
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    "Neighbor Country with input ID does not exist!");
             return;
         }
 
@@ -392,7 +393,8 @@ public class Map {
             GameEngine.d_logEntryBuffer.addLogEntry("Country with input ID does not exist!");
             return;
         } else if (l_neighbor_country.isEmpty()) {
-            GameEngine.d_logEntryBuffer.addLogEntry("Neighbor Country with input ID does not exist!");
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    "Neighbor Country with input ID does not exist!");
             return;
         }
         l_country.get().removeNeighbor(p_neighbor_country_id, this);

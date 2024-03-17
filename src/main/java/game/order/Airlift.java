@@ -1,6 +1,10 @@
 package game.order;
 
+import static game.map.MapHelper.getCountryByName;
+import static game.map.MapHelper.getCountryOwner;
+
 import game.GameEngine;
+import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -9,39 +13,34 @@ import java.util.Random;
 
 /**
  * This class extends from order class and represents the Airlift
+ *
  * @author Naveen
  */
-
 public class Airlift extends Order {
 
-
-    private Player d_destinationOwner;
-
-    private final Country d_destination;
-    private final Country d_source;
+    private final String d_destinationName;
+    private final String d_sourceName;
     private final int d_armyNumber;
+
     /**
      * Constructor for Advance
      *
      * @param p_initiator Player object who initiated the order
-     * @param p_destination Country object representing the destination territory
-     * @param p_destinationOwner Player object represents owner of the destination country
-     * @param p_source Country object representing the source territory
+     * @param p_destinationName Country representing the destination territory
+     * @param p_sourceName Country representing the source territory
      * @param p_armyNumber Integer representing the number of armies to move
      */
     public Airlift(
             Player p_initiator,
-            Player p_destinationOwner,
-            Country p_destination,
-            Country p_source,
-            int p_armyNumber) {
+            String p_destinationName,
+            String p_sourceName,
+            int p_armyNumber,
+            Map p_map) {
 
-
-        super(p_initiator);
-        this.d_destination = p_destination;
-        this.d_source = p_source;
+        super(p_initiator, p_map);
+        this.d_destinationName = p_destinationName;
+        this.d_sourceName = p_sourceName;
         this.d_armyNumber = p_armyNumber;
-        this.d_destinationOwner = p_destinationOwner;
     }
 
     /**
@@ -55,11 +54,15 @@ public class Airlift extends Order {
     public void execute() {
         if (valid()) {
             List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+            Country d_destination = getCountryByName(getD_map(), d_destinationName);
+            Country d_source = getCountryByName(getD_map(), d_sourceName);
             if (l_countriesOfInitiator.contains(d_destination)) {
                 d_source.setD_armyCount(d_source.getD_armyCount() - d_armyNumber);
                 d_destination.setD_armyCount(d_destination.getD_armyCount() + d_armyNumber);
             } else {
 
+                Player d_destinationOwner =
+                        getCountryOwner(d_destination, getD_map().getD_players());
                 if (d_destinationOwner != null
                         && (getD_initiator()
                                         .getD_negotiatedPlayers()
@@ -93,8 +96,35 @@ public class Airlift extends Order {
      */
     @Override
     public boolean valid() {
+
+        Country l_destination = getCountryByName(getD_map(), d_destinationName);
+        Country l_source = getCountryByName(getD_map(), d_sourceName);
+
+        if (l_destination == null) {
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    d_destinationName
+                            + " doesn't exist in the map now. So, cannot advance to this country.");
+            return false;
+        }
+
+        if (l_source == null) {
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    d_sourceName
+                            + " doesn't exist in the map now. So, cannot advance from this country.");
+            return false;
+        }
+
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
-        return l_countriesOfInitiator.contains(d_source);
+        if (!l_countriesOfInitiator.contains(l_source)) {
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    d_sourceName
+                            + " doesn't belong to "
+                            + getD_initiator().getD_name()
+                            + ". So cannot perform advance.");
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -139,7 +169,9 @@ public class Airlift extends Order {
             // Attacker wins
             p_target.setD_armyCount(l_attackingArmyCount);
             p_initiator.getD_countries().add(p_target);
-            p_destinationOwner.getD_countries().remove(p_target);
+            if (p_destinationOwner != null) {
+                p_destinationOwner.getD_countries().remove(p_target);
+            }
         } else {
             // Defender wins
             p_target.setD_armyCount(l_defendingArmyCount);

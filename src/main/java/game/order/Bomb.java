@@ -1,9 +1,12 @@
 package game.order;
 
+import static game.map.MapHelper.getCountryByName;
+import static game.map.MapHelper.getCountryOwner;
 import static game.map.MapHelper.isAdjacent;
 import static game.pojo.Player.Card.BOMB;
 
 import game.GameEngine;
+import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -12,19 +15,17 @@ import java.util.List;
 /** This class is used for performing the Bomb operation */
 public class Bomb extends Order {
 
-    private Country d_target;
-    private Player d_targetOwner;
+    private String d_targetCountryName;
 
     /**
      * Constructor for Bomb class
      *
-     * @param p_target target country to bomb
+     * @param p_targetCountryName target country to bomb
      * @param p_initiator player who initiated the order
      */
-    public Bomb(Country p_target, Player p_targetOwner, Player p_initiator) {
-        super(p_initiator);
-        this.d_targetOwner = p_targetOwner;
-        this.d_target = p_target;
+    public Bomb(String p_targetCountryName, Player p_initiator, Map p_map) {
+        super(p_initiator, p_map);
+        this.d_targetCountryName = p_targetCountryName;
     }
 
     /**
@@ -32,17 +33,8 @@ public class Bomb extends Order {
      *
      * @return target country which will be bombed
      */
-    public Country getD_target() {
-        return d_target;
-    }
-
-    /**
-     * Getter for the target country owner
-     *
-     * @return player to whom the target country belongs to
-     */
-    public Player getD_targetOwner() {
-        return d_targetOwner;
+    public String getD_targetCountryName() {
+        return d_targetCountryName;
     }
 
     /**
@@ -54,30 +46,42 @@ public class Bomb extends Order {
 
         if (valid()) {
 
-            if (d_targetOwner != null
+            Country l_target = getCountryByName(getD_map(), d_targetCountryName);
+            Player l_targetOwner = getCountryOwner(l_target, getD_map().getD_players());
+
+            if (l_targetOwner != null
                     && (getD_initiator()
                                     .getD_negotiatedPlayers()
-                                    .contains(d_targetOwner.getD_name())
-                            || d_targetOwner
+                                    .contains(l_targetOwner.getD_name())
+                            || l_targetOwner
                                     .getD_negotiatedPlayers()
                                     .contains(getD_initiator().getD_name()))) {
                 GameEngine.d_logEntryBuffer.addLogEntry(
                         "Both players, "
-                                + d_targetOwner.getD_name()
+                                + l_targetOwner.getD_name()
                                 + " and "
                                 + getD_initiator().getD_name()
                                 + ", are under negotiation. So, cannot attack.");
                 return;
             }
 
-            int l_armyCountAfterBombing = d_target.getD_armyCount() / 2;
-            d_target.setD_armyCount(l_armyCountAfterBombing);
+            int l_armyCountAfterBombing = l_target.getD_armyCount() / 2;
+            l_target.setD_armyCount(l_armyCountAfterBombing);
             getD_initiator().getD_cards().remove(BOMB);
         }
     }
 
     @Override
     public boolean valid() {
+
+        Country l_target = getCountryByName(getD_map(), d_targetCountryName);
+
+        if (l_target == null) {
+            GameEngine.d_logEntryBuffer.addLogEntry(
+                    d_targetCountryName
+                            + " doesn't exist in the map now. So, cannot bomb this country.");
+            return false;
+        }
 
         List<Country> l_countriesOfInitiator = getD_initiator().getD_countries();
 
@@ -88,20 +92,20 @@ public class Bomb extends Order {
             return false;
         }
 
-        if (l_countriesOfInitiator.contains(d_target)) {
+        if (l_countriesOfInitiator.contains(l_target)) {
             GameEngine.d_logEntryBuffer.addLogEntry(
                     "Target country, "
-                            + d_target
+                            + l_target.getD_name()
                             + ", belongs to the initiator, "
                             + getD_initiator().getD_name()
                             + ". So, cannot bomb your own country.");
             return false;
         }
 
-        if (!isAdjacent(l_countriesOfInitiator, d_target)) {
+        if (!isAdjacent(l_countriesOfInitiator, l_target)) {
             GameEngine.d_logEntryBuffer.addLogEntry(
                     "Target country, "
-                            + d_target
+                            + l_target.getD_name()
                             + ", is not adjacent to the player. So, cannot bomb this country.");
             return false;
         }

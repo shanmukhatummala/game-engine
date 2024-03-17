@@ -1,9 +1,8 @@
 package game.logger;
 
 /**
- * This interface represents an observer in the observer pattern.
- * It defines a single method, update, which is called by an Observable object
- * when it has been updated.
+ * This interface represents an observer in the observer pattern. It defines a single method,
+ * update, which is called by an Observable object when it has been updated.
  */
 public interface Observer {
     /**
