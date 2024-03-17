@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a command given by the user. </br> A command is made up of a commandType (e.g.
- * 'gameplayer', 'editcontinent', etc...) and of different arguments.
+ * Represents a command given by the user. A command is made up of a commandType (e.g. 'gameplayer',
+ * 'editcontinent', etc...) and of different arguments.
  */
 public class Command {
     private String d_commandType;
