@@ -6,8 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Country is a POJO representing the Country in a map
@@ -21,7 +23,7 @@ public class Country {
     private int d_id;
     private String d_name;
     private Continent d_continent;
-    private List<Integer> d_neighborIdList;
+    private Set<Integer> d_neighborIdList;
     private int d_armyCount;
 
     /** Constructor without arguments for Country */
@@ -40,7 +42,7 @@ public class Country {
             int p_id,
             String p_name,
             Continent p_continent,
-            List<Integer> p_neighborIdList,
+            Set<Integer> p_neighborIdList,
             int p_armyCount) {
         this.d_id = p_id;
         this.d_name = p_name;
@@ -57,7 +59,7 @@ public class Country {
      * @param p_continent continent in which this country is present
      */
     public Country(int p_id, String p_name, Continent p_continent) {
-        this(p_id, p_name, p_continent, new ArrayList<>(), 0);
+        this(p_id, p_name, p_continent, new HashSet<>(), 0);
     }
 
     /**
@@ -76,9 +78,7 @@ public class Country {
      * @param p_map Map object whose d_neighborsGraph to modify if !=null
      */
     public void addNeighbor(Integer p_neighborId, Map p_map) {
-        if (!this.getD_neighborIdList().contains(p_neighborId)) {
-            this.getD_neighborIdList().add(p_neighborId);
-        }
+        this.getD_neighborIdList().add(p_neighborId);
 
         if (p_map != null) {
             p_map.addNeighborToNeighborsGraph(this.getD_id(), p_neighborId);
@@ -102,7 +102,7 @@ public class Country {
      */
     public void addNeighbors(List<Integer> p_neighborIds, Map p_map) {
         if (this.getD_neighborIdList() == null) {
-            this.setD_neighborIdList(new ArrayList<>());
+            this.setD_neighborIdList(new HashSet<>());
         }
 
         this.getD_neighborIdList().addAll(p_neighborIds);
@@ -167,7 +167,7 @@ public class Country {
      *
      * @return list of neighbors to this country
      */
-    public List<Integer> getD_neighborIdList() {
+    public Set<Integer> getD_neighborIdList() {
         return d_neighborIdList;
     }
 
