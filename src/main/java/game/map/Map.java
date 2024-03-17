@@ -29,8 +29,7 @@ public class Map {
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
-    @Getter
-    private String d_mapName;
+    @Getter private String d_mapName;
 
     /** Constructor without arguments for Map */
     public Map() {
@@ -44,7 +43,11 @@ public class Map {
      * @param p_countries list of countries
      * @param p_players list of players
      */
-    public Map(List<Continent> p_continents, List<Country> p_countries, List<Player> p_players, String p_mapName) {
+    public Map(
+            List<Continent> p_continents,
+            List<Country> p_countries,
+            List<Player> p_players,
+            String p_mapName) {
         this.d_continents = p_continents;
         this.d_countries = p_countries;
         this.d_players = p_players;

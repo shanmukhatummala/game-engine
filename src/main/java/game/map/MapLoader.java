@@ -37,7 +37,6 @@ public class MapLoader {
 
             int l_continentID = 1;
 
-
             while ((l_line = l_reader.readLine()) != null) {
                 if ("[continents]".equals(l_line)) {
                     l_readingContinents = true;

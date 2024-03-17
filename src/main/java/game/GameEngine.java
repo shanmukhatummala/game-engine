@@ -14,7 +14,6 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-import game.states.AssignResourcesPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
 import game.util.IssueOrderHelper;
@@ -130,39 +129,45 @@ public class GameEngine {
     public void startGame() {
 
         try (BufferedReader l_bufferedReader =
-                     new BufferedReader(new InputStreamReader(System.in))) {
+                new BufferedReader(new InputStreamReader(System.in))) {
 
             while (true) {
                 try {
                     // take the command and validate it
-                    String message = (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))?"Enter commands to 'edit (or) validate (or) save map':":"Enter the command";
+                    String message =
+                            (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
+                                    ? "Enter commands to 'edit (or) validate (or) save map':"
+                                    : "Enter the command";
                     System.out.println(message);
                     String l_usrInput = l_bufferedReader.readLine();
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
                     String l_commandType = l_commandList.get(0).getCommandType();
                     Command l_command = l_commandList.get(0);
                     if ("editmap".equals(l_commandType)) {
-                        gamePhase.handleEditMap(this,l_command, d_map);
+                        gamePhase.handleEditMap(this, l_command, d_map);
                     } else if ("gameplayer".equals(l_commandType)) {
-                        gamePhase.handleGamePlayer(l_commandList,d_map);
+                        gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
-                        gamePhase.handleLoadMap(l_command,d_map,this);
+                        gamePhase.handleLoadMap(l_command, d_map, this);
                     } else if ("showmap".equals(l_commandType)) {
                         gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        gamePhase.handleSaveMap(l_command,d_map,this);
+                        gamePhase.handleSaveMap(l_command, d_map, this);
                     } else if ("validatemap".equals(l_commandType)) {
                         gamePhase.handleValidateMap(d_map);
-                    } else if ("editcontinent".equals(l_commandType) || "editcountry".equals(l_commandType) ||"editneighbor".equals(l_commandType)) {
-                        gamePhase.handleEditCountriesOrContinentOrNeighbor(l_usrInput.split(" "), d_map);
+                    } else if ("editcontinent".equals(l_commandType)
+                            || "editcountry".equals(l_commandType)
+                            || "editneighbor".equals(l_commandType)) {
+                        gamePhase.handleEditCountriesOrContinentOrNeighbor(
+                                l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
-                        gamePhase.handleAssignCountries(d_map,this);
+                        gamePhase.handleCountriesAssignment(d_map, this);
                         startGameLoop(d_map, l_bufferedReader);
                         System.out.println("Game over - all orders executed");
                         endGame();
                     } else {
-                        gamePhase.printInvalidCommandMessage("Invalid Command in state "
-                                + gamePhase.getClass().getSimpleName());
+                        gamePhase.printInvalidCommandMessage(
+                                "Invalid Command in state " + gamePhase.getClass().getSimpleName());
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -178,16 +183,16 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private static void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
-        assignReinforcements(p_map);
+    private void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
+        gamePhase.handleReinforcementsAssignment(p_map, this);
 
         while (p_map.getD_players().size() > 1) {
-            issueOrders(p_map, p_bufferedReader);
+            gamePhase.handleIssuingOrders(p_map, this, p_bufferedReader);
             Set<Player> l_playersToAssignCard = new HashSet<>();
-            executeOrders(p_map, l_playersToAssignCard);
-            new AssignResourcesPhase().assignRandomCard(l_playersToAssignCard);
+            gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
+            gamePhase.handleCardAssignment(l_playersToAssignCard, this);
             p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
-            showMap(p_map);
+            gamePhase.handleShowMap(p_map);
         }
 
         if (p_map.getD_players().size() == 1) {

@@ -1,12 +1,12 @@
 package game.states;
 
-import game.map.MapManipulation.MapManipulator;
 import static game.map.MapSaver.saveMap;
 import static game.map.MapValidator.isMapValid;
 
 import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
+import game.map.MapManipulation.MapManipulator;
 
 import java.util.List;
 
@@ -20,8 +20,6 @@ public class EditMapPhase extends StartUpPhase {
                         + " you can't load a map here.";
         printInvalidCommandMessage(message);
     }
-
-
 
     @Override
     public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
@@ -54,13 +52,11 @@ public class EditMapPhase extends StartUpPhase {
         mapManipulator.processCommand(p_args, p_map);
     }
 
-
     @Override
-    public void handleAssignCountries(Map p_map, GameEngine p_ge) {
+    public void handleCountriesAssignment(Map p_map, GameEngine p_ge) {
         String message = "Invalid Command in state" + this.getClass().getSimpleName();
         printInvalidCommandMessage(message);
     }
-
 
     @Override
     public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
