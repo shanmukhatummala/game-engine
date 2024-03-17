@@ -6,12 +6,12 @@ import game.map.Map;
 import game.pojo.Player;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /** Class representing a blockade order */
 public class Negotiate extends Order {
-    // private Player d_initiator;
-    private Player d_targetPlayer;
-    private Map map;
+
+    private String d_targetPlayer;
 
     /**
      * Constructor for the Negotiate order
@@ -20,10 +20,9 @@ public class Negotiate extends Order {
      * @param p_targetPlayer The name of the target player to be negotiated with
      * @param p_map reference to the map
      */
-    public Negotiate(Player p_initiator, Player p_targetPlayer, Map p_map) {
-        super(p_initiator); // Call the superclass constructor with null destination
+    public Negotiate(Player p_initiator, String p_targetPlayer, Map p_map) {
+        super(p_initiator, p_map); // Call the superclass constructor with null destination
         this.d_targetPlayer = p_targetPlayer;
-        this.map = p_map;
     }
 
     /**
@@ -31,17 +30,8 @@ public class Negotiate extends Order {
      *
      * @return target player with whom the initiator want to negotiate with
      */
-    public Player getD_targetPlayer() {
+    public String getD_targetPlayer() {
         return d_targetPlayer;
-    }
-
-    /**
-     * Gives the map which can used when Player creates Order
-     *
-     * @return map
-     */
-    public Map getMap() {
-        return map;
     }
 
     /**
@@ -50,7 +40,7 @@ public class Negotiate extends Order {
      */
     public void execute() {
         if (valid()) {
-            getD_initiator().getD_negotiatedPlayers().add(d_targetPlayer.getD_name());
+            getD_initiator().getD_negotiatedPlayers().add(d_targetPlayer);
             getD_initiator().getD_cards().remove(DIPLOMACY);
         }
     }
@@ -66,9 +56,13 @@ public class Negotiate extends Order {
         }
 
         // check if the target player is in the players list
-        List<Player> l_players = map.getD_players();
-        if (!l_players.contains(getD_targetPlayer())) {
-            System.out.println("Target player not found in the list of players");
+        List<Player> l_players = getD_map().getD_players();
+        if (l_players.stream()
+                .filter(player -> player.getD_name().equals(d_targetPlayer))
+                .collect(Collectors.toSet())
+                .isEmpty()) {
+            System.out.println(
+                    "Target player, " + d_targetPlayer + ", not found in the list of players");
             return false;
         }
 

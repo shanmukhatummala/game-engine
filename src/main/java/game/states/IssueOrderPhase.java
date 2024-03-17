@@ -1,5 +1,11 @@
 package game.states;
 
+<<<<<<< HEAD
+=======
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
+
+import game.GameEngine;
+>>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
 import game.commands.Command;
 import game.map.Map;
 import game.pojo.Player;
@@ -9,13 +15,17 @@ import java.util.List;
 
 public class IssueOrderPhase extends PlayPhase {
 
+    public IssueOrderPhase() {
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
+    }
+
     @Override
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer) {
         p_playersLeftToIssueOrder.remove(p_currentPlayer);
     }
 
     /**
-     * Loop over all the players until they issue all the orders
+     * Allow player to create orders
      *
      * @param p_map map for the game
      */

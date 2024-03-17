@@ -7,10 +7,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
+import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import pl.pojo.tester.api.assertion.Method;
@@ -20,6 +22,13 @@ import java.util.List;
 
 /** Test for Bomb class */
 public class BombTest {
+
+    private Map d_map;
+
+    @BeforeEach
+    public void setUp() {
+        d_map = new Map();
+    }
 
     /** Tests if constructor and getters are implemented properly */
     @Test
@@ -43,7 +52,11 @@ public class BombTest {
         l_country1.addNeighbor(l_country2.getD_id());
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
-        Bomb l_bomb = new Bomb(l_country2, null, l_player);
+        d_map.getD_continents().add(l_continent);
+        d_map.getD_countries().add(l_country1);
+        d_map.getD_countries().add(l_country2);
+        d_map.getD_players().add(l_player);
+        Bomb l_bomb = new Bomb(l_country2.getD_name(), l_player, d_map);
 
         l_bomb.execute();
 
@@ -59,7 +72,11 @@ public class BombTest {
         Country l_country2 = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         l_country1.addNeighbor(l_country2.getD_id());
         Player l_player = new Player("Player", List.of(l_country1));
-        Bomb l_bomb = new Bomb(l_country2, null, l_player);
+        d_map.getD_continents().add(l_continent);
+        d_map.getD_countries().add(l_country1);
+        d_map.getD_countries().add(l_country2);
+        d_map.getD_players().add(l_player);
+        Bomb l_bomb = new Bomb(l_country2.getD_name(), l_player, d_map);
 
         l_bomb.execute();
 
@@ -78,7 +95,11 @@ public class BombTest {
         Country l_country2 = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
-        Bomb l_bomb = new Bomb(l_country2, null, l_player);
+        d_map.getD_continents().add(l_continent);
+        d_map.getD_countries().add(l_country1);
+        d_map.getD_countries().add(l_country2);
+        d_map.getD_players().add(l_player);
+        Bomb l_bomb = new Bomb(l_country2.getD_name(), l_player, d_map);
 
         l_bomb.execute();
 
@@ -93,7 +114,10 @@ public class BombTest {
         Country l_country1 = new Country(1, "Country1", l_continent, new HashSet<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
-        Bomb l_bomb = new Bomb(l_country1, null, l_player);
+        d_map.getD_continents().add(l_continent);
+        d_map.getD_countries().add(l_country1);
+        d_map.getD_players().add(l_player);
+        Bomb l_bomb = new Bomb(l_country1.getD_name(), l_player, d_map);
 
         l_bomb.execute();
 
@@ -111,7 +135,12 @@ public class BombTest {
         Player l_targetOwner = new Player("Player2", List.of(l_country2));
         l_initiator.getD_negotiatedPlayers().add("Player2");
         l_initiator.addCard(BOMB);
-        Bomb l_bomb = new Bomb(l_country2, l_targetOwner, l_initiator);
+        d_map.getD_continents().add(l_continent);
+        d_map.getD_countries().add(l_country1);
+        d_map.getD_countries().add(l_country2);
+        d_map.getD_players().add(l_initiator);
+        d_map.getD_players().add(l_targetOwner);
+        Bomb l_bomb = new Bomb(l_country2.getD_name(), l_initiator, d_map);
 
         l_bomb.execute();
 

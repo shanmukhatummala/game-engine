@@ -2,6 +2,7 @@ package game.map;
 
 import static java.util.stream.Collectors.toList;
 
+import game.GameEngine;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -106,9 +107,9 @@ public class Map {
         if (l_is_continent_removed) {
             l_linked_countries.forEach(this::removeCountry);
 
-            System.out.println("Continent removed successfully!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Continent removed successfully!");
         } else {
-            System.out.println("No Continent with the given ID exists!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("No Continent with the given ID exists!");
         }
     }
 
@@ -153,9 +154,9 @@ public class Map {
                 removeCountryFromContinent(l_linked_continent_id, p_country_id);
             }
 
-            System.out.println("Country removed successfully!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country removed successfully!");
         } else {
-            System.out.println("No Country with the given ID exists!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("No Country with the given ID exists!");
         }
     }
 
@@ -194,9 +195,9 @@ public class Map {
                 removeCountryFromContinent(l_linked_continent_id, l_country_id_to_be_removed);
             }
 
-            System.out.println("Country removed successfully!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country removed successfully!");
         } else {
-            System.out.println("No Country with the given ID exists!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("No Country with the given ID exists!");
         }
     }
 
@@ -357,15 +358,16 @@ public class Map {
                         .findFirst();
 
         if (l_country.isEmpty()) {
-            System.out.println("Country with input ID does not exist!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country with input ID does not exist!");
             return;
         } else if (l_neighbor_country.isEmpty()) {
-            System.out.println("Neighbor Country with input ID does not exist!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    "Neighbor Country with input ID does not exist!");
             return;
         }
 
         l_country.get().addNeighbor(p_neighbor_country_id, this);
-        System.out.println("Neighbor Country added successfully!");
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Neighbor Country added successfully!");
     }
 
     /**
@@ -388,14 +390,15 @@ public class Map {
                         .findFirst();
 
         if (l_country.isEmpty()) {
-            System.out.println("Country with input ID does not exist!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country with input ID does not exist!");
             return;
         } else if (l_neighbor_country.isEmpty()) {
-            System.out.println("Neighbor Country with input ID does not exist!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    "Neighbor Country with input ID does not exist!");
             return;
         }
         l_country.get().removeNeighbor(p_neighbor_country_id, this);
-        System.out.println("Neighbor Country removed successfully!");
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Neighbor Country removed successfully!");
     }
 
     /** Returns the Highest existing Continent ID */
