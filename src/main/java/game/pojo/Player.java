@@ -1,21 +1,17 @@
 package game.pojo;
 
+import static game.map.MapHelper.getCountryByName;
+import static game.map.MapHelper.getCountryOwner;
+
 import game.commands.Command;
 import game.map.Map;
 import game.order.Advance;
 import game.order.Bomb;
 import game.order.Deploy;
 import game.order.Order;
-
 import game.util.IssueOrderHelper;
 
 import java.util.*;
-
-import static game.map.MapHelper.getCountryByName;
-import static game.map.MapHelper.getCountryOwner;
-
-
-
 
 /** Player is a POJO representing a player */
 public class Player {

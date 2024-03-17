@@ -145,27 +145,30 @@ public class GameEngine {
                     String l_commandType = l_commandList.get(0).getCommandType();
                     Command l_command = l_commandList.get(0);
                     if ("editmap".equals(l_commandType)) {
-                        gamePhase.handleEditMap(this,l_command, d_map);
+                        gamePhase.handleEditMap(this, l_command, d_map);
                     } else if ("gameplayer".equals(l_commandType)) {
-                        gamePhase.handleGamePlayer(l_commandList,d_map);
+                        gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
-                        gamePhase.handleLoadMap(l_command,d_map,this);
+                        gamePhase.handleLoadMap(l_command, d_map, this);
                     } else if ("showmap".equals(l_commandType)) {
                         gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        gamePhase.handleSaveMap(l_command,d_map,this);
+                        gamePhase.handleSaveMap(l_command, d_map, this);
                     } else if ("validatemap".equals(l_commandType)) {
                         gamePhase.handleValidateMap(d_map);
-                    } else if ("editcontinent".equals(l_commandType) || "editcountry".equals(l_commandType) ||"editneighbor".equals(l_commandType)) {
-                        gamePhase.handleEditCountriesOrContinentOrNeighbor(l_usrInput.split(" "), d_map);
+                    } else if ("editcontinent".equals(l_commandType)
+                            || "editcountry".equals(l_commandType)
+                            || "editneighbor".equals(l_commandType)) {
+                        gamePhase.handleEditCountriesOrContinentOrNeighbor(
+                                l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
-                        gamePhase.handleAssignCountries(d_map,this);
+                        gamePhase.handleAssignCountries(d_map, this);
                         startGameLoop(d_map, l_bufferedReader);
                         System.out.println("Game over - all orders executed");
                         endGame();
                     } else {
-                        gamePhase.printInvalidCommandMessage("Invalid Command in state "
-                                + gamePhase.getClass().getSimpleName());
+                        gamePhase.printInvalidCommandMessage(
+                                "Invalid Command in state " + gamePhase.getClass().getSimpleName());
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

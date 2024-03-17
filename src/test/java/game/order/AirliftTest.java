@@ -1,16 +1,17 @@
 package game.order;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class AirliftTest {
 
@@ -24,6 +25,7 @@ public class AirliftTest {
         airlift.execute();
         assertThat(l_country.getD_armyCount(), equalTo(10));
     }
+
     @Test
     public void TestAirliftWhenDestinationOwnerAndInitiatorAreUnderNegotiation() {
 
@@ -44,13 +46,12 @@ public class AirliftTest {
     void testAttackTerritory_AttackerWins() {
         // Setup: Ensure the attacker has more armies than the defender
         Continent l_continent = new Continent();
-        Country l_country1 = new Country(1, "Country1", l_continent,new ArrayList<>(), 100);
+        Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 100);
         Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
         Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_country1)));
-        Player l_targetOwner = new Player("Player2",new ArrayList<>(List.of(l_country2)));
-        Airlift airlift  = new Airlift(l_initiator, l_targetOwner, l_country2, l_country1, 70);
+        Player l_targetOwner = new Player("Player2", new ArrayList<>(List.of(l_country2)));
+        Airlift airlift = new Airlift(l_initiator, l_targetOwner, l_country2, l_country1, 70);
         airlift.execute();
         assertTrue(l_initiator.getD_countries().contains(l_country2));
     }
-
 }
