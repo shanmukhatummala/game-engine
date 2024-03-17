@@ -5,7 +5,7 @@ public interface CommandValidator {
     /**
      * Validates the given command
      *
-     * @param command Command to validate
+     * @param p_command Command to validate
      * @return true if the command is syntactically correct
      * @throws IllegalArgumentException if the command is not correct
      */
