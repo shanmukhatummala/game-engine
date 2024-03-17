@@ -1,2 +1,10 @@
 << PHASE: IssueOrderPhase >>
 << PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+You have entered the editing mode.
+Continent Name: 3' does not exist!
+<< PHASE: EditMapPhase >>
+You have entered the editing mode.
+<< PHASE: EditMapPhase >>
+You have entered the editing mode.

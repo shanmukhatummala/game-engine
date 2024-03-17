@@ -49,7 +49,7 @@ public class CommandParser {
                     && !l_startUpValidator.validate(l_command)
                     && !l_orderValidator.validate(l_command)) {
                 throw new IllegalArgumentException(
-                        "Invalid command: " + l_command.getCommandType() + l_command.getArgs());
+                        "Invalid command: " + l_command.getD_commandType() + l_command.getD_args());
             }
         }
         return l_commandList;

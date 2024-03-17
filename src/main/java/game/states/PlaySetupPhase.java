@@ -22,7 +22,7 @@ public class PlaySetupPhase extends StartUpPhase {
 
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
-        loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
+        loadMap(RESOURCES_PATH + p_command.getD_args().get(0), p_map);
         if (!isMapValid(p_map)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "The loaded map is invalid, please load a valid map.");
@@ -35,7 +35,7 @@ public class PlaySetupPhase extends StartUpPhase {
     @Override
     public void handleGamePlayer(List<Command> p_commandList, Map p_map) {
         for (Command l_command : p_commandList) {
-            List<String> l_commandArgs = l_command.getArgs();
+            List<String> l_commandArgs = l_command.getD_args();
             if (l_commandArgs.get(0).equals("-add")) {
                 p_map.addPlayer(l_commandArgs.get(1));
                 GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
@@ -66,7 +66,7 @@ public class PlaySetupPhase extends StartUpPhase {
 
     @Override
     public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
-        String l_fileName = p_command.getArgs().get(0);
+        String l_fileName = p_command.getD_args().get(0);
         String l_filePath = RESOURCES_PATH + l_fileName;
         if (!fileExists(l_filePath)) {
             createNewFileForMap(l_filePath);

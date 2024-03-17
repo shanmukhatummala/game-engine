@@ -37,14 +37,14 @@ public class CommandParserTest {
         String l_expectedCommandType = "gameplayer";
         List<Command> l_commandList = CommandParser.parse(d_inputCommand);
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(l_expectedArgs1, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs1, l_commandList.get(0).getD_args());
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(1).getCommandType());
-        Assertions.assertEquals(l_expectedArgs2, l_commandList.get(1).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(1).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs2, l_commandList.get(1).getD_args());
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(2).getCommandType());
-        Assertions.assertEquals(l_expectedArgs3, l_commandList.get(2).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(2).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs3, l_commandList.get(2).getD_args());
     }
 
     @Test
@@ -58,8 +58,8 @@ public class CommandParserTest {
         List<Command> l_commandList = CommandParser.parse(d_inputCommand1);
         Command l_command = l_commandList.get(0);
 
-        Assertions.assertEquals(l_expectedCommandType, l_command.getCommandType());
-        Assertions.assertEquals(l_expectedArgs, l_command.getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_command.getD_commandType());
+        Assertions.assertEquals(l_expectedArgs, l_command.getD_args());
     }
 
     @Test
@@ -73,8 +73,8 @@ public class CommandParserTest {
         String l_expectedCommandType = "editcontinent";
         List<Command> l_commandList = CommandParser.parse(d_inputCommand2);
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getD_args());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class CommandParserTest {
         String l_expectedCommandType = "commit";
         List<Command> l_commandList = CommandParser.parse(d_inputCommand3);
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getD_args());
     }
 }
