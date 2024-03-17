@@ -12,6 +12,10 @@ import java.util.List;
 
 public class IssueOrderPhase extends PlayPhase {
 
+    /**
+     * Constructs an IssueOrderPhase object.
+     * Adds a log entry to the global LOG_ENTRY_BUFFER indicating the start of this phase.
+     */
     public IssueOrderPhase() {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }

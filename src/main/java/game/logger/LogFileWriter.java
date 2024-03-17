@@ -19,6 +19,7 @@ public class LogFileWriter implements Observer {
 
     /**
      * Updates the writer with new log entries from the observable LogEntryBuffer.
+     * Adds these log entries to the Log file
      *
      * @param p_observable The observable LogEntryBuffer that has been updated.
      */
