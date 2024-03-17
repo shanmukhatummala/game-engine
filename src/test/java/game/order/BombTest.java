@@ -40,7 +40,7 @@ public class BombTest {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent);
-        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_country2 = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         l_country1.addNeighbor(l_country2.getD_id());
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
