@@ -21,8 +21,8 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
-        loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+        loadMap(p_basePath + p_command.getArgs().get(0), p_map);
         if (!isMapValid(p_map)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "The loaded map is invalid, please load a valid map.");
@@ -31,6 +31,7 @@ public class PlaySetupPhase extends StartUpPhase {
         }
         p_ge.setGamePhase(new PlaySetupPhase());
     }
+
 
     @Override
     public void handleGamePlayer(List<Command> p_commandList, Map p_map) {

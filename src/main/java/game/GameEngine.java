@@ -21,6 +21,7 @@ import game.states.ExecuteOrderPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.io.BufferedReader;
@@ -41,6 +42,7 @@ public class GameEngine {
     /** This static variable is used for logging */
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
+    @Getter
     @Setter private Phase gamePhase;
     private final Map d_map;
 
@@ -155,7 +157,7 @@ public class GameEngine {
                     } else if ("gameplayer".equals(l_commandType)) {
                         gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
-                        gamePhase.handleLoadMap(l_command, d_map, this);
+                        gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
                     } else if ("showmap".equals(l_commandType)) {
                         gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {

@@ -14,7 +14,7 @@ import java.util.*;
  */
 public interface Phase {
 
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge);
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 
     public void handleGamePlayer(List<Command> p_commandList, Map p_map);
 

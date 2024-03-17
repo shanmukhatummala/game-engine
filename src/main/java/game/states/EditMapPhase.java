@@ -18,7 +18,7 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
