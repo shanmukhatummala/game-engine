@@ -28,8 +28,8 @@ public class AirliftTest {
         Continent l_continent = new Continent();
         Country l_country = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
         Player l_initiator = new Player("Player", List.of(l_country));
-        Airlift airlift = new Airlift(l_initiator, l_initiator, l_country, l_country, 5);
-        airlift.execute();
+        Airlift l_airlift = new Airlift(l_initiator, l_initiator, l_country, l_country, 5);
+        l_airlift.execute();
         assertThat(l_country.getD_armyCount(), equalTo(10));
     }
 
@@ -41,16 +41,16 @@ public class AirliftTest {
     public void TestAirliftWhenDestinationOwnerAndInitiatorAreUnderNegotiation() {
 
         Continent l_continent = new Continent();
-        Country l_country1 = new Country(1, "Country1", l_continent);
-        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
-        l_country1.addNeighbor(2);
-        Player l_initiator = new Player("Player1", List.of(l_country1));
-        Player l_targetOwner = new Player("Player2", List.of(l_country2));
+        Country l_source = new Country(1, "Country1", l_continent);
+        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        l_source.addNeighbor(2);
+        Player l_initiator = new Player("Player1", List.of(l_source));
+        Player l_destinationOwner = new Player("Player2", List.of(l_destination));
         l_initiator.getD_negotiatedPlayers().add("Player2");
-        Airlift airlift = new Airlift(l_initiator, l_targetOwner, l_country2, l_country1, 5);
-        airlift.execute();
+        Airlift l_airlift = new Airlift(l_initiator, l_destinationOwner, l_destination, l_source, 5);
+        l_airlift.execute();
 
-        assertThat(l_country2.getD_armyCount(), equalTo(10));
+        assertThat(l_destination.getD_armyCount(), equalTo(10));
     }
 
     /**
@@ -60,12 +60,12 @@ public class AirliftTest {
     void testAttackTerritory_AttackerWins() {
         // Setup: Ensure the attacker has more armies than the defender
         Continent l_continent = new Continent();
-        Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 100);
-        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
-        Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_country1)));
-        Player l_targetOwner = new Player("Player2", new ArrayList<>(List.of(l_country2)));
-        Airlift airlift = new Airlift(l_initiator, l_targetOwner, l_country2, l_country1, 70);
-        airlift.execute();
-        assertTrue(l_initiator.getD_countries().contains(l_country2));
+        Country l_source = new Country(1, "Country1", l_continent, new ArrayList<>(), 100);
+        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
+        Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_source)));
+        Player l_destinationOwner = new Player("Player2", new ArrayList<>(List.of(l_destination)));
+        Airlift l_airlift = new Airlift(l_initiator, l_destinationOwner, l_destination, l_source, 70);
+        l_airlift.execute();
+        assertTrue(l_initiator.getD_countries().contains(l_destination));
     }
 }
