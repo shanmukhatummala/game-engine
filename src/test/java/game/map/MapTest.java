@@ -1,7 +1,5 @@
 package game.map;
 
-import game.GameEngine;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,9 +8,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import game.GameEngine;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,14 +21,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.anyOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** MapTest is a test class for the Map class */
 class MapTest {
@@ -272,7 +264,6 @@ class MapTest {
                 is(Matchers.containsInAnyOrder(l_countries.toArray())));
     }
 
-
     /** Test assignReinforcements when 5 reinforcements assigned to each player */
     @Test
     void testAssignReinforcements() {
@@ -329,7 +320,6 @@ class MapTest {
         // Check player 2 received correct number of reinforcements
         assertEquals(3, l_player2.getD_reinforcements()); // Base: 3
     }
-
 
     /** Tests addNeighborToCountry function of Map.java */
     @Test

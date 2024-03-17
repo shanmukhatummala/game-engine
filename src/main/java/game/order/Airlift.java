@@ -37,15 +37,9 @@ public class Airlift extends Order {
             int p_armyNumber,
             Map p_map) {
 
-<<<<<<< HEAD
-        super(p_initiator);
-        this.d_destination = p_destination;
-        this.d_source = p_source;
-=======
         super(p_initiator, p_map);
         this.d_destinationName = p_destinationName;
         this.d_sourceName = p_sourceName;
->>>>>>> bf7baabe39ca0265aefc6e94600d6a6cdd68bcbe
         this.d_armyNumber = p_armyNumber;
     }
 
