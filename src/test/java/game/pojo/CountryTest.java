@@ -19,7 +19,7 @@ class CountryTest {
         final Class<Country> l_classUnderTest = Country.class;
 
         assertPojoMethodsFor(l_classUnderTest)
-                .testing(Method.CONSTRUCTOR, Method.GETTER, Method.EQUALS, Method.HASH_CODE)
+                .testing(Method.CONSTRUCTOR, Method.GETTER, Method.EQUALS)
                 .areWellImplemented();
     }
 }

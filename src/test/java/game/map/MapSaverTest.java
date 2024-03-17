@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /** This test class test the behavior of the MapSaver class */
@@ -21,12 +22,12 @@ public class MapSaverTest {
     final String d_pathToSaveMapOutcome = "src/test/resources/testMapSaver.map";
     private List<Country> d_countries;
 
-    /** Setting up a the map object to be tested */
+    /** Setting up the map object to be tested */
     @BeforeEach
     void setUp() {
         List<Continent> l_continents = createContinents();
         d_countries = createCountries(l_continents);
-        d_map = new Map(l_continents, d_countries, new ArrayList<>());
+        d_map = new Map(l_continents, d_countries, new ArrayList<>(), "testMapSaver.map");
         linkCountries();
     }
 
@@ -52,12 +53,12 @@ public class MapSaverTest {
         List<Country> l_countries = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
             Continent l_continent = (i <= 4) ? continents.get(0) : continents.get(1);
-            l_countries.add(new Country(i, "country" + i, l_continent, new ArrayList<>(), 0));
+            l_countries.add(new Country(i, "country" + i, l_continent, new HashSet<>(), 0));
         }
         return l_countries;
     }
 
-    /** This methods create the borders (link the countries with each other) */
+    /** This method creates the borders (link the countries with each other) */
     private void linkCountries() {
         d_countries.get(0).getD_neighborIdList().addAll(List.of(1, 2, 4));
         d_countries.get(1).getD_neighborIdList().addAll(List.of(0, 2));

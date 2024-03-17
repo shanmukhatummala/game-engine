@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import pl.pojo.tester.api.assertion.Method;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /** PlayerTest is a test class for the Player POJO */
 class PlayerTest {
@@ -37,9 +38,9 @@ class PlayerTest {
     @BeforeEach
     void setUp() {
         Continent l_continent = new Continent(1, "continent1", 5);
-        d_country1 = new Country(1, "country1", l_continent, new ArrayList<>(), 0);
-        d_country2 = new Country(2, "country2", l_continent, new ArrayList<>(), 0);
-        d_country3 = new Country(3, "country3", l_continent, new ArrayList<>(), 0);
+        d_country1 = new Country(1, "country1", l_continent, new HashSet<>(), 0);
+        d_country2 = new Country(2, "country2", l_continent, new HashSet<>(), 0);
+        d_country3 = new Country(3, "country3", l_continent, new HashSet<>(), 0);
         d_player1 = new Player("player1");
         d_map = new Map();
         d_map.getD_continents().add(l_continent);

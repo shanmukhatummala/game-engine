@@ -7,6 +7,7 @@ import game.pojo.Player;
 
 /** Class representing a blockade order */
 public class Blockade extends Order {
+
     private Country d_target;
 
     /**

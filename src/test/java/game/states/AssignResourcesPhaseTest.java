@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
+import game.GameEngine;
 import game.pojo.Player;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ public class AssignResourcesPhaseTest {
     @Test
     public void shouldAssignCardToPlayers() {
 
-        d_assignResourcesPhase.assignRandomCard(d_players);
+        d_assignResourcesPhase.handleCardAssignment(d_players, new GameEngine());
 
         assertThat(d_players.size(), equalTo(2));
         assertThat(d_player1.getD_cards().size(), equalTo(1));
