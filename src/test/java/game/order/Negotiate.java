@@ -66,8 +66,8 @@ public class Negotiate extends Order {
         }
 
         // check if the target player is in the players list
-        List<Player> players = map.getD_players();
-        if (!players.contains(getD_targetPlayer())) {
+        List<Player> l_players = map.getD_players();
+        if (!l_players.contains(getD_targetPlayer())) {
             System.out.println("Target player not found in the list of players");
             return false;
         }
