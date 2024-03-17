@@ -33,7 +33,6 @@ public class MapShower {
     private static void displayContinents(
             Map p_map, List<Continent> l_continents, List<Player> l_players) {
         System.out.println("---------------------------Continents---------------------------");
-
         for (Continent l_continent : l_continents) {
             System.out.println(
                     l_continent.getD_name() + " (bonus: " + l_continent.getD_bonus() + ")");
@@ -51,7 +50,6 @@ public class MapShower {
     private static void displayCountries(
             Map p_map, List<Country> l_countries, List<Player> l_players) {
         System.out.println("---------------------------Countries---------------------------");
-
         for (Country l_country : l_countries) {
             System.out.println("Country   : " + l_country.getD_name());
             System.out.println("Continent : " + l_country.getD_continent().getD_name());

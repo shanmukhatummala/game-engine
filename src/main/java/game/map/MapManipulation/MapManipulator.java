@@ -11,21 +11,21 @@ import game.map.Map;
 public class MapManipulator {
 
     /**
-     * Processes the given command based on the arguments and the game map.
+     * Processes the given command based on the arguments and the game p_map.
      *
-     * @param args The command arguments.
-     * @param map The game map on which the command will be executed.
+     * @param p_args The command arguments.
+     * @param p_map The game p_map on which the command will be executed.
      */
-    public void processCommand(String[] args, Map map) {
-        switch (args[0]) {
+    public void processCommand(String[] p_args, Map p_map) {
+        switch (p_args[0]) {
             case EDIT_CONTINENT:
-                EditContinentProcessor.process(args, map);
+                EditContinentProcessor.process(p_args, p_map);
                 break;
             case EDIT_COUNTRY:
-                EditCountryProcessor.process(args, map);
+                EditCountryProcessor.process(p_args, p_map);
                 break;
             case EDIT_NEIGHBOR:
-                EditNeighborProcessor.process(args, map);
+                EditNeighborProcessor.process(p_args, p_map);
                 break;
             default:
                 System.out.println("Invalid command please try again");

@@ -29,7 +29,7 @@ public class MapValidator {
      */
     public static List<Boolean> dfs(Country p_startingCountry, Map p_mapToValidate) {
         List<Boolean> l_isVisited = new ArrayList<Boolean>();
-        for (int i = 0; i < p_mapToValidate.getD_countries().size(); i++)
+        for (int l_i = 0; l_i < p_mapToValidate.getD_countries().size(); l_i++)
             l_isVisited.add(Boolean.FALSE);
         return dfsStep(p_startingCountry, l_isVisited, p_mapToValidate);
     }
@@ -90,7 +90,7 @@ public class MapValidator {
     public static List<Boolean> dfs(
             Integer p_startingCountryID, Continent p_continent, Map p_mapToValidate) {
         List<Boolean> l_isVisited = new ArrayList<Boolean>();
-        for (int i = 0; i < p_continent.getD_countryIdList().size(); i++)
+        for (int l_i = 0; l_i < p_continent.getD_countryIdList().size(); l_i++)
             l_isVisited.add(Boolean.FALSE);
         return dfsStep(p_startingCountryID, p_continent, l_isVisited, p_mapToValidate);
     }
