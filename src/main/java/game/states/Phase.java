@@ -9,6 +9,9 @@ import game.pojo.Player;
 
 import java.util.*;
 
+/**
+ * The interface defines the structure for state objects in the context of the State design pattern.
+ */
 public interface Phase {
 
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge);
