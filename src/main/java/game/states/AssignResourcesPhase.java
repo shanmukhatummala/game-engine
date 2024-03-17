@@ -1,13 +1,12 @@
 package game.states;
 
-
 import static game.map.MapHelper.playerOwnsContinent;
+import static game.pojo.Player.Card.*;
 import static game.pojo.Player.Card.AIRLIFT;
 import static game.pojo.Player.Card.BLOCKADE;
 import static game.pojo.Player.Card.BOMB;
 import static game.pojo.Player.Card.DIPLOMACY;
 import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
-
 
 import game.GameEngine;
 import game.map.Map;
@@ -16,9 +15,6 @@ import game.pojo.Player;
 
 import java.util.Random;
 import java.util.Set;
-
-import static game.map.MapHelper.playerOwnsContinent;
-import static game.pojo.Player.Card.*;
 
 /** Assigns resources after the completion of each round in the game */
 public class AssignResourcesPhase extends PlayPhase {
@@ -52,15 +48,12 @@ public class AssignResourcesPhase extends PlayPhase {
             l_player.setD_reinforcements(reinforcements);
         }
 
-
         System.out.println("Reinforcements are assigned");
 
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Reinforcements are assigned");
 
-
         p_ge.setGamePhase(new IssueOrderPhase());
     }
-
 
     /**
      * Assigns a random card to all players who are eligible for a card
