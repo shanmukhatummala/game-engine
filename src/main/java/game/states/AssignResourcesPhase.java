@@ -83,6 +83,5 @@ public class AssignResourcesPhase extends PlayPhase {
                             break;
                     }
                 });
-        p_ge.setD_gamePhase(new IssueOrderPhase());
     }
 }
