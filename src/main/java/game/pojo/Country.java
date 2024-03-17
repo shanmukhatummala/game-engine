@@ -4,6 +4,8 @@ import game.map.Map;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +19,8 @@ import java.util.Set;
  * @author Shanmukha
  */
 @Builder
-@Data
+@Getter
+@Setter
 public class Country {
 
     private int d_id;
@@ -35,7 +38,7 @@ public class Country {
      * @param p_id id of the continent
      * @param p_name name of the continent
      * @param p_continent continent in which this country is present
-     * @param p_neighborIdList list of the country ids of neighbours
+     * @param p_neighborIdList Set of the country ids of neighbours
      * @param p_armyCount army count present in the country
      */
     public Country(
@@ -136,6 +139,7 @@ public class Country {
      * @param p_neighbor_id id of the neighbor to be removed
      * @param p_map Map object whose d_neighborsGraph to modify if !=null
      */
+
     public void removeNeighbor(Integer p_neighbor_id, Map p_map) {
         this.getD_neighborIdList().removeIf(id -> Objects.equals(id, p_neighbor_id));
 

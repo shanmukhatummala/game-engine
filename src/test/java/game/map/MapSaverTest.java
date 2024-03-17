@@ -22,7 +22,7 @@ public class MapSaverTest {
     final String d_pathToSaveMapOutcome = "src/test/resources/testMapSaver.map";
     private List<Country> d_countries;
 
-    /** Setting up a the map object to be tested */
+    /** Setting up the map object to be tested */
     @BeforeEach
     void setUp() {
         List<Continent> l_continents = createContinents();
