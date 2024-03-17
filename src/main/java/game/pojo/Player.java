@@ -135,7 +135,16 @@ public class Player {
         if ("deploy".equals(commandType)) {
             String l_countryName = l_command.getArgs().get(0);
             int l_numArmies = Integer.parseInt(l_command.getArgs().get(1));
+<<<<<<< HEAD
+            d_orderList.add(new Deploy(getCountryByName(l_map, l_countryId), this, l_numArmies));
+            if (IssueOrderHelper.validateDeploy(
+                    this, getCountryByName(l_map, l_countryId), l_numArmies)) {
+                this.setD_reinforcements(d_reinforcements - l_numArmies);
+            }
+
+=======
             d_orderList.add(new Deploy(l_countryName, this, l_numArmies, l_map));
+>>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
         } else if ("bomb".equals(commandType)) {
             String l_targetCountryString = l_command.getArgs().get(0);
             d_orderList.add(new Bomb(l_targetCountryString, this, l_map));

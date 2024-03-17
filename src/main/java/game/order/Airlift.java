@@ -18,8 +18,15 @@ import java.util.Random;
  */
 public class Airlift extends Order {
 
+<<<<<<< HEAD
+    private Player d_destinationOwner;
+
+    private final Country d_destination;
+    private final Country d_source;
+=======
     private final String d_destinationName;
     private final String d_sourceName;
+>>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
     private final int d_armyNumber;
 
     /**
@@ -37,9 +44,15 @@ public class Airlift extends Order {
             int p_armyNumber,
             Map p_map) {
 
+<<<<<<< HEAD
+        super(p_initiator);
+        this.d_destination = p_destination;
+        this.d_source = p_source;
+=======
         super(p_initiator, p_map);
         this.d_destinationName = p_destinationName;
         this.d_sourceName = p_sourceName;
+>>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
         this.d_armyNumber = p_armyNumber;
     }
 

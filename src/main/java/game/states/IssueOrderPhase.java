@@ -1,8 +1,11 @@
 package game.states;
 
+<<<<<<< HEAD
+=======
 import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
+>>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
 import game.commands.Command;
 import game.map.Map;
 import game.pojo.Player;

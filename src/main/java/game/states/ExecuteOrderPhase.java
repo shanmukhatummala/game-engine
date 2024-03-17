@@ -14,10 +14,13 @@ import java.util.stream.Collectors;
 
 public class ExecuteOrderPhase extends PlayPhase {
 
+<<<<<<< HEAD
+=======
     public ExecuteOrderPhase() {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 
+>>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
     /**
      * Loop over all the players until all the orders are executed
      *
