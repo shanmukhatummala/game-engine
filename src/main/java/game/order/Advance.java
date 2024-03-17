@@ -1,12 +1,12 @@
 package game.order;
 
-import static game.map.MapHelper.isAdjacent;
-
 import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
 import java.util.Random;
+
+import static game.map.MapHelper.isAdjacent;
 
 /**
  * This class extends from order class and represents the Advance
@@ -15,31 +15,31 @@ import java.util.Random;
  */
 public class Advance extends Order {
 
-    private final Country destination;
-    private final Country source;
-    private final Player destinationOwner;
-    private final int armyNumber;
+    private final Country d_destination;
+    private final Country d_source;
+    private final Player d_destinationOwner;
+    private final int d_armyNumber;
 
     /**
      * Constructor for Advance
      *
-     * @param source Country object representing the source territory
-     * @param destination Country object representing the destination territory
-     * @param destinationOwner Player object represents owner of the destination country
-     * @param initiator Player object who initiated the order
-     * @param armyNumber Integer representing the number of armies to move
+     * @param p_source Country object representing the source territory
+     * @param p_destination Country object representing the p_destination territory
+     * @param p_destinationOwner Player object represents owner of the p_destination country
+     * @param p_initiator Player object who initiated the order
+     * @param p_armyNumber Integer representing the number of armies to move
      */
     public Advance(
-            Country destination,
-            Country source,
-            Player destinationOwner,
-            Player initiator,
-            int armyNumber) {
-        super(initiator);
-        this.source = source;
-        this.destination = destination;
-        this.armyNumber = armyNumber;
-        this.destinationOwner = destinationOwner;
+            Country p_destination,
+            Country p_source,
+            Player p_destinationOwner,
+            Player p_initiator,
+            int p_armyNumber) {
+        super(p_initiator);
+        this.d_source = p_source;
+        this.d_destination = p_destination;
+        this.d_armyNumber = p_armyNumber;
+        this.d_destinationOwner = p_destinationOwner;
     }
 
     /**
@@ -61,29 +61,29 @@ public class Advance extends Order {
 
             List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
 
-            if (l_countriesOfInitiator.contains(destination)) {
-                source.setD_armyCount(source.getD_armyCount() - armyNumber);
-                destination.setD_armyCount(destination.getD_armyCount() + armyNumber);
+            if (l_countriesOfInitiator.contains(d_destination)) {
+                d_source.setD_armyCount(d_source.getD_armyCount() - d_armyNumber);
+                d_destination.setD_armyCount(d_destination.getD_armyCount() + d_armyNumber);
             } else {
 
-                if (destinationOwner != null
+                if (d_destinationOwner != null
                         && (getD_initiator()
                                         .getD_negotiatedPlayers()
-                                        .contains(destinationOwner.getD_name())
-                                || destinationOwner
+                                        .contains(d_destinationOwner.getD_name())
+                                || d_destinationOwner
                                         .getD_negotiatedPlayers()
                                         .contains(getD_initiator().getD_name()))) {
                     System.out.println(
                             "Both players, "
-                                    + destinationOwner.getD_name()
+                                    + d_destinationOwner.getD_name()
                                     + " and "
                                     + getD_initiator().getD_name()
                                     + ", are under negotiation. So, cannot attack.");
                     return;
                 }
 
-                source.setD_armyCount(source.getD_armyCount() - armyNumber);
-                attackTerritory(destination, armyNumber, destinationOwner, getD_initiator());
+                d_source.setD_armyCount(d_source.getD_armyCount() - d_armyNumber);
+                attackTerritory(d_destination, d_armyNumber, d_destinationOwner, getD_initiator());
             }
         } else {
             System.out.println("Cannot Advance armies to the territory.");
@@ -101,63 +101,63 @@ public class Advance extends Order {
     public boolean valid() {
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
 
-        if (!l_countriesOfInitiator.contains(source)) {
+        if (!l_countriesOfInitiator.contains(d_source)) {
             return false;
         }
 
-        if (l_countriesOfInitiator.contains(destination)) {
+        if (l_countriesOfInitiator.contains(d_destination)) {
             return true;
         }
 
-        return isAdjacent(l_countriesOfInitiator, destination);
+        return isAdjacent(l_countriesOfInitiator, d_destination);
     }
 
     /**
-     * Simulates an attack on a target territory by simulating battles between attacking and
+     * Simulates an attack on a p_target territory by simulating battles between attacking and
      * defending armies. This method uses a random number generator to simulate the outcome of
      * battles between the attacking and defending armies. Each attacking army has a 60% chance of
      * killing one defending army, and each defending army has a 70% chance of killing one attacking
      * army. The battle continues until either all attacking or defending armies are eliminated.
      *
-     * @param target The target {@link Country} to attack. This country represents the defending
+     * @param p_target The p_target {@link Country} to attack. This country represents the defending
      *     territory.
-     * @param armyNumber The number of armies to use in the attack. This represents the attacking
+     * @param p_armyNumber The number of armies to use in the attack. This represents the attacking
      *     force.
-     * @param destinationOwner Player object represents owner of the destination country
-     * @param initiator Player object who initiated the order
+     * @param p_destinationOwner Player object represents owner of the destination country
+     * @param p_initiator Player object who initiated the order
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */
     private void attackTerritory(
-            Country target, int armyNumber, Player destinationOwner, Player initiator) {
-        Random random = new Random();
-        int attackingArmyCount = armyNumber;
-        int defendingArmyCount = target.getD_armyCount();
+            Country p_target, int p_armyNumber, Player p_destinationOwner, Player p_initiator) {
+        Random l_random = new Random();
+        int l_attackingArmyCount = p_armyNumber;
+        int l_defendingArmyCount = p_target.getD_armyCount();
 
-        while (attackingArmyCount > 0 && defendingArmyCount > 0) {
+        while (l_attackingArmyCount > 0 && l_defendingArmyCount > 0) {
             // Each attacking army has 60% chance of killing one defending army
-            for (int i = 0; i < attackingArmyCount; i++) {
-                if (random.nextDouble() <= 0.6) {
-                    defendingArmyCount--;
+            for (int i = 0; i < l_attackingArmyCount; i++) {
+                if (l_random.nextDouble() <= 0.6) {
+                    l_defendingArmyCount--;
                 }
             }
 
             // Each defending army has 70% chance of killing one attacking army
-            for (int i = 0; i < defendingArmyCount; i++) {
-                if (random.nextDouble() <= 0.7) {
-                    attackingArmyCount--;
+            for (int i = 0; i < l_defendingArmyCount; i++) {
+                if (l_random.nextDouble() <= 0.7) {
+                    l_attackingArmyCount--;
                 }
             }
         }
         // Update territory armies based on the outcome of the attack
-        if (defendingArmyCount <= 0) {
+        if (l_defendingArmyCount <= 0) {
             // Attacker wins
-            target.setD_armyCount(attackingArmyCount);
-            initiator.getD_countries().add(target);
-            destinationOwner.getD_countries().remove(target);
+            p_target.setD_armyCount(l_attackingArmyCount);
+            p_initiator.getD_countries().add(p_target);
+            p_destinationOwner.getD_countries().remove(p_target);
         } else {
             // Defender wins
-            target.setD_armyCount(defendingArmyCount);
+            p_target.setD_armyCount(l_defendingArmyCount);
         }
     }
 }
