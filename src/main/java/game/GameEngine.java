@@ -1,5 +1,13 @@
 package game;
 
+import static game.map.MapEditor.editMap;
+import static game.map.MapHelper.playerOwnsContinent;
+import static game.map.MapLoader.loadMap;
+import static game.map.MapShower.showMap;
+import static game.map.MapValidator.isMapValid;
+import static game.util.FileHelper.createNewFileForMap;
+import static game.util.FileHelper.fileExists;
+
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.logger.LogEntryBuffer;
@@ -12,6 +20,7 @@ import game.pojo.Player;
 import game.states.ExecuteOrderPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
+
 import lombok.Setter;
 
 import java.io.BufferedReader;
@@ -22,14 +31,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static game.map.MapEditor.editMap;
-import static game.map.MapHelper.playerOwnsContinent;
-import static game.map.MapLoader.loadMap;
-import static game.map.MapShower.showMap;
-import static game.map.MapValidator.isMapValid;
-import static game.util.FileHelper.createNewFileForMap;
-import static game.util.FileHelper.fileExists;
 
 /**
  * GameEngine is responsible for reading the main commands from the players and calling required

@@ -1,17 +1,19 @@
 package game.order;
 
+import static org.junit.Assert.*;
+
+import static java.util.Collections.singletonList;
+
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import static java.util.Collections.singletonList;
-import static org.junit.Assert.*;
 
 /**
  * This class contains test cases for the Advance class.
@@ -124,7 +126,8 @@ public class AdvanceOrderTest {
         l_map.getD_players().add(l_initiator);
         l_map.getD_players().add(l_destinationOwner);
         Advance l_advance =
-                new Advance(l_destination.getD_name(), l_source.getD_name(), l_initiator, 70, l_map);
+                new Advance(
+                        l_destination.getD_name(), l_source.getD_name(), l_initiator, 70, l_map);
         l_advance.execute();
         assertTrue(l_initiator.getD_countries().contains(l_destination));
     }

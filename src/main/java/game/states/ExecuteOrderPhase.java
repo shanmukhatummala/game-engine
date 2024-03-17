@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 public class ExecuteOrderPhase extends PlayPhase {
 
     /**
-     * Constructs an ExecuteOrderPhase object.
-     * Adds a log entry to the global LOG_ENTRY_BUFFER indicating the start of this phase.
+     * Constructs an ExecuteOrderPhase object. Adds a log entry to the global LOG_ENTRY_BUFFER
+     * indicating the start of this phase.
      */
     public ExecuteOrderPhase() {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));

@@ -14,8 +14,8 @@ import java.util.List;
 public class EditMapPhase extends StartUpPhase {
 
     /**
-     * Constructs an EditMapPhase object.
-     * Adds a log entry to the global LOG_ENTRY_BUFFER indicating the start of this phase.
+     * Constructs an EditMapPhase object. Adds a log entry to the global LOG_ENTRY_BUFFER indicating
+     * the start of this phase.
      */
     public EditMapPhase() {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));

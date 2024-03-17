@@ -1,5 +1,9 @@
 package game.states;
 
+import static game.map.MapHelper.playerOwnsContinent;
+import static game.pojo.Player.Card.*;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
+
 import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
@@ -8,16 +12,12 @@ import game.pojo.Player;
 import java.util.Random;
 import java.util.Set;
 
-import static game.map.MapHelper.playerOwnsContinent;
-import static game.pojo.Player.Card.*;
-import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
-
 /** Assigns resources after the completion of each round in the game */
 public class AssignResourcesPhase extends PlayPhase {
 
     /**
-     * Constructs an AssignResourcesPhase object.
-     * Adds a log entry to the global LOG_ENTRY_BUFFER indicating the start of this phase.
+     * Constructs an AssignResourcesPhase object. Adds a log entry to the global LOG_ENTRY_BUFFER
+     * indicating the start of this phase.
      */
     public AssignResourcesPhase() {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
