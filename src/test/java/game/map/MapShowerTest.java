@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 class MapShowerTest {
@@ -108,20 +109,20 @@ class MapShowerTest {
                         1,
                         "Ostfriesland",
                         l_norddeutschland,
-                        new ArrayList<>(Arrays.asList(2, 3)),
+                        new HashSet<>(Arrays.asList(2, 3)),
                         0);
         Country l_holstein =
                 new Country(
-                        2, "Holstein", l_norddeutschland, new ArrayList<>(Arrays.asList(1, 3)), 0);
+                        2, "Holstein", l_norddeutschland, new HashSet<>(Arrays.asList(1, 3)), 0);
         Country l_schleswig =
                 new Country(
                         3,
                         "Schleswig",
                         l_westdeutschland,
-                        new ArrayList<>(Arrays.asList(1, 2, 4)),
+                        new HashSet<>(Arrays.asList(1, 2, 4)),
                         0);
         Country l_hamburg =
-                new Country(4, "Hamburg", l_westdeutschland, new ArrayList<>(Arrays.asList(3)), 0);
+                new Country(4, "Hamburg", l_westdeutschland, new HashSet<>(List.of(3)), 0);
 
         Player l_player1 = new Player("Player1", List.of(l_ostfriesland, l_holstein, l_schleswig));
         Player l_player2 = new Player("Player2", List.of(l_hamburg));

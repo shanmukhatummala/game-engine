@@ -6,6 +6,7 @@ import game.pojo.Player;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -26,7 +27,7 @@ public class AirliftTest {
     public void TestAirliftWhenDestinationBelongsToSamePlayer() {
 
         Continent l_continent = new Continent();
-        Country l_country = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
+        Country l_country = new Country(1, "Country1", l_continent, new HashSet<>(), 10);
         Player l_initiator = new Player("Player", List.of(l_country));
         Airlift l_airlift = new Airlift(l_initiator, l_initiator, l_country, l_country, 5);
         l_airlift.execute();
@@ -42,7 +43,7 @@ public class AirliftTest {
 
         Continent l_continent = new Continent();
         Country l_source = new Country(1, "Country1", l_continent);
-        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_destination = new Country(2, "Country2", l_continent,new HashSet<>(), 10);
         l_source.addNeighbor(2);
         Player l_initiator = new Player("Player1", List.of(l_source));
         Player l_destinationOwner = new Player("Player2", List.of(l_destination));
@@ -60,8 +61,8 @@ public class AirliftTest {
     void testAttackTerritory_AttackerWins() {
         // Setup: Ensure the attacker has more armies than the defender
         Continent l_continent = new Continent();
-        Country l_source = new Country(1, "Country1", l_continent, new ArrayList<>(), 100);
-        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
+        Country l_source = new Country(1, "Country1", l_continent, new HashSet<>(), 100);
+        Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(), 5);
         Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_source)));
         Player l_destinationOwner = new Player("Player2", new ArrayList<>(List.of(l_destination)));
         Airlift l_airlift = new Airlift(l_initiator, l_destinationOwner, l_destination, l_source, 70);
