@@ -28,11 +28,12 @@ public class DeployTest {
         Continent l_continent = new Continent(1, "continent1", 5);
         d_Countries = createCountries(l_continent);
         Player l_player = new Player("player", d_Countries);
+        l_player.setD_reinforcements(3);
         d_map = new Map();
         d_map.getD_continents().add(l_continent);
         d_map.getD_countries().addAll(d_Countries);
         d_map.getD_players().add(l_player);
-        d_deploy = new Deploy(d_Countries.get(0).getD_name(), l_player, 4, d_map);
+        d_deploy = new Deploy(d_Countries.get(0).getD_name(), l_player, 2, d_map);
     }
 
     /**
@@ -64,7 +65,7 @@ public class DeployTest {
     @Test
     public void executeTest() {
         d_deploy.execute();
-        int l_expectedArmyCount = 4;
+        int l_expectedArmyCount = 2;
         Assertions.assertEquals(l_expectedArmyCount, d_Countries.get(0).getD_armyCount());
     }
 }

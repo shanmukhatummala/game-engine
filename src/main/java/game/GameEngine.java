@@ -195,9 +195,9 @@ public class GameEngine {
      * @param p_map map for the game
      */
     private void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
-        d_gamePhase.handleReinforcementsAssignment(p_map, this);
 
         while (p_map.getD_players().size() > 1) {
+            d_gamePhase.handleReinforcementsAssignment(p_map, this);
             takeOrders(p_map, p_bufferedReader);
             Set<Player> l_playersToAssignCard = new HashSet<>();
             d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
@@ -222,12 +222,13 @@ public class GameEngine {
      * @author Naveen
      */
     public static void assignReinforcements(Map p_map) {
-        final int l_MIN_REINFORCEMENTS = 3;
+        // Minimal number of reinforcement armies for any player
+        final int l_minReinforcements = 3;
 
         for (Player l_player : p_map.getD_players()) {
             // Calculate number of l_reinforcements based on owned territories
             int l_territoriesOwned = l_player.getD_countries().size();
-            int l_reinforcements = Math.max(l_MIN_REINFORCEMENTS, l_territoriesOwned / 3);
+            int l_reinforcements = 0;
 
             // Check for continent control bonuses
             for (Continent l_continent : p_map.getD_continents()) {
@@ -236,11 +237,15 @@ public class GameEngine {
                 }
             }
 
+            l_reinforcements =
+                    Math.max(l_minReinforcements, l_reinforcements + (l_territoriesOwned / 3));
+
             // Set the total l_reinforcements for the player
-            l_player.setD_reinforcements(l_reinforcements);
+            l_player.setD_reinforcements(l_player.getD_reinforcements() + l_reinforcements);
         }
 
         System.out.println("Reinforcements are assigned");
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Reinforcements are assigned");
     }
 
     /**
