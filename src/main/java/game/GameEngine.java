@@ -41,7 +41,7 @@ public class GameEngine {
 
     private final Map d_map;
 
-    public final LogEntryBuffer d_logEntryBuffer;
+    public static final LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer(new ArrayList<>());
 
     /**
      * Constructor with map argument for GameEngine
@@ -51,8 +51,7 @@ public class GameEngine {
     public GameEngine(Map p_map) {
         this.d_map = p_map;
         this.gamePhase = new PlaySetupPhase();
-        this.d_logEntryBuffer = new LogEntryBuffer(new ArrayList<>());
-        this.d_logEntryBuffer.attach(new LogEntryWriter("log.txt"));
+        d_logEntryBuffer.attach(new LogEntryWriter("log.txt"));
     }
 
     /** Constructor without arguments for GameEngine */
