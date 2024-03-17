@@ -21,7 +21,7 @@ public interface Phase {
      * @param p_map The current map.
      * @param p_ge The game engine managing the game state.
      */
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge);
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 
     /**
      * Handles the command related to game players.
@@ -38,7 +38,7 @@ public interface Phase {
      * @param p_command The command to edit a map.
      * @param p_map The current map.
      */
-    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map);
+    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map, String p_basePath);
 
     /**
      * Handles the command to edit countries, continents, or neighbors on the map.
@@ -72,7 +72,7 @@ public interface Phase {
      * @param p_map The current map.
      * @param p_ge The game engine managing the game state.
      */
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge);
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 
     /**
      * Handles the command to validate a map.

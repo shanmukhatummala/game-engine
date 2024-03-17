@@ -21,6 +21,7 @@ import game.states.ExecuteOrderPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.io.BufferedReader;
@@ -44,6 +45,7 @@ public class GameEngine {
     /** This static variable is used for logging */
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
+    @Getter
     @Setter private Phase d_gamePhase;
     private final Map d_map;
 
@@ -154,15 +156,15 @@ public class GameEngine {
                     String l_commandType = l_commandList.get(0).getD_commandType();
                     Command l_command = l_commandList.get(0);
                     if ("editmap".equals(l_commandType)) {
-                        d_gamePhase.handleEditMap(this, l_command, d_map);
+                        d_gamePhase.handleEditMap(this, l_command, d_map, RESOURCES_PATH);
                     } else if ("gameplayer".equals(l_commandType)) {
                         d_gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
-                        d_gamePhase.handleLoadMap(l_command, d_map, this);
+                        d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
                     } else if ("showmap".equals(l_commandType)) {
                         d_gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        d_gamePhase.handleSaveMap(l_command, d_map, this);
+                        d_gamePhase.handleSaveMap(l_command, d_map, this,RESOURCES_PATH );
                     } else if ("validatemap".equals(l_commandType)) {
                         d_gamePhase.handleValidateMap(d_map);
                     } else if ("editcontinent".equals(l_commandType)

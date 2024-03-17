@@ -33,8 +33,8 @@ public class PlaySetupPhase extends StartUpPhase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
-        loadMap(RESOURCES_PATH + p_command.getD_args().get(0), p_map);
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+        loadMap(p_basePath + p_command.getD_args().get(0), p_map);
         if (!isMapValid(p_map)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "The loaded map is invalid, please load a valid map.");
@@ -97,9 +97,9 @@ public class PlaySetupPhase extends StartUpPhase {
      * @param p_map The current map.
      */
     @Override
-    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map) {
+    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map, String p_basePath) {
         String l_fileName = p_command.getD_args().get(0);
-        String l_filePath = RESOURCES_PATH + l_fileName;
+        String l_filePath = p_basePath + l_fileName;
         if (!fileExists(l_filePath)) {
             createNewFileForMap(l_filePath);
             p_map.setD_mapName(l_fileName);
@@ -120,9 +120,9 @@ public class PlaySetupPhase extends StartUpPhase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String l_message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't save a map here";
         printInvalidCommandMessage(l_message);
@@ -137,7 +137,7 @@ public class PlaySetupPhase extends StartUpPhase {
     @Override
     public void handleValidateMap(Map p_map) {
         String l_message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't Validate a map here";
         printInvalidCommandMessage(l_message);
@@ -153,7 +153,7 @@ public class PlaySetupPhase extends StartUpPhase {
     @Override
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
         String l_message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't edit map while not in the edit mode phase";
         printInvalidCommandMessage(l_message);

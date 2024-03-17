@@ -19,9 +19,9 @@ public abstract class PlayPhase implements Phase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you have already loaded the map you are going to play with";
         printInvalidCommandMessage(message);
@@ -37,7 +37,7 @@ public abstract class PlayPhase implements Phase {
     @Override
     public void handleGamePlayer(List<Command> p_commandList, Map p_map) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't add or remove player in play mode";
         printInvalidCommandMessage(message);
@@ -52,9 +52,9 @@ public abstract class PlayPhase implements Phase {
      * @param p_map The current map.
      */
     @Override
-    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map) {
+    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map, String p_basePath) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't edit a map in the play mode.";
         printInvalidCommandMessage(message);
@@ -70,7 +70,7 @@ public abstract class PlayPhase implements Phase {
     @Override
     public void handleCountriesAssignment(Map p_map, GameEngine p_ge) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't AssignCountries in play mode";
         printInvalidCommandMessage(message);
@@ -85,9 +85,9 @@ public abstract class PlayPhase implements Phase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't save a map in the play mode";
         printInvalidCommandMessage(message);
@@ -102,7 +102,7 @@ public abstract class PlayPhase implements Phase {
     @Override
     public void handleValidateMap(Map p_map) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't Validate a map in play mode";
         printInvalidCommandMessage(message);
@@ -118,7 +118,7 @@ public abstract class PlayPhase implements Phase {
     @Override
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't edit map in the play phase";
         printInvalidCommandMessage(message);
@@ -192,7 +192,7 @@ public abstract class PlayPhase implements Phase {
     @Override
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't commit here.";
         printInvalidCommandMessage(message);
