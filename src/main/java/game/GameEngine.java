@@ -10,6 +10,8 @@ import static game.util.FileHelper.fileExists;
 
 import game.commands.Command;
 import game.commands.CommandParser;
+import game.logger.LogEntryBuffer;
+import game.logger.LogEntryWriter;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -39,6 +41,8 @@ public class GameEngine {
 
     private final Map d_map;
 
+    public static final LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer(new ArrayList<>());
+
     /**
      * Constructor with map argument for GameEngine
      *
@@ -47,6 +51,7 @@ public class GameEngine {
     public GameEngine(Map p_map) {
         this.d_map = p_map;
         this.gamePhase = new PlaySetupPhase();
+        d_logEntryBuffer.attach(new LogEntryWriter("log.txt"));
     }
 
     /** Constructor without arguments for GameEngine */
