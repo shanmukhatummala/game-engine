@@ -1,16 +1,11 @@
 package game.order;
 
-<<<<<<< HEAD
-import static game.map.MapHelper.isAdjacent;
-
-=======
 import static game.map.MapHelper.getCountryByName;
 import static game.map.MapHelper.getCountryOwner;
 import static game.map.MapHelper.isAdjacent;
 
 import game.GameEngine;
 import game.map.Map;
->>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
 import game.pojo.Country;
 import game.pojo.Player;
 

@@ -4,10 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-<<<<<<< HEAD
-=======
 import game.map.Map;
->>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -58,10 +55,6 @@ public class AirliftTest {
         Player l_initiator = new Player("Player1", List.of(l_source));
         Player l_destinationOwner = new Player("Player2", List.of(l_destination));
         l_initiator.getD_negotiatedPlayers().add("Player2");
-<<<<<<< HEAD
-        Airlift l_airlift =
-                new Airlift(l_initiator, l_destinationOwner, l_destination, l_source, 5);
-=======
         Map l_map = new Map();
         l_map.getD_continents().add(l_continent);
         l_map.getD_countries().add(l_source);
@@ -70,7 +63,6 @@ public class AirliftTest {
         l_map.getD_players().add(l_destinationOwner);
         Airlift l_airlift =
                 new Airlift(l_initiator, l_destination.getD_name(), l_source.getD_name(), 5, l_map);
->>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
         l_airlift.execute();
 
         assertThat(l_destination.getD_armyCount(), equalTo(10));
@@ -85,10 +77,6 @@ public class AirliftTest {
         Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(), 5);
         Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_source)));
         Player l_destinationOwner = new Player("Player2", new ArrayList<>(List.of(l_destination)));
-<<<<<<< HEAD
-        Airlift l_airlift =
-                new Airlift(l_initiator, l_destinationOwner, l_destination, l_source, 70);
-=======
         Map l_map = new Map();
         l_map.getD_continents().add(l_continent);
         l_map.getD_countries().add(l_source);
@@ -98,7 +86,6 @@ public class AirliftTest {
         Airlift l_airlift =
                 new Airlift(
                         l_initiator, l_destination.getD_name(), l_source.getD_name(), 70, l_map);
->>>>>>> e7c673e222ce1f12b449f9f818499006c2153834
         l_airlift.execute();
         assertTrue(l_initiator.getD_countries().contains(l_destination));
     }
