@@ -7,9 +7,7 @@ import game.pojo.Player;
 
 import java.util.*;
 
-/**
- *
- */
+/** */
 public abstract class PlayPhase implements Phase {
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
@@ -30,7 +28,7 @@ public abstract class PlayPhase implements Phase {
     }
 
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
+    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()

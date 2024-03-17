@@ -47,7 +47,8 @@ public class EditCountryProcessor {
      * @param p_continent_name The Name of the continent to which the country will belong.
      * @param p_map The game p_map on which the command will be executed.
      */
-    private static void processAddCommand(String p_country_name, String p_continent_name, Map p_map) {
+    private static void processAddCommand(
+            String p_country_name, String p_continent_name, Map p_map) {
         if (StringUtils.isNotEmpty(p_country_name) && StringUtils.isNotEmpty(p_continent_name)) {
 
             Continent l_linked_continent =

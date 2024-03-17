@@ -49,6 +49,6 @@ public class ExecuteOrderPhase extends PlayPhase {
                 }
             }
         }
-        p_ge.setGamePhase(new AssignResourcesPhase());
+        p_ge.setD_gamePhase(new AssignResourcesPhase());
     }
 }

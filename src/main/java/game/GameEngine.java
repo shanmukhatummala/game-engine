@@ -41,7 +41,7 @@ public class GameEngine {
     /** This static variable is used for logging */
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
-    @Setter private Phase gamePhase;
+    @Setter private Phase d_gamePhase;
     private final Map d_map;
 
     /**
@@ -51,7 +51,7 @@ public class GameEngine {
      */
     public GameEngine(Map p_map) {
         this.d_map = p_map;
-        this.gamePhase = new PlaySetupPhase();
+        this.d_gamePhase = new PlaySetupPhase();
         LOG_ENTRY_BUFFER.attach(new LogFileWriter("log.txt"));
         LOG_ENTRY_BUFFER.attach(new StdOutWriter());
     }
@@ -141,47 +141,48 @@ public class GameEngine {
             while (true) {
                 try {
                     // take the command and validate it
-                    String message =
-                            (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
+                    String l_message =
+                            (d_gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
                                     ? "Enter commands to 'edit (or) validate (or) save map':"
                                     : "Enter the command";
-                    System.out.println(message);
+                    System.out.println(l_message);
                     String l_usrInput = l_bufferedReader.readLine();
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
                     String l_commandType = l_commandList.get(0).getD_commandType();
                     Command l_command = l_commandList.get(0);
                     if ("editmap".equals(l_commandType)) {
-                        gamePhase.handleEditMap(this, l_command, d_map);
+                        d_gamePhase.handleEditMap(this, l_command, d_map);
                     } else if ("gameplayer".equals(l_commandType)) {
-                        gamePhase.handleGamePlayer(l_commandList, d_map);
+                        d_gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
-                        gamePhase.handleLoadMap(l_command, d_map, this);
+                        d_gamePhase.handleLoadMap(l_command, d_map, this);
                     } else if ("showmap".equals(l_commandType)) {
-                        gamePhase.handleShowMap(d_map);
+                        d_gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        gamePhase.handleSaveMap(l_command, d_map, this);
+                        d_gamePhase.handleSaveMap(l_command, d_map, this);
                     } else if ("validatemap".equals(l_commandType)) {
-                        gamePhase.handleValidateMap(d_map);
+                        d_gamePhase.handleValidateMap(d_map);
                     } else if ("editcontinent".equals(l_commandType)
                             || "editcountry".equals(l_commandType)
                             || "editneighbor".equals(l_commandType)) {
-                        gamePhase.handleEditCountriesOrContinentOrNeighbor(
+                        d_gamePhase.handleEditCountriesOrContinentOrNeighbor(
                                 l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
-                        gamePhase.handleCountriesAssignment(d_map, this);
+                        d_gamePhase.handleCountriesAssignment(d_map, this);
                         startGameLoop(d_map, l_bufferedReader);
                         System.out.println("Game over - all orders executed");
                         endGame();
                     } else {
-                        gamePhase.printInvalidCommandMessage(
-                                "Invalid Command in state " + gamePhase.getClass().getSimpleName());
+                        d_gamePhase.printInvalidCommandMessage(
+                                "Invalid Command in state "
+                                        + d_gamePhase.getClass().getSimpleName());
                     }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                } catch (Exception l_e) {
+                    System.out.println(l_e.getMessage());
                 }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException l_e) {
+            throw new RuntimeException(l_e);
         }
     }
 
@@ -191,16 +192,16 @@ public class GameEngine {
      * @param p_map map for the game
      */
     private void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
-        gamePhase.handleReinforcementsAssignment(p_map, this);
+        d_gamePhase.handleReinforcementsAssignment(p_map, this);
 
         while (p_map.getD_players().size() > 1) {
             takeOrders(p_map, p_bufferedReader);
             Set<Player> l_playersToAssignCard = new HashSet<>();
-            gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
+            d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
             p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
-            gamePhase.handleCardAssignment(l_playersToAssignCard, this);
+            d_gamePhase.handleCardAssignment(l_playersToAssignCard, this);
             p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
-            gamePhase.handleShowMap(p_map);
+            d_gamePhase.handleShowMap(p_map);
         }
 
         if (p_map.getD_players().size() == 1) {
@@ -272,23 +273,23 @@ public class GameEngine {
                             continue;
                         }
                         if ("showmap".equals(l_command.getD_commandType())) {
-                            gamePhase.handleShowMap(d_map);
+                            d_gamePhase.handleShowMap(d_map);
                         } else if ("commit".equals(l_command.getD_commandType())) {
-                            gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
+                            d_gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
                             break;
                         } else {
-                            gamePhase.handleIssuingOrders(d_map, l_player, l_command);
+                            d_gamePhase.handleIssuingOrders(d_map, l_player, l_command);
                             break;
                         }
                     } catch (IOException e) {
-                        gamePhase.printInvalidCommandMessage(
+                        d_gamePhase.printInvalidCommandMessage(
                                 "Error when reading command. Error message: " + e.getMessage());
                     }
                 }
             }
         }
         System.out.println("Commands will be executed");
-        this.setGamePhase(new ExecuteOrderPhase());
+        this.setD_gamePhase(new ExecuteOrderPhase());
     }
 
     /**
