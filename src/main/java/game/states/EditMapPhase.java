@@ -19,11 +19,11 @@ public class EditMapPhase extends StartUpPhase {
 
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
-        String message =
+        String l_message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
                         + " you can't load a map here.";
-        printInvalidCommandMessage(message);
+        printInvalidCommandMessage(l_message);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class EditMapPhase extends StartUpPhase {
             //            continue;
         }
         saveMap(RESOURCES_PATH + p_map.getD_mapName(), p_map);
-        p_ge.setGamePhase(new PlaySetupPhase());
+        p_ge.setD_gamePhase(new PlaySetupPhase());
     }
 
     @Override
@@ -55,20 +55,20 @@ public class EditMapPhase extends StartUpPhase {
 
     @Override
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
-        final MapManipulator mapManipulator = new MapManipulator();
-        mapManipulator.processCommand(p_args, p_map);
+        final MapManipulator l_mapManipulator = new MapManipulator();
+        l_mapManipulator.processCommand(p_args, p_map);
     }
 
     @Override
     public void handleCountriesAssignment(Map p_map, GameEngine p_ge) {
-        String message = "Invalid Command in state" + this.getClass().getSimpleName();
-        printInvalidCommandMessage(message);
+        String l_message = "Invalid Command in state" + this.getClass().getSimpleName();
+        printInvalidCommandMessage(l_message);
     }
 
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
-        String message = "Invalid Command you are already in the Edit Map mode";
-        printInvalidCommandMessage(message);
+    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map) {
+        String l_message = "Invalid Command you are already in the Edit Map mode";
+        printInvalidCommandMessage(l_message);
     }
 
     @Override

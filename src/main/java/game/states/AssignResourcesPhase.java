@@ -48,7 +48,7 @@ public class AssignResourcesPhase extends PlayPhase {
 
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Reinforcements are assigned");
 
-        p_ge.setGamePhase(new IssueOrderPhase());
+        p_ge.setD_gamePhase(new IssueOrderPhase());
     }
 
     /**
@@ -77,6 +77,6 @@ public class AssignResourcesPhase extends PlayPhase {
                             break;
                     }
                 });
-        p_ge.setGamePhase(new IssueOrderPhase());
+        p_ge.setD_gamePhase(new IssueOrderPhase());
     }
 }

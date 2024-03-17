@@ -178,7 +178,7 @@ public class MapValidatorTest {
         loadMap(d_path, d_map);
         List<Boolean> l_expectedResult = new ArrayList<Boolean>();
         Continent l_continentToTest = d_map.getD_continents().get(1);
-        for (int i = 0; i < l_continentToTest.getD_countryIdList().size(); i++)
+        for (int l_i = 0; l_i < l_continentToTest.getD_countryIdList().size(); l_i++)
             l_expectedResult.add(Boolean.TRUE);
         l_expectedResult.set(1, Boolean.FALSE);
         assertEquals(

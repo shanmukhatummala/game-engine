@@ -51,9 +51,9 @@ public class MapSaverTest {
      */
     private List<Country> createCountries(List<Continent> continents) {
         List<Country> l_countries = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
-            Continent l_continent = (i <= 4) ? continents.get(0) : continents.get(1);
-            l_countries.add(new Country(i, "country" + i, l_continent, new HashSet<>(), 0));
+        for (int l_i = 1; l_i <= 8; l_i++) {
+            Continent l_continent = (l_i <= 4) ? continents.get(0) : continents.get(1);
+            l_countries.add(new Country(l_i, "country" + l_i, l_continent, new HashSet<>(), 0));
         }
         return l_countries;
     }
@@ -89,7 +89,7 @@ public class MapSaverTest {
      * This mehtod test the saveMap method in the MapSaver class by comparing the content of the
      * expected file to the file we created for test
      *
-     * @throws IOException
+     * @throws IOException when writer fails to write
      */
     @Test
     void saveMap() throws IOException {

@@ -29,7 +29,7 @@ public class PlaySetupPhase extends StartUpPhase {
             p_map.clearMap();
             return;
         }
-        p_ge.setGamePhase(new PlaySetupPhase());
+        p_ge.setD_gamePhase(new PlaySetupPhase());
     }
 
     @Override
@@ -51,21 +51,21 @@ public class PlaySetupPhase extends StartUpPhase {
     @Override
     public void handleCountriesAssignment(Map p_map, GameEngine p_ge) throws Exception {
 
-        List<Player> players = p_map.getD_players();
-        List<Country> countries = p_map.getD_countries();
-        boolean countriesAssigned = p_map.assignCountries(players, countries);
-        if (!countriesAssigned) {
+        List<Player> l_players = p_map.getD_players();
+        List<Country> l_countries = p_map.getD_countries();
+        boolean l_countriesAssigned = p_map.assignCountries(l_players, l_countries);
+        if (!l_countriesAssigned) {
             throw new Exception("try again.");
         }
 
         GameEngine.LOG_ENTRY_BUFFER.addLogEntries(
                 List.of("Countries have been assigned.", "You have entered the play mode."));
 
-        p_ge.setGamePhase(new AssignResourcesPhase());
+        p_ge.setD_gamePhase(new AssignResourcesPhase());
     }
 
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
+    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map) {
         String l_fileName = p_command.getD_args().get(0);
         String l_filePath = RESOURCES_PATH + l_fileName;
         if (!fileExists(l_filePath)) {
@@ -74,35 +74,35 @@ public class PlaySetupPhase extends StartUpPhase {
         } else {
             loadMap(l_filePath, p_map);
         }
-        ge.setGamePhase(new EditMapPhase());
+        p_ge.setD_gamePhase(new EditMapPhase());
 
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("You have entered the editing mode.");
     }
 
     @Override
     public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
-        String message =
+        String l_message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
                         + " you can't save a map here";
-        printInvalidCommandMessage(message);
+        printInvalidCommandMessage(l_message);
     }
 
     @Override
     public void handleValidateMap(Map p_map) {
-        String message =
+        String l_message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
                         + " you can't Validate a map here";
-        printInvalidCommandMessage(message);
+        printInvalidCommandMessage(l_message);
     }
 
     @Override
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
-        String message =
+        String l_message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
                         + " you can't edit map while not in the edit mode phase";
-        printInvalidCommandMessage(message);
+        printInvalidCommandMessage(l_message);
     }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 << PHASE: IssueOrderPhase >>
 << PHASE: IssueOrderPhase >>
 <<<<<<< HEAD
@@ -84,6 +85,4 @@ Reinforcements are assigned
 Reinforcements are assigned
 Reinforcements are assigned
 Reinforcements are assigned
-<< PHASE: IssueOrderPhase >>
-<< PHASE: IssueOrderPhase >>
-<< PHASE: IssueOrderPhase >>
+

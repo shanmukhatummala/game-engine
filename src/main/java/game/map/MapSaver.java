@@ -28,8 +28,8 @@ public class MapSaver {
             // close the writer
             l_writer.close();
             System.out.println("Saved the map file");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException l_e) {
+            throw new RuntimeException(l_e);
         }
     }
 
@@ -58,7 +58,7 @@ public class MapSaver {
      *
      * @param p_writer file writer object
      * @param p_map map object
-     * @throws IOException
+     * @throws IOException when writer fails to write then exception is thrown
      */
     private static void writeCountries(BufferedWriter p_writer, Map p_map) throws IOException {
         String l_countryStarter = "[countries]";
@@ -82,7 +82,7 @@ public class MapSaver {
      *
      * @param p_writer file writer object
      * @param p_map map object
-     * @throws IOException
+     * @throws IOException when writer fails to write then exception is thrown
      */
     private static void writeBorders(BufferedWriter p_writer, Map p_map) throws IOException {
         String l_borderStarter = "[borders]";

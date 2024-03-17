@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 
 /** MapEditor is used for performing edit operations on the map */
 public class MapEditor {
-    private static final MapManipulator mapManipulator = new MapManipulator();
+    private static final MapManipulator d_mapManipulator = new MapManipulator();
 
     /**
      * This method adds a continent to the list of continents in the map
@@ -50,7 +50,7 @@ public class MapEditor {
                         System.out.println("The current map isn't valid.");
                     }
                 } else if (l_args.length >= 1 && l_args[0].startsWith("edit")) {
-                    mapManipulator.processCommand(l_args, p_map);
+                    d_mapManipulator.processCommand(l_args, p_map);
                 } else {
                     System.out.println("Not a valid command");
                 }

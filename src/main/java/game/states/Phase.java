@@ -49,7 +49,7 @@ public interface Phase {
         showMap(p_map);
     }
 
-    public default void printInvalidCommandMessage(String message) {
-        System.out.println(message);
+    public default void printInvalidCommandMessage(String p_message) {
+        System.out.println(p_message);
     }
 }

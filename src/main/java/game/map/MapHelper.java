@@ -20,7 +20,7 @@ public class MapHelper {
     public static Continent getContinentById(Map p_map, int p_id) {
 
         return p_map.getD_continents().stream()
-                .filter(continent -> continent.getD_id() == p_id)
+                .filter(l_continent -> l_continent.getD_id() == p_id)
                 .findFirst()
                 .orElse(null);
     }
@@ -35,7 +35,7 @@ public class MapHelper {
     public static Country getCountryById(Map p_map, int p_id) {
 
         return p_map.getD_countries().stream()
-                .filter(country -> country.getD_id() == p_id)
+                .filter(l_country -> l_country.getD_id() == p_id)
                 .findFirst()
                 .orElse(null);
     }
@@ -65,9 +65,9 @@ public class MapHelper {
      * @return Returns True if the given continent is owned by the given player, else returns False.
      */
     public static boolean playerOwnsContinent(Map p_map, Player p_player, Continent p_continent) {
-        List<Country> countriesOfThisPlayer = p_player.getD_countries();
+        List<Country> l_countriesOfThisPlayer = p_player.getD_countries();
         for (Integer l_countryId : p_continent.getD_countryIdList()) {
-            if (!countriesOfThisPlayer.contains(getCountryById(p_map, l_countryId))) {
+            if (!l_countriesOfThisPlayer.contains(getCountryById(p_map, l_countryId))) {
                 return false;
             }
         }

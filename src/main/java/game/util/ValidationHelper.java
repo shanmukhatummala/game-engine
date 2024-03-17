@@ -6,13 +6,13 @@ public class ValidationHelper {
     /**
      * Checks if the given string represents a valid integer.
      *
-     * @param s The string to be checked.
+     * @param p_s The string to be checked.
      * @return {@code true} if the string represents a valid integer, {@code false} otherwise.
      */
-    public static boolean isInteger(String s) {
+    public static boolean isInteger(String p_s) {
         try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException | NullPointerException e) {
+            Integer.parseInt(p_s);
+        } catch (NumberFormatException | NullPointerException l_e) {
             return false;
         }
         return true;

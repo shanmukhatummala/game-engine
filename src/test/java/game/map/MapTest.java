@@ -235,15 +235,15 @@ class MapTest {
     @Test
     void testDistributionWhenNumOfPlayersDoesNotDivideNumOfCountries() {
         List<Player> l_players = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            l_players.add(new Player("Player" + i));
-            d_map.getD_players().add(l_players.get(i));
+        for (int l_i = 0; l_i < 3; l_i++) {
+            l_players.add(new Player("Player" + l_i));
+            d_map.getD_players().add(l_players.get(l_i));
         }
 
         List<Country> l_countries = new ArrayList<>();
-        for (int i = 0; i < 11; i++) {
-            l_countries.add(new Country(i, "Country" + i, new Continent()));
-            d_map.getD_countries().add(l_countries.get(i));
+        for (int l_i = 0; l_i < 11; l_i++) {
+            l_countries.add(new Country(l_i, "Country" + l_i, new Continent()));
+            d_map.getD_countries().add(l_countries.get(l_i));
         }
 
         d_map.assignCountries(l_players, l_countries);
@@ -251,8 +251,8 @@ class MapTest {
         List<Country> l_countriesAssignedToPlayers = new ArrayList<>();
         int l_countOfCountriesAssignedToPlayers = 0;
 
-        for (int i = 0; i < 3; i++) {
-            List<Country> l_countriesAssignedToThisPlayer = l_players.get(i).getD_countries();
+        for (int l_i = 0; l_i < 3; l_i++) {
+            List<Country> l_countriesAssignedToThisPlayer = l_players.get(l_i).getD_countries();
             assertThat(l_countriesAssignedToThisPlayer.size(), anyOf(equalTo(3), equalTo(4)));
             l_countriesAssignedToPlayers.addAll(l_countriesAssignedToThisPlayer);
             l_countOfCountriesAssignedToPlayers += l_countriesAssignedToThisPlayer.size();
