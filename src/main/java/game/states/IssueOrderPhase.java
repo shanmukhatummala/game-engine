@@ -18,7 +18,7 @@ import java.util.List;
 public class IssueOrderPhase extends PlayPhase {
 
     public IssueOrderPhase() {
-        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 
     @Override

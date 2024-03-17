@@ -14,7 +14,7 @@ import java.util.List;
 public class EditMapPhase extends StartUpPhase {
 
     public EditMapPhase() {
-        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
@@ -31,10 +31,14 @@ public class EditMapPhase extends StartUpPhase {
             System.out.println(
                     "The file name in 'savemap' command is different from the file you are editing.");
             System.out.println("Enter the right file name in save command!");
+            GameEngine.d_logEntryBuffer.addLogEntries(
+                    List.of("The file name in 'savemap' command is different from the file you are editing.",
+                    "Enter the right file name in save command!"));
             return;
         }
         if (!isMapValid(p_map)) {
             System.out.println("Current map is not valid: aborting the saving process.");
+            GameEngine.d_logEntryBuffer.addLogEntry("Current map is not valid: aborting the saving process.")
             //            continue;
         }
         saveMap(RESOURCES_PATH + p_map.getD_mapName(), p_map);
@@ -45,8 +49,10 @@ public class EditMapPhase extends StartUpPhase {
     public void handleValidateMap(Map p_map) {
         if (isMapValid(p_map)) {
             System.out.println("The current map is valid!");
+            GameEngine.d_logEntryBuffer.addLogEntry("The current map is valid!");
         } else {
             System.out.println("The current map isn't valid.");
+            GameEngine.d_logEntryBuffer.addLogEntry("The current map isn't valid.");
         }
     }
 

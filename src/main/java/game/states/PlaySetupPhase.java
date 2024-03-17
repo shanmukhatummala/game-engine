@@ -12,13 +12,12 @@ import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class PlaySetupPhase extends StartUpPhase {
 
     public PlaySetupPhase() {
-        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 
     @Override
@@ -26,6 +25,7 @@ public class PlaySetupPhase extends StartUpPhase {
         loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
         if (!isMapValid(p_map)) {
             System.out.println("The loaded map is invalid, please load a valid map.");
+            GameEngine.d_logEntryBuffer.addLogEntry("The loaded map is invalid, please load a valid map.");
             p_map.clearMap();
             return;
         }
@@ -39,9 +39,11 @@ public class PlaySetupPhase extends StartUpPhase {
             if (l_commandArgs.get(0).equals("-add")) {
                 p_map.addPlayer(l_commandArgs.get(1));
                 System.out.println("Player " + l_commandArgs.get(1) + " added");
+                GameEngine.d_logEntryBuffer.addLogEntry("Player " + l_commandArgs.get(1) + " added");
             } else {
                 p_map.removePlayer(l_commandArgs.get(1));
                 System.out.println("Player " + l_commandArgs.get(1) + " removed");
+                GameEngine.d_logEntryBuffer.addLogEntry("Player " + l_commandArgs.get(1) + " removed");
             }
         }
     }

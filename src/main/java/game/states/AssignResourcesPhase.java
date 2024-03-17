@@ -20,7 +20,7 @@ import java.util.Set;
 public class AssignResourcesPhase extends PlayPhase {
 
     public AssignResourcesPhase() {
-        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 
     /**
@@ -47,6 +47,8 @@ public class AssignResourcesPhase extends PlayPhase {
                     l_player.getD_reinforcements() + l_additionalReinforcements);
         }
         System.out.println("Reinforcements are assigned");
+        GameEngine.d_logEntryBuffer.addLogEntry("Reinforcements are assigned");
+
         p_ge.setGamePhase(new IssueOrderPhase());
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
  * in a LogEntryBuffer and write new log entries to the specified file.
  */
 @RequiredArgsConstructor
-public class LogEntryWriter implements Observer {
+public class LogFileWriter implements Observer {
 
     /**
      * The name of the file to which log entries will be written.

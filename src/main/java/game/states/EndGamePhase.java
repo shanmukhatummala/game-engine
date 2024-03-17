@@ -9,6 +9,6 @@ import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 public class EndGamePhase extends PlayPhase {
 
     public EndGamePhase() {
-        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 }
