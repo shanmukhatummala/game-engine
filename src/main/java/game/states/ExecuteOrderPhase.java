@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/** Represents the state where orders are executed. */
 public class ExecuteOrderPhase extends PlayPhase {
 
     /**
@@ -26,6 +27,8 @@ public class ExecuteOrderPhase extends PlayPhase {
      * Loop over all the players until all the orders are executed
      *
      * @param p_map map for the game
+     * @param p_ge The game engine managing the game state.
+     * @param p_playersToAssignCard A set of players to assign cards to.
      */
     public void handleExecutingOrders(
             Map p_map, GameEngine p_ge, Set<Player> p_playersToAssignCard) {

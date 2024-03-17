@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/** Responsible for validating the commands related to the startup phase */
 public class StartUpCommandValidator implements CommandValidator {
 
     static List<String> d_validCommands =
@@ -19,6 +20,8 @@ public class StartUpCommandValidator implements CommandValidator {
 
         String l_orderType = null;
 
+        // We create a map that links a valid command to its validating method
+        // (e.g. gameplayer is linked to validateGameplayerCommand)
         for (int l_i = 0; l_i < d_validCommands.size(); l_i++) {
             try {
                 l_orderType = d_validCommands.get(l_i);
@@ -41,6 +44,7 @@ public class StartUpCommandValidator implements CommandValidator {
         String l_commandType = p_command.getD_commandType();
         if (d_methodMap.containsKey(l_commandType)) {
             try {
+                // call the method corresponding to the given command type
                 return (boolean) d_methodMap.get(l_commandType).invoke(this, p_command);
             } catch (Exception l_e) {
                 l_e.printStackTrace();
@@ -49,6 +53,12 @@ public class StartUpCommandValidator implements CommandValidator {
         return false;
     }
 
+    /**
+     * Validates the gameplayer command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateGameplayerCommand(Command p_command) {
         if (p_command.getD_args().size() != 2) {
             return false;
@@ -58,18 +68,42 @@ public class StartUpCommandValidator implements CommandValidator {
         return (l_commandArgs.get(0).equals("-add") || l_commandArgs.get(0).equals("-remove"));
     }
 
+    /**
+     * Validates the loadmap command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateLoadmapCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }
 
+    /**
+     * Validates the showmap command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateShowmapCommand(Command p_command) {
         return (p_command.getD_args().size() == 0);
     }
 
+    /**
+     * Validates the assigncountries command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateAssigncountriesCommand(Command p_command) {
         return (p_command.getD_args().size() == 0);
     }
 
+    /**
+     * Validates the editmap command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateEditmapCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }

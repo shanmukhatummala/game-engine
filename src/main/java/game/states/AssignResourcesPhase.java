@@ -27,6 +27,7 @@ public class AssignResourcesPhase extends PlayPhase {
      * The method assign army's to each player
      *
      * @param p_map map for the game
+     * @param p_ge The game engine managing the game state
      */
     public void handleReinforcementsAssignment(Map p_map, GameEngine p_ge) {
         // Minimal number of reinforcement armies for any player
@@ -61,6 +62,7 @@ public class AssignResourcesPhase extends PlayPhase {
      * Assigns a random card to all players who are eligible for a card
      *
      * @param p_players players eligible to get a card
+     * @param p_ge The game engine managing the game state
      */
     public void handleCardAssignment(Set<Player> p_players, GameEngine p_ge) {
 
