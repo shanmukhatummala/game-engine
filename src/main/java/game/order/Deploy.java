@@ -1,5 +1,6 @@
 package game.order;
 
+import game.GameEngine;
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -60,13 +61,13 @@ public class Deploy extends Order {
     @Override
     public boolean valid() {
         if (!this.getD_initiator().getD_countries().contains(d_destination)) {
-            System.out.println(d_destination + " is not owned by " + getD_initiator());
+            GameEngine.d_logEntryBuffer.addLogEntry(d_destination + " is not owned by " + getD_initiator());
             return false;
         }
 
         if (this.getD_armyNumber() < 0
                 || this.getD_armyNumber() > this.getD_initiator().getD_reinforcements()) {
-            System.out.println("Invalid number of armies");
+            GameEngine.d_logEntryBuffer.addLogEntry("Invalid number of armies");
             return false;
         }
 

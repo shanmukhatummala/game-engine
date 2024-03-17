@@ -1,5 +1,6 @@
 package game.order;
 
+import game.GameEngine;
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -66,7 +67,7 @@ public class Airlift extends Order {
                                 || d_destinationOwner
                                         .getD_negotiatedPlayers()
                                         .contains(getD_initiator().getD_name()))) {
-                    System.out.println(
+                    GameEngine.d_logEntryBuffer.addLogEntry(
                             "Both players, "
                                     + d_destinationOwner.getD_name()
                                     + " and "
@@ -78,7 +79,7 @@ public class Airlift extends Order {
                 attackTerritory(d_destination, d_armyNumber, d_destinationOwner, getD_initiator());
             }
         } else {
-            System.out.println("Cannot Advance armies to the territory.");
+            GameEngine.d_logEntryBuffer.addLogEntry("Cannot Advance armies to the territory.");
         }
     }
 

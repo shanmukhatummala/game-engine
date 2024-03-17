@@ -21,6 +21,17 @@ public class LogEntryBuffer extends Observable {
     private final List<String> d_logEntries;
 
     /**
+     * Adds a new log entry to the buffer and notifies observers.
+     *
+     * @param p_newLogEntry The new log entry to be added.
+     */
+    public void addLogEntry(String p_newLogEntry) {
+        d_logEntries.add(p_newLogEntry);
+        notifyObservers(this);
+        this.clearLogEntries();
+    }
+
+    /**
      * Adds new log entries to the buffer and notifies observers.
      *
      * @param p_newLogEntries The list of new log entries to be added.

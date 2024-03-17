@@ -3,6 +3,7 @@ package game.order;
 import static game.map.MapHelper.isAdjacent;
 import static game.pojo.Player.Card.BOMB;
 
+import game.GameEngine;
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -60,7 +61,7 @@ public class Bomb extends Order {
                             || d_targetOwner
                                     .getD_negotiatedPlayers()
                                     .contains(getD_initiator().getD_name()))) {
-                System.out.println(
+                GameEngine.d_logEntryBuffer.addLogEntry(
                         "Both players, "
                                 + d_targetOwner.getD_name()
                                 + " and "
@@ -81,14 +82,14 @@ public class Bomb extends Order {
         List<Country> l_countriesOfInitiator = getD_initiator().getD_countries();
 
         if (!getD_initiator().getD_cards().contains(BOMB)) {
-            System.out.println(
+            GameEngine.d_logEntryBuffer.addLogEntry(
                     getD_initiator().getD_name()
                             + " doesn't have a BOMB card. So, cannot execute bomb order.");
             return false;
         }
 
         if (l_countriesOfInitiator.contains(d_target)) {
-            System.out.println(
+            GameEngine.d_logEntryBuffer.addLogEntry(
                     "Target country, "
                             + d_target
                             + ", belongs to the initiator, "
@@ -98,7 +99,7 @@ public class Bomb extends Order {
         }
 
         if (!isAdjacent(l_countriesOfInitiator, d_target)) {
-            System.out.println(
+            GameEngine.d_logEntryBuffer.addLogEntry(
                     "Target country, "
                             + d_target
                             + ", is not adjacent to the player. So, cannot bomb this country.");

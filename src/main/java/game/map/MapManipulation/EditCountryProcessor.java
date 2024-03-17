@@ -3,6 +3,7 @@ package game.map.MapManipulation;
 import static game.constants.MapManipulation.ADD_PARAM;
 import static game.constants.MapManipulation.REMOVE_PARAM;
 
+import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -57,7 +58,7 @@ public class EditCountryProcessor {
                             .orElse(null);
 
             if (l_linked_continent == null) {
-                System.out.println("Continent Name: " + p_continent_name + " does not exist!");
+                GameEngine.d_logEntryBuffer.addLogEntry("Continent Name: " + p_continent_name + " does not exist!");
                 return;
             }
 
@@ -68,9 +69,9 @@ public class EditCountryProcessor {
 
                 map.addCountryToContinent(l_linked_continent.getD_id(), l_country_id);
 
-                System.out.println("Country Added Successfully!");
+                GameEngine.d_logEntryBuffer.addLogEntry("Country Added Successfully!");
             } catch (Exception e) {
-                System.out.println("Country could not be added!");
+                GameEngine.d_logEntryBuffer.addLogEntry("Country could not be added!");
             }
         }
     }
