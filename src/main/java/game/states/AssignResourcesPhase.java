@@ -1,10 +1,7 @@
 package game.states;
 
 import static game.map.MapHelper.playerOwnsContinent;
-import static game.pojo.Player.Card.AIRLIFT;
-import static game.pojo.Player.Card.BLOCKADE;
-import static game.pojo.Player.Card.BOMB;
-import static game.pojo.Player.Card.DIPLOMACY;
+import static game.pojo.Player.Card.*;
 import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
@@ -18,6 +15,10 @@ import java.util.Set;
 /** Assigns resources after the completion of each round in the game */
 public class AssignResourcesPhase extends PlayPhase {
 
+    /**
+     * Constructs an AssignResourcesPhase object. Adds a log entry to the global LOG_ENTRY_BUFFER
+     * indicating the start of this phase.
+     */
     public AssignResourcesPhase() {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
@@ -26,35 +27,42 @@ public class AssignResourcesPhase extends PlayPhase {
      * The method assign army's to each player
      *
      * @param p_map map for the game
+     * @param p_ge The game engine managing the game state
      */
     public void handleReinforcementsAssignment(Map p_map, GameEngine p_ge) {
-
-        final int l_reinforcements_per_player = 5; // Default reinforcements per player
+        // Minimal number of reinforcement armies for any player
+        final int l_minReinforcements = 3;
 
         for (Player l_player : p_map.getD_players()) {
-            l_player.setD_reinforcements(l_reinforcements_per_player);
+            // Calculate number of l_reinforcements based on owned territories
+            int l_territoriesOwned = l_player.getD_countries().size();
+            int l_reinforcements = 0;
 
-            int l_additionalReinforcements = 0;
+            // Check for continent control bonuses
             for (Continent l_continent : p_map.getD_continents()) {
                 if (playerOwnsContinent(p_map, l_player, l_continent)) {
-                    // If the player owns the continent, add the bonus reinforcements
-                    l_additionalReinforcements += l_continent.getD_bonus();
+                    l_reinforcements += l_continent.getD_bonus();
                 }
             }
-            // Set the total reinforcements for the player
-            l_player.setD_reinforcements(
-                    l_player.getD_reinforcements() + l_additionalReinforcements);
+
+            l_reinforcements =
+                    Math.max(l_minReinforcements, l_reinforcements + (l_territoriesOwned / 3));
+
+            // Set the total l_reinforcements for the player
+            l_player.setD_reinforcements(l_player.getD_reinforcements() + l_reinforcements);
         }
 
+        System.out.println("Reinforcements are assigned");
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Reinforcements are assigned");
 
-        p_ge.setGamePhase(new IssueOrderPhase());
+        p_ge.setD_gamePhase(new IssueOrderPhase());
     }
 
     /**
      * Assigns a random card to all players who are eligible for a card
      *
      * @param p_players players eligible to get a card
+     * @param p_ge The game engine managing the game state
      */
     public void handleCardAssignment(Set<Player> p_players, GameEngine p_ge) {
 
@@ -77,6 +85,5 @@ public class AssignResourcesPhase extends PlayPhase {
                             break;
                     }
                 });
-        p_ge.setGamePhase(new IssueOrderPhase());
     }
 }

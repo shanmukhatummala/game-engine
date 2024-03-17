@@ -105,11 +105,11 @@ public class MapLoader {
             }
 
             System.out.println("Loaded the map into Java objects");
-        } catch (IOException e) {
-            if (e instanceof FileNotFoundException) {
+        } catch (IOException l_e) {
+            if (l_e instanceof FileNotFoundException) {
                 System.out.println("The file you entered doesn't exist");
             } else {
-                throw new RuntimeException(e.getMessage());
+                throw new RuntimeException(l_e.getMessage());
             }
         }
     }

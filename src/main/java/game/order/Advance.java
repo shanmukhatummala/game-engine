@@ -1,8 +1,6 @@
 package game.order;
 
-import static game.map.MapHelper.getCountryByName;
-import static game.map.MapHelper.getCountryOwner;
-import static game.map.MapHelper.isAdjacent;
+import static game.map.MapHelper.*;
 
 import game.GameEngine;
 import game.map.Map;
@@ -164,19 +162,27 @@ public class Advance extends Order {
         int l_defendingArmyCount = p_target.getD_armyCount();
 
         while (l_attackingArmyCount > 0 && l_defendingArmyCount > 0) {
+
+            int l_tempAttackingSize = l_attackingArmyCount;
+            int l_tempDefendingSize = l_defendingArmyCount;
+
             // Each attacking army has 60% chance of killing one defending army
             for (int i = 0; i < l_attackingArmyCount; i++) {
                 if (l_random.nextDouble() <= 0.6) {
-                    l_defendingArmyCount--;
+                    l_tempDefendingSize--;
                 }
             }
 
             // Each defending army has 70% chance of killing one attacking army
             for (int i = 0; i < l_defendingArmyCount; i++) {
                 if (l_random.nextDouble() <= 0.7) {
-                    l_attackingArmyCount--;
+                    l_tempAttackingSize--;
                 }
             }
+
+            // Once both sides are done attacking, update the counts in the armies
+            l_attackingArmyCount = l_tempAttackingSize;
+            l_defendingArmyCount = l_tempDefendingSize;
         }
         // Update territory armies based on the outcome of the attack
         if (l_defendingArmyCount <= 0) {

@@ -39,7 +39,7 @@ public class Player {
         this.d_name = p_name;
         this.d_countries = p_countries;
         this.d_orderList = new LinkedList<>();
-        this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
+        this.d_reinforcements = 0; //  the initial value of reinforcements for all the players
         this.d_cards = new ArrayList<>();
         this.d_negotiatedPlayers = new HashSet<>();
     }
@@ -130,25 +130,25 @@ public class Player {
         Map l_map = IssueOrderHelper.getMap();
         Command l_command = IssueOrderHelper.getCommand();
 
-        String commandType = l_command.getCommandType();
+        String commandType = l_command.getD_commandType();
 
         if ("deploy".equals(commandType)) {
-            String l_countryName = l_command.getArgs().get(0);
-            int l_numArmies = Integer.parseInt(l_command.getArgs().get(1));
+            String l_countryName = l_command.getD_args().get(0);
+            int l_numArmies = Integer.parseInt(l_command.getD_args().get(1));
             d_orderList.add(new Deploy(l_countryName, this, l_numArmies, l_map));
         } else if ("bomb".equals(commandType)) {
-            String l_targetCountryString = l_command.getArgs().get(0);
+            String l_targetCountryString = l_command.getD_args().get(0);
             d_orderList.add(new Bomb(l_targetCountryString, this, l_map));
         } else if ("advance".equals(commandType)) {
-            String l_source = l_command.getArgs().get(0);
-            String l_target = l_command.getArgs().get(1);
-            int l_numArmies = Integer.parseInt(l_command.getArgs().get(2));
+            String l_source = l_command.getD_args().get(0);
+            String l_target = l_command.getD_args().get(1);
+            int l_numArmies = Integer.parseInt(l_command.getD_args().get(2));
             d_orderList.add(new Advance(l_target, l_source, this, l_numArmies, l_map));
         } else if ("blockade".equals(commandType)) {
-            String l_targetCountryString = l_command.getArgs().get(0);
+            String l_targetCountryString = l_command.getD_args().get(0);
             d_orderList.add(new Blockade(l_targetCountryString, this, l_map));
         } else if ("negotiate".equals(commandType)) {
-            String l_targetPlayerName = l_command.getArgs().get(0);
+            String l_targetPlayerName = l_command.getD_args().get(0);
             d_orderList.add(new Negotiate(this, l_targetPlayerName, l_map));
         }
     }

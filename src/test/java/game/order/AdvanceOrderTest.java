@@ -126,7 +126,8 @@ public class AdvanceOrderTest {
         l_map.getD_players().add(l_initiator);
         l_map.getD_players().add(l_destinationOwner);
         Advance l_advance =
-                new Advance(l_destination.getD_name(), l_source.getD_name(), l_initiator, 5, l_map);
+                new Advance(
+                        l_destination.getD_name(), l_source.getD_name(), l_initiator, 70, l_map);
         l_advance.execute();
         assertTrue(l_initiator.getD_countries().contains(l_destination));
     }

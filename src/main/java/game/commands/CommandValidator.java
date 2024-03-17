@@ -1,6 +1,13 @@
 package game.commands;
 
+/** Responsible for verifying if a given command is syntactically correct. */
 public interface CommandValidator {
-
-    abstract boolean validate(Command command) throws IllegalArgumentException;
+    /**
+     * Validates the given command
+     *
+     * @param p_command Command to validate
+     * @return true if the command is syntactically correct
+     * @throws IllegalArgumentException if the command is not correct
+     */
+    abstract boolean validate(Command p_command) throws IllegalArgumentException;
 }

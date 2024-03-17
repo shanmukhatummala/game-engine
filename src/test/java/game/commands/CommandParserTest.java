@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Class testing the CommandParser class */
 public class CommandParserTest {
 
     String d_inputCommand;
@@ -14,6 +15,7 @@ public class CommandParserTest {
     String d_inputCommand2;
     String d_inputCommand3;
 
+    /** Sets the commands to be parsed */
     @BeforeEach
     void setUp() {
         d_inputCommand = "gameplayer -add playerName -add playername2 -remove playername1";
@@ -22,6 +24,7 @@ public class CommandParserTest {
         d_inputCommand3 = "commit";
     }
 
+    /** Tests if the gameplayer command is parsed correctly */
     @Test
     public void parseStartUpGameplayerTest() {
 
@@ -37,16 +40,17 @@ public class CommandParserTest {
         String l_expectedCommandType = "gameplayer";
         List<Command> l_commandList = CommandParser.parse(d_inputCommand);
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(l_expectedArgs1, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs1, l_commandList.get(0).getD_args());
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(1).getCommandType());
-        Assertions.assertEquals(l_expectedArgs2, l_commandList.get(1).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(1).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs2, l_commandList.get(1).getD_args());
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(2).getCommandType());
-        Assertions.assertEquals(l_expectedArgs3, l_commandList.get(2).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(2).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs3, l_commandList.get(2).getD_args());
     }
 
+    /** Tests if the deploy command is parsed correctly */
     @Test
     public void parseDeployTest() {
 
@@ -58,10 +62,11 @@ public class CommandParserTest {
         List<Command> l_commandList = CommandParser.parse(d_inputCommand1);
         Command l_command = l_commandList.get(0);
 
-        Assertions.assertEquals(l_expectedCommandType, l_command.getCommandType());
-        Assertions.assertEquals(l_expectedArgs, l_command.getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_command.getD_commandType());
+        Assertions.assertEquals(l_expectedArgs, l_command.getD_args());
     }
 
+    /** Tests if the editcontinent command is parsed correctly */
     @Test
     public void parseEditcontinentTest() {
 
@@ -73,10 +78,11 @@ public class CommandParserTest {
         String l_expectedCommandType = "editcontinent";
         List<Command> l_commandList = CommandParser.parse(d_inputCommand2);
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getD_args());
     }
 
+    /** Tests if the commit command is parsed correctly */
     @Test
     public void parseCommitCommandTest() {
 
@@ -85,7 +91,7 @@ public class CommandParserTest {
         String l_expectedCommandType = "commit";
         List<Command> l_commandList = CommandParser.parse(d_inputCommand3);
 
-        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getCommandType());
-        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getArgs());
+        Assertions.assertEquals(l_expectedCommandType, l_commandList.get(0).getD_commandType());
+        Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getD_args());
     }
 }
