@@ -16,6 +16,10 @@ import java.util.List;
 
 public class PlaySetupPhase extends StartUpPhase {
 
+    /**
+     * Constructs an PlaySetupPhase object.
+     * Adds a log entry to the global LOG_ENTRY_BUFFER indicating the start of this phase.
+     */
     public PlaySetupPhase() {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
