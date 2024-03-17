@@ -3,6 +3,7 @@ package game.map.MapManipulation;
 import static game.constants.MapManipulation.ADD_PARAM;
 import static game.constants.MapManipulation.REMOVE_PARAM;
 
+import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
 import game.util.ValidationHelper;
@@ -54,9 +55,9 @@ public class EditContinentProcessor {
                                 map.getMaxContinentId() + 1,
                                 p_continent_name,
                                 Integer.parseInt(p_continent_bonus))); // check ID
-                System.out.println("Continent Added Successfully!");
+                GameEngine.d_logEntryBuffer.addLogEntry("Continent Added Successfully!");
             } catch (Exception e) {
-                System.out.println("Continent could not be added!");
+                GameEngine.d_logEntryBuffer.addLogEntry("Continent could not be added!");
             }
         }
     }
