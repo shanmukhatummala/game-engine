@@ -39,7 +39,8 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command to save the map and saves the map if it is valid and given an error message if invalid.
+     * Handles the command to save the map and saves the map if it is valid and given an error
+     * message if invalid.
      *
      * @param p_command The command to save the map.
      * @param p_map Current map for the game.
@@ -78,7 +79,8 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command to edit countries, continents, or neighbors using a MapManipulator object.
+     * Handles the command to edit countries, continents, or neighbors using a MapManipulator
+     * object.
      *
      * @param p_args The arguments of the command.
      * @param p_map Current map for the game.
@@ -90,8 +92,8 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command to assign countries to players and displays an invalid command message
-     * as assigning countries is not allowed in the edit map phase
+     * Handles the command to assign countries to players and displays an invalid command message as
+     * assigning countries is not allowed in the edit map phase
      *
      * @param p_map Current map for the game.
      * @param p_ge The game engine managing the game state.
@@ -103,8 +105,8 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command to edit the map and displays an invalid command message as the game is already
-     * in the edit map mode.
+     * Handles the command to edit the map and displays an invalid command message as the game is
+     * already in the edit map mode.
      *
      * @param p_ge The game engine managing the game state.
      * @param p_command The command to edit the map.
@@ -117,8 +119,8 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command related to game players and displays an invalid command message
-     * as adding or removing players is not allowed while editing a map.
+     * Handles the command related to game players and displays an invalid command message as adding
+     * or removing players is not allowed while editing a map.
      *
      * @param p_commandList The list of commands related to game players.
      * @param p_map Current map for the game.

@@ -14,8 +14,8 @@ abstract class StartUpPhase implements Phase {
     public static final String RESOURCES_PATH = "src/main/resources/";
 
     /**
-     * Handles the command to issue orders. Displays an invalid command message
-     * as issuing orders is not allowed during the start-up phase.
+     * Handles the command to issue orders. Displays an invalid command message as issuing orders is
+     * not allowed during the start-up phase.
      *
      * @param p_map The current map.
      * @param p_player The player issuing the orders.
@@ -31,8 +31,8 @@ abstract class StartUpPhase implements Phase {
     }
 
     /**
-     * Handles the execution of orders. Displays an invalid command message
-     * as executing orders is not allowed during the start-up phase.
+     * Handles the execution of orders. Displays an invalid command message as executing orders is
+     * not allowed during the start-up phase.
      *
      * @param p_map The current map.
      * @param p_ge The game engine managing the game state.
@@ -49,8 +49,8 @@ abstract class StartUpPhase implements Phase {
     }
 
     /**
-     * Handles the assignment of reinforcements. Displays an invalid command message
-     * as assigning reinforcements is not allowed during the start-up phase.
+     * Handles the assignment of reinforcements. Displays an invalid command message as assigning
+     * reinforcements is not allowed during the start-up phase.
      *
      * @param p_map The current map.
      * @param p_ge The game engine managing the game state.
@@ -65,8 +65,8 @@ abstract class StartUpPhase implements Phase {
     }
 
     /**
-     * Handles the assignment of cards. Displays an invalid command message
-     * as assigning cards is not allowed during the start-up phase.
+     * Handles the assignment of cards. Displays an invalid command message as assigning cards is
+     * not allowed during the start-up phase.
      *
      * @param p_players The set of players.
      * @param p_ge The game engine managing the game state.
@@ -81,8 +81,8 @@ abstract class StartUpPhase implements Phase {
     }
 
     /**
-     * Handles the "deploy" order. Displays an invalid command message
-     * as deploying armies is not allowed during the start-up phase.
+     * Handles the "deploy" order. Displays an invalid command message as deploying armies is not
+     * allowed during the start-up phase.
      */
     @Override
     public void handleDeployOrder() {
@@ -94,8 +94,8 @@ abstract class StartUpPhase implements Phase {
     }
 
     /**
-     * Handles the "advance" order. Displays an invalid command message
-     * as advancing armies is not allowed during the start-up phase.
+     * Handles the "advance" order. Displays an invalid command message as advancing armies is not
+     * allowed during the start-up phase.
      */
     @Override
     public void handleAdvanceOrder() {
@@ -107,8 +107,8 @@ abstract class StartUpPhase implements Phase {
     }
 
     /**
-     * Handles the "use card" order. Displays an invalid command message
-     * as using cards is not allowed during the start-up phase.
+     * Handles the "use card" order. Displays an invalid command message as using cards is not
+     * allowed during the start-up phase.
      */
     @Override
     public void handleUseCardOrder() {
@@ -120,8 +120,8 @@ abstract class StartUpPhase implements Phase {
     }
 
     /**
-     * Handles the "commit" order. Displays an invalid command message
-     * as committing orders is not allowed during the start-up phase.
+     * Handles the "commit" order. Displays an invalid command message as committing orders is not
+     * allowed during the start-up phase.
      *
      * @param p_playersLeftToIssueOrder The players left to issue orders.
      * @param p_currentPlayer The current player.

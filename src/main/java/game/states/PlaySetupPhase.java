@@ -112,8 +112,8 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command to save a map. Displays an invalid command message as saving a map
-     * is not allowed during setup.
+     * Handles the command to save a map. Displays an invalid command message as saving a map is not
+     * allowed during setup.
      *
      * @param p_command The command to save the map.
      * @param p_map The current map.
@@ -129,8 +129,8 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command to validate a map. Displays an invalid command message as validating
-     * a map is not allowed during setup.
+     * Handles the command to validate a map. Displays an invalid command message as validating a
+     * map is not allowed during setup.
      *
      * @param p_map The current map.
      */
@@ -144,8 +144,8 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the command to edit countries, continents, or neighbors. Displays an invalid
-     * command message as editing a map is not allowed during setup.
+     * Handles the command to edit countries, continents, or neighbors. Displays an invalid command
+     * message as editing a map is not allowed during setup.
      *
      * @param p_args The command arguments.
      * @param p_map The current map.

@@ -6,15 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/** Responsible for validating the commands related to giving orders */
 public class OrderCommandValidator implements CommandValidator {
     static List<String> d_validCommands =
-            Arrays.asList("deploy", "advance", "bomb", "blockade", "airlift", "negotiate");
+            Arrays.asList(
+                    "deploy", "advance", "bomb", "blockade", "airlift", "negotiate", "commit");
 
     Map<String, Method> d_methodMap;
 
     public OrderCommandValidator() {
         d_methodMap = new HashMap<String, Method>();
 
+        // We create a map that links a valid command to its validating method
+        // (e.g. deploy is linked to validateDeployCommand)
         for (int l_i = 0; l_i < d_validCommands.size(); l_i++) {
             try {
                 String l_orderType = d_validCommands.get(l_i);
@@ -44,6 +48,7 @@ public class OrderCommandValidator implements CommandValidator {
         }
         if (d_methodMap.containsKey(l_commandType)) {
             try {
+                // call the method corresponding to the given command type
                 return (boolean) d_methodMap.get(l_commandType).invoke(this, p_command);
             } catch (Exception l_e) {
                 l_e.printStackTrace();
@@ -52,6 +57,12 @@ public class OrderCommandValidator implements CommandValidator {
         return false;
     }
 
+    /**
+     * Validates the deploy command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateDeployCommand(Command p_command) {
         if (p_command.getD_args().size() != 2) {
             return false;
@@ -66,6 +77,12 @@ public class OrderCommandValidator implements CommandValidator {
         return true;
     }
 
+    /**
+     * Validates the advance command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateAdvanceCommand(Command p_command) {
         if (p_command.getD_args().size() != 3) {
             return false;
@@ -80,14 +97,32 @@ public class OrderCommandValidator implements CommandValidator {
         return true;
     }
 
+    /**
+     * Validates the bomb command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateBombCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }
 
+    /**
+     * Validates the blockade command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateBlockadeCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }
 
+    /**
+     * Validates the airlift command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateAirliftCommand(Command p_command) {
         if (p_command.getD_args().size() != 3) {
             return false;
@@ -102,10 +137,22 @@ public class OrderCommandValidator implements CommandValidator {
         return true;
     }
 
+    /**
+     * Validates the commit command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateCommitCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }
 
+    /**
+     * Validates the negociate command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
     private boolean validateNegotiateCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }
