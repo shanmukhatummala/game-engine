@@ -14,9 +14,9 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import game.states.ExecuteOrderPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
-import game.util.IssueOrderHelper;
 
 import lombok.Setter;
 
@@ -187,7 +187,7 @@ public class GameEngine {
         gamePhase.handleReinforcementsAssignment(p_map, this);
 
         while (p_map.getD_players().size() > 1) {
-            gamePhase.handleIssuingOrders(p_map, this, p_bufferedReader);
+            takeOrders(p_map, p_bufferedReader);
             Set<Player> l_playersToAssignCard = new HashSet<>();
             gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
             gamePhase.handleCardAssignment(l_playersToAssignCard, this);
@@ -233,10 +233,13 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private static void issueOrders(Map p_map, BufferedReader p_bufferedReader) {
+    private void takeOrders(Map p_map, BufferedReader p_bufferedReader) {
         List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
         while (!l_playersLeftToIssueOrder.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
+                if (!l_playersLeftToIssueOrder.contains(l_player)) {
+                    continue;
+                }
                 while (true) {
                     try {
                         System.out.println(
@@ -244,20 +247,16 @@ public class GameEngine {
                         String l_commandString = p_bufferedReader.readLine();
                         Command l_command = CommandParser.parse(l_commandString).get(0);
                         if ("showmap".equals(l_command.getCommandType())) {
-                            showMap(p_map);
-                            continue;
+                            gamePhase.handleShowMap(d_map);
                         } else if ("commit".equals(l_command.getCommandType())) {
-                            l_playersLeftToIssueOrder.remove(l_player);
+                            gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
+                            break;
+                        }else{
+                            gamePhase.handleIssuingOrders(d_map, l_player,l_command);
                             break;
                         }
-
-                        IssueOrderHelper.setCommand(l_command);
-                        IssueOrderHelper.setMap(p_map);
-                        l_player.issue_order();
-                        break;
                     } catch (IOException e) {
-                        System.out.println(
-                                "Error when reading command. Error message: " + e.getMessage());
+                        gamePhase.printInvalidCommandMessage("Error when reading command. Error message: " + e.getMessage());
                     }
                 }
                 System.out.println(
@@ -270,6 +269,7 @@ public class GameEngine {
                                         : ", cards: " + l_player.getD_cards()));
             }
         }
+        this.setGamePhase(new ExecuteOrderPhase());
         System.out.println("Command will be executed.");
     }
 
