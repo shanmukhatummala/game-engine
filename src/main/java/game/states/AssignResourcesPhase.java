@@ -1,13 +1,5 @@
 package game.states;
 
-import static game.map.MapHelper.playerOwnsContinent;
-import static game.pojo.Player.Card.*;
-import static game.pojo.Player.Card.AIRLIFT;
-import static game.pojo.Player.Card.BLOCKADE;
-import static game.pojo.Player.Card.BOMB;
-import static game.pojo.Player.Card.DIPLOMACY;
-import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
-
 import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
@@ -15,6 +7,10 @@ import game.pojo.Player;
 
 import java.util.Random;
 import java.util.Set;
+
+import static game.map.MapHelper.playerOwnsContinent;
+import static game.pojo.Player.Card.*;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 /** Assigns resources after the completion of each round in the game */
 public class AssignResourcesPhase extends PlayPhase {
@@ -30,22 +26,22 @@ public class AssignResourcesPhase extends PlayPhase {
      */
     public void handleReinforcementsAssignment(Map p_map, GameEngine p_ge) {
         // Minimal number of reinforcement armies for any player
-        final int MIN_REINFORCEMENTS = 3;
+        final int l_MIN_REINFORCEMENTS = 3;
 
         for (Player l_player : p_map.getD_players()) {
-            // Calculate number of reinforcements based on owned territories
-            int territoriesOwned = l_player.getD_countries().size();
-            int reinforcements = Math.max(MIN_REINFORCEMENTS, territoriesOwned / 3);
+            // Calculate number of l_reinforcements based on owned territories
+            int l_territoriesOwned = l_player.getD_countries().size();
+            int l_reinforcements = Math.max(l_MIN_REINFORCEMENTS, l_territoriesOwned / 3);
 
             // Check for continent control bonuses
             for (Continent l_continent : p_map.getD_continents()) {
                 if (playerOwnsContinent(p_map, l_player, l_continent)) {
-                    reinforcements += l_continent.getD_bonus();
+                    l_reinforcements += l_continent.getD_bonus();
                 }
             }
 
-            // Set the total reinforcements for the player
-            l_player.setD_reinforcements(reinforcements);
+            // Set the total l_reinforcements for the player
+            l_player.setD_reinforcements(l_reinforcements);
         }
 
         System.out.println("Reinforcements are assigned");
