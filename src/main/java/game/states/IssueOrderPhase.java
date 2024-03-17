@@ -1,6 +1,7 @@
 package game.states;
 
 import static game.map.MapShower.showMap;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
 import game.commands.Command;
@@ -15,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IssueOrderPhase extends PlayPhase {
+
+    public IssueOrderPhase() {
+        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+    }
 
     @Override
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer) {

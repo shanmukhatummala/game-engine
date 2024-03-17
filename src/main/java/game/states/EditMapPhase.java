@@ -2,6 +2,7 @@ package game.states;
 
 import static game.map.MapSaver.saveMap;
 import static game.map.MapValidator.isMapValid;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
 import game.commands.Command;
@@ -12,6 +13,9 @@ import java.util.List;
 
 public class EditMapPhase extends StartUpPhase {
 
+    public EditMapPhase() {
+        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+    }
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
         String message =

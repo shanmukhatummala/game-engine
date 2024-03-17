@@ -10,8 +10,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
+
 public class ExecuteOrderPhase extends PlayPhase {
 
+    public ExecuteOrderPhase() {
+        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+    }
 
 
     /**

@@ -5,17 +5,23 @@ import static game.pojo.Player.Card.AIRLIFT;
 import static game.pojo.Player.Card.BLOCKADE;
 import static game.pojo.Player.Card.BOMB;
 import static game.pojo.Player.Card.DIPLOMACY;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Player;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 /** Assigns resources after the completion of each round in the game */
 public class AssignResourcesPhase extends PlayPhase {
+
+    public AssignResourcesPhase() {
+        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+    }
 
     /**
      * The method assign army's to each player

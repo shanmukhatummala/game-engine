@@ -4,6 +4,7 @@ import static game.map.MapLoader.loadMap;
 import static game.map.MapValidator.isMapValid;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
 import game.commands.Command;
@@ -11,9 +12,14 @@ import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PlaySetupPhase extends StartUpPhase {
+
+    public PlaySetupPhase() {
+        GameEngine.d_logEntryBuffer.addLogEntries(List.of(getLoggerEntryForPhaseChange(this.getClass())));
+    }
 
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
