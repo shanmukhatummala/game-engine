@@ -20,7 +20,7 @@ public class EditMapPhase extends StartUpPhase {
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't load a map here.";
         printInvalidCommandMessage(message);
@@ -61,7 +61,7 @@ public class EditMapPhase extends StartUpPhase {
 
     @Override
     public void handleCountriesAssignment(Map p_map, GameEngine p_ge) {
-        String message = "Invalid Command in state" + this.getClass().getSimpleName();
+        String message = "Invalid Command in state " + this.getClass().getSimpleName();
         printInvalidCommandMessage(message);
     }
 
@@ -74,7 +74,7 @@ public class EditMapPhase extends StartUpPhase {
     @Override
     public void handleGamePlayer(List<Command> p_commandList, Map p_map) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't add or remove player while editing a map";
         printInvalidCommandMessage(message);

@@ -14,7 +14,7 @@ abstract class StartUpPhase implements Phase {
     @Override
     public void handleIssuingOrders(Map p_map, Player p_player, Command p_command) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't Validate a map here";
         printInvalidCommandMessage(message);
@@ -24,7 +24,7 @@ abstract class StartUpPhase implements Phase {
     public void handleExecutingOrders(
             Map p_map, GameEngine p_ge, Set<Player> l_playersToAssignCard) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't execute orders";
         printInvalidCommandMessage(message);
@@ -33,7 +33,7 @@ abstract class StartUpPhase implements Phase {
     @Override
     public void handleReinforcementsAssignment(Map p_map, GameEngine p_ge) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't assign reinforcements";
         printInvalidCommandMessage(message);
@@ -42,7 +42,7 @@ abstract class StartUpPhase implements Phase {
     @Override
     public void handleCardAssignment(Set<Player> p_players, GameEngine p_ge) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't assign cards";
         printInvalidCommandMessage(message);
@@ -51,7 +51,7 @@ abstract class StartUpPhase implements Phase {
     @Override
     public void handleDeployOrder() {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't deploy armies while in the start phase";
         printInvalidCommandMessage(message);
@@ -60,7 +60,7 @@ abstract class StartUpPhase implements Phase {
     @Override
     public void handleAdvanceOrder() {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't advance armies while in the start phase";
         printInvalidCommandMessage(message);
@@ -69,7 +69,7 @@ abstract class StartUpPhase implements Phase {
     @Override
     public void handleUseCardOrder() {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't use cards while in the start phase";
         printInvalidCommandMessage(message);
@@ -78,7 +78,7 @@ abstract class StartUpPhase implements Phase {
     @Override
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't Commit orders start phase";
         printInvalidCommandMessage(message);

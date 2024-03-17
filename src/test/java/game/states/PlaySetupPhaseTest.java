@@ -6,16 +6,16 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
+
 
 public class PlaySetupPhaseTest {
 
@@ -24,6 +24,7 @@ public class PlaySetupPhaseTest {
     private GameEngine d_playSetUpPhase;
     private Map d_map;
 
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     /** Sets up the required objects for the execution of tests */
     @BeforeEach
@@ -32,6 +33,7 @@ public class PlaySetupPhaseTest {
         d_playSetUpPhase.setGamePhase(new PlaySetupPhase());
         d_map = new Map();
         d_path = "src/test/resources/";
+        System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     private Map createObjectsToAssert() {
@@ -92,15 +94,6 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(d_map.getD_mapName(), l_expectedMap.getD_mapName());
     }
 
-    @Test
-    public void handleLoadMapChangingPhaseTest() {
-        List<String> l_commandArgs = new ArrayList<>();
-        l_commandArgs.add("new.map");
-        Command l_command = new Command("loadmap",l_commandArgs);
-        String l_expectedPhase = "PlaySetupPhase";
-        d_playSetUpPhase.getGamePhase().handleLoadMap(l_command,d_map,d_playSetUpPhase, d_path);
-        Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getGamePhase().getClass().getSimpleName());
-    }
 
 
     @Test
@@ -137,5 +130,44 @@ public class PlaySetupPhaseTest {
     }
 
 
+    @Test
+    public void handleEditMapTest(){
+        List<String> l_args = new ArrayList<>();
+        l_args.add("new.map");
+        Command l_command = new Command("editmap",l_args);
+        d_playSetUpPhase.getGamePhase().handleEditMap(d_playSetUpPhase,l_command,d_map,d_path);
+        String l_expectedPhase = "EditMapPhase";
+        Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getGamePhase().getClass().getSimpleName());
+    }
+
+
+
+
+    @Test
+    public void handleSaveMapTest(){
+        String l_expectedOutput = "Invalid Command in state PlaySetupPhase you can't save a map here";
+        d_playSetUpPhase.getGamePhase().handleSaveMap(new Command("",new ArrayList<>()),d_map,d_playSetUpPhase,d_path);
+        Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    public void handleValidateMapTest(){
+        String l_expectedOutput = "Invalid Command in state PlaySetupPhase you can't Validate a map here";
+        d_playSetUpPhase.getGamePhase().handleValidateMap(d_map);
+        Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    public void handleEditCountriesOrContinentOrNeighborTest(){
+        String l_expectedOutput = "Invalid Command in state PlaySetupPhase you can't edit map while not in the edit mode phase";
+        d_playSetUpPhase.getGamePhase().handleEditCountriesOrContinentOrNeighbor(new String[]{},d_map);
+        Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
+    }
+
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(System.out);
+    }
 
 }

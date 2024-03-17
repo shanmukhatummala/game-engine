@@ -83,7 +83,7 @@ public class PlaySetupPhase extends StartUpPhase {
     @Override
     public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't save a map here";
         printInvalidCommandMessage(message);
@@ -92,7 +92,7 @@ public class PlaySetupPhase extends StartUpPhase {
     @Override
     public void handleValidateMap(Map p_map) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't Validate a map here";
         printInvalidCommandMessage(message);
@@ -101,7 +101,7 @@ public class PlaySetupPhase extends StartUpPhase {
     @Override
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
         String message =
-                "Invalid Command in state"
+                "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't edit map while not in the edit mode phase";
         printInvalidCommandMessage(message);
