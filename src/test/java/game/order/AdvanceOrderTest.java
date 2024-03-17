@@ -83,7 +83,6 @@ public class AdvanceOrderTest {
     /**
      * Test case to verify the outcome of an attack on a territory when the attacker wins.
      */
-
     @Test
     void testAttackTerritory_AttackerWins() {
         Continent l_continent = new Continent();
