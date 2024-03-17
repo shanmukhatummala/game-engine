@@ -26,7 +26,7 @@ public class MapSaverTest {
     void setUp() {
         List<Continent> l_continents = createContinents();
         d_countries = createCountries(l_continents);
-        d_map = new Map(l_continents, d_countries, new ArrayList<>());
+        d_map = new Map(l_continents, d_countries, new ArrayList<>(), "testMapSaver.map");
         linkCountries();
     }
 

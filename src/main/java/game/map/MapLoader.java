@@ -26,8 +26,10 @@ public class MapLoader {
      */
     public static void loadMap(String p_path, Map p_map) {
         try (BufferedReader l_reader = new BufferedReader(new FileReader(p_path))) {
+            String l_fileName = p_path.split("/")[3];
             p_map.clearMap();
 
+            p_map.setD_mapName(l_fileName);
             String l_line;
             boolean l_readingContinents = false;
             boolean l_readingCountries = false;
@@ -97,7 +99,7 @@ public class MapLoader {
 
                     for (int l_idx = 1; l_idx < l_borderAttributes.length; l_idx++) {
                         int l_neighborId = Integer.parseInt(l_borderAttributes[l_idx]);
-                        l_currentCountry.addNeighbor(l_neighborId);
+                        l_currentCountry.addNeighbor(l_neighborId, p_map);
                     }
                 }
             }

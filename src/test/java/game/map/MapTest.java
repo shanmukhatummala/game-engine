@@ -14,6 +14,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,72 @@ class MapTest {
     @BeforeEach
     void setUp() {
         d_map = new Map();
+    }
+
+    /** Adds Continents, Countries, Neighbors To an emptied Map object */
+    void setContinentsCountriesNeighborsToMap(Map p_map) {
+        Continent l_continent_1 =
+                Continent.builder()
+                        .d_id(1)
+                        .d_name("Asia")
+                        .d_bonus(5)
+                        .d_countryIdList(new ArrayList<>())
+                        .build();
+
+        Country l_country_1 =
+                Country.builder()
+                        .d_id(1)
+                        .d_name("India")
+                        .d_continent(l_continent_1)
+                        .d_armyCount(3)
+                        .build();
+
+        Country l_country_2 =
+                Country.builder()
+                        .d_id(2)
+                        .d_name("China")
+                        .d_continent(l_continent_1)
+                        .d_armyCount(3)
+                        .build();
+
+        l_continent_1.getD_countryIdList().addAll(Arrays.asList(1, 2));
+
+        Continent l_continent_2 =
+                Continent.builder()
+                        .d_id(2)
+                        .d_name("Europe")
+                        .d_bonus(5)
+                        .d_countryIdList(new ArrayList<>())
+                        .build();
+
+        Country l_country_3 =
+                Country.builder()
+                        .d_id(3)
+                        .d_name("Germany")
+                        .d_continent(l_continent_2)
+                        .d_armyCount(3)
+                        .build();
+
+        Country l_country_4 =
+                Country.builder()
+                        .d_id(4)
+                        .d_name("France")
+                        .d_continent(l_continent_2)
+                        .d_armyCount(3)
+                        .build();
+
+        l_continent_2.getD_countryIdList().addAll(Arrays.asList(3, 4));
+
+        l_country_1.addNeighbors(Arrays.asList(2, 3));
+        l_country_2.addNeighbors(Arrays.asList(1, 4));
+        l_country_3.addNeighbors(Arrays.asList(1, 4));
+        l_country_4.addNeighbors(Arrays.asList(2, 3));
+
+        p_map.clearMap();
+
+        p_map.getD_continents().addAll(Arrays.asList(l_continent_1, l_continent_2));
+        p_map.getD_countries()
+                .addAll(Arrays.asList(l_country_1, l_country_2, l_country_3, l_country_4));
     }
 
     /** Tests addContinent method to add a continent */
@@ -252,5 +319,67 @@ class MapTest {
 
         // Check player 2 received correct number of reinforcements
         assertEquals(5, l_player2.getD_reinforcements()); // Base: 5
+    }
+
+    /** Tests addNeighborToCountry function of Map.java */
+    @Test
+    public void testAddNeighbor() {
+        setContinentsCountriesNeighborsToMap(d_map);
+
+        Assertions.assertFalse(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(4));
+
+        d_map.addNeighborToCountry(1, 4);
+
+        Assertions.assertTrue(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(4));
+    }
+
+    /** Tests removeNeighborFromCountry function of Map.java */
+    @Test
+    public void testRemoveNeighbor() {
+        setContinentsCountriesNeighborsToMap(d_map);
+
+        Assertions.assertTrue(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(2));
+
+        d_map.removeNeighborFromCountry(1, 2);
+
+        Assertions.assertFalse(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(2));
+    }
+
+    /**
+     * Checks that a country is removed from its neighbors' d_neighborIdList when country is removed
+     * from map
+     */
+    @Test
+    public void checkNeighborIsRemovedWhenCountryIsRemoved() {
+        setContinentsCountriesNeighborsToMap(d_map);
+
+        Assertions.assertTrue(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(2));
+
+        d_map.removeCountry(2);
+
+        Assertions.assertFalse(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(2));
+    }
+
+    /**
+     * Checks that a country is removed from its neighbors' d_neighborIdList when country's parent
+     * continent is removed from map
+     */
+    @Test
+    public void checkNeighborIsRemovedWhenContinentIsRemoved() {
+        setContinentsCountriesNeighborsToMap(d_map);
+
+        Assertions.assertTrue(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(3));
+
+        d_map.removeContinent("Europe");
+
+        Assertions.assertFalse(
+                d_map.getCountryForCountryName("India").getD_neighborIdList().contains(3));
     }
 }

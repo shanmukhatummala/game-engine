@@ -16,6 +16,7 @@ import game.pojo.Country;
 import game.pojo.Player;
 import game.states.AssignResourcesPhase;
 import game.states.Phase;
+import game.states.PlaySetupPhase;
 import game.util.IssueOrderHelper;
 
 import lombok.Setter;
@@ -46,6 +47,7 @@ public class GameEngine {
      */
     public GameEngine(Map p_map) {
         this.d_map = p_map;
+        this.gamePhase = new PlaySetupPhase();
     }
 
     /** Constructor without arguments for GameEngine */
@@ -125,7 +127,54 @@ public class GameEngine {
         }
     }
 
-    public void startGame() {}
+    public void startGame() {
+
+        try (BufferedReader l_bufferedReader =
+                new BufferedReader(new InputStreamReader(System.in))) {
+
+            while (true) {
+                try {
+                    // take the command and validate it
+                    String message =
+                            (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
+                                    ? "Enter commands to 'edit (or) validate (or) save map':"
+                                    : "Enter the command";
+                    System.out.println(message);
+                    String l_usrInput = l_bufferedReader.readLine();
+                    List<Command> l_commandList = CommandParser.parse(l_usrInput);
+                    String l_commandType = l_commandList.get(0).getCommandType();
+                    Command l_command = l_commandList.get(0);
+                    if ("editmap".equals(l_commandType)) {
+                        gamePhase.handleEditMap(this,l_command, d_map);
+                    } else if ("gameplayer".equals(l_commandType)) {
+                        gamePhase.handleGamePlayer(l_commandList,d_map);
+                    } else if ("loadmap".equals(l_commandType)) {
+                        gamePhase.handleLoadMap(l_command,d_map,this);
+                    } else if ("showmap".equals(l_commandType)) {
+                        gamePhase.handleShowMap(d_map);
+                    } else if ("savemap".equals(l_commandType)) {
+                        gamePhase.handleSaveMap(l_command,d_map,this);
+                    } else if ("validatemap".equals(l_commandType)) {
+                        gamePhase.handleValidateMap(d_map);
+                    } else if ("editcontinent".equals(l_commandType) || "editcountry".equals(l_commandType) ||"editneighbor".equals(l_commandType)) {
+                        gamePhase.handleEditCountriesOrContinentOrNeighbor(l_usrInput.split(" "), d_map);
+                    } else if ("assigncountries".equals(l_commandType)) {
+                        gamePhase.handleAssignCountries(d_map,this);
+                        startGameLoop(d_map, l_bufferedReader);
+                        System.out.println("Game over - all orders executed");
+                        endGame();
+                    } else {
+                        gamePhase.printInvalidCommandMessage("Invalid Command in state "
+                                + gamePhase.getClass().getSimpleName());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
