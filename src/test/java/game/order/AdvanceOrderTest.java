@@ -1,7 +1,6 @@
 package game.order;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import static java.util.Collections.singletonList;
 
@@ -14,7 +13,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-/** This class contains test cases for the Advance class. */
+/**
+ * This class contains test cases for the Advance class.
+ *
+ * @author Naveen
+ */
 public class AdvanceOrderTest {
 
     /**
@@ -63,6 +66,10 @@ public class AdvanceOrderTest {
         assertFalse(advanceOrder.valid());
     }
 
+    /**
+     * Test case to verify the execution of an Advance order when the destination owner and
+     * initiator are negotiated players.
+     */
     @Test
     public void testExecuteAdvanceOrderWhenDestinationOwnerAndInitiatorAreNegotiatedPlayers() {
         Continent l_continent = new Continent();
@@ -76,5 +83,18 @@ public class AdvanceOrderTest {
         l_advanceOrder.execute();
         assertEquals(10, l_destination.getD_armyCount());
         assertEquals(10, l_source.getD_armyCount());
+    }
+
+    /** Test case to verify the outcome of an attack on a territory when the attacker wins. */
+    @Test
+    void testAttackTerritory_AttackerWins() {
+        Continent l_continent = new Continent();
+        Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 100);
+        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
+        Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_country1)));
+        Player l_targetOwner = new Player("Player2", new ArrayList<>(List.of(l_country2)));
+        Airlift airlift = new Airlift(l_initiator, l_targetOwner, l_country2, l_country1, 70);
+        airlift.execute();
+        assertTrue(l_initiator.getD_countries().contains(l_country2));
     }
 }

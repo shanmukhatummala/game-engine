@@ -99,7 +99,7 @@ public class MapLoader {
 
                     for (int l_idx = 1; l_idx < l_borderAttributes.length; l_idx++) {
                         int l_neighborId = Integer.parseInt(l_borderAttributes[l_idx]);
-                        l_currentCountry.addNeighbor(l_neighborId);
+                        l_currentCountry.addNeighbor(l_neighborId, p_map);
                     }
                 }
             }

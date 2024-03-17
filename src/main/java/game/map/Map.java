@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 /**
@@ -30,6 +32,7 @@ public class Map {
     private final List<Country> d_countries;
     private final List<Player> d_players;
     @Getter private String d_mapName;
+    private TreeMap<Integer, TreeSet<Integer>> d_neighborsGraph;
 
     /** Constructor without arguments for Map */
     public Map() {
@@ -52,6 +55,7 @@ public class Map {
         this.d_countries = p_countries;
         this.d_players = p_players;
         this.d_mapName = p_mapName;
+        this.d_neighborsGraph = new TreeMap<>();
     }
 
     /** This function clears all the data in the map */
@@ -59,6 +63,7 @@ public class Map {
         d_continents.clear();
         d_countries.clear();
         d_players.clear();
+        d_neighborsGraph.clear();
     }
 
     /**
@@ -142,7 +147,7 @@ public class Map {
                 d_countries.removeIf(country -> country.getD_id() == p_country_id);
 
         if (l_is_country_removed) {
-            d_countries.forEach(country -> country.removeNeighbor(p_country_id));
+            d_countries.forEach(country -> country.removeNeighbor(p_country_id, this));
 
             if (l_linked_continent_id != null) {
                 removeCountryFromContinent(l_linked_continent_id, p_country_id);
@@ -182,7 +187,8 @@ public class Map {
                         country -> Objects.equals(country.getD_name(), p_country_name));
 
         if (l_is_country_removed) {
-            d_countries.forEach(country -> country.removeNeighbor(l_country_id_to_be_removed));
+            d_countries.forEach(
+                    country -> country.removeNeighbor(l_country_id_to_be_removed, this));
 
             if (l_linked_continent_id != null) {
                 removeCountryFromContinent(l_linked_continent_id, l_country_id_to_be_removed);
@@ -358,7 +364,7 @@ public class Map {
             return;
         }
 
-        l_country.get().addNeighbor(p_neighbor_country_id);
+        l_country.get().addNeighbor(p_neighbor_country_id, this);
         System.out.println("Neighbor Country added successfully!");
     }
 
@@ -388,7 +394,7 @@ public class Map {
             System.out.println("Neighbor Country with input ID does not exist!");
             return;
         }
-        l_country.get().removeNeighbor(p_neighbor_country_id);
+        l_country.get().removeNeighbor(p_neighbor_country_id, this);
         System.out.println("Neighbor Country removed successfully!");
     }
 
@@ -425,5 +431,45 @@ public class Map {
                 .findFirst()
                 .map(Country::getD_id)
                 .orElse(null);
+    }
+
+    /**
+     * Retrieves the Country object given its name.
+     *
+     * @param p_country_name The name of the country to search for.
+     * @return The Country object if found, otherwise returns null.
+     */
+    public Country getCountryForCountryName(String p_country_name) {
+        return this.d_countries.stream()
+                .filter(Objects::nonNull)
+                .filter(country -> Objects.equals(country.getD_name(), p_country_name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void addNeighborToNeighborsGraph(Integer p_country_id, Integer p_neighbor_country_id) {
+        if (Objects.isNull(this.d_neighborsGraph.get(p_country_id))) {
+            this.d_neighborsGraph.put(p_country_id, new TreeSet<>());
+        }
+
+        this.d_neighborsGraph.get(p_country_id).add(p_neighbor_country_id);
+    }
+
+    public void addNeighborsToNeighborsGraph(
+            Integer p_country_id, List<Integer> p_neighbor_country_ids) {
+        if (Objects.isNull(this.d_neighborsGraph.get(p_country_id))) {
+            this.d_neighborsGraph.put(p_country_id, new TreeSet<>());
+        }
+
+        this.d_neighborsGraph.get(p_country_id).addAll(p_neighbor_country_ids);
+    }
+
+    public void removeNeighborFromNeighborsGraph(
+            Integer p_country_id, Integer p_neighbor_country_id) {
+        if (Objects.isNull(this.d_neighborsGraph.get(p_country_id))) {
+            this.d_neighborsGraph.put(p_country_id, new TreeSet<>());
+        }
+
+        this.d_neighborsGraph.get(p_country_id).remove(p_neighbor_country_id);
     }
 }
