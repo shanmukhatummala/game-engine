@@ -10,6 +10,7 @@ import static game.util.FileHelper.fileExists;
 
 import game.commands.Command;
 import game.commands.CommandParser;
+import game.logger.LogEntryBuffer;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
