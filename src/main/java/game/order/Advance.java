@@ -185,16 +185,16 @@ public class Advance extends Order {
             l_defendingArmyCount = l_tempDefendingSize;
         }
         // Update territory armies based on the outcome of the attack
-        if (l_defendingArmyCount <= 0) {
+        if (l_attackingArmyCount <= 0) {
+            // Defender wins
+            p_target.setD_armyCount(Math.max(l_defendingArmyCount, 0));
+        } else {
             // Attacker wins
-            p_target.setD_armyCount(l_attackingArmyCount);
+            p_target.setD_armyCount(Math.max(l_attackingArmyCount, 0));
             p_initiator.getD_countries().add(p_target);
             if (p_destinationOwner != null) {
                 p_destinationOwner.getD_countries().remove(p_target);
             }
-        } else {
-            // Defender wins
-            p_target.setD_armyCount(l_defendingArmyCount);
         }
     }
 }
