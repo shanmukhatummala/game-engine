@@ -53,7 +53,7 @@ public class EditNeighborProcessor {
         if (Objects.nonNull(p_country_id) && Objects.nonNull(p_neighbor_country_id)) {
             map.addNeighborToCountry(p_country_id, p_neighbor_country_id);
         } else {
-            GameEngine.d_logEntryBuffer.addLogEntry("Invalid Country/Countries");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Invalid Country/Countries");
         }
     }
 
@@ -73,7 +73,7 @@ public class EditNeighborProcessor {
         if (Objects.nonNull(p_country_id) && Objects.nonNull(p_neighbor_country_id)) {
             map.removeNeighborFromCountry(p_country_id, p_neighbor_country_id);
         } else {
-            GameEngine.d_logEntryBuffer.addLogEntry("Invalid Country/Countries");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Invalid Country/Countries");
         }
     }
 }

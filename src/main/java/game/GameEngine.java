@@ -38,11 +38,11 @@ public class GameEngine {
     /** This static variable stores the path for the resources directory */
     public static final String RESOURCES_PATH = "src/main/resources/";
 
+    /** This static variable is used for logging */
+    public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
+
     @Setter private Phase gamePhase;
-
     private final Map d_map;
-
-    public static final LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer(new ArrayList<>());
 
     /**
      * Constructor with map argument for GameEngine
@@ -52,8 +52,8 @@ public class GameEngine {
     public GameEngine(Map p_map) {
         this.d_map = p_map;
         this.gamePhase = new PlaySetupPhase();
-        d_logEntryBuffer.attach(new LogFileWriter("log.txt"));
-        d_logEntryBuffer.attach(new StdOutWriter());
+        LOG_ENTRY_BUFFER.attach(new LogFileWriter("log.txt"));
+        LOG_ENTRY_BUFFER.attach(new StdOutWriter());
     }
 
     /** Constructor without arguments for GameEngine */

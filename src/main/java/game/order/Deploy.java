@@ -68,20 +68,20 @@ public class Deploy extends Order {
         Country l_destination = getCountryByName(getD_map(), d_destinationCountryName);
 
         if (l_destination == null) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     d_destinationCountryName
                             + " doesn't exist in the map now. So, cannot deploy in this country.");
             return false;
         }
 
         if (!getD_initiator().getD_countries().contains(l_destination)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     l_destination.getD_name() + " is not owned by " + getD_initiator().getD_name());
             return false;
         }
 
         if (getD_armyNumber() < 0 || getD_armyNumber() > getD_initiator().getD_reinforcements()) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Invalid number of armies ("
                             + d_armyNumber
                             + ") to deploy on "

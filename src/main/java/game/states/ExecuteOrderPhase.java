@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ExecuteOrderPhase extends PlayPhase {
 
     public ExecuteOrderPhase() {
-        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 
     /**

@@ -56,7 +56,7 @@ public class Bomb extends Order {
                             || l_targetOwner
                                     .getD_negotiatedPlayers()
                                     .contains(getD_initiator().getD_name()))) {
-                GameEngine.d_logEntryBuffer.addLogEntry(
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                         "Both players, "
                                 + l_targetOwner.getD_name()
                                 + " and "
@@ -77,7 +77,7 @@ public class Bomb extends Order {
         Country l_target = getCountryByName(getD_map(), d_targetCountryName);
 
         if (l_target == null) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     d_targetCountryName
                             + " doesn't exist in the map now. So, cannot bomb this country.");
             return false;
@@ -86,14 +86,14 @@ public class Bomb extends Order {
         List<Country> l_countriesOfInitiator = getD_initiator().getD_countries();
 
         if (!getD_initiator().getD_cards().contains(BOMB)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     getD_initiator().getD_name()
                             + " doesn't have a BOMB card. So, cannot execute bomb order.");
             return false;
         }
 
         if (l_countriesOfInitiator.contains(l_target)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Target country, "
                             + l_target.getD_name()
                             + ", belongs to the initiator, "
@@ -103,7 +103,7 @@ public class Bomb extends Order {
         }
 
         if (!isAdjacent(l_countriesOfInitiator, l_target)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Target country, "
                             + l_target.getD_name()
                             + ", is not adjacent to the player. So, cannot bomb this country.");

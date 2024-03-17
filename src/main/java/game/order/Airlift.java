@@ -70,7 +70,7 @@ public class Airlift extends Order {
                                 || d_destinationOwner
                                         .getD_negotiatedPlayers()
                                         .contains(getD_initiator().getD_name()))) {
-                    GameEngine.d_logEntryBuffer.addLogEntry(
+                    GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                             "Both players, "
                                     + d_destinationOwner.getD_name()
                                     + " and "
@@ -82,7 +82,7 @@ public class Airlift extends Order {
                 attackTerritory(d_destination, d_armyNumber, d_destinationOwner, getD_initiator());
             }
         } else {
-            GameEngine.d_logEntryBuffer.addLogEntry("Cannot Advance armies to the territory.");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Cannot Advance armies to the territory.");
         }
     }
 
@@ -101,14 +101,14 @@ public class Airlift extends Order {
         Country l_source = getCountryByName(getD_map(), d_sourceName);
 
         if (l_destination == null) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     d_destinationName
                             + " doesn't exist in the map now. So, cannot advance to this country.");
             return false;
         }
 
         if (l_source == null) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     d_sourceName
                             + " doesn't exist in the map now. So, cannot advance from this country.");
             return false;
@@ -116,7 +116,7 @@ public class Airlift extends Order {
 
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
         if (!l_countriesOfInitiator.contains(l_source)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     d_sourceName
                             + " doesn't belong to "
                             + getD_initiator().getD_name()

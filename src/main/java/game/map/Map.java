@@ -107,9 +107,9 @@ public class Map {
         if (l_is_continent_removed) {
             l_linked_countries.forEach(this::removeCountry);
 
-            GameEngine.d_logEntryBuffer.addLogEntry("Continent removed successfully!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Continent removed successfully!");
         } else {
-            GameEngine.d_logEntryBuffer.addLogEntry("No Continent with the given ID exists!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("No Continent with the given ID exists!");
         }
     }
 
@@ -154,9 +154,9 @@ public class Map {
                 removeCountryFromContinent(l_linked_continent_id, p_country_id);
             }
 
-            GameEngine.d_logEntryBuffer.addLogEntry("Country removed successfully!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country removed successfully!");
         } else {
-            GameEngine.d_logEntryBuffer.addLogEntry("No Country with the given ID exists!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("No Country with the given ID exists!");
         }
     }
 
@@ -195,9 +195,9 @@ public class Map {
                 removeCountryFromContinent(l_linked_continent_id, l_country_id_to_be_removed);
             }
 
-            GameEngine.d_logEntryBuffer.addLogEntry("Country removed successfully!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country removed successfully!");
         } else {
-            GameEngine.d_logEntryBuffer.addLogEntry("No Country with the given ID exists!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("No Country with the given ID exists!");
         }
     }
 
@@ -358,16 +358,16 @@ public class Map {
                         .findFirst();
 
         if (l_country.isEmpty()) {
-            GameEngine.d_logEntryBuffer.addLogEntry("Country with input ID does not exist!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country with input ID does not exist!");
             return;
         } else if (l_neighbor_country.isEmpty()) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Neighbor Country with input ID does not exist!");
             return;
         }
 
         l_country.get().addNeighbor(p_neighbor_country_id, this);
-        GameEngine.d_logEntryBuffer.addLogEntry("Neighbor Country added successfully!");
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Neighbor Country added successfully!");
     }
 
     /**
@@ -390,15 +390,15 @@ public class Map {
                         .findFirst();
 
         if (l_country.isEmpty()) {
-            GameEngine.d_logEntryBuffer.addLogEntry("Country with input ID does not exist!");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country with input ID does not exist!");
             return;
         } else if (l_neighbor_country.isEmpty()) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Neighbor Country with input ID does not exist!");
             return;
         }
         l_country.get().removeNeighbor(p_neighbor_country_id, this);
-        GameEngine.d_logEntryBuffer.addLogEntry("Neighbor Country removed successfully!");
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Neighbor Country removed successfully!");
     }
 
     /** Returns the Highest existing Continent ID */

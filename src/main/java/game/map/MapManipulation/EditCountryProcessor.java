@@ -58,7 +58,7 @@ public class EditCountryProcessor {
                             .orElse(null);
 
             if (l_linked_continent == null) {
-                GameEngine.d_logEntryBuffer.addLogEntry(
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                         "Continent Name: " + p_continent_name + " does not exist!");
                 return;
             }
@@ -70,9 +70,9 @@ public class EditCountryProcessor {
 
                 map.addCountryToContinent(l_linked_continent.getD_id(), l_country_id);
 
-                GameEngine.d_logEntryBuffer.addLogEntry("Country Added Successfully!");
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country Added Successfully!");
             } catch (Exception e) {
-                GameEngine.d_logEntryBuffer.addLogEntry("Country could not be added!");
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country could not be added!");
             }
         }
     }

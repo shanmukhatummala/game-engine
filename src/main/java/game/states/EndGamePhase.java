@@ -7,6 +7,6 @@ import game.GameEngine;
 public class EndGamePhase extends PlayPhase {
 
     public EndGamePhase() {
-        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 }

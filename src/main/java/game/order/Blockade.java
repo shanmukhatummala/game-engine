@@ -54,20 +54,20 @@ public class Blockade extends Order {
         Country l_target = getCountryByName(getD_map(), d_targetName);
 
         if (l_target == null) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     d_targetName
                             + " doesn't exist in the map now. So, cannot blockade this country.");
             return false;
         }
 
         if (!getD_initiator().getD_cards().contains(BLOCKADE)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     getD_initiator().getD_name()
                             + " doesn't have a BLOCKADE card. So, cannot execute blockade order.");
             return false;
         }
         if (!this.getD_initiator().getD_countries().contains(l_target)) {
-            GameEngine.d_logEntryBuffer.addLogEntry(
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Target country, "
                             + l_target.getD_name()
                             + ", does not belong to the initiator, "

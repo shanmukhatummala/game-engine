@@ -13,7 +13,7 @@ import java.util.List;
 public class IssueOrderPhase extends PlayPhase {
 
     public IssueOrderPhase() {
-        GameEngine.d_logEntryBuffer.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
     }
 
     @Override

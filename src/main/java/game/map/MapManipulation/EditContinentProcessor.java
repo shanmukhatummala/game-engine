@@ -55,9 +55,9 @@ public class EditContinentProcessor {
                                 map.getMaxContinentId() + 1,
                                 p_continent_name,
                                 Integer.parseInt(p_continent_bonus))); // check ID
-                GameEngine.d_logEntryBuffer.addLogEntry("Continent Added Successfully!");
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Continent Added Successfully!");
             } catch (Exception e) {
-                GameEngine.d_logEntryBuffer.addLogEntry("Continent could not be added!");
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Continent could not be added!");
             }
         }
     }
