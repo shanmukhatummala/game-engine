@@ -63,7 +63,7 @@ public class AssignResourcesPhaseTest {
 
     /** Test assignReinforcements when 5 reinforcements assigned to each player */
     @Test
-    void testAssignReinforcements() {
+    void testInitialReinforcements() {
         d_map.addPlayer(d_player1.getD_name());
         d_map.addPlayer(d_player2.getD_name());
 
@@ -71,13 +71,13 @@ public class AssignResourcesPhaseTest {
 
         // check reinforcements for each player
         assertEquals(
-                5, d_player1.getD_reinforcements()); // Initial reinforcements for two players are 5
-        assertEquals(5, d_player2.getD_reinforcements());
+                0, d_player1.getD_reinforcements()); // Initial reinforcements for two players are 5
+        assertEquals(0, d_player2.getD_reinforcements());
     }
 
     /** Test assignReinforcements when bonus reinforcements assigned to each player */
     @Test
-    public void testAssignReinforcementsWithContinentBonus() {
+    public void testAssignReinforcementsWithTerritoriesAndContinentBonus() {
 
         // Add players to the map
         d_map.getD_players().add(d_player1);
@@ -106,7 +106,7 @@ public class AssignResourcesPhaseTest {
         new AssignResourcesPhase().handleReinforcementsAssignment(d_map, new GameEngine(d_map));
 
         // Check player 1 received correct number of reinforcements
-        assertEquals(6, d_player1.getD_reinforcements()); // Base: 3 + Bonus: 3 = 8
+        assertEquals(4, d_player1.getD_reinforcements()); // Base: 3 + Bonus: 3 = 8
 
         // Check player 2 received correct number of reinforcements
         assertEquals(3, d_player2.getD_reinforcements()); // Base: 3

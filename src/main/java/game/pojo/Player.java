@@ -39,7 +39,7 @@ public class Player {
         this.d_name = p_name;
         this.d_countries = p_countries;
         this.d_orderList = new LinkedList<>();
-        this.d_reinforcements = 5; //  the initial value of reinforcements for all the players
+        this.d_reinforcements = 0; //  the initial value of reinforcements for all the players
         this.d_cards = new ArrayList<>();
         this.d_negotiatedPlayers = new HashSet<>();
     }
