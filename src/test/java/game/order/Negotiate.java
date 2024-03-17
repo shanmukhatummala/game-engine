@@ -21,7 +21,7 @@ public class Negotiate extends Order {
      * @param p_map reference to the map
      */
     public Negotiate(Player p_initiator, Player p_targetPlayer, Map p_map) {
-        super(p_initiator);
+        super(p_initiator); // Call the superclass constructor with null destination
         this.d_targetPlayer = p_targetPlayer;
         this.map = p_map;
     }
@@ -35,6 +35,11 @@ public class Negotiate extends Order {
         return d_targetPlayer;
     }
 
+    /**
+     * Gives the map which can used when Player creates Order
+     *
+     * @return map
+     */
     public Map getMap() {
         return map;
     }
@@ -45,7 +50,6 @@ public class Negotiate extends Order {
      */
     public void execute() {
         if (valid()) {
-            // both players in the set should not attack each other
             getD_initiator().getD_negotiatedPlayers().add(d_targetPlayer.getD_name());
             getD_initiator().getD_cards().remove(DIPLOMACY);
         }
@@ -62,9 +66,8 @@ public class Negotiate extends Order {
         }
 
         // check if the target player is in the players list
-        // Player l_targetPlayer = getD_targetPlayer();
-        List<Player> players = map.getD_players();
-        if (!players.contains(getD_targetPlayer())) {
+        List<Player> l_players = map.getD_players();
+        if (!l_players.contains(getD_targetPlayer())) {
             System.out.println("Target player not found in the list of players");
             return false;
         }
