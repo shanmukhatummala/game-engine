@@ -6,61 +6,54 @@ import game.pojo.Player;
 import java.util.List;
 import java.util.Random;
 
-import static game.map.MapHelper.isAdjacent;
-
 /**
- * This class extends from order class and represents the Advance
- *
+ * This class extends from order class and represents the Airlift
  * @author Naveen
  */
-public class Advance extends Order {
+
+public class Airlift extends Order {
+
+
+    private Player d_destinationOwner;
 
     private final Country d_destination;
     private final Country d_source;
-    private final Player d_destinationOwner;
     private final int d_armyNumber;
-
     /**
      * Constructor for Advance
      *
-     * @param p_source Country object representing the source territory
-     * @param p_destination Country object representing the p_destination territory
-     * @param p_destinationOwner Player object represents owner of the p_destination country
      * @param p_initiator Player object who initiated the order
+     * @param p_destination Country object representing the destination territory
+     * @param p_destinationOwner Player object represents owner of the destination country
+     * @param p_source Country object representing the source territory
      * @param p_armyNumber Integer representing the number of armies to move
      */
-    public Advance(
+    public Airlift(
+            Player p_initiator,
+            Player p_destinationOwner,
             Country p_destination,
             Country p_source,
-            Player p_destinationOwner,
-            Player p_initiator,
             int p_armyNumber) {
+
+
         super(p_initiator);
-        this.d_source = p_source;
         this.d_destination = p_destination;
+        this.d_source = p_source;
         this.d_armyNumber = p_armyNumber;
         this.d_destinationOwner = p_destinationOwner;
     }
 
     /**
-     * Executes the deployment of armies to a specified destination country.
-     *
-     * <p>This method checks if the destination country is owned by the initiator of the order.
-     *
-     * <p>If the destination is owned by the initiator, it adds the specified number of armies to
-     * the destination's army count. If the destination is not adjacent to any of the initiator's
-     * countries it first checks is their any negotiation between the players if not it initiates an
-     * attack on the destination.
-     *
-     * @throws IllegalArgumentException if the destination country is not adjacent to any of the
-     *     initiator's countries and an attack is attempted.
+     * Executes the deployment of armies to a specified destination country. This method checks if
+     * the destination country is owned by the initiator of the order. If the destination is owned
+     * by the initiator, it adds the specified number of armies to the destination's army count. If
+     * the destination is not owned by the initiator's it first check for the is their any
+     * negotiation between the players if not it initiates an attack on the destination territory.
      */
     @Override
     public void execute() {
         if (valid()) {
-
             List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
-
             if (l_countriesOfInitiator.contains(d_destination)) {
                 d_source.setD_armyCount(d_source.getD_armyCount() - d_armyNumber);
                 d_destination.setD_armyCount(d_destination.getD_armyCount() + d_armyNumber);
@@ -81,7 +74,6 @@ public class Advance extends Order {
                                     + ", are under negotiation. So, cannot attack.");
                     return;
                 }
-
                 d_source.setD_armyCount(d_source.getD_armyCount() - d_armyNumber);
                 attackTerritory(d_destination, d_armyNumber, d_destinationOwner, getD_initiator());
             }
@@ -93,23 +85,15 @@ public class Advance extends Order {
     /**
      * Checks the validity of the connection between the source and destination countries. The
      * connection is considered valid if the source country is associated with the initiator and
-     * either directly connected to the destination country or indirectly through adjacency.
+     * either directly connected to the destination country or the destination country is associated
+     * with the initiator.
      *
      * @return {@code true} if the connection is valid, {@code false} otherwise.
      */
     @Override
     public boolean valid() {
         List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
-
-        if (!l_countriesOfInitiator.contains(d_source)) {
-            return false;
-        }
-
-        if (l_countriesOfInitiator.contains(d_destination)) {
-            return true;
-        }
-
-        return isAdjacent(l_countriesOfInitiator, d_destination);
+        return l_countriesOfInitiator.contains(d_source);
     }
 
     /**
@@ -128,7 +112,7 @@ public class Advance extends Order {
      * @see Country#getD_armyCount()
      * @see Player#getD_countries()
      */
-    private void attackTerritory(
+    public void attackTerritory(
             Country p_target, int p_armyNumber, Player p_destinationOwner, Player p_initiator) {
         Random l_random = new Random();
         int l_attackingArmyCount = p_armyNumber;

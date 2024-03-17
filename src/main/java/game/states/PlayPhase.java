@@ -3,7 +3,9 @@ package game.states;
 import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
+import game.pojo.Player;
 
+import java.io.BufferedReader;
 import java.util.*;
 
 public abstract class PlayPhase implements Phase {
@@ -35,7 +37,7 @@ public abstract class PlayPhase implements Phase {
     }
 
     @Override
-    public void handleAssignCountries(Map p_map, GameEngine p_ge) {
+    public void handleCountriesAssignment(Map p_map, GameEngine p_ge) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()
@@ -69,6 +71,19 @@ public abstract class PlayPhase implements Phase {
                         + " you can't edit map in the play phase";
         printInvalidCommandMessage(message);
     }
+
+    @Override
+    public void handleIssuingOrders(Map p_map, GameEngine p_ge, BufferedReader p_bufferedReader) {}
+
+    @Override
+    public void handleExecutingOrders(
+            Map p_map, GameEngine p_ge, Set<Player> l_playersToAssignCard) {}
+
+    @Override
+    public void handleReinforcementsAssignment(Map p_map, GameEngine p_ge) {}
+
+    @Override
+    public void handleCardAssignment(Set<Player> p_players, GameEngine p_ge) {}
 
     @Override
     public void handleDeployOrder() {}

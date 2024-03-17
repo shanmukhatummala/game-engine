@@ -53,7 +53,7 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleAssignCountries(Map p_map, GameEngine p_ge) {
+    public void handleCountriesAssignment(Map p_map, GameEngine p_ge) {
         String message = "Invalid Command in state" + this.getClass().getSimpleName();
         printInvalidCommandMessage(message);
     }
