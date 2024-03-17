@@ -35,7 +35,6 @@ public class Airlift extends Order {
             Country p_source,
             int p_armyNumber) {
 
-
         super(p_initiator);
         this.d_destination = p_destination;
         this.d_source = p_source;

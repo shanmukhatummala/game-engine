@@ -1,13 +1,5 @@
 package game;
 
-import static game.map.MapEditor.editMap;
-import static game.map.MapHelper.playerOwnsContinent;
-import static game.map.MapLoader.loadMap;
-import static game.map.MapShower.showMap;
-import static game.map.MapValidator.isMapValid;
-import static game.util.FileHelper.createNewFileForMap;
-import static game.util.FileHelper.fileExists;
-
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.map.Map;
@@ -17,14 +9,24 @@ import game.pojo.Player;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
 import game.util.IssueOrderHelper;
-
 import lombok.Setter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import static game.map.MapEditor.editMap;
+import static game.map.MapHelper.playerOwnsContinent;
+import static game.map.MapLoader.loadMap;
+import static game.map.MapShower.showMap;
+import static game.map.MapValidator.isMapValid;
+import static game.util.FileHelper.createNewFileForMap;
+import static game.util.FileHelper.fileExists;
 
 /**
  * GameEngine is responsible for reading the main commands from the players and calling required
@@ -209,23 +211,27 @@ public class GameEngine {
      */
     public static void assignReinforcements(Map p_map) {
 
-        final int l_reinforcements_per_player = 5; // Default reinforcements per player
+            // Minimal number of reinforcement armies for any player
+            final int MIN_REINFORCEMENTS = 3;
 
-        for (Player l_player : p_map.getD_players()) {
-            l_player.setD_reinforcements(l_reinforcements_per_player);
+            for (Player l_player : p_map.getD_players()) {
+                // Calculate number of reinforcements based on owned territories
+                int territoriesOwned = l_player.getD_countries().size();
+                int reinforcements = Math.max(MIN_REINFORCEMENTS, territoriesOwned / 3);
 
-            int l_additionalReinforcements = 0;
-            for (Continent l_continent : p_map.getD_continents()) {
-                if (playerOwnsContinent(p_map, l_player, l_continent)) {
-                    // If the player owns the continent, add the bonus reinforcements
-                    l_additionalReinforcements += l_continent.getD_bonus();
+                // Check for continent control bonuses
+                for (Continent l_continent : p_map.getD_continents()) {
+                    if (playerOwnsContinent(p_map, l_player, l_continent)) {
+                        reinforcements += l_continent.getD_bonus();
+                    }
                 }
+
+                // Set the total reinforcements for the player
+                l_player.setD_reinforcements(reinforcements);
             }
-            // Set the total reinforcements for the player
-            l_player.setD_reinforcements(
-                    l_player.getD_reinforcements() + l_additionalReinforcements);
-        }
-        System.out.println("Reinforcements are assigned");
+
+            System.out.println("Reinforcements are assigned");
+
     }
 
     /**

@@ -1,12 +1,12 @@
 package game.order;
 
+import static game.map.MapHelper.isAdjacent;
+
 import game.pojo.Country;
 import game.pojo.Player;
 
 import java.util.List;
 import java.util.Random;
-
-import static game.map.MapHelper.isAdjacent;
 
 /**
  * This class extends from order class and represents the Advance
