@@ -14,7 +14,6 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-import game.states.AssignResourcesPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
 import game.util.IssueOrderHelper;
@@ -162,7 +161,7 @@ public class GameEngine {
                         gamePhase.handleEditCountriesOrContinentOrNeighbor(
                                 l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
-                        gamePhase.handleAssignCountries(d_map, this);
+                        gamePhase.handleCountriesAssignment(d_map, this);
                         startGameLoop(d_map, l_bufferedReader);
                         System.out.println("Game over - all orders executed");
                         endGame();
@@ -184,16 +183,16 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private static void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
-        assignReinforcements(p_map);
+    private void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
+        gamePhase.handleReinforcementsAssignment(p_map, this);
 
         while (p_map.getD_players().size() > 1) {
-            issueOrders(p_map, p_bufferedReader);
+            gamePhase.handleIssuingOrders(p_map, this, p_bufferedReader);
             Set<Player> l_playersToAssignCard = new HashSet<>();
-            executeOrders(p_map, l_playersToAssignCard);
-            new AssignResourcesPhase().assignRandomCard(l_playersToAssignCard);
+            gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
+            gamePhase.handleCardAssignment(l_playersToAssignCard, this);
             p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
-            showMap(p_map);
+            gamePhase.handleShowMap(p_map);
         }
 
         if (p_map.getD_players().size() == 1) {
