@@ -30,13 +30,14 @@ public class EditMapPhase extends StartUpPhase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't load a map here.";
         printInvalidCommandMessage(l_message);
     }
+
 
     /**
      * Handles the command to save the map and saves the map if it is valid and given an error

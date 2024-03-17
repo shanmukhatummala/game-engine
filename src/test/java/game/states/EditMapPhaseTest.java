@@ -34,7 +34,7 @@ public class EditMapPhaseTest {
     @BeforeEach
     public void setUp() {
         d_playSetUpPhase = new GameEngine();
-        d_playSetUpPhase.setGamePhase(new EditMapPhase());
+        d_playSetUpPhase.setD_gamePhase(new EditMapPhase());
         d_map = new Map();
         d_path = "src/test/resources/";
         System.setOut(new PrintStream(outputStreamCaptor));
@@ -78,7 +78,7 @@ public class EditMapPhaseTest {
     @Test
     public void handleLoadMapTest(){
         String l_expectedOutput = "Invalid Command in state EditMapPhase you can't load a map here.";
-        d_playSetUpPhase.getGamePhase().handleLoadMap(new Command("",new ArrayList<>()),d_map,d_playSetUpPhase,d_path);
+        d_playSetUpPhase.getD_gamePhase().handleLoadMap(new Command("",new ArrayList<>()),d_map,d_playSetUpPhase,d_path);
         Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
     }
 
@@ -88,7 +88,7 @@ public class EditMapPhaseTest {
         l_args.add("new.map");
         d_map = createObjectsToAssert();
         Command l_command = new Command("savemap",l_args);
-        d_playSetUpPhase.getGamePhase().handleSaveMap(l_command,d_map,d_playSetUpPhase,d_path);
+        d_playSetUpPhase.getD_gamePhase().handleSaveMap(l_command,d_map,d_playSetUpPhase,d_path);
         String l_expectedPhase = "PlaySetupPhase";
         Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getGamePhase().getClass().getSimpleName());
     }
@@ -102,7 +102,7 @@ public class EditMapPhaseTest {
         String[] l_args = new String[]{"editcountry","-add","test","Asia"};
         List<Country> l_expectedCountries = new ArrayList<>();
         l_expectedCountries.add(new Country(1, "test", l_continent.get(0)));
-        d_playSetUpPhase.getGamePhase().handleEditCountriesOrContinentOrNeighbor(l_args,d_map);
+        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_args,d_map);
         Assertions.assertEquals(l_expectedCountries, d_map.getD_countries());
     }
 
@@ -112,7 +112,7 @@ public class EditMapPhaseTest {
         String[] l_args = new String[]{"editcontinent","-add","test","3"};
         List<Continent> l_expectedContinent = new ArrayList<>();
         l_expectedContinent.add(new Continent(1, "test",3));
-        d_playSetUpPhase.getGamePhase().handleEditCountriesOrContinentOrNeighbor(l_args,d_map);
+        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_args,d_map);
         Assertions.assertEquals(l_expectedContinent, d_map.getD_continents());
     }
 

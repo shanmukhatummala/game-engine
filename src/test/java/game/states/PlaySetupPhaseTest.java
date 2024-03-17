@@ -30,7 +30,7 @@ public class PlaySetupPhaseTest {
     @BeforeEach
     public void setUp() {
         d_playSetUpPhase = new GameEngine();
-        d_playSetUpPhase.setGamePhase(new PlaySetupPhase());
+        d_playSetUpPhase.setD_gamePhase(new PlaySetupPhase());
         d_map = new Map();
         d_path = "src/test/resources/";
         System.setOut(new PrintStream(outputStreamCaptor));
@@ -84,7 +84,7 @@ public class PlaySetupPhaseTest {
         List<String> l_commandArgs = new ArrayList<>();
         l_commandArgs.add("new.map");
         Command l_command = new Command("loadmap",l_commandArgs);
-        d_playSetUpPhase.getGamePhase().handleLoadMap(l_command,d_map,d_playSetUpPhase, d_path);
+        d_playSetUpPhase.getD_gamePhase().handleLoadMap(l_command,d_map,d_playSetUpPhase, d_path);
         List<Continent> l_continents = d_map.getD_continents();
         List<Country> l_countries = d_map.getD_countries();
         List<Player> l_players = d_map.getD_players();
@@ -108,7 +108,7 @@ public class PlaySetupPhaseTest {
         List<Command> l_command = new ArrayList<>();
         l_command.add(new Command("gameplayer",l_command1Args));
         l_command.add(new Command("gameplayer", l_command2Args));
-        d_playSetUpPhase.getGamePhase().handleGamePlayer(l_command,d_map);
+        d_playSetUpPhase.getD_gamePhase().handleGamePlayer(l_command,d_map);
         List<Player> l_players = d_map.getD_players();
         Assertions.assertEquals(l_expectedPlayers,l_players);
 
@@ -123,7 +123,7 @@ public class PlaySetupPhaseTest {
         List<Command> l_command = new ArrayList<>();
         l_command.add(new Command("gameplayer",l_commandArgs));
         d_map = new Map(new ArrayList<>(),new ArrayList<>(), createPlayersList(),"testmap");
-        d_playSetUpPhase.getGamePhase().handleGamePlayer(l_command,d_map);
+        d_playSetUpPhase.getD_gamePhase().handleGamePlayer(l_command,d_map);
         List<Player> l_players = d_map.getD_players();
         Assertions.assertEquals(l_expectedPlayers,l_players);
 
@@ -135,9 +135,9 @@ public class PlaySetupPhaseTest {
         List<String> l_args = new ArrayList<>();
         l_args.add("new.map");
         Command l_command = new Command("editmap",l_args);
-        d_playSetUpPhase.getGamePhase().handleEditMap(d_playSetUpPhase,l_command,d_map,d_path);
+        d_playSetUpPhase.getD_gamePhase().handleEditMap(d_playSetUpPhase,l_command,d_map,d_path);
         String l_expectedPhase = "EditMapPhase";
-        Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getGamePhase().getClass().getSimpleName());
+        Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getD_gamePhase().getClass().getSimpleName());
     }
 
 
@@ -146,21 +146,21 @@ public class PlaySetupPhaseTest {
     @Test
     public void handleSaveMapTest(){
         String l_expectedOutput = "Invalid Command in state PlaySetupPhase you can't save a map here";
-        d_playSetUpPhase.getGamePhase().handleSaveMap(new Command("",new ArrayList<>()),d_map,d_playSetUpPhase,d_path);
+        d_playSetUpPhase.getD_gamePhase().handleSaveMap(new Command("",new ArrayList<>()),d_map,d_playSetUpPhase,d_path);
         Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
     }
 
     @Test
     public void handleValidateMapTest(){
         String l_expectedOutput = "Invalid Command in state PlaySetupPhase you can't Validate a map here";
-        d_playSetUpPhase.getGamePhase().handleValidateMap(d_map);
+        d_playSetUpPhase.getD_gamePhase().handleValidateMap(d_map);
         Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
     }
 
     @Test
     public void handleEditCountriesOrContinentOrNeighborTest(){
         String l_expectedOutput = "Invalid Command in state PlaySetupPhase you can't edit map while not in the edit mode phase";
-        d_playSetUpPhase.getGamePhase().handleEditCountriesOrContinentOrNeighbor(new String[]{},d_map);
+        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(new String[]{},d_map);
         Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
     }
 
