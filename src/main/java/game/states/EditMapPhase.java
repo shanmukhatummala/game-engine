@@ -114,7 +114,7 @@ public class EditMapPhase extends StartUpPhase {
      * @param p_map Current map for the game.
      */
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, String p_basePath) {
+    public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map, String p_basePath) {
         String l_message = "Invalid Command you are already in the Edit Map mode";
         printInvalidCommandMessage(l_message);
     }
