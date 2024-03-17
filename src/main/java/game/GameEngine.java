@@ -256,12 +256,13 @@ public class GameEngine {
                         } else if ("commit".equals(l_command.getCommandType())) {
                             gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
                             break;
-                        }else{
-                            gamePhase.handleIssuingOrders(d_map, l_player,l_command);
+                        } else {
+                            gamePhase.handleIssuingOrders(d_map, l_player, l_command);
                             break;
                         }
                     } catch (IOException e) {
-                        gamePhase.printInvalidCommandMessage("Error when reading command. Error message: " + e.getMessage());
+                        gamePhase.printInvalidCommandMessage(
+                                "Error when reading command. Error message: " + e.getMessage());
                     }
                 }
                 System.out.println(

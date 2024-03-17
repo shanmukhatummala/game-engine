@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents an observable object, or "data" in the model-view paradigm.
- * It can be subclassed to represent an object that the application wants to have observed.
+ * This class represents an observable object, or "data" in the model-view paradigm. It can be
+ * subclassed to represent an object that the application wants to have observed.
  */
 public class Observable {
-    /**
-     * The list of observers to notify upon changes.
-     */
+    /** The list of observers to notify upon changes. */
     private final List<Observer> d_observers = new ArrayList<Observer>();
 
     /**
@@ -18,7 +16,7 @@ public class Observable {
      *
      * @param p_o The observer to attach.
      */
-    public void attach(Observer p_o){
+    public void attach(Observer p_o) {
         this.d_observers.add(p_o);
     }
 
@@ -27,7 +25,7 @@ public class Observable {
      *
      * @param p_o The observer to detach.
      */
-    public void detach(Observer p_o){
+    public void detach(Observer p_o) {
         if (!d_observers.isEmpty()) {
             d_observers.remove(p_o);
         }

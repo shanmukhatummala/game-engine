@@ -137,8 +137,9 @@ public class Player {
             String l_countryId = l_command.getArgs().get(0);
             int l_numArmies = Integer.parseInt(l_command.getArgs().get(1));
             d_orderList.add(new Deploy(getCountryByName(l_map, l_countryId), this, l_numArmies));
-            if (IssueOrderHelper.validateDeploy(this,getCountryByName(l_map, l_countryId),l_numArmies)) {
-                this.setD_reinforcements(d_reinforcements-l_numArmies);
+            if (IssueOrderHelper.validateDeploy(
+                    this, getCountryByName(l_map, l_countryId), l_numArmies)) {
+                this.setD_reinforcements(d_reinforcements - l_numArmies);
             }
 
         } else if ("bomb".equals(commandType)) {

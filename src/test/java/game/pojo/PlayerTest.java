@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import pl.pojo.tester.api.assertion.Method;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /** PlayerTest is a test class for the Player POJO */

@@ -8,17 +8,17 @@ import java.util.Random;
 
 /**
  * This class extends from order class and represents the Airlift
+ *
  * @author Naveen
  */
-
 public class Airlift extends Order {
-
 
     private Player d_destinationOwner;
 
     private final Country d_destination;
     private final Country d_source;
     private final int d_armyNumber;
+
     /**
      * Constructor for Advance
      *
@@ -34,7 +34,6 @@ public class Airlift extends Order {
             Country p_destination,
             Country p_source,
             int p_armyNumber) {
-
 
         super(p_initiator);
         this.d_destination = p_destination;

@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 
 public class ExecuteOrderPhase extends PlayPhase {
 
-
-
     /**
      * Loop over all the players until all the orders are executed
      *

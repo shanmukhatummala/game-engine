@@ -7,17 +7,16 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 /**
- * This class represents a buffer for log entries. It extends the Observable class to support observer pattern.
- * LogEntryBuffer maintains a list of log entries and notifies its observers when new log entries are added.
+ * This class represents a buffer for log entries. It extends the Observable class to support
+ * observer pattern. LogEntryBuffer maintains a list of log entries and notifies its observers when
+ * new log entries are added.
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @RequiredArgsConstructor
 public class LogEntryBuffer extends Observable {
 
-    /**
-     * The list of log entries stored in this buffer.
-     */
+    /** The list of log entries stored in this buffer. */
     private final List<String> d_logEntries;
 
     /**
@@ -31,9 +30,7 @@ public class LogEntryBuffer extends Observable {
         this.clearLogEntries();
     }
 
-    /**
-     * Clears all log entries from the buffer.
-     */
+    /** Clears all log entries from the buffer. */
     public void clearLogEntries() {
         d_logEntries.clear();
     }

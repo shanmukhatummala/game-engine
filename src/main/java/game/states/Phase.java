@@ -37,7 +37,6 @@ public interface Phase {
 
     public void handleIssuingOrders(Map p_map, Player p_player, Command p_command);
 
-
     public void handleExecutingOrders(
             Map p_map, GameEngine p_ge, Set<Player> l_playersToAssignCard);
 
