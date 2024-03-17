@@ -5,7 +5,6 @@ import game.commands.Command;
 import game.map.Map;
 import game.pojo.Player;
 
-import java.io.BufferedReader;
 import java.util.*;
 
 public abstract class PlayPhase implements Phase {
@@ -73,7 +72,7 @@ public abstract class PlayPhase implements Phase {
     }
 
     @Override
-    public void handleIssuingOrders(Map p_map, GameEngine p_ge, BufferedReader p_bufferedReader) {}
+    public void handleIssuingOrders(Map p_map, Player p_player, Command p_command) {}
 
     @Override
     public void handleExecutingOrders(
@@ -95,5 +94,11 @@ public abstract class PlayPhase implements Phase {
     public void handleUseCardOrder() {}
 
     @Override
-    public void handleCommit() {}
+    public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer) {
+        String message =
+                "Invalid Command in state"
+                        + this.getClass().getSimpleName()
+                        + " you can't commit here.";
+        printInvalidCommandMessage(message);
+    }
 }

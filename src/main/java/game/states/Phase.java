@@ -7,7 +7,6 @@ import game.commands.Command;
 import game.map.Map;
 import game.pojo.Player;
 
-import java.io.BufferedReader;
 import java.util.*;
 
 public interface Phase {
@@ -34,9 +33,10 @@ public interface Phase {
 
     public void handleUseCardOrder();
 
-    public void handleCommit();
+    public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer);
 
-    public void handleIssuingOrders(Map p_map, GameEngine p_ge, BufferedReader p_bufferedReader);
+    public void handleIssuingOrders(Map p_map, Player p_player, Command p_command);
+
 
     public void handleExecutingOrders(
             Map p_map, GameEngine p_ge, Set<Player> l_playersToAssignCard);
