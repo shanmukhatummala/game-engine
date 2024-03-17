@@ -4,6 +4,7 @@ import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
 
+/** Represents the state where the game has ended. */
 public class EndGamePhase extends PlayPhase {
 
     /**
