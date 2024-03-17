@@ -17,62 +17,60 @@ public class StartUpCommandValidator implements CommandValidator {
 
         d_methodMap = new HashMap<String, Method>();
 
-        String orderType = null;
+        String l_orderType = null;
 
         for (int l_i = 0; l_i < d_validCommands.size(); l_i++) {
             try {
-                orderType = d_validCommands.get(l_i);
+                l_orderType = d_validCommands.get(l_i);
                 d_methodMap.put(
-                        orderType,
+                        l_orderType,
                         StartUpCommandValidator.class.getDeclaredMethod(
                                 "validate"
-                                        + orderType.substring(0, 1).toUpperCase()
-                                        + orderType.substring(1)
+                                        + l_orderType.substring(0, 1).toUpperCase()
+                                        + l_orderType.substring(1)
                                         + "Command",
                                 Command.class));
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                e.printStackTrace();
+            } catch (NoSuchMethodException | SecurityException l_e) {
+                l_e.printStackTrace();
             }
         }
     }
 
     @Override
     public boolean validate(Command p_command) throws IllegalArgumentException {
-        String l_commandType = p_command.getCommandType();
+        String l_commandType = p_command.getD_commandType();
         if (d_methodMap.containsKey(l_commandType)) {
             try {
                 return (boolean) d_methodMap.get(l_commandType).invoke(this, p_command);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception l_e) {
+                l_e.printStackTrace();
             }
         }
         return false;
     }
 
     private boolean validateGameplayerCommand(Command p_command) {
-        if (p_command.getArgs().size() != 2) {
+        if (p_command.getD_args().size() != 2) {
             return false;
         }
-        List<String> l_commandArgs = p_command.getArgs();
+        List<String> l_commandArgs = p_command.getD_args();
 
         return (l_commandArgs.get(0).equals("-add") || l_commandArgs.get(0).equals("-remove"));
     }
 
     private boolean validateLoadmapCommand(Command p_command) {
-        return (p_command.getArgs().size() == 1);
+        return (p_command.getD_args().size() == 1);
     }
 
     private boolean validateShowmapCommand(Command p_command) {
-        return (p_command.getArgs().size() == 0);
+        return (p_command.getD_args().size() == 0);
     }
 
     private boolean validateAssigncountriesCommand(Command p_command) {
-        return (p_command.getArgs().size() == 0);
+        return (p_command.getD_args().size() == 0);
     }
 
     private boolean validateEditmapCommand(Command p_command) {
-        return (p_command.getArgs().size() == 1);
+        return (p_command.getD_args().size() == 1);
     }
 }

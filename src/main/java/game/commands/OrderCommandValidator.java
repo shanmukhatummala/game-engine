@@ -17,17 +17,17 @@ public class OrderCommandValidator implements CommandValidator {
 
         for (int l_i = 0; l_i < d_validCommands.size(); l_i++) {
             try {
-                String orderType = d_validCommands.get(l_i);
+                String l_orderType = d_validCommands.get(l_i);
                 d_methodMap.put(
-                        orderType,
+                        l_orderType,
                         OrderCommandValidator.class.getDeclaredMethod(
                                 "validate"
-                                        + orderType.substring(0, 1).toUpperCase()
-                                        + orderType.substring(1)
+                                        + l_orderType.substring(0, 1).toUpperCase()
+                                        + l_orderType.substring(1)
                                         + "Command",
                                 Command.class));
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+            } catch (NoSuchMethodException l_e) {
+                l_e.printStackTrace();
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
@@ -36,8 +36,8 @@ public class OrderCommandValidator implements CommandValidator {
 
     @Override
     public boolean validate(Command p_command) throws IllegalArgumentException {
-        String l_commandType = p_command.getCommandType();
-        List<String> l_commandArgs = p_command.getArgs();
+        String l_commandType = p_command.getD_commandType();
+        List<String> l_commandArgs = p_command.getD_args();
         if ((l_commandType.equals("showmap") || l_commandType.equals("commit"))
                 && l_commandArgs.isEmpty()) {
             return true;
@@ -45,68 +45,68 @@ public class OrderCommandValidator implements CommandValidator {
         if (d_methodMap.containsKey(l_commandType)) {
             try {
                 return (boolean) d_methodMap.get(l_commandType).invoke(this, p_command);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception l_e) {
+                l_e.printStackTrace();
             }
         }
         return false;
     }
 
     private boolean validateDeployCommand(Command p_command) {
-        if (p_command.getArgs().size() != 2) {
+        if (p_command.getD_args().size() != 2) {
             return false;
         }
-        List<String> l_commandArgs = p_command.getArgs();
+        List<String> l_commandArgs = p_command.getD_args();
 
         try {
             int l_numArmies = Integer.parseInt(l_commandArgs.get(1));
-        } catch (Exception e) {
+        } catch (Exception l_e) {
             return false;
         }
         return true;
     }
 
     private boolean validateAdvanceCommand(Command p_command) {
-        if (p_command.getArgs().size() != 3) {
+        if (p_command.getD_args().size() != 3) {
             return false;
         }
-        List<String> l_commandArgs = p_command.getArgs();
+        List<String> l_commandArgs = p_command.getD_args();
 
         try {
             int l_numArmies = Integer.parseInt(l_commandArgs.get(2));
-        } catch (Exception e) {
+        } catch (Exception l_e) {
             return false;
         }
         return true;
     }
 
     private boolean validateBombCommand(Command p_command) {
-        return (p_command.getArgs().size() == 1);
+        return (p_command.getD_args().size() == 1);
     }
 
     private boolean validateBlockadeCommand(Command p_command) {
-        return (p_command.getArgs().size() == 1);
+        return (p_command.getD_args().size() == 1);
     }
 
     private boolean validateAirliftCommand(Command p_command) {
-        if (p_command.getArgs().size() != 3) {
+        if (p_command.getD_args().size() != 3) {
             return false;
         }
-        List<String> l_commandArgs = p_command.getArgs();
+        List<String> l_commandArgs = p_command.getD_args();
 
         try {
             int l_numArmies = Integer.parseInt(l_commandArgs.get(2));
-        } catch (Exception e) {
+        } catch (Exception l_e) {
             return false;
         }
         return true;
     }
 
     private boolean validateCommitCommand(Command p_command) {
-        return (p_command.getArgs().size() == 1);
+        return (p_command.getD_args().size() == 1);
     }
 
     private boolean validateNegotiateCommand(Command p_command) {
-        return (p_command.getArgs().size() == 1);
+        return (p_command.getD_args().size() == 1);
     }
 }

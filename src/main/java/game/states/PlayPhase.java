@@ -7,6 +7,7 @@ import game.pojo.Player;
 
 import java.util.*;
 
+/** */
 public abstract class PlayPhase implements Phase {
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {

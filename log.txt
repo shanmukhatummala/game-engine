@@ -1,5 +1,6 @@
 << PHASE: IssueOrderPhase >>
 << PHASE: IssueOrderPhase >>
+<<<<<<< HEAD
 << PHASE: IssueOrderPhase >>
 << PHASE: AssignResourcesPhase >>
 << PHASE: AssignResourcesPhase >>
@@ -44,6 +45,28 @@ Reinforcements are assigned
 << PHASE: IssueOrderPhase >>
 << PHASE: IssueOrderPhase >>
 << PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: PlaySetupPhase >>
+Reinforcements are assigned
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Reinforcements are assigned
+Reinforcements are assigned
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+
+
 << PHASE: IssueOrderPhase >>
 << PHASE: AssignResourcesPhase >>
 << PHASE: AssignResourcesPhase >>
