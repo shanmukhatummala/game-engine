@@ -11,7 +11,9 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 
-/** This class contains test cases for the Advance class. */
+/** This class contains test cases for the Advance class.
+ * @author Naveen
+ */
 public class AdvanceOrderTest {
 
     /**
@@ -60,6 +62,9 @@ public class AdvanceOrderTest {
         assertFalse(advanceOrder.valid());
     }
 
+    /**
+     * Test case to verify the execution of an Advance order when the destination owner and initiator are negotiated players.
+     */
     @Test
     public void testExecuteAdvanceOrderWhenDestinationOwnerAndInitiatorAreNegotiatedPlayers() {
         Continent l_continent = new Continent();
@@ -74,9 +79,13 @@ public class AdvanceOrderTest {
         assertEquals(10, l_destination.getD_armyCount());
         assertEquals(10, l_source.getD_armyCount());
     }
+
+    /**
+     * Test case to verify the outcome of an attack on a territory when the attacker wins.
+     */
+
     @Test
     void testAttackTerritory_AttackerWins() {
-        // Setup: Ensure the attacker has more armies than the defender
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent,new ArrayList<>(), 100);
         Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
