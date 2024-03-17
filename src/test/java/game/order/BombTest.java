@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import pl.pojo.tester.api.assertion.Method;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /** Test for Bomb class */
@@ -56,7 +57,7 @@ public class BombTest {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent);
-        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_country2 = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         l_country1.addNeighbor(l_country2.getD_id());
         Player l_player = new Player("Player", List.of(l_country1));
         Bomb l_bomb = new Bomb(l_country2, null, l_player);
@@ -75,7 +76,7 @@ public class BombTest {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent);
-        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_country2 = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
         Bomb l_bomb = new Bomb(l_country2, null, l_player);
@@ -90,7 +91,7 @@ public class BombTest {
     public void shouldNotBombWhenTargetBelongsToSamePlayer() {
 
         Continent l_continent = new Continent();
-        Country l_country1 = new Country(1, "Country1", l_continent, new ArrayList<>(), 10);
+        Country l_country1 = new Country(1, "Country1", l_continent, new HashSet<>(), 10);
         Player l_player = new Player("Player", List.of(l_country1));
         l_player.addCard(BOMB);
         Bomb l_bomb = new Bomb(l_country1, null, l_player);
@@ -105,7 +106,7 @@ public class BombTest {
 
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent);
-        Country l_country2 = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_country2 = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         l_country1.addNeighbor(2);
         Player l_initiator = new Player("Player1", List.of(l_country1));
         Player l_targetOwner = new Player("Player2", List.of(l_country2));

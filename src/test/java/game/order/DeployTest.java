@@ -36,8 +36,8 @@ public class DeployTest {
      */
     private List<Country> createCountries(Continent p_continent) {
         List<Country> l_countries = new ArrayList<>();
-        l_countries.add(new Country(1, "country1", p_continent, new ArrayList<>(), 0));
-        l_countries.add(new Country(2, "country2", p_continent, new ArrayList<>(), 0));
+        l_countries.add(new Country(1, "country1", p_continent, new HashSet<>(), 0));
+        l_countries.add(new Country(2, "country2", p_continent, new HashSet<>(), 0));
         return l_countries;
     }
 

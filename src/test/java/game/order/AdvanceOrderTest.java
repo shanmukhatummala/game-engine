@@ -6,6 +6,7 @@ import game.pojo.Player;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
@@ -25,8 +26,8 @@ public class AdvanceOrderTest {
     @Test
     public void testExecuteAdvanceOrderDestinationOwnerIsAdjacentToInitiator() {
         Continent l_continent = new Continent();
-        Country l_source = new Country(1, "Country1", l_continent, new ArrayList<>(singletonList(2)), 10);
-        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_source = new Country(1, "Country1", l_continent, new HashSet<>(singletonList(2)), 10);
+        Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         Player l_initiator = new Player("Player1", List.of(l_source, l_destination));
         Advance l_advanceOrder = new Advance(l_destination, l_source, l_initiator, l_initiator, 5);
         l_advanceOrder.execute();
@@ -42,7 +43,7 @@ public class AdvanceOrderTest {
     public void testExecuteAdvanceOrderDestinationOwnerIsNotAdjacentToInitiator() {
         Continent l_continent = new Continent();
         Country l_source = new Country(1, "Country1", l_continent);
-        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
         Player l_initiator = new Player("Player1", List.of(l_source));
         Player l_destinationOwner = new Player("player2", List.of(l_destination));
         int l_initialDestinationArmyCount = l_destination.getD_armyCount();
@@ -70,8 +71,8 @@ public class AdvanceOrderTest {
     @Test
     public void testExecuteAdvanceOrderWhenDestinationOwnerAndInitiatorAreNegotiatedPlayers() {
         Continent l_continent = new Continent();
-        Country l_source = new Country(1, "Country1", l_continent, singletonList(2), 10);
-        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 10);
+        Country l_source = new Country(1, "Country1", l_continent, new HashSet<>(singletonList(2)), 10);
+        Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(new ArrayList<>()), 10);
         Player l_initiator = new Player("Player1", List.of(l_source));
         Player l_destinationOwner = new Player("Player2", List.of(l_destination));
         l_initiator.getD_negotiatedPlayers().add("Player2");
@@ -87,8 +88,8 @@ public class AdvanceOrderTest {
     @Test
     void testAttackTerritory_AttackerWins() {
         Continent l_continent = new Continent();
-        Country l_source = new Country(1, "Country1", l_continent, new ArrayList<>(), 100);
-        Country l_destination = new Country(2, "Country2", l_continent, new ArrayList<>(), 5);
+        Country l_source = new Country(1, "Country1", l_continent, new HashSet<>(), 100);
+        Country l_destination = new Country(2, "Country2", l_continent, new HashSet<>(), 5);
         Player l_initiator = new Player("Player1", new ArrayList<>(List.of(l_source)));
         Player l_destinationOwner = new Player("Player2", new ArrayList<>(List.of(l_destination)));
         Airlift l_airlift = new Airlift(l_initiator, l_destinationOwner, l_destination, l_source, 70);
