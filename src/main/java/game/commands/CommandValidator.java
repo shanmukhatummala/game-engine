@@ -9,5 +9,5 @@ public interface CommandValidator {
      * @return true if the command is syntactically correct
      * @throws IllegalArgumentException if the command is not correct
      */
-    abstract boolean validate(Command command) throws IllegalArgumentException;
+    abstract boolean validate(Command p_command) throws IllegalArgumentException;
 }

@@ -52,13 +52,13 @@ public class Command {
     /** Returns the command as a single string */
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder(d_commandType + " ");
-        for (int i = 0; i < d_args.size(); i++) {
-            s.append(d_args.get(i));
-            if (i < d_args.size() - 1) {
-                s.append(" ");
+        StringBuilder l_s = new StringBuilder(d_commandType + " ");
+        for (int l_i = 0; l_i < d_args.size(); l_i++) {
+            l_s.append(d_args.get(l_i));
+            if (l_i < d_args.size() - 1) {
+                l_s.append(" ");
             }
         }
-        return s.toString();
+        return l_s.toString();
     }
 }

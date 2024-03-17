@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Class testing the CommandParser class */
 public class CommandParserTest {
 
     String d_inputCommand;
@@ -14,6 +15,7 @@ public class CommandParserTest {
     String d_inputCommand2;
     String d_inputCommand3;
 
+    /** Sets the commands to be parsed */
     @BeforeEach
     void setUp() {
         d_inputCommand = "gameplayer -add playerName -add playername2 -remove playername1";
@@ -22,6 +24,7 @@ public class CommandParserTest {
         d_inputCommand3 = "commit";
     }
 
+    /** Tests if the gameplayer command is parsed correctly */
     @Test
     public void parseStartUpGameplayerTest() {
 
@@ -47,6 +50,7 @@ public class CommandParserTest {
         Assertions.assertEquals(l_expectedArgs3, l_commandList.get(2).getD_args());
     }
 
+    /** Tests if the deploy command is parsed correctly */
     @Test
     public void parseDeployTest() {
 
@@ -62,6 +66,7 @@ public class CommandParserTest {
         Assertions.assertEquals(l_expectedArgs, l_command.getD_args());
     }
 
+    /** Tests if the editcontinent command is parsed correctly */
     @Test
     public void parseEditcontinentTest() {
 
@@ -77,6 +82,7 @@ public class CommandParserTest {
         Assertions.assertEquals(l_expectedArgs, l_commandList.get(0).getD_args());
     }
 
+    /** Tests if the commit command is parsed correctly */
     @Test
     public void parseCommitCommandTest() {
 
