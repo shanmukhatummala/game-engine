@@ -1,20 +1,27 @@
 package game.order;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirliftTest {
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
+/**
+ * This class contains test cases for the Airlift class.
+ *
+ * @author Naveen
+ */
+public class AirliftTest {
+    /**
+     * Test case to verify the behavior of an Airlift order when the destination
+     * territory belongs to the same player as the initiator.
+     */
     @Test
     public void TestAirliftWhenDestinationBelongsToSamePlayer() {
 
@@ -25,6 +32,10 @@ public class AirliftTest {
         airlift.execute();
         assertThat(l_country.getD_armyCount(), equalTo(10));
     }
+
+    /**
+     * Test case to verify the behavior of an Airlift order when both the destination owner and the initiator are under negotiation.
+     */
 
     @Test
     public void TestAirliftWhenDestinationOwnerAndInitiatorAreUnderNegotiation() {
@@ -42,6 +53,9 @@ public class AirliftTest {
         assertThat(l_country2.getD_armyCount(), equalTo(10));
     }
 
+    /**
+     * Test case to verify the outcome of an attack on a territory when the attacker wins.
+     */
     @Test
     void testAttackTerritory_AttackerWins() {
         // Setup: Ensure the attacker has more armies than the defender
