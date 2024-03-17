@@ -46,7 +46,7 @@ public class AssignResourcesPhase extends PlayPhase {
             l_player.setD_reinforcements(
                     l_player.getD_reinforcements() + l_additionalReinforcements);
         }
-        System.out.println("Reinforcements are assigned");
+
         GameEngine.d_logEntryBuffer.addLogEntry("Reinforcements are assigned");
 
         p_ge.setGamePhase(new IssueOrderPhase());
