@@ -34,7 +34,6 @@ public abstract class PlayPhase implements Phase {
         printInvalidCommandMessage(message);
     }
 
-
     @Override
     public void handleAssignCountries(Map p_map, GameEngine p_ge) {
         String message =
@@ -70,7 +69,6 @@ public abstract class PlayPhase implements Phase {
                         + " you can't edit map in the play phase";
         printInvalidCommandMessage(message);
     }
-
 
     @Override
     public void handleDeployOrder() {}

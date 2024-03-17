@@ -130,12 +130,15 @@ public class GameEngine {
     public void startGame() {
 
         try (BufferedReader l_bufferedReader =
-                     new BufferedReader(new InputStreamReader(System.in))) {
+                new BufferedReader(new InputStreamReader(System.in))) {
 
             while (true) {
                 try {
                     // take the command and validate it
-                    String message = (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))?"Enter commands to 'edit (or) validate (or) save map':":"Enter the command";
+                    String message =
+                            (gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
+                                    ? "Enter commands to 'edit (or) validate (or) save map':"
+                                    : "Enter the command";
                     System.out.println(message);
                     String l_usrInput = l_bufferedReader.readLine();
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
