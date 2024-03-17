@@ -90,7 +90,7 @@ public class EditMapPhaseTest {
         Command l_command = new Command("savemap",l_args);
         d_playSetUpPhase.getD_gamePhase().handleSaveMap(l_command,d_map,d_playSetUpPhase,d_path);
         String l_expectedPhase = "PlaySetupPhase";
-        Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getGamePhase().getClass().getSimpleName());
+        Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getD_gamePhase().getClass().getSimpleName());
     }
 
 
