@@ -67,6 +67,14 @@ public class PlaySetupPhaseTest {
         return new Map(l_expectedContinents,l_expectedCountries,l_expectedPlayers,"new.map");
     }
 
+    private List<Player> createPlayersList() {
+
+        List<Player> l_expectedPlayers = new ArrayList<>();
+        l_expectedPlayers.add(new Player("player1",new ArrayList<>()));
+        l_expectedPlayers.add(new Player("player2",new ArrayList<>()));
+        return l_expectedPlayers;
+    }
+
     /** Tests if assigning a random card to players is working as expected */
     @Test
     public void handleLoadMapTest() {
@@ -94,6 +102,39 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedPhase, d_playSetUpPhase.getGamePhase().getClass().getSimpleName());
     }
 
+
+    @Test
+    public void handleGamePlayerTest() {
+        List<Player> l_expectedPlayers = createPlayersList();
+        List<String> l_command1Args = new ArrayList<>();
+        l_command1Args.add("-add");
+        l_command1Args.add("player1");
+        List<String> l_command2Args = new ArrayList<>();
+        l_command2Args.add("-add");
+        l_command2Args.add("player2");
+        List<Command> l_command = new ArrayList<>();
+        l_command.add(new Command("gameplayer",l_command1Args));
+        l_command.add(new Command("gameplayer", l_command2Args));
+        d_playSetUpPhase.getGamePhase().handleGamePlayer(l_command,d_map);
+        List<Player> l_players = d_map.getD_players();
+        Assertions.assertEquals(l_expectedPlayers,l_players);
+
+    }
+    @Test
+    public void handleGamePlayerRemoveTest() {
+        List<Player> l_expectedPlayers = new ArrayList<>();
+        l_expectedPlayers.add(new Player("player1"));
+        List<String> l_commandArgs = new ArrayList<>();
+        l_commandArgs.add("-remove");
+        l_commandArgs.add("player2");
+        List<Command> l_command = new ArrayList<>();
+        l_command.add(new Command("gameplayer",l_commandArgs));
+        d_map = new Map(new ArrayList<>(),new ArrayList<>(), createPlayersList(),"testmap");
+        d_playSetUpPhase.getGamePhase().handleGamePlayer(l_command,d_map);
+        List<Player> l_players = d_map.getD_players();
+        Assertions.assertEquals(l_expectedPlayers,l_players);
+
+    }
 
 
 

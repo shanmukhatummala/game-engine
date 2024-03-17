@@ -61,3 +61,51 @@ The loaded map is invalid, please load a valid map.
 << PHASE: PlaySetupPhase >>
 << PHASE: PlaySetupPhase >>
 << PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player1 added
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player1 added
+Player player2 added
+<< PHASE: PlaySetupPhase >>
+Player player2 removed
+<< PHASE: PlaySetupPhase >>
+Player player1 added
+Player player2 added
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed

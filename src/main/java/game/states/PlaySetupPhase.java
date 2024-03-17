@@ -66,9 +66,9 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, String p_basePath) {
         String l_fileName = p_command.getArgs().get(0);
-        String l_filePath = RESOURCES_PATH + l_fileName;
+        String l_filePath = p_basePath + l_fileName;
         if (!fileExists(l_filePath)) {
             createNewFileForMap(l_filePath);
             p_map.setD_mapName(l_fileName);
@@ -81,7 +81,7 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String message =
                 "Invalid Command in state"
                         + this.getClass().getSimpleName()

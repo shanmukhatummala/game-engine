@@ -27,7 +27,7 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge) {
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         if (!p_map.getD_mapName().equals(p_command.getArgs().get(0))) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntries(
                     List.of(
@@ -40,7 +40,7 @@ public class EditMapPhase extends StartUpPhase {
                     "Current map is not valid: aborting the saving process.");
             //            continue;
         }
-        saveMap(RESOURCES_PATH + p_map.getD_mapName(), p_map);
+        saveMap(p_basePath + p_map.getD_mapName(), p_map);
         p_ge.setGamePhase(new PlaySetupPhase());
     }
 
@@ -66,7 +66,7 @@ public class EditMapPhase extends StartUpPhase {
     }
 
     @Override
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map) {
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, String p_basePath) {
         String message = "Invalid Command you are already in the Edit Map mode";
         printInvalidCommandMessage(message);
     }

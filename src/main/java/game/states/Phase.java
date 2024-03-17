@@ -18,7 +18,7 @@ public interface Phase {
 
     public void handleGamePlayer(List<Command> p_commandList, Map p_map);
 
-    public void handleEditMap(GameEngine ge, Command p_command, Map p_map);
+    public void handleEditMap(GameEngine ge, Command p_command, Map p_map, String p_basePath);
 
     public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map);
 
@@ -26,7 +26,7 @@ public interface Phase {
 
     public void handleReinforcementsAssignment(Map p_map, GameEngine p_ge);
 
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge);
+    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 
     public void handleValidateMap(Map p_map);
 

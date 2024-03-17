@@ -153,7 +153,7 @@ public class GameEngine {
                     String l_commandType = l_commandList.get(0).getCommandType();
                     Command l_command = l_commandList.get(0);
                     if ("editmap".equals(l_commandType)) {
-                        gamePhase.handleEditMap(this, l_command, d_map);
+                        gamePhase.handleEditMap(this, l_command, d_map, RESOURCES_PATH);
                     } else if ("gameplayer".equals(l_commandType)) {
                         gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
@@ -161,7 +161,7 @@ public class GameEngine {
                     } else if ("showmap".equals(l_commandType)) {
                         gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        gamePhase.handleSaveMap(l_command, d_map, this);
+                        gamePhase.handleSaveMap(l_command, d_map, this,RESOURCES_PATH );
                     } else if ("validatemap".equals(l_commandType)) {
                         gamePhase.handleValidateMap(d_map);
                     } else if ("editcontinent".equals(l_commandType)

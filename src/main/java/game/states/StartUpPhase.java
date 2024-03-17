@@ -10,7 +10,6 @@ import java.util.Set;
 
 abstract class StartUpPhase implements Phase {
 
-    public static final String RESOURCES_PATH = "src/main/resources/";
 
     @Override
     public void handleIssuingOrders(Map p_map, Player p_player, Command p_command) {
