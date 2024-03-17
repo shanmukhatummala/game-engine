@@ -1,5 +1,7 @@
 package game.states;
 
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
+
 import game.GameEngine;
 import game.map.Map;
 import game.pojo.Country;
@@ -11,6 +13,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ExecuteOrderPhase extends PlayPhase {
+
+    public ExecuteOrderPhase() {
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
+    }
 
     /**
      * Loop over all the players until all the orders are executed

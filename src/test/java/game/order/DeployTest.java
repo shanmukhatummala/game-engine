@@ -2,6 +2,7 @@ package game.order;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
+import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -17,15 +18,21 @@ import java.util.*;
 /** This class test the Deploy class */
 public class DeployTest {
 
-    Deploy d_deploy;
+    private Deploy d_deploy;
     private List<Country> d_Countries;
+    private Map d_map;
 
     /** Setting up the deployOrder object for testing */
     @BeforeEach
     void setUp() {
         Continent l_continent = new Continent(1, "continent1", 5);
         d_Countries = createCountries(l_continent);
-        d_deploy = new Deploy(d_Countries.get(0), new Player("player", d_Countries), 4);
+        Player l_player = new Player("player", d_Countries);
+        d_map = new Map();
+        d_map.getD_continents().add(l_continent);
+        d_map.getD_countries().addAll(d_Countries);
+        d_map.getD_players().add(l_player);
+        d_deploy = new Deploy(d_Countries.get(0).getD_name(), l_player, 4, d_map);
     }
 
     /**
@@ -36,8 +43,8 @@ public class DeployTest {
      */
     private List<Country> createCountries(Continent p_continent) {
         List<Country> l_countries = new ArrayList<>();
-        l_countries.add(new Country(1, "country1", p_continent, new ArrayList<>(), 0));
-        l_countries.add(new Country(2, "country2", p_continent, new ArrayList<>(), 0));
+        l_countries.add(new Country(1, "country1", p_continent, new HashSet<>(), 0));
+        l_countries.add(new Country(2, "country2", p_continent, new HashSet<>(), 0));
         return l_countries;
     }
 

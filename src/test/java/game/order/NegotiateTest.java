@@ -44,7 +44,7 @@ public class NegotiateTest {
     /** Tests that negotiation cannot be executed without having a diplomacy card */
     @Test
     public void shouldNotExecuteNegotiationWithoutDiplomacyCard() {
-        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer, d_map);
+        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer.getD_name(), d_map);
         assertThat(negotiate.valid(), equalTo(false));
     }
 
@@ -52,7 +52,7 @@ public class NegotiateTest {
     @Test
     public void shouldNotExecuteNegotiationWithoutValidTargetPlayer() {
         d_initiator.addCard(Player.Card.DIPLOMACY);
-        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer, d_map);
+        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer.getD_name(), d_map);
         assertThat(negotiate.valid(), equalTo(false));
     }
 
@@ -64,7 +64,7 @@ public class NegotiateTest {
     public void shouldExecuteNegotiationWithValidDiplomacyCardAndTargetPlayer() {
         d_map.getD_players().add(d_targetPlayer);
         d_initiator.addCard(Player.Card.DIPLOMACY);
-        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer, d_map);
+        Negotiate negotiate = new Negotiate(d_initiator, d_targetPlayer.getD_name(), d_map);
         assertThat(negotiate.valid(), equalTo(true));
     }
 }

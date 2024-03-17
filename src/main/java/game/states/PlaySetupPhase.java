@@ -4,6 +4,7 @@ import static game.map.MapLoader.loadMap;
 import static game.map.MapValidator.isMapValid;
 import static game.util.FileHelper.createNewFileForMap;
 import static game.util.FileHelper.fileExists;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
 import game.commands.Command;
@@ -15,11 +16,16 @@ import java.util.List;
 
 public class PlaySetupPhase extends StartUpPhase {
 
+    public PlaySetupPhase() {
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
+    }
+
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge) {
         loadMap(RESOURCES_PATH + p_command.getArgs().get(0), p_map);
         if (!isMapValid(p_map)) {
-            System.out.println("The loaded map is invalid, please load a valid map.");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    "The loaded map is invalid, please load a valid map.");
             p_map.clearMap();
             return;
         }
@@ -32,10 +38,12 @@ public class PlaySetupPhase extends StartUpPhase {
             List<String> l_commandArgs = l_command.getArgs();
             if (l_commandArgs.get(0).equals("-add")) {
                 p_map.addPlayer(l_commandArgs.get(1));
-                System.out.println("Player " + l_commandArgs.get(1) + " added");
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                        "Player " + l_commandArgs.get(1) + " added");
             } else {
                 p_map.removePlayer(l_commandArgs.get(1));
-                System.out.println("Player " + l_commandArgs.get(1) + " removed");
+                GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                        "Player " + l_commandArgs.get(1) + " removed");
             }
         }
     }
@@ -49,8 +57,10 @@ public class PlaySetupPhase extends StartUpPhase {
         if (!countriesAssigned) {
             throw new Exception("try again.");
         }
-        System.out.println("Countries have been assigned.");
-        System.out.println("You have entered the play mode.");
+
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntries(
+                List.of("Countries have been assigned.", "You have entered the play mode."));
+
         p_ge.setGamePhase(new AssignResourcesPhase());
     }
 
@@ -65,7 +75,8 @@ public class PlaySetupPhase extends StartUpPhase {
             loadMap(l_filePath, p_map);
         }
         ge.setGamePhase(new EditMapPhase());
-        System.out.println("You have entered the editing mode.");
+
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("You have entered the editing mode.");
     }
 
     @Override

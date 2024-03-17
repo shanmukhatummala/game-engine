@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import pl.pojo.tester.api.assertion.Method;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /** PlayerTest is a test class for the Player POJO */
 class PlayerTest {
@@ -37,9 +37,9 @@ class PlayerTest {
     @BeforeEach
     void setUp() {
         Continent l_continent = new Continent(1, "continent1", 5);
-        d_country1 = new Country(1, "country1", l_continent, new ArrayList<>(), 0);
-        d_country2 = new Country(2, "country2", l_continent, new ArrayList<>(), 0);
-        d_country3 = new Country(3, "country3", l_continent, new ArrayList<>(), 0);
+        d_country1 = new Country(1, "country1", l_continent, new HashSet<>(), 0);
+        d_country2 = new Country(2, "country2", l_continent, new HashSet<>(), 0);
+        d_country3 = new Country(3, "country3", l_continent, new HashSet<>(), 0);
         d_player1 = new Player("player1");
         d_map = new Map();
         d_map.getD_continents().add(l_continent);
@@ -71,11 +71,14 @@ class PlayerTest {
 
         assertThat(l_firstOrder, instanceOf(Deploy.class));
         assertThat(l_firstOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Deploy) l_firstOrder).getD_destination(), equalTo(d_country1));
+        assertThat(
+                ((Deploy) l_firstOrder).getD_destinationCountryName(),
+                equalTo(d_country1.getD_name()));
         assertThat(((Deploy) l_firstOrder).getD_armyNumber(), equalTo(4));
         assertThat(l_secondOrder, instanceOf(Bomb.class));
         assertThat(l_secondOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Bomb) l_secondOrder).getD_target(), equalTo(d_country2));
+        assertThat(
+                ((Bomb) l_secondOrder).getD_targetCountryName(), equalTo(d_country2.getD_name()));
     }
 
     /** Tests if the next_order returns the correct order */
@@ -101,11 +104,14 @@ class PlayerTest {
 
         assertThat(l_firstOrder, instanceOf(Deploy.class));
         assertThat(l_firstOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Deploy) l_firstOrder).getD_destination(), equalTo(d_country1));
+        assertThat(
+                ((Deploy) l_firstOrder).getD_destinationCountryName(),
+                equalTo(d_country1.getD_name()));
         assertThat(((Deploy) l_firstOrder).getD_armyNumber(), equalTo(4));
         assertThat(l_secondOrder, instanceOf(Bomb.class));
         assertThat(l_secondOrder.getD_initiator(), equalTo(d_player1));
-        assertThat(((Bomb) l_secondOrder).getD_target(), equalTo(d_country2));
+        assertThat(
+                ((Bomb) l_secondOrder).getD_targetCountryName(), equalTo(d_country2.getD_name()));
         assertThat(l_thirdOrder, nullValue());
     }
 

@@ -2,13 +2,21 @@ package game;
 
 import game.commands.Command;
 import game.commands.CommandParser;
+import game.logger.LogEntryBuffer;
+import game.logger.LogFileWriter;
+import game.logger.StdOutWriter;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+import game.states.ExecuteOrderPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
+
 import game.util.IssueOrderHelper;
+
+
+
 import lombok.Setter;
 
 import java.io.BufferedReader;
@@ -37,8 +45,10 @@ public class GameEngine {
     /** This static variable stores the path for the resources directory */
     public static final String RESOURCES_PATH = "src/main/resources/";
 
-    @Setter private Phase gamePhase;
+    /** This static variable is used for logging */
+    public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
+    @Setter private Phase gamePhase;
     private final Map d_map;
 
     /**
@@ -49,6 +59,8 @@ public class GameEngine {
     public GameEngine(Map p_map) {
         this.d_map = p_map;
         this.gamePhase = new PlaySetupPhase();
+        LOG_ENTRY_BUFFER.attach(new LogFileWriter("log.txt"));
+        LOG_ENTRY_BUFFER.attach(new StdOutWriter());
     }
 
     /** Constructor without arguments for GameEngine */
@@ -189,9 +201,10 @@ public class GameEngine {
         gamePhase.handleReinforcementsAssignment(p_map, this);
 
         while (p_map.getD_players().size() > 1) {
-            gamePhase.handleIssuingOrders(p_map, this, p_bufferedReader);
+            takeOrders(p_map, p_bufferedReader);
             Set<Player> l_playersToAssignCard = new HashSet<>();
             gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
+            p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
             gamePhase.handleCardAssignment(l_playersToAssignCard, this);
             p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
             gamePhase.handleShowMap(p_map);
@@ -199,7 +212,9 @@ public class GameEngine {
 
         if (p_map.getD_players().size() == 1) {
             System.out.println(
-                    "Congratulations, " + p_map.getD_players().get(0) + ", you are the winner!");
+                    "Congratulations, "
+                            + p_map.getD_players().get(0).getD_name()
+                            + ", you are the winner!");
         }
     }
 
@@ -239,44 +254,52 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private static void issueOrders(Map p_map, BufferedReader p_bufferedReader) {
+    private void takeOrders(Map p_map, BufferedReader p_bufferedReader) {
         List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
         while (!l_playersLeftToIssueOrder.isEmpty()) {
             for (Player l_player : p_map.getD_players()) {
+                if (!l_playersLeftToIssueOrder.contains(l_player)) {
+                    continue;
+                }
                 while (true) {
                     try {
                         System.out.println(
-                                "Player: " + l_player.getD_name() + ", enter the command: ");
+                                "Player: "
+                                        + l_player.getD_name()
+                                        + ", enter the command "
+                                        + "(reinforcements available before the start of this round: "
+                                        + l_player.getD_reinforcements()
+                                        + (l_player.getD_cards().isEmpty()
+                                                ? ""
+                                                : " and cards available before the start of this round: "
+                                                        + l_player.getD_cards())
+                                        + "):");
                         String l_commandString = p_bufferedReader.readLine();
-                        Command l_command = CommandParser.parse(l_commandString).get(0);
-                        if ("showmap".equals(l_command.getCommandType())) {
-                            showMap(p_map);
+                        Command l_command;
+                        try {
+                            l_command = CommandParser.parse(l_commandString).get(0);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
                             continue;
+                        }
+                        if ("showmap".equals(l_command.getCommandType())) {
+                            gamePhase.handleShowMap(d_map);
                         } else if ("commit".equals(l_command.getCommandType())) {
-                            l_playersLeftToIssueOrder.remove(l_player);
+                            gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
+                            break;
+                        } else {
+                            gamePhase.handleIssuingOrders(d_map, l_player, l_command);
                             break;
                         }
-
-                        IssueOrderHelper.setCommand(l_command);
-                        IssueOrderHelper.setMap(p_map);
-                        l_player.issue_order();
-                        break;
                     } catch (IOException e) {
-                        System.out.println(
+                        gamePhase.printInvalidCommandMessage(
                                 "Error when reading command. Error message: " + e.getMessage());
                     }
                 }
-                System.out.println(
-                        "player: "
-                                + l_player.getD_name()
-                                + ", reinforcements: "
-                                + l_player.getD_reinforcements()
-                                + (l_player.getD_cards().isEmpty()
-                                        ? ""
-                                        : ", cards: " + l_player.getD_cards()));
             }
         }
-        System.out.println("Command will be executed.");
+        System.out.println("Commands will be executed");
+        this.setGamePhase(new ExecuteOrderPhase());
     }
 
     /**

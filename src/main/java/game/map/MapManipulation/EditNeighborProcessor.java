@@ -3,6 +3,7 @@ package game.map.MapManipulation;
 import static game.constants.MapManipulation.ADD_PARAM;
 import static game.constants.MapManipulation.REMOVE_PARAM;
 
+import game.GameEngine;
 import game.map.Map;
 
 import java.util.Objects;
@@ -52,7 +53,7 @@ public class EditNeighborProcessor {
         if (Objects.nonNull(p_country_id) && Objects.nonNull(p_neighbor_country_id)) {
             map.addNeighborToCountry(p_country_id, p_neighbor_country_id);
         } else {
-            System.out.println("Invalid Country/Countries");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Invalid Country/Countries");
         }
     }
 
@@ -72,7 +73,7 @@ public class EditNeighborProcessor {
         if (Objects.nonNull(p_country_id) && Objects.nonNull(p_neighbor_country_id)) {
             map.removeNeighborFromCountry(p_country_id, p_neighbor_country_id);
         } else {
-            System.out.println("Invalid Country/Countries");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Invalid Country/Countries");
         }
     }
 }

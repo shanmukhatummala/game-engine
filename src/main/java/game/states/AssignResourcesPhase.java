@@ -1,5 +1,14 @@
 package game.states;
 
+
+import static game.map.MapHelper.playerOwnsContinent;
+import static game.pojo.Player.Card.AIRLIFT;
+import static game.pojo.Player.Card.BLOCKADE;
+import static game.pojo.Player.Card.BOMB;
+import static game.pojo.Player.Card.DIPLOMACY;
+import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
+
+
 import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
@@ -13,6 +22,10 @@ import static game.pojo.Player.Card.*;
 
 /** Assigns resources after the completion of each round in the game */
 public class AssignResourcesPhase extends PlayPhase {
+
+    public AssignResourcesPhase() {
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry(getLoggerEntryForPhaseChange(this.getClass()));
+    }
 
     /**
      * The method assign army's to each player
@@ -39,7 +52,12 @@ public class AssignResourcesPhase extends PlayPhase {
             l_player.setD_reinforcements(reinforcements);
         }
 
+
         System.out.println("Reinforcements are assigned");
+
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Reinforcements are assigned");
+
+
         p_ge.setGamePhase(new IssueOrderPhase());
     }
 

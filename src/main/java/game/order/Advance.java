@@ -1,7 +1,16 @@
 package game.order;
 
+<<<<<<< HEAD
 import static game.map.MapHelper.isAdjacent;
 
+=======
+import static game.map.MapHelper.getCountryByName;
+import static game.map.MapHelper.getCountryOwner;
+import static game.map.MapHelper.isAdjacent;
+
+import game.GameEngine;
+import game.map.Map;
+>>>>>>> bf7baabe39ca0265aefc6e94600d6a6cdd68bcbe
 import game.pojo.Country;
 import game.pojo.Player;
 
@@ -15,31 +24,28 @@ import java.util.Random;
  */
 public class Advance extends Order {
 
-    private final Country d_destination;
-    private final Country d_source;
-    private final Player d_destinationOwner;
+    private final String d_destinationName;
+    private final String d_sourceName;
     private final int d_armyNumber;
 
     /**
      * Constructor for Advance
      *
-     * @param p_source Country object representing the source territory
-     * @param p_destination Country object representing the p_destination territory
-     * @param p_destinationOwner Player object represents owner of the p_destination country
+     * @param p_sourceName Country representing the source territory
+     * @param p_destinationName Country representing the p_destination territory
      * @param p_initiator Player object who initiated the order
      * @param p_armyNumber Integer representing the number of armies to move
      */
     public Advance(
-            Country p_destination,
-            Country p_source,
-            Player p_destinationOwner,
+            String p_destinationName,
+            String p_sourceName,
             Player p_initiator,
-            int p_armyNumber) {
-        super(p_initiator);
-        this.d_source = p_source;
-        this.d_destination = p_destination;
+            int p_armyNumber,
+            Map p_map) {
+        super(p_initiator, p_map);
+        this.d_sourceName = p_sourceName;
+        this.d_destinationName = p_destinationName;
         this.d_armyNumber = p_armyNumber;
-        this.d_destinationOwner = p_destinationOwner;
     }
 
     /**
@@ -59,13 +65,18 @@ public class Advance extends Order {
     public void execute() {
         if (valid()) {
 
+            Country l_destination = getCountryByName(getD_map(), d_destinationName);
+            Country l_source = getCountryByName(getD_map(), d_sourceName);
+
             List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
 
-            if (l_countriesOfInitiator.contains(d_destination)) {
-                d_source.setD_armyCount(d_source.getD_armyCount() - d_armyNumber);
-                d_destination.setD_armyCount(d_destination.getD_armyCount() + d_armyNumber);
+            if (l_countriesOfInitiator.contains(l_destination)) {
+                l_source.setD_armyCount(l_source.getD_armyCount() - d_armyNumber);
+                l_destination.setD_armyCount(l_destination.getD_armyCount() + d_armyNumber);
             } else {
 
+                Player d_destinationOwner =
+                        getCountryOwner(l_destination, getD_map().getD_players());
                 if (d_destinationOwner != null
                         && (getD_initiator()
                                         .getD_negotiatedPlayers()
@@ -73,7 +84,7 @@ public class Advance extends Order {
                                 || d_destinationOwner
                                         .getD_negotiatedPlayers()
                                         .contains(getD_initiator().getD_name()))) {
-                    System.out.println(
+                    GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                             "Both players, "
                                     + d_destinationOwner.getD_name()
                                     + " and "
@@ -82,11 +93,11 @@ public class Advance extends Order {
                     return;
                 }
 
-                d_source.setD_armyCount(d_source.getD_armyCount() - d_armyNumber);
-                attackTerritory(d_destination, d_armyNumber, d_destinationOwner, getD_initiator());
+                l_source.setD_armyCount(l_source.getD_armyCount() - d_armyNumber);
+                attackTerritory(l_destination, d_armyNumber, d_destinationOwner, getD_initiator());
             }
         } else {
-            System.out.println("Cannot Advance armies to the territory.");
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Cannot Advance armies to the territory.");
         }
     }
 
@@ -99,17 +110,40 @@ public class Advance extends Order {
      */
     @Override
     public boolean valid() {
-        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
 
-        if (!l_countriesOfInitiator.contains(d_source)) {
+        Country l_destination = getCountryByName(getD_map(), d_destinationName);
+        Country l_source = getCountryByName(getD_map(), d_sourceName);
+
+        if (l_destination == null) {
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    d_destinationName
+                            + " doesn't exist in the map now. So, cannot advance to this country.");
             return false;
         }
 
-        if (l_countriesOfInitiator.contains(d_destination)) {
+        if (l_source == null) {
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    d_sourceName
+                            + " doesn't exist in the map now. So, cannot advance from this country.");
+            return false;
+        }
+
+        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();
+
+        if (!l_countriesOfInitiator.contains(l_source)) {
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    d_sourceName
+                            + " doesn't belong to "
+                            + getD_initiator().getD_name()
+                            + ". So cannot perform advance.");
+            return false;
+        }
+
+        if (l_countriesOfInitiator.contains(l_destination)) {
             return true;
         }
 
-        return isAdjacent(l_countriesOfInitiator, d_destination);
+        return isAdjacent(l_countriesOfInitiator, l_destination);
     }
 
     /**
@@ -154,7 +188,9 @@ public class Advance extends Order {
             // Attacker wins
             p_target.setD_armyCount(l_attackingArmyCount);
             p_initiator.getD_countries().add(p_target);
-            p_destinationOwner.getD_countries().remove(p_target);
+            if (p_destinationOwner != null) {
+                p_destinationOwner.getD_countries().remove(p_target);
+            }
         } else {
             // Defender wins
             p_target.setD_armyCount(l_defendingArmyCount);

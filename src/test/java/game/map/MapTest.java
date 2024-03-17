@@ -1,6 +1,15 @@
 package game.map;
 
 import game.GameEngine;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.anyOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -263,6 +272,7 @@ class MapTest {
                 is(Matchers.containsInAnyOrder(l_countries.toArray())));
     }
 
+
     /** Test assignReinforcements when 5 reinforcements assigned to each player */
     @Test
     void testAssignReinforcements() {
@@ -319,6 +329,7 @@ class MapTest {
         // Check player 2 received correct number of reinforcements
         assertEquals(3, l_player2.getD_reinforcements()); // Base: 3
     }
+
 
     /** Tests addNeighborToCountry function of Map.java */
     @Test
