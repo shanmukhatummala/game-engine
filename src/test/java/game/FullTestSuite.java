@@ -9,6 +9,7 @@ import game.states.StateTestSuite;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
+/** Test suite covering all tests */
 @Suite
 @SelectClasses({
     CommandsTestSuite.class,
