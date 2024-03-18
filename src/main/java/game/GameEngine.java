@@ -1,21 +1,11 @@
 package game;
 
-import static game.map.MapEditor.editMap;
-import static game.map.MapHelper.playerOwnsContinent;
-import static game.map.MapLoader.loadMap;
-import static game.map.MapShower.showMap;
-import static game.map.MapValidator.isMapValid;
-import static game.util.FileHelper.createNewFileForMap;
-import static game.util.FileHelper.fileExists;
-
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.logger.LogEntryBuffer;
 import game.logger.LogFileWriter;
 import game.logger.StdOutWriter;
 import game.map.Map;
-import game.pojo.Continent;
-import game.pojo.Country;
 import game.pojo.Player;
 import game.states.ExecuteOrderPhase;
 import game.states.Phase;
@@ -31,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * GameEngine is responsible for reading the main commands from the players and calling required
@@ -68,75 +57,6 @@ public class GameEngine {
     /**
      * Starts the game, and reads the input commands from the user and calls the required methods
      */
-    public void start() {
-
-        // Main method runs when we run the project. This is the starting point of the project.
-        System.out.println("Hello and welcome!");
-
-        try (BufferedReader l_bufferedReader =
-                new BufferedReader(new InputStreamReader(System.in))) {
-
-            while (true) {
-                try {
-                    System.out.println("Enter the command: ");
-                    String l_usrInput = l_bufferedReader.readLine();
-                    List<Command> l_commandList = CommandParser.parse(l_usrInput);
-
-                    if (l_commandList.get(0).getD_commandType().equals("gameplayer")) {
-                        for (Command l_command : l_commandList) {
-                            List<String> l_commandArgs = l_command.getD_args();
-                            if (l_commandArgs.get(0).equals("-add")) {
-                                d_map.addPlayer(l_commandArgs.get(1));
-                                System.out.println("Player " + l_commandArgs.get(1) + " added");
-                            } else {
-                                d_map.removePlayer(l_commandArgs.get(1));
-                                System.out.println("Player " + l_commandArgs.get(1) + " removed");
-                            }
-                        }
-                    } else {
-                        Command l_command = l_commandList.get(0);
-                        if ("editmap".equals(l_command.getD_commandType())) {
-                            String l_fileName = l_command.getD_args().get(0);
-                            String l_filePath = RESOURCES_PATH + l_fileName;
-                            if (!fileExists(l_filePath)) {
-                                createNewFileForMap(l_filePath);
-                            } else {
-                                loadMap(l_filePath, d_map);
-                            }
-                            editMap(l_bufferedReader, d_map, l_fileName);
-                        } else if ("loadmap".equals(l_command.getD_commandType())) {
-                            loadMap(RESOURCES_PATH + l_command.getD_args().get(0), d_map);
-                            if (!isMapValid(d_map)) {
-                                System.out.println(
-                                        "The loaded map is invalid, please load a valid map.");
-                                d_map.clearMap();
-                            }
-                        } else if ("showmap".equals(l_command.getD_commandType())) {
-                            showMap(d_map);
-                        } else if ("assigncountries".equals(l_command.getD_commandType())) {
-                            List<Player> players = d_map.getD_players();
-                            List<Country> countries = d_map.getD_countries();
-                            boolean countriesAssigned = d_map.assignCountries(players, countries);
-                            if (!countriesAssigned) {
-                                continue;
-                            }
-                            System.out.println("Countries have been assigned");
-                            startGameLoop(d_map, l_bufferedReader);
-                            System.out.println("Game over - all orders executed");
-                            endGame();
-                        } else {
-                            System.out.println("Not a valid command. Try again");
-                        }
-                    }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void startGame() {
 
         try (BufferedReader l_bufferedReader =
@@ -217,39 +137,6 @@ public class GameEngine {
     }
 
     /**
-     * The method assign army's to each player
-     *
-     * @param p_map map for the game
-     * @author Naveen
-     */
-    public static void assignReinforcements(Map p_map) {
-        // Minimal number of reinforcement armies for any player
-        final int l_minReinforcements = 3;
-
-        for (Player l_player : p_map.getD_players()) {
-            // Calculate number of l_reinforcements based on owned territories
-            int l_territoriesOwned = l_player.getD_countries().size();
-            int l_reinforcements = 0;
-
-            // Check for continent control bonuses
-            for (Continent l_continent : p_map.getD_continents()) {
-                if (playerOwnsContinent(p_map, l_player, l_continent)) {
-                    l_reinforcements += l_continent.getD_bonus();
-                }
-            }
-
-            l_reinforcements =
-                    Math.max(l_minReinforcements, l_reinforcements + (l_territoriesOwned / 3));
-
-            // Set the total l_reinforcements for the player
-            l_player.setD_reinforcements(l_player.getD_reinforcements() + l_reinforcements);
-        }
-
-        System.out.println("Reinforcements are assigned");
-        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Reinforcements are assigned");
-    }
-
-    /**
      * Loop over all the players until they issue all the orders
      *
      * @param p_map map for the game
@@ -300,38 +187,6 @@ public class GameEngine {
         }
         System.out.println("Commands will be executed");
         this.setD_gamePhase(new ExecuteOrderPhase());
-    }
-
-    /**
-     * Loop over all the players until all the orders are executed
-     *
-     * @param p_map map for the game
-     */
-    private static void executeOrders(Map p_map, Set<Player> p_playersToAssignCard) {
-        List<Player> l_playersLeftToExecuteOrders = new ArrayList<>(p_map.getD_players());
-        while (!l_playersLeftToExecuteOrders.isEmpty()) {
-            for (Player l_player : p_map.getD_players()) {
-
-                Set<Integer> l_countryIdsBeforeExecution =
-                        l_player.getD_countries().stream()
-                                .map(Country::getD_id)
-                                .collect(Collectors.toSet());
-
-                if (l_player.getD_orderList().isEmpty()) {
-                    l_playersLeftToExecuteOrders.remove(l_player);
-                    continue;
-                }
-                l_player.next_order().execute();
-
-                Set<Integer> l_countryIdsAfterExecution =
-                        l_player.getD_countries().stream()
-                                .map(Country::getD_id)
-                                .collect(Collectors.toSet());
-                if (!l_countryIdsBeforeExecution.containsAll(l_countryIdsAfterExecution)) {
-                    p_playersToAssignCard.add(l_player);
-                }
-            }
-        }
     }
 
     /** Stops the program or in other words ends the game */
