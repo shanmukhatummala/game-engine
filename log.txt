@@ -231,3 +231,96 @@ Player player2 removed
 << PHASE: PlaySetupPhase >>
 << PHASE: PlaySetupPhase >>
 << PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+Continent Added Successfully!
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+Country Added Successfully!
+Country Added Successfully!
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player1 added
+Player player1 added
+Player player2 added
+Player player2 added
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
