@@ -17,20 +17,33 @@ import java.io.PrintStream;
 
 import java.util.*;
 
-import static game.map.MapSaver.saveMap;
-import static game.map.MapValidator.isMapValid;
-
-
+/**
+ * This class is responsible for testing the EditMapPhase
+ */
 public class EditMapPhaseTest {
 
 
+    /**
+     * The data member represent the base path of the resources folder in the test
+     */
     private String d_path;
+    /**
+     * Object of the game engine in order to use the phase data member
+     */
     private GameEngine d_playSetUpPhase;
+    /**
+     * This data member represent the map that we will use in the tests
+     */
     private Map d_map;
 
+    /**
+     * This data member is used for the output comparison
+     */
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    /** Sets up the required objects for the execution of tests */
+    /**
+     *  Sets up the required objects for the execution of tests
+     */
     @BeforeEach
     public void setUp() {
         d_playSetUpPhase = new GameEngine();
@@ -40,6 +53,10 @@ public class EditMapPhaseTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    /**
+     * This method create a test map dummy with countries and contents for to test with
+     * @return Map object
+     */
     private Map createObjectsToAssert() {
         List<Continent> l_expectedContinents = new ArrayList<>();
         List<Country> l_expectedCountries = new ArrayList<>();
@@ -74,7 +91,9 @@ public class EditMapPhaseTest {
     }
 
 
-
+    /**
+     * This method is for testing the handleLoadMap in the wrong phase method and compare the printed output
+     */
     @Test
     public void handleLoadMapTest(){
         String l_expectedOutput = "Invalid Command in state EditMapPhase you can't load a map here.";
@@ -82,6 +101,9 @@ public class EditMapPhaseTest {
         Assertions.assertEquals(l_expectedOutput,outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * This method is for testing the handleSaveMap in the right phase and compare the method is changing the phase object to the correct kind of phase object.
+     */
     @Test
     public void handleSaveMapTest(){
         List<String> l_args = new ArrayList<>();
@@ -94,6 +116,9 @@ public class EditMapPhaseTest {
     }
 
 
+    /**
+     * This method is Testing the handleEditCountriesOrContinentOrNeighbor method where we test for adding new country
+     */
     @Test
     public void handleEditCountriesTest() {
         List<Continent> l_continent = new ArrayList<>();
@@ -106,6 +131,9 @@ public class EditMapPhaseTest {
         Assertions.assertEquals(l_expectedCountries, d_map.getD_countries());
     }
 
+    /**
+     * This method is Testing the handleEditCountriesOrContinentOrNeighbor method where we test for adding new content
+     */
     @Test
     public void handleEditContinentTest() {
         d_map = new Map(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),"test.map");
@@ -117,7 +145,9 @@ public class EditMapPhaseTest {
     }
 
 
-
+    /**
+     * This method run after every test and is for cleaning the resources used in the tests like returning the System.setOut to it's default value.
+     */
     @AfterEach
     public void tearDown() {
         System.setOut(System.out);
