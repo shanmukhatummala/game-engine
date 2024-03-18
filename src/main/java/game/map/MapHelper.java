@@ -43,6 +43,7 @@ public class MapHelper {
     /**
      * To get a Country object by name
      *
+     * @param p_map map of the game engine
      * @param p_name the country name
      * @return Country object
      */
@@ -77,6 +78,7 @@ public class MapHelper {
     /**
      * getContinentOwner - This generates the name of the owner of a continent
      *
+     * @param p_map map of the game engine
      * @param p_continent Name of the continent
      * @param p_players List of players added in the game
      * @return Name of the player that owns the given continent or returns Null if there is no owner

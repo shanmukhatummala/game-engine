@@ -16,10 +16,15 @@ import java.util.*;
 /** Player is a POJO representing a player */
 public class Player {
 
+    /** Card enum that stores all the possible cards */
     public enum Card {
+        /** Represents the Bomb card */
         BOMB,
+        /** Represents the Blockade card */
         BLOCKADE,
+        /** Represents the Airlift card */
         AIRLIFT,
+        /** Represents the Diplomacy card */
         DIPLOMACY
     }
 
@@ -126,6 +131,7 @@ public class Player {
         d_cards.add(card);
     }
 
+    /** Handles the order issued by the Player in the game */
     public void issue_order() {
 
         Map l_map = IssueOrderHelper.getMap();

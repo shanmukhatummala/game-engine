@@ -458,6 +458,12 @@ public class Map {
                 .orElse(null);
     }
 
+    /**
+     * Adds neighbors to the neighbors graph
+     *
+     * @param p_country_id country id
+     * @param p_neighbor_country_id neighbor id
+     */
     public void addNeighborToNeighborsGraph(Integer p_country_id, Integer p_neighbor_country_id) {
         if (Objects.isNull(this.d_neighborsGraph.get(p_country_id))) {
             this.d_neighborsGraph.put(p_country_id, new TreeSet<>());
@@ -466,6 +472,12 @@ public class Map {
         this.d_neighborsGraph.get(p_country_id).add(p_neighbor_country_id);
     }
 
+    /**
+     * Adds neighbors to the neighbors graph
+     *
+     * @param p_country_id country id of the neighbor
+     * @param p_neighbor_country_ids list of country Ids
+     */
     public void addNeighborsToNeighborsGraph(
             Integer p_country_id, List<Integer> p_neighbor_country_ids) {
         if (Objects.isNull(this.d_neighborsGraph.get(p_country_id))) {
@@ -475,6 +487,12 @@ public class Map {
         this.d_neighborsGraph.get(p_country_id).addAll(p_neighbor_country_ids);
     }
 
+    /**
+     * Removes neighbors from the neighbors graph
+     *
+     * @param p_country_id country id
+     * @param p_neighbor_country_id neighbor id
+     */
     public void removeNeighborFromNeighborsGraph(
             Integer p_country_id, Integer p_neighbor_country_id) {
         if (Objects.isNull(this.d_neighborsGraph.get(p_country_id))) {
