@@ -38,7 +38,6 @@ public class EditMapPhase extends StartUpPhase {
         printInvalidCommandMessage(l_message);
     }
 
-
     /**
      * Handles the command to save the map and saves the map if it is valid and given an error
      * message if invalid.
@@ -59,7 +58,7 @@ public class EditMapPhase extends StartUpPhase {
         if (!isMapValid(p_map)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Current map is not valid: aborting the saving process.");
-            //            continue;
+            return;
         }
         saveMap(p_basePath + p_map.getD_mapName(), p_map);
         p_ge.setD_gamePhase(new PlaySetupPhase());
@@ -104,7 +103,6 @@ public class EditMapPhase extends StartUpPhase {
         String l_message = "Invalid Command in state " + this.getClass().getSimpleName();
         printInvalidCommandMessage(l_message);
     }
-
 
     /**
      * Handles the command to edit the map and displays an invalid command message as the game is

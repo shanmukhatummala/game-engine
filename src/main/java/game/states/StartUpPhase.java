@@ -11,7 +11,6 @@ import java.util.Set;
 /** Represents a phase in the game where players are setting up the game. */
 abstract class StartUpPhase implements Phase {
 
-
     /**
      * Handles the command to issue orders. Displays an invalid command message as issuing orders is
      * not allowed during the start-up phase.
