@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.*;
 
+/** Class testing the PlaySetupPhase class */
 public class PlaySetupPhaseTest {
 
     /** The data member represent the base path of the resources folder in the test */
