@@ -132,6 +132,12 @@ public class Advance extends Order {
             return false;
         }
 
+        if (l_source.getD_armyCount() < d_armyNumber) {
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    d_sourceName + " doesn't have enough armies (" + d_armyNumber + ")");
+            return false;
+        }
+
         if (l_countriesOfInitiator.contains(l_destination)) {
             return true;
         }

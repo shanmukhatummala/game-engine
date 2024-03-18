@@ -3,6 +3,7 @@ package game.pojo;
 import game.commands.Command;
 import game.map.Map;
 import game.order.Advance;
+import game.order.Airlift;
 import game.order.Blockade;
 import game.order.Bomb;
 import game.order.Deploy;
@@ -150,6 +151,11 @@ public class Player {
         } else if ("negotiate".equals(commandType)) {
             String l_targetPlayerName = l_command.getD_args().get(0);
             d_orderList.add(new Negotiate(this, l_targetPlayerName, l_map));
+        } else if ("airlift".equals(commandType)) {
+            String l_source = l_command.getD_args().get(0);
+            String l_target = l_command.getD_args().get(1);
+            int l_numArmies = Integer.parseInt(l_command.getD_args().get(2));
+            d_orderList.add(new Airlift(l_target, l_source, this, l_numArmies, l_map));
         }
     }
 

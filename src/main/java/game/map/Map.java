@@ -63,7 +63,6 @@ public class Map {
     public void clearMap() {
         d_continents.clear();
         d_countries.clear();
-        d_players.clear();
         d_neighborsGraph.clear();
     }
 

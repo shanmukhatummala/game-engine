@@ -45,8 +45,7 @@ public class GameEngine {
     /** This static variable is used for logging */
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
-    @Getter
-    @Setter private Phase d_gamePhase;
+    @Getter @Setter private Phase d_gamePhase;
     private final Map d_map;
 
     /**
@@ -164,7 +163,7 @@ public class GameEngine {
                     } else if ("showmap".equals(l_commandType)) {
                         d_gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        d_gamePhase.handleSaveMap(l_command, d_map, this,RESOURCES_PATH );
+                        d_gamePhase.handleSaveMap(l_command, d_map, this, RESOURCES_PATH);
                     } else if ("validatemap".equals(l_commandType)) {
                         d_gamePhase.handleValidateMap(d_map);
                     } else if ("editcontinent".equals(l_commandType)
