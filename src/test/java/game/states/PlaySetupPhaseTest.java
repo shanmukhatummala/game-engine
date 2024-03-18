@@ -18,10 +18,22 @@ import java.util.*;
 
 public class PlaySetupPhaseTest {
 
+    /**
+     * The data member represent the base path of the resources folder in the test
+     */
     private String d_path;
+    /**
+     * Object of the game engine in order to use the phase data member
+     */
     private GameEngine d_playSetUpPhase;
+    /**
+     * This data member represent the map that we will use in the tests
+     */
     private Map d_map;
 
+    /**
+     * This data member is used for the output comparison
+     */
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     /** Sets up the required objects for the execution of tests */
@@ -34,6 +46,10 @@ public class PlaySetupPhaseTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    /**
+     * This method create a test map dummy with countries and contents for to test with
+     * @return Map object
+     */
     private Map createObjectsToAssert() {
         List<Continent> l_expectedContinents = new ArrayList<>();
         List<Country> l_expectedCountries = new ArrayList<>();
@@ -65,6 +81,10 @@ public class PlaySetupPhaseTest {
         return new Map(l_expectedContinents, l_expectedCountries, l_expectedPlayers, "new.map");
     }
 
+    /**
+     * This method create a test list player dummy to be the expected values to test with;
+     * @return Map object
+     */
     private List<Player> createPlayersList() {
 
         List<Player> l_expectedPlayers = new ArrayList<>();
@@ -73,7 +93,9 @@ public class PlaySetupPhaseTest {
         return l_expectedPlayers;
     }
 
-    /** Tests if assigning a random card to players is working as expected */
+    /** Tests the handleLoadMap in the right phase by comparing that the right map is loaded into
+     * the d_map object by comparing the countries and contents and players and name.
+     */
     @Test
     public void handleLoadMapTest() {
         Map l_expectedMap = createObjectsToAssert();
@@ -90,6 +112,12 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(d_map.getD_mapName(), l_expectedMap.getD_mapName());
     }
 
+
+
+    /**
+     *  Tests the handleGamePlayer in the right phase by comparing that the right player are added into
+     * the d_map object by comparing the expected players.
+     */
     @Test
     public void handleGamePlayerTest() {
         List<Player> l_expectedPlayers = createPlayersList();
@@ -107,6 +135,10 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedPlayers, l_players);
     }
 
+    /**
+     *  Tests the handleGamePlayer in the right phase by comparing that the remaining player are equal to
+     *  the expected players.
+     */
     @Test
     public void handleGamePlayerRemoveTest() {
         List<Player> l_expectedPlayers = new ArrayList<>();
@@ -122,6 +154,10 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedPlayers, l_players);
     }
 
+    /**
+     * This method is for testing the handleEditMap in the right phase and compare
+     * the method is changing the phase object to the correct kind of phase object.
+     */
     @Test
     public void handleEditMapTest() {
         List<String> l_args = new ArrayList<>();
@@ -133,6 +169,11 @@ public class PlaySetupPhaseTest {
                 l_expectedPhase, d_playSetUpPhase.getD_gamePhase().getClass().getSimpleName());
     }
 
+
+
+    /**
+     * This method is for testing the handleSaveMap in the wrong phase method and compare the printed output.
+     */
     @Test
     public void handleSaveMapTest() {
         String l_expectedOutput =
@@ -143,6 +184,9 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * This method is for testing the handleValidateMap in the wrong phase method and compare the printed output
+     */
     @Test
     public void handleValidateMapTest() {
         String l_expectedOutput =
@@ -151,6 +195,9 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * This method is for testing the handleEditCountriesOrContinentOrNeighbor in the wrong phase method and compare the printed output
+     */
     @Test
     public void handleEditCountriesOrContinentOrNeighborTest() {
         String l_expectedOutput =
@@ -161,6 +208,10 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 
+
+    /**
+     * This method run after every test and is for cleaning the resources used in the tests like returning the System.setOut to it's default value.
+     */
     @AfterEach
     public void tearDown() {
         System.setOut(System.out);
