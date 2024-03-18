@@ -18,6 +18,7 @@ public class Blockade extends Order {
      *
      * @param p_targetName The name of the country to be blockaded
      * @param p_initiator player who initiated the order
+     * @param p_map The map where the game is being played
      */
     public Blockade(String p_targetName, Player p_initiator, Map p_map) {
         super(p_initiator, p_map); // Call the superclass constructor with null destination

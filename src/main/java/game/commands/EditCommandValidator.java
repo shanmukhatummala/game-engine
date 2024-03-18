@@ -20,6 +20,7 @@ public class EditCommandValidator implements CommandValidator {
 
     Map<String, Method> d_methodMap;
 
+    /** Constructor for the Validator where the d_methodMap attribute is built */
     public EditCommandValidator() {
 
         d_methodMap = new HashMap<String, Method>();

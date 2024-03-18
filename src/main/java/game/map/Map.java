@@ -46,6 +46,7 @@ public class Map {
      * @param p_continents list of continents
      * @param p_countries list of countries
      * @param p_players list of players
+     * @param p_mapName Name of the map
      */
     public Map(
             List<Continent> p_continents,
@@ -400,7 +401,11 @@ public class Map {
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Neighbor Country removed successfully!");
     }
 
-    /** Returns the Highest existing Continent ID */
+    /**
+     * Returns the Highest existing Continent ID
+     *
+     * @return max id from the list of continents
+     */
     public Integer getMaxContinentId() {
         return this.d_continents.stream()
                 .filter(Objects::nonNull)
@@ -410,7 +415,11 @@ public class Map {
                 .orElse(0);
     }
 
-    /** Returns the Highest existing Country ID */
+    /**
+     * Returns the Highest existing Country ID
+     *
+     * @return max id from the list of countries
+     */
     public Integer getMaxCountryId() {
         return this.d_countries.stream()
                 .filter(Objects::nonNull)

@@ -19,6 +19,8 @@ public class Deploy extends Order {
      *
      * @param p_destinationCountryName Country name where the army will be deployed
      * @param p_armyNumber Integer of the army count
+     * @param p_initiator The player that is deploying the army
+     * @param p_map The map where the game is being played
      */
     public Deploy(
             String p_destinationCountryName, Player p_initiator, int p_armyNumber, Map p_map) {

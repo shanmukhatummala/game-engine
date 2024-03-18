@@ -27,6 +27,7 @@ public class Airlift extends Order {
      * @param p_destinationName Country representing the p_destination territory
      * @param p_initiator Player object who initiated the order
      * @param p_armyNumber Integer representing the number of armies to move
+     * @param p_map The map where the game is played
      */
     public Airlift(
             String p_destinationName,

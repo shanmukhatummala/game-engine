@@ -20,6 +20,7 @@ public interface Phase {
      * @param p_command The command to load a map.
      * @param p_map The current map.
      * @param p_ge The game engine managing the game state.
+     * @param p_basePath Path where the map is located.
      */
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 
@@ -37,6 +38,7 @@ public interface Phase {
      * @param p_ge The game engine managing the game state.
      * @param p_command The command to edit a map.
      * @param p_map The current map.
+     * @param p_basePath Path where the map is located.
      */
     public void handleEditMap(GameEngine p_ge, Command p_command, Map p_map, String p_basePath);
 
@@ -71,6 +73,7 @@ public interface Phase {
      * @param p_command The command to save a map.
      * @param p_map The current map.
      * @param p_ge The game engine managing the game state.
+     * @param p_basePath Path where the map is located.
      */
     public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 

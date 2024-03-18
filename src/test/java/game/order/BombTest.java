@@ -25,6 +25,7 @@ public class BombTest {
 
     private Map d_map;
 
+    /** Creates a brand new map before each test */
     @BeforeEach
     public void setUp() {
         d_map = new Map();
@@ -124,6 +125,7 @@ public class BombTest {
         assertThat(l_country1.getD_armyCount(), equalTo(10));
     }
 
+    /** Tests that the bomb order doesn't execute when there's a negotiation order */
     @Test
     public void shouldNotBombWhenTargetOwnerAndInitiatorAreUnderNegotiation() {
 

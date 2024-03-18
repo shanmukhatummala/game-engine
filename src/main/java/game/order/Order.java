@@ -12,6 +12,7 @@ public abstract class Order {
      * The constructor of Order class that initialize the attribute
      *
      * @param p_initiator Player object who initiated the order
+     * @param p_map Map where the game is played
      */
     public Order(Player p_initiator, Map p_map) {
         this.d_initiator = p_initiator;
@@ -39,5 +40,10 @@ public abstract class Order {
     /** this method is responsible for the behavior of the orders */
     public abstract void execute();
 
+    /**
+     * Responsible for making sure the order can be executed before executing it
+     *
+     * @return true if the order can be executed
+     */
     public abstract boolean valid();
 }

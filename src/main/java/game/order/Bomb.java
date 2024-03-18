@@ -22,6 +22,7 @@ public class Bomb extends Order {
      *
      * @param p_targetCountryName target country to bomb
      * @param p_initiator player who initiated the order
+     * @param p_map The map where the game is being played
      */
     public Bomb(String p_targetCountryName, Player p_initiator, Map p_map) {
         super(p_initiator, p_map);
