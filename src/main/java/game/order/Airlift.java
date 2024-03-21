@@ -1,6 +1,7 @@
 package game.order;
 
 import static game.map.MapHelper.*;
+import static game.pojo.Player.Card.AIRLIFT;
 
 import game.GameEngine;
 import game.map.Map;
@@ -57,6 +58,7 @@ public class Airlift extends Order {
 
             l_source.setD_armyCount(l_source.getD_armyCount() - d_armyNumber);
             l_destination.setD_armyCount(l_destination.getD_armyCount() + d_armyNumber);
+            getD_initiator().getD_cards().remove(AIRLIFT);
         } else {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Cannot Airlift armies to the territory.");
         }
