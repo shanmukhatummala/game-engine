@@ -80,7 +80,7 @@ public class Airlift extends Order {
         if (!getD_initiator().getD_cards().contains(AIRLIFT)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     getD_initiator().getD_name()
-                            + " doesn't have an AIRLIFT card. So, cannot execute bomb order.");
+                            + " doesn't have an AIRLIFT card. So, cannot execute airlift order.");
             return false;
         }
 
