@@ -77,6 +77,13 @@ public class Airlift extends Order {
         Country l_destination = getCountryByName(getD_map(), d_destinationName);
         Country l_source = getCountryByName(getD_map(), d_sourceName);
 
+        if (!getD_initiator().getD_cards().contains(AIRLIFT)) {
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    getD_initiator().getD_name()
+                            + " doesn't have an AIRLIFT card. So, cannot execute bomb order.");
+            return false;
+        }
+
         if (l_destination == null) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     d_destinationName
