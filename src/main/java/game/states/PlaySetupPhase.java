@@ -11,7 +11,13 @@ import game.commands.Command;
 import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
+import game.reader.ConquestFileReader;
+import game.reader.FileReaderAdapter;
+import game.reader.MapFileReader;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /** Represents the phase in the game where initial setup actions are performed. */
@@ -34,7 +40,25 @@ public class PlaySetupPhase extends StartUpPhase {
      */
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
-        loadMap(p_basePath + p_command.getD_args().get(0), p_map);
+        try (BufferedReader l_reader =
+                new BufferedReader(
+                        new java.io.FileReader(p_basePath + p_command.getD_args().get(0)))) {
+            String l_firstLine = l_reader.readLine();
+            if (l_firstLine.equals("[Map]") || l_firstLine.equals("[Continents]")) {
+                MapFileReader l_mapFileReader = new FileReaderAdapter(new ConquestFileReader());
+                l_mapFileReader.readFile(p_basePath + p_command.getD_args().get(0), p_map);
+            } else {
+                MapFileReader l_mapFileReader = new MapFileReader();
+                l_mapFileReader.readFile(p_basePath + p_command.getD_args().get(0), p_map);
+            }
+        } catch (IOException l_e) {
+            if (l_e instanceof FileNotFoundException) {
+                System.out.println("The file you entered doesn't exist");
+            } else {
+                throw new RuntimeException(l_e.getMessage());
+            }
+        }
+
         if (!isMapValid(p_map)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "The loaded map is invalid, please load a valid map.");
