@@ -26,6 +26,22 @@ public class MapHelper {
     }
 
     /**
+     * To get a Continent object by name
+     *
+     * @param p_map map of the game engine
+     * @param p_name the continent name
+     * @return Continent object
+     */
+    public static Continent getContinentByName(Map p_map, String p_name) {
+        for (Continent l_continent : p_map.getD_continents()) {
+            if (l_continent.getD_name().equals(p_name)) {
+                return l_continent;
+            }
+        }
+        return null;
+    }
+
+    /**
      * This method gives the country by taking the id of the country as input
      *
      * @param p_map reference to the map
