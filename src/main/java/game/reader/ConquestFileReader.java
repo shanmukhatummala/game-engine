@@ -16,10 +16,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * ConquestFileReader is used for loading the conquest style map
+ *
+ * @author Shanmukha
+ */
 public class ConquestFileReader {
 
     /**
-     * This method loads the map into map object by reading a file
+     * This method reads the map and loads it into map object
      *
      * @param p_path path of the file
      * @param p_map reference to the map
@@ -37,7 +42,7 @@ public class ConquestFileReader {
             int l_continentID = 1;
             int l_countryId = 1;
 
-            java.util.Map<Country, List<String>> countryNeighborNameListMap = new HashMap<>();
+            java.util.Map<Country, List<String>> l_countryNeighborNameListMap = new HashMap<>();
 
             while ((l_line = l_reader.readLine()) != null) {
                 if ("[Continents]".equals(l_line)) {
@@ -79,7 +84,7 @@ public class ConquestFileReader {
                     }
 
                     Country l_country = new Country(l_countryId, l_countryName, l_continent);
-                    countryNeighborNameListMap.put(
+                    l_countryNeighborNameListMap.put(
                             l_country,
                             l_countryAttributes.length > 4
                                     ? Arrays.stream(l_countryAttributes)
@@ -89,17 +94,18 @@ public class ConquestFileReader {
                     p_map.addCountry(l_country);
 
                     l_continent.addCountryId(l_countryId);
-                    l_countryId ++;
+                    l_countryId++;
                 }
             }
 
-            countryNeighborNameListMap.forEach(
-                    (country, neighborNameList) -> {
-                        neighborNameList.forEach(
-                                neighbor ->
-                                        country.addNeighbor(
+            l_countryNeighborNameListMap.forEach(
+                    (l_country, l_neighborNameList) -> {
+                        l_neighborNameList.forEach(
+                                l_neighbor ->
+                                        l_country.addNeighbor(
                                                 Objects.requireNonNull(
-                                                                getCountryByName(p_map, neighbor.trim()))
+                                                                getCountryByName(
+                                                                        p_map, l_neighbor.trim()))
                                                         .getD_id()));
                     });
 

@@ -4,7 +4,7 @@ import game.map.Map;
 
 public class FileReaderAdapter extends MapFileReader {
 
-    private ConquestFileReader d_conquestFileReader;
+    private final ConquestFileReader d_conquestFileReader;
 
     public FileReaderAdapter(ConquestFileReader p_conquestFileReader) {
         this.d_conquestFileReader = p_conquestFileReader;
