@@ -8,7 +8,6 @@ import game.pojo.Continent;
 import game.pojo.Country;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -103,14 +102,12 @@ public class MapFileReader {
                     }
                 }
             }
-
-            System.out.println("Loaded the map into Java objects");
-        } catch (IOException l_e) {
-            if (l_e instanceof FileNotFoundException) {
-                System.out.println("The file you entered doesn't exist");
-            } else {
-                throw new RuntimeException(l_e.getMessage());
-            }
+        } catch (IOException | IllegalArgumentException l_e) {
+            p_map.clearMap();
+            System.out.println(
+                    "Loading map failed with error: " + l_e.getMessage() + ". So loading stopped.");
         }
+
+        System.out.println("Loaded the map into Java objects");
     }
 }

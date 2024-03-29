@@ -22,21 +22,27 @@ public class MapLoader {
      * @param p_map reference to the map
      */
     public static void loadMap(String p_path, Map p_map) {
+        String l_firstLine = null;
         try (BufferedReader l_reader = new BufferedReader(new java.io.FileReader(p_path))) {
-            String l_firstLine = l_reader.readLine();
-            if (l_firstLine.equals("[Map]") || l_firstLine.equals("[Continents]")) {
-                MapFileReader l_mapFileReader = new FileReaderAdapter(new ConquestFileReader());
-                l_mapFileReader.readFile(p_path, p_map);
-            } else {
-                MapFileReader l_mapFileReader = new MapFileReader();
-                l_mapFileReader.readFile(p_path, p_map);
-            }
+            l_firstLine = l_reader.readLine();
         } catch (IOException l_e) {
             if (l_e instanceof FileNotFoundException) {
                 System.out.println("The file you entered doesn't exist");
             } else {
-                throw new RuntimeException(l_e.getMessage());
+                p_map.clearMap();
+                System.out.println(
+                        "Loading map failed with error: "
+                                + l_e.getMessage()
+                                + ". So loading stopped.");
             }
+        }
+
+        if ("[Map]".equals(l_firstLine) || "[Continents]".equals(l_firstLine)) {
+            MapFileReader l_mapFileReader = new FileReaderAdapter(new ConquestFileReader());
+            l_mapFileReader.readFile(p_path, p_map);
+        } else {
+            MapFileReader l_mapFileReader = new MapFileReader();
+            l_mapFileReader.readFile(p_path, p_map);
         }
     }
 }
