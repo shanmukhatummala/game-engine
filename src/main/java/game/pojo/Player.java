@@ -56,7 +56,18 @@ public class Player {
     }
 
     /**
-     * Constructor with player name
+     * Constructor with player name and countries for Player, will adopt the Human strategy by
+     * default.
+     *
+     * @param p_name name of the player
+     * @param p_countries list of countries that belong to this player
+     */
+    public Player(String p_name, List<Country> p_countries) {
+        this(p_name, p_countries, new Human());
+    }
+
+    /**
+     * Constructor with player name, will adopt the Human strategy by default
      *
      * @param p_name name of the player
      */
