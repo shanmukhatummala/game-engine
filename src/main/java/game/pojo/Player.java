@@ -63,7 +63,7 @@ public class Player {
      * @param p_countries list of countries that belong to this player
      */
     public Player(String p_name, List<Country> p_countries) {
-        this(p_name, p_countries, new Human());
+        this(p_name, p_countries, Human.getHumanStrategy());
     }
 
     /**
@@ -72,7 +72,7 @@ public class Player {
      * @param p_name name of the player
      */
     public Player(String p_name) {
-        this(p_name, new ArrayList<>(), new Human());
+        this(p_name, new ArrayList<>(), Human.getHumanStrategy());
     }
 
     /**
@@ -237,6 +237,12 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(
-                d_name, d_countries, d_reinforcements, d_orderList, d_cards, d_negotiatedPlayers);
+                d_name,
+                d_countries,
+                d_reinforcements,
+                d_orderList,
+                d_cards,
+                d_negotiatedPlayers,
+                d_strategy);
     }
 }

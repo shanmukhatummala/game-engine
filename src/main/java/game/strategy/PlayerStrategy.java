@@ -6,6 +6,11 @@ import game.pojo.Player;
 
 import java.io.IOException;
 
-public interface PlayerStrategy {
-    public Command createOrder(Map p_map, Player p_player) throws IOException;
+public abstract class PlayerStrategy {
+    public abstract Command createOrder(Map p_map, Player p_player) throws IOException;
+
+    @Override
+    public boolean equals(Object p_otherObject) {
+        return this.getClass() == p_otherObject.getClass();
+    }
 }

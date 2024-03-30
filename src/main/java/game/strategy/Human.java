@@ -9,8 +9,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Human implements PlayerStrategy {
+public class Human extends PlayerStrategy {
 
+    private static Human d_humanStrategy;
+
+    public static Human getHumanStrategy() {
+        if (d_humanStrategy == null) {
+            Human.d_humanStrategy = new Human();
+        }
+        return d_humanStrategy;
+    }
+
+    private Human() {}
+    ;
+
+    @Override
     public Command createOrder(Map p_map, Player p_player) throws IOException {
         System.out.println(
                 "Player: "
@@ -33,18 +46,5 @@ public class Human implements PlayerStrategy {
             System.out.println(e.getMessage());
             return this.createOrder(p_map, p_player);
         }
-    }
-
-    @Override
-    public boolean equals(Object p_other) {
-
-        if (p_other == this) {
-            return true;
-        }
-
-        if (!(p_other instanceof Human)) {
-            return false;
-        }
-        return true;
     }
 }
