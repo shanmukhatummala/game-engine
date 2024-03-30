@@ -34,4 +34,17 @@ public class Human implements PlayerStrategy {
             return this.createOrder(p_map, p_player);
         }
     }
+
+    @Override
+    public boolean equals(Object p_other) {
+
+        if (p_other == this) {
+            return true;
+        }
+
+        if (!(p_other instanceof Human)) {
+            return false;
+        }
+        return true;
+    }
 }

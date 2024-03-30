@@ -129,6 +129,10 @@ public class Player {
         return d_negotiatedPlayers;
     }
 
+    public PlayerStrategy getD_strategy() {
+        return d_strategy;
+    }
+
     public void setD_strategy(PlayerStrategy p_strategy) {
         d_strategy = p_strategy;
     }
@@ -221,7 +225,8 @@ public class Player {
                 && Objects.equals(l_otherPlayer.d_reinforcements, this.d_reinforcements)
                 && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList)
                 && Objects.equals(l_otherPlayer.d_cards, this.d_cards)
-                && Objects.equals(l_otherPlayer.d_negotiatedPlayers, this.d_negotiatedPlayers);
+                && Objects.equals(l_otherPlayer.d_negotiatedPlayers, this.d_negotiatedPlayers)
+                && Objects.equals(l_otherPlayer.d_strategy, this.d_strategy);
     }
 
     /**
