@@ -9,8 +9,11 @@ import game.order.Bomb;
 import game.order.Deploy;
 import game.order.Negotiate;
 import game.order.Order;
+import game.strategy.Human;
+import game.strategy.PlayerStrategy;
 import game.util.IssueOrderHelper;
 
+import java.io.IOException;
 import java.util.*;
 
 /** Player is a POJO representing a player */
@@ -34,6 +37,7 @@ public class Player {
     private final Queue<Order> d_orderList;
     private final List<Card> d_cards;
     private final Set<String> d_negotiatedPlayers;
+    private PlayerStrategy d_strategy;
 
     /**
      * Constructor with player name and countries for Player
@@ -41,13 +45,14 @@ public class Player {
      * @param p_name name of the player
      * @param p_countries list of countries that belong to this player
      */
-    public Player(String p_name, List<Country> p_countries) {
+    public Player(String p_name, List<Country> p_countries, PlayerStrategy p_strategy) {
         this.d_name = p_name;
         this.d_countries = p_countries;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 0; //  the initial value of reinforcements for all the players
         this.d_cards = new ArrayList<>();
         this.d_negotiatedPlayers = new HashSet<>();
+        this.d_strategy = p_strategy;
     }
 
     /**
@@ -56,7 +61,7 @@ public class Player {
      * @param p_name name of the player
      */
     public Player(String p_name) {
-        this(p_name, new ArrayList<>());
+        this(p_name, new ArrayList<>(), new Human());
     }
 
     /**
@@ -113,6 +118,10 @@ public class Player {
         return d_negotiatedPlayers;
     }
 
+    public void setD_strategy(PlayerStrategy p_strategy) {
+        d_strategy = p_strategy;
+    }
+
     /**
      * Setter for reinforcement count
      *
@@ -129,6 +138,11 @@ public class Player {
      */
     public void addCard(Card card) {
         d_cards.add(card);
+    }
+
+    public Command generateCommand() throws IOException {
+        Map l_map = IssueOrderHelper.getMap();
+        return d_strategy.createOrder(l_map, this);
     }
 
     /** Handles the order issued by the Player in the game */

@@ -1,7 +1,6 @@
 package game.states;
 
 import game.GameEngine;
-import game.commands.Command;
 import game.map.Map;
 import game.pojo.Player;
 
@@ -16,11 +15,10 @@ abstract class StartUpPhase implements Phase {
      * not allowed during the start-up phase.
      *
      * @param p_map The current map.
-     * @param p_player The player issuing the orders.
-     * @param p_command The command to issue orders.
+     * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleIssuingOrders(Map p_map, Player p_player, Command p_command) {
+    public void handleIssuingOrders(Map p_map, GameEngine p_ge) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()

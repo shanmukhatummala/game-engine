@@ -7,7 +7,6 @@ import game.logger.LogFileWriter;
 import game.logger.StdOutWriter;
 import game.map.Map;
 import game.pojo.Player;
-import game.states.ExecuteOrderPhase;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
 
@@ -119,7 +118,7 @@ public class GameEngine {
 
         while (p_map.getD_players().size() > 1) {
             d_gamePhase.handleReinforcementsAssignment(p_map, this);
-            takeOrders(p_map, p_bufferedReader);
+            d_gamePhase.handleIssuingOrders(p_map, this);
             Set<Player> l_playersToAssignCard = new HashSet<>();
             d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
             p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
@@ -134,59 +133,6 @@ public class GameEngine {
                             + p_map.getD_players().get(0).getD_name()
                             + ", you are the winner!");
         }
-    }
-
-    /**
-     * Loop over all the players until they issue all the orders
-     *
-     * @param p_map map for the game
-     */
-    private void takeOrders(Map p_map, BufferedReader p_bufferedReader) {
-        List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
-        while (!l_playersLeftToIssueOrder.isEmpty()) {
-            for (Player l_player : p_map.getD_players()) {
-                if (!l_playersLeftToIssueOrder.contains(l_player)) {
-                    continue;
-                }
-                while (true) {
-                    try {
-                        System.out.println(
-                                "Player: "
-                                        + l_player.getD_name()
-                                        + ", enter the command "
-                                        + "(reinforcements available before the start of this round: "
-                                        + l_player.getD_reinforcements()
-                                        + (l_player.getD_cards().isEmpty()
-                                                ? ""
-                                                : " and cards available before the start of this round: "
-                                                        + l_player.getD_cards())
-                                        + "):");
-                        String l_commandString = p_bufferedReader.readLine();
-                        Command l_command;
-                        try {
-                            l_command = CommandParser.parse(l_commandString).get(0);
-                        } catch (IllegalArgumentException e) {
-                            System.out.println(e.getMessage());
-                            continue;
-                        }
-                        if ("showmap".equals(l_command.getD_commandType())) {
-                            d_gamePhase.handleShowMap(d_map);
-                        } else if ("commit".equals(l_command.getD_commandType())) {
-                            d_gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
-                            break;
-                        } else {
-                            d_gamePhase.handleIssuingOrders(d_map, l_player, l_command);
-                            break;
-                        }
-                    } catch (IOException e) {
-                        d_gamePhase.printInvalidCommandMessage(
-                                "Error when reading command. Error message: " + e.getMessage());
-                    }
-                }
-            }
-        }
-        System.out.println("Commands will be executed");
-        this.setD_gamePhase(new ExecuteOrderPhase());
     }
 
     /** Stops the program or in other words ends the game */

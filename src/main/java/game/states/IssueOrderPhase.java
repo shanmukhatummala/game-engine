@@ -8,6 +8,8 @@ import game.map.Map;
 import game.pojo.Player;
 import game.util.IssueOrderHelper;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /** Represents the state where players issue orders. */
@@ -36,13 +38,38 @@ public class IssueOrderPhase extends PlayPhase {
      * Allow player to create orders
      *
      * @param p_map map for the game
-     * @param p_player The player issuing orders.
-     * @param p_command The command representing the issued order.
+     * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleIssuingOrders(Map p_map, Player p_player, Command p_command) {
-        IssueOrderHelper.setCommand(p_command);
+    public void handleIssuingOrders(Map p_map, GameEngine p_ge) {
         IssueOrderHelper.setMap(p_map);
-        p_player.issue_order();
+        List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
+        while (!l_playersLeftToIssueOrder.isEmpty()) {
+            for (Player l_player : p_map.getD_players()) {
+                if (!l_playersLeftToIssueOrder.contains(l_player)) {
+                    continue;
+                }
+                while (true) {
+                    try {
+                        Command l_command = l_player.generateCommand();
+                        if ("showmap".equals(l_command.getD_commandType())) {
+                            this.handleShowMap(p_map);
+                        } else if ("commit".equals(l_command.getD_commandType())) {
+                            this.handleCommit(l_playersLeftToIssueOrder, l_player);
+                            break;
+                        } else {
+                            IssueOrderHelper.setCommand(l_command);
+                            l_player.issue_order();
+                            break;
+                        }
+                    } catch (IOException e) {
+                        this.printInvalidCommandMessage(
+                                "Error when reading command. Error message: " + e.getMessage());
+                    }
+                }
+            }
+        }
+        System.out.println("Commands will be executed");
+        p_ge.setD_gamePhase(new ExecuteOrderPhase());
     }
 }

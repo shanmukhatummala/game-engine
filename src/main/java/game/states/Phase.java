@@ -105,10 +105,9 @@ public interface Phase {
      * Handles the command to issue orders.
      *
      * @param p_map The current map.
-     * @param p_player The player issuing the orders.
-     * @param p_command The command to issue orders.
+     * @param p_ge The game engine managing the game state.
      */
-    public void handleIssuingOrders(Map p_map, Player p_player, Command p_command);
+    public void handleIssuingOrders(Map p_map, GameEngine p_ge);
 
     /**
      * Handles the execution of orders.
