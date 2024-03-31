@@ -164,13 +164,11 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
-     *
      * @param p_ge
-     * @param p_currentPlayer
      * @param p_filepath
      */
     @Override
-    public void handleLoadGame(GameEngine p_ge,Map p_map, Player p_currentPlayer, String p_filepath) {
+    public void handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p_filepath))) {
             Map l_map = (Map) in.readObject();
             p_map.clearMap();

@@ -80,6 +80,9 @@ public class GameEngine {
                         d_gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
                         d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
+                    } else if ("loadgame".equals(l_commandType)) {
+                        d_gamePhase.handleLoadGame(this, d_map, RESOURCES_PATH+l_command.getD_args().get(0));
+                        gameMode(l_bufferedReader);
                     } else if ("showmap".equals(l_commandType)) {
                         d_gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
@@ -93,9 +96,7 @@ public class GameEngine {
                                 l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
                         d_gamePhase.handleCountriesAssignment(d_map, this);
-                        startGameLoop(d_map, l_bufferedReader);
-                        System.out.println("Game over - all orders executed");
-                        endGame();
+                        gameMode(l_bufferedReader);
                     } else {
                         d_gamePhase.printInvalidCommandMessage(
                                 "Invalid Command in state "
@@ -108,6 +109,12 @@ public class GameEngine {
         } catch (IOException l_e) {
             throw new RuntimeException(l_e);
         }
+    }
+
+    private void gameMode(BufferedReader P_bufferedReader){
+        startGameLoop(d_map, P_bufferedReader);
+        System.out.println("Game over - all orders executed");
+        endGame();
     }
 
     /**
@@ -173,7 +180,6 @@ public class GameEngine {
                             d_gamePhase.handleShowMap(d_map);
                         } else if ("savegame".equals(l_command.getD_commandType())) {
                             d_gamePhase.handleSaveGame(d_map, l_player, RESOURCES_PATH+l_command.getD_args().get(0));
-                            break;
                         } else if ("commit".equals(l_command.getD_commandType())) {
                             d_gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
                             break;

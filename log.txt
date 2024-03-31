@@ -139,3 +139,36 @@ Reinforcements are assigned
 << PHASE: AssignResourcesPhase >>
 Reinforcements are assigned
 << PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
