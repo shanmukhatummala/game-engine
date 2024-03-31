@@ -8,9 +8,7 @@ import game.map.Map;
 import game.pojo.Player;
 import game.util.IssueOrderHelper;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.List;
 
 /** Represents the state where players issue orders. */
@@ -37,12 +35,15 @@ public class IssueOrderPhase extends PlayPhase {
 
 
     /**
-     * @param p_map
-     * @param p_currentPlayer
-     * @param p_filepath
+     * Handles the saving of the current game.
+     *
+     * @param p_map the current map to save
+     * @param p_currentPlayer the current player that saved the game
+     * @param p_filepath the path of the file to be saved
      */
     @Override
     public void handleSaveGame(Map p_map, Player p_currentPlayer, String p_filepath) {
+        System.out.println(p_filepath);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p_filepath))) {
             out.writeObject(p_map);
         } catch (IOException e) {

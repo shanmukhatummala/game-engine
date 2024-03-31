@@ -1,0 +1,141 @@
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player1 added
+Player player1 added
+Player player2 added
+Player player2 added
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+Jaban doesn't exist in the map now. So, cannot deploy in this country.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>

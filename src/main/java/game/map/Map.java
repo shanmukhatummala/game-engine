@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
  * @author Shanmukha
  */
 @Data
-public class Map  implements Serializable {
+public class Map implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final List<Continent> d_continents;

@@ -171,6 +171,9 @@ public class GameEngine {
                         }
                         if ("showmap".equals(l_command.getD_commandType())) {
                             d_gamePhase.handleShowMap(d_map);
+                        } else if ("savegame".equals(l_command.getD_commandType())) {
+                            d_gamePhase.handleSaveGame(d_map, l_player, RESOURCES_PATH+l_command.getD_args().get(0));
+                            break;
                         } else if ("commit".equals(l_command.getD_commandType())) {
                             d_gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
                             break;
