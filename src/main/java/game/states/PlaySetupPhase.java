@@ -163,7 +163,34 @@ public class PlaySetupPhase extends StartUpPhase {
         printInvalidCommandMessage(l_message);
     }
 
+    /**
+     *
+     * @param p_ge
+     * @param p_currentPlayer
+     * @param p_filepath
+     */
+    @Override
+    public void handleLoadGame(GameEngine p_ge,Map p_map, Player p_currentPlayer, String p_filepath) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p_filepath))) {
+            Map l_map = (Map) in.readObject();
+            p_map.clearMap();
+            p_map.setD_mapName(l_map.getD_mapName());
+            for (int i = 0; i < l_map.getD_continents().size(); i++) {
+                p_map.addContinent(l_map.getD_continents().get(i));
+            }
+            for (int i = 0; i < l_map.getD_countries().size(); i++) {
+                p_map.addCountry(l_map.getD_countries().get(i));
+            }
+            for (int i = 0; i < l_map.getD_players().size(); i++) {
+                p_map.addPlayer(l_map.getD_players().get(i));
+            }
+            p_ge.setD_gamePhase(new IssueOrderPhase());
 
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

@@ -5,6 +5,9 @@ import game.commands.Command;
 import game.map.Map;
 import game.pojo.Player;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -151,11 +154,12 @@ abstract class StartUpPhase implements Phase {
 
     /**
      * @param ge
+     * @param p_map
      * @param p_currentPlayer
      * @param p_filepath
      */
     @Override
-    public void handleLoadGame(GameEngine ge, Player p_currentPlayer, String p_filepath) {
+    public void handleLoadGame(GameEngine ge, Map p_map, Player p_currentPlayer, String p_filepath) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()

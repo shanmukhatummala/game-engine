@@ -219,6 +219,23 @@ public class Map  implements Serializable {
         d_players.add(new Player(p_playerName));
     }
 
+
+    /**
+     * This method adds a player to the list of players
+     *
+     * @param p_player
+     */
+    public void addPlayer(Player p_player) {
+
+        for (Player l_thisPlayer : d_players) {
+            if (l_thisPlayer.getD_name().equals(p_player.getD_name())) {
+                throw new IllegalArgumentException("Player with same name already exists");
+            }
+        }
+        d_players.add(p_player);
+    }
+
+
     /**
      * This method removes a player from the list of players
      *

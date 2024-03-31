@@ -111,10 +111,11 @@ public interface Phase {
 
     /**
      * @param ge
+     * @param p_map
      * @param p_currentPlayer
      * @param p_filepath
      */
-    public void handleLoadGame(GameEngine ge, Player p_currentPlayer, String p_filepath);
+    public void handleLoadGame(GameEngine ge, Map p_map, Player p_currentPlayer, String p_filepath);
 
     /**
      * Handles the command to issue orders.

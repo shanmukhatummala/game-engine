@@ -214,11 +214,12 @@ public abstract class PlayPhase implements Phase {
 
     /**
      * @param ge
+     * @param p_map
      * @param p_currentPlayer
      * @param p_filepath
      */
     @Override
-    public void handleLoadGame(GameEngine ge, Player p_currentPlayer, String p_filepath) {
+    public void handleLoadGame(GameEngine ge, Map p_map, Player p_currentPlayer, String p_filepath) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()
