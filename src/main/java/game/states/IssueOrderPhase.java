@@ -8,6 +8,9 @@ import game.map.Map;
 import game.pojo.Player;
 import game.util.IssueOrderHelper;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 /** Represents the state where players issue orders. */
@@ -31,6 +34,23 @@ public class IssueOrderPhase extends PlayPhase {
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer) {
         p_playersLeftToIssueOrder.remove(p_currentPlayer);
     }
+
+
+    /**
+     * @param p_map
+     * @param p_currentPlayer
+     * @param p_filepath
+     */
+    @Override
+    public void handleSaveGame(Map p_map, Player p_currentPlayer, String p_filepath) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p_filepath))) {
+            out.writeObject(p_map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * Allow player to create orders

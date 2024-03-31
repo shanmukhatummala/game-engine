@@ -132,4 +132,38 @@ abstract class StartUpPhase implements Phase {
                         + " you can't Commit orders start phase";
         printInvalidCommandMessage(l_message);
     }
+
+
+    /**
+     * @param p_map
+     * @param p_currentPlayer
+     * @param p_filepath
+     */
+    @Override
+    public void handleSaveGame(Map p_map, Player p_currentPlayer, String p_filepath) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't save the game in start phase";
+        printInvalidCommandMessage(l_message);
+    }
+
+
+    /**
+     * @param ge
+     * @param p_currentPlayer
+     * @param p_filepath
+     */
+    @Override
+    public void handleLoadGame(GameEngine ge, Player p_currentPlayer, String p_filepath) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't Load the game in start phase";
+        printInvalidCommandMessage(l_message);
+    }
+
+
 }
+
+

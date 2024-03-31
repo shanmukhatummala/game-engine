@@ -101,6 +101,21 @@ public interface Phase {
      */
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer);
 
+
+    /**
+     * @param p_map
+     * @param p_currentPlayer
+     * @param p_filepath
+     */
+    public void handleSaveGame(Map p_map, Player p_currentPlayer, String p_filepath);
+
+    /**
+     * @param ge
+     * @param p_currentPlayer
+     * @param p_filepath
+     */
+    public void handleLoadGame(GameEngine ge, Player p_currentPlayer, String p_filepath);
+
     /**
      * Handles the command to issue orders.
      *

@@ -10,6 +10,7 @@ import game.pojo.Player;
 import lombok.Data;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,8 +28,9 @@ import java.util.stream.IntStream;
  * @author Shanmukha
  */
 @Data
-public class Map {
+public class Map  implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
