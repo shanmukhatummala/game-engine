@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,7 @@ import java.util.Set;
 @Builder
 @Getter
 @Setter
-public class Country {
+public class Country implements Serializable {
 
     private int d_id;
     private String d_name;

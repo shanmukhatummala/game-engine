@@ -10,7 +10,7 @@ import java.util.Map;
 public class StartUpCommandValidator implements CommandValidator {
 
     static List<String> d_validCommands =
-            Arrays.asList("gameplayer", "showmap", "loadmap", "assigncountries", "editmap");
+            Arrays.asList("gameplayer", "showmap", "loadmap", "assigncountries", "editmap", "loadgame");
 
     Map<String, Method> d_methodMap;
 
@@ -106,6 +106,15 @@ public class StartUpCommandValidator implements CommandValidator {
      * @return true if command is valid
      */
     private boolean validateEditmapCommand(Command p_command) {
+        return (p_command.getD_args().size() == 1);
+    }
+
+    /**
+     *
+     * @param p_command
+     * @return
+     */
+    private boolean validateLoadgameCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }
 }

@@ -2,6 +2,7 @@ package game.pojo;
 
 import lombok.Builder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * @author Shanmukha
  */
 @Builder
-public class Continent {
+public class Continent implements Serializable {
 
     private int d_id;
     private String d_name;

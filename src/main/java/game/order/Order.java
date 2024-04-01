@@ -3,8 +3,10 @@ package game.order;
 import game.map.Map;
 import game.pojo.Player;
 
+import java.io.Serializable;
+
 /** and abstract class to represent the type of order a player can give */
-public abstract class Order {
+public abstract class Order implements Serializable {
     private final Player d_initiator;
     private final Map d_map;
 

@@ -35,6 +35,7 @@ public class GameEngine {
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
     @Getter @Setter private Phase d_gamePhase;
+    @Getter @Setter private Integer d_currentPlayerIndex;
     private final Map d_map;
 
     /**
@@ -45,6 +46,7 @@ public class GameEngine {
     public GameEngine(Map p_map) {
         this.d_map = p_map;
         this.d_gamePhase = new PlaySetupPhase();
+        this.d_currentPlayerIndex = 0;
         LOG_ENTRY_BUFFER.attach(new LogFileWriter("log.txt"));
         LOG_ENTRY_BUFFER.attach(new StdOutWriter());
     }
@@ -80,6 +82,9 @@ public class GameEngine {
                         d_gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
                         d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
+                    } else if ("loadgame".equals(l_commandType)) {
+                        List<Player> l_playersLeftToIssueOrder = d_gamePhase.handleLoadGame(this, d_map, RESOURCES_PATH+l_command.getD_args().get(0));
+                        gameMode(l_bufferedReader, l_playersLeftToIssueOrder, d_currentPlayerIndex);
                     } else if ("showmap".equals(l_commandType)) {
                         d_gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
@@ -93,9 +98,7 @@ public class GameEngine {
                                 l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
                         d_gamePhase.handleCountriesAssignment(d_map, this);
-                        startGameLoop(d_map, l_bufferedReader);
-                        System.out.println("Game over - all orders executed");
-                        endGame();
+                        gameMode(l_bufferedReader, new ArrayList<>(d_map.getD_players()), d_currentPlayerIndex);
                     } else {
                         d_gamePhase.printInvalidCommandMessage(
                                 "Invalid Command in state "
@@ -110,22 +113,30 @@ public class GameEngine {
         }
     }
 
+    private void gameMode(BufferedReader P_bufferedReader, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayer){
+        startGameLoop(d_map, P_bufferedReader, p_playersLeftToIssueOrder, p_currentPlayer);
+        System.out.println("Game over - all orders executed");
+        endGame();
+    }
+
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
      *
      * @param p_map map for the game
      */
-    private void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
+    private void startGameLoop(Map p_map, BufferedReader p_bufferedReader, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayerIndex) {
 
         while (p_map.getD_players().size() > 1) {
             d_gamePhase.handleReinforcementsAssignment(p_map, this);
-            takeOrders(p_map, p_bufferedReader);
+            takeOrders(p_map, p_bufferedReader, p_playersLeftToIssueOrder, p_currentPlayerIndex);
             Set<Player> l_playersToAssignCard = new HashSet<>();
             d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
             p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
             d_gamePhase.handleCardAssignment(l_playersToAssignCard, this);
             p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
             d_gamePhase.handleShowMap(p_map);
+            p_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
+            p_currentPlayerIndex = 0;
         }
 
         if (p_map.getD_players().size() == 1) {
@@ -141,25 +152,27 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private void takeOrders(Map p_map, BufferedReader p_bufferedReader) {
-        List<Player> l_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
-        while (!l_playersLeftToIssueOrder.isEmpty()) {
-            for (Player l_player : p_map.getD_players()) {
-                if (!l_playersLeftToIssueOrder.contains(l_player)) {
+    private void takeOrders(Map p_map, BufferedReader p_bufferedReader, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayerIndex) {
+        while (!p_playersLeftToIssueOrder.isEmpty()) {
+            for (int i = p_currentPlayerIndex; i < p_map.getD_players().size(); i++) {
+                System.out.println("immediatly after the for: current: "+p_currentPlayerIndex+" the i is: "+i);
+                if (!p_playersLeftToIssueOrder.contains(p_map.getD_players().get(i))) {
+                    p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
                     continue;
                 }
+                System.out.println("after the if it means the list is valid: current: "+p_currentPlayerIndex+" the i is: "+i);
                 while (true) {
                     try {
                         System.out.println(
                                 "Player: "
-                                        + l_player.getD_name()
+                                        + p_map.getD_players().get(i).getD_name()
                                         + ", enter the command "
                                         + "(reinforcements available before the start of this round: "
-                                        + l_player.getD_reinforcements()
-                                        + (l_player.getD_cards().isEmpty()
+                                        + p_map.getD_players().get(i).getD_reinforcements()
+                                        + (p_map.getD_players().get(i).getD_cards().isEmpty()
                                                 ? ""
                                                 : " and cards available before the start of this round: "
-                                                        + l_player.getD_cards())
+                                                        + p_map.getD_players().get(i).getD_cards())
                                         + "):");
                         String l_commandString = p_bufferedReader.readLine();
                         Command l_command;
@@ -171,11 +184,13 @@ public class GameEngine {
                         }
                         if ("showmap".equals(l_command.getD_commandType())) {
                             d_gamePhase.handleShowMap(d_map);
+                        } else if ("savegame".equals(l_command.getD_commandType())) {
+                            d_gamePhase.handleSaveGame(d_map, p_playersLeftToIssueOrder, p_currentPlayerIndex, RESOURCES_PATH+l_command.getD_args().get(0));
                         } else if ("commit".equals(l_command.getD_commandType())) {
-                            d_gamePhase.handleCommit(l_playersLeftToIssueOrder, l_player);
+                            d_gamePhase.handleCommit(p_playersLeftToIssueOrder, p_map.getD_players().get(i));
                             break;
                         } else {
-                            d_gamePhase.handleIssuingOrders(d_map, l_player, l_command);
+                            d_gamePhase.handleIssuingOrders(d_map, p_map.getD_players().get(i), l_command);
                             break;
                         }
                     } catch (IOException e) {
@@ -183,6 +198,10 @@ public class GameEngine {
                                 "Error when reading command. Error message: " + e.getMessage());
                     }
                 }
+
+                p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
+                System.out.println("the current player index: "+ p_currentPlayerIndex);
+
             }
         }
         System.out.println("Commands will be executed");
