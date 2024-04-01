@@ -1,0 +1,12 @@
+[Continents]
+Cockpit=5
+Right Thruster=6
+Left Cargo=10
+
+[Territories]
+Cockpit01,,,Cockpit,Cockpit02,Territory07
+Cockpit02,,,Cockpit,Cockpit01,Territory06
+Territory04,,,Left Cargo,Territory05
+Territory05,,,Left Cargo,Territory04,Territory06,Territory07
+Territory06,,,Left Cargo,Cockpit02,Territory05
+Territory07,,,Left Cargo,Cockpit01,Territory06
