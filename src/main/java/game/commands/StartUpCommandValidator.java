@@ -10,7 +10,8 @@ import java.util.Map;
 public class StartUpCommandValidator implements CommandValidator {
 
     static List<String> d_validCommands =
-            Arrays.asList("gameplayer", "showmap", "loadmap", "assigncountries", "editmap", "loadgame");
+            Arrays.asList(
+                    "gameplayer", "showmap", "loadmap", "assigncountries", "editmap", "loadgame");
 
     Map<String, Method> d_methodMap;
 
@@ -110,7 +111,6 @@ public class StartUpCommandValidator implements CommandValidator {
     }
 
     /**
-     *
      * @param p_command
      * @return
      */

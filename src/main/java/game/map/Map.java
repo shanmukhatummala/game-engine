@@ -219,7 +219,6 @@ public class Map implements Serializable {
         d_players.add(new Player(p_playerName));
     }
 
-
     /**
      * This method adds a player to the list of players
      *
@@ -234,7 +233,6 @@ public class Map implements Serializable {
         }
         d_players.add(p_player);
     }
-
 
     /**
      * This method removes a player from the list of players

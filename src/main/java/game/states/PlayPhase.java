@@ -205,7 +205,11 @@ public abstract class PlayPhase implements Phase {
      * @param p_filepath
      */
     @Override
-    public void handleSaveGame(Map p_map, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayerIndex, String p_filepath) {
+    public void handleSaveGame(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            String p_filepath) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()
@@ -228,6 +232,4 @@ public abstract class PlayPhase implements Phase {
         printInvalidCommandMessage(l_message);
         return null;
     }
-
-
 }

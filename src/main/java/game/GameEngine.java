@@ -83,7 +83,9 @@ public class GameEngine {
                     } else if ("loadmap".equals(l_commandType)) {
                         d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
                     } else if ("loadgame".equals(l_commandType)) {
-                        List<Player> l_playersLeftToIssueOrder = d_gamePhase.handleLoadGame(this, d_map, RESOURCES_PATH+l_command.getD_args().get(0));
+                        List<Player> l_playersLeftToIssueOrder =
+                                d_gamePhase.handleLoadGame(
+                                        this, d_map, RESOURCES_PATH + l_command.getD_args().get(0));
                         gameMode(l_bufferedReader, l_playersLeftToIssueOrder, d_currentPlayerIndex);
                     } else if ("showmap".equals(l_commandType)) {
                         d_gamePhase.handleShowMap(d_map);
@@ -98,7 +100,10 @@ public class GameEngine {
                                 l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
                         d_gamePhase.handleCountriesAssignment(d_map, this);
-                        gameMode(l_bufferedReader, new ArrayList<>(d_map.getD_players()), d_currentPlayerIndex);
+                        gameMode(
+                                l_bufferedReader,
+                                new ArrayList<>(d_map.getD_players()),
+                                d_currentPlayerIndex);
                     } else {
                         d_gamePhase.printInvalidCommandMessage(
                                 "Invalid Command in state "
@@ -113,7 +118,10 @@ public class GameEngine {
         }
     }
 
-    private void gameMode(BufferedReader P_bufferedReader, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayer){
+    private void gameMode(
+            BufferedReader P_bufferedReader,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayer) {
         startGameLoop(d_map, P_bufferedReader, p_playersLeftToIssueOrder, p_currentPlayer);
         System.out.println("Game over - all orders executed");
         endGame();
@@ -124,7 +132,11 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private void startGameLoop(Map p_map, BufferedReader p_bufferedReader, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayerIndex) {
+    private void startGameLoop(
+            Map p_map,
+            BufferedReader p_bufferedReader,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex) {
 
         while (p_map.getD_players().size() > 1) {
             d_gamePhase.handleReinforcementsAssignment(p_map, this);
@@ -152,15 +164,27 @@ public class GameEngine {
      *
      * @param p_map map for the game
      */
-    private void takeOrders(Map p_map, BufferedReader p_bufferedReader, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayerIndex) {
+    private void takeOrders(
+            Map p_map,
+            BufferedReader p_bufferedReader,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex) {
         while (!p_playersLeftToIssueOrder.isEmpty()) {
             for (int i = p_currentPlayerIndex; i < p_map.getD_players().size(); i++) {
-                System.out.println("immediatly after the for: current: "+p_currentPlayerIndex+" the i is: "+i);
+                System.out.println(
+                        "immediatly after the for: current: "
+                                + p_currentPlayerIndex
+                                + " the i is: "
+                                + i);
                 if (!p_playersLeftToIssueOrder.contains(p_map.getD_players().get(i))) {
                     p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
                     continue;
                 }
-                System.out.println("after the if it means the list is valid: current: "+p_currentPlayerIndex+" the i is: "+i);
+                System.out.println(
+                        "after the if it means the list is valid: current: "
+                                + p_currentPlayerIndex
+                                + " the i is: "
+                                + i);
                 while (true) {
                     try {
                         System.out.println(
@@ -185,12 +209,18 @@ public class GameEngine {
                         if ("showmap".equals(l_command.getD_commandType())) {
                             d_gamePhase.handleShowMap(d_map);
                         } else if ("savegame".equals(l_command.getD_commandType())) {
-                            d_gamePhase.handleSaveGame(d_map, p_playersLeftToIssueOrder, p_currentPlayerIndex, RESOURCES_PATH+l_command.getD_args().get(0));
+                            d_gamePhase.handleSaveGame(
+                                    d_map,
+                                    p_playersLeftToIssueOrder,
+                                    p_currentPlayerIndex,
+                                    RESOURCES_PATH + l_command.getD_args().get(0));
                         } else if ("commit".equals(l_command.getD_commandType())) {
-                            d_gamePhase.handleCommit(p_playersLeftToIssueOrder, p_map.getD_players().get(i));
+                            d_gamePhase.handleCommit(
+                                    p_playersLeftToIssueOrder, p_map.getD_players().get(i));
                             break;
                         } else {
-                            d_gamePhase.handleIssuingOrders(d_map, p_map.getD_players().get(i), l_command);
+                            d_gamePhase.handleIssuingOrders(
+                                    d_map, p_map.getD_players().get(i), l_command);
                             break;
                         }
                     } catch (IOException e) {
@@ -200,8 +230,7 @@ public class GameEngine {
                 }
 
                 p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
-                System.out.println("the current player index: "+ p_currentPlayerIndex);
-
+                System.out.println("the current player index: " + p_currentPlayerIndex);
             }
         }
         System.out.println("Commands will be executed");

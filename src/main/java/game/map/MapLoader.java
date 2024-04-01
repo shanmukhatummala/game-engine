@@ -1,8 +1,8 @@
 package game.map;
 
-import game.reader.ConquestFileReader;
-import game.reader.FileReaderAdapter;
-import game.reader.MapFileReader;
+import game.mapfile.reader.ConquestFileReader;
+import game.mapfile.reader.FileReaderAdapter;
+import game.mapfile.reader.MapFileReader;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

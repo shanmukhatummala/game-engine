@@ -1,9 +1,10 @@
-package game.reader;
+package game.mapfile;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import game.map.Map;
+import game.mapfile.reader.MapFileReader;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;

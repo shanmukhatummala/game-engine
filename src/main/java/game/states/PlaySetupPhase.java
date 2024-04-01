@@ -169,7 +169,8 @@ public class PlaySetupPhase extends StartUpPhase {
      * @return
      */
     @Override
-    public List<Player> handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath) throws Exception {
+    public List<Player> handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath)
+            throws Exception {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p_filepath))) {
             Map l_map = (Map) in.readObject();
             p_map.clearMap();
@@ -198,7 +199,6 @@ public class PlaySetupPhase extends StartUpPhase {
 
             List<Player> l_playersLeftToIssueOrder = (List<Player>) in.readObject();
 
-
             for (int i = 0; i < l_playersLeftToIssueOrder.size(); i++) {
                 System.out.println(l_playersLeftToIssueOrder.get(i).getD_name());
             }
@@ -211,7 +211,7 @@ public class PlaySetupPhase extends StartUpPhase {
             p_ge.setD_gamePhase(new IssueOrderPhase());
             return l_playersLeftToIssueOrder;
 
-        } catch (IOException | ClassNotFoundException l_e ) {
+        } catch (IOException | ClassNotFoundException l_e) {
             if (l_e instanceof FileNotFoundException) {
                 System.out.println("The file you entered doesn't exist");
             } else {
@@ -224,6 +224,4 @@ public class PlaySetupPhase extends StartUpPhase {
             throw new Exception("Try again.");
         }
     }
-
-
 }

@@ -10,7 +10,14 @@ import java.util.Map;
 public class OrderCommandValidator implements CommandValidator {
     static List<String> d_validCommands =
             Arrays.asList(
-                    "deploy", "advance", "bomb", "blockade", "airlift", "negotiate", "commit", "savegame");
+                    "deploy",
+                    "advance",
+                    "bomb",
+                    "blockade",
+                    "airlift",
+                    "negotiate",
+                    "commit",
+                    "savegame");
 
     Map<String, Method> d_methodMap;
 
@@ -158,14 +165,11 @@ public class OrderCommandValidator implements CommandValidator {
         return (p_command.getD_args().size() == 1);
     }
 
-
     /**
-     *
      * @param p_command
      * @return
      */
     private boolean validateSavegameCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
     }
-
 }

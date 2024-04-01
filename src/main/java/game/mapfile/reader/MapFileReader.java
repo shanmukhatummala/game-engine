@@ -1,4 +1,4 @@
-package game.reader;
+package game.mapfile.reader;
 
 import static game.map.MapHelper.getContinentById;
 import static game.map.MapHelper.getCountryById;

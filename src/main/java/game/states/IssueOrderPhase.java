@@ -33,17 +33,20 @@ public class IssueOrderPhase extends PlayPhase {
         p_playersLeftToIssueOrder.remove(p_currentPlayer);
     }
 
-
     /**
      * Handles the saving of the current game.
      *
-     * @param p_map                     the current map to save
+     * @param p_map the current map to save
      * @param p_playersLeftToIssueOrder
-     * @param p_currentPlayerIndex      the current player that saved the game
-     * @param p_filepath                the path of the file to be saved
+     * @param p_currentPlayerIndex the current player that saved the game
+     * @param p_filepath the path of the file to be saved
      */
     @Override
-    public void handleSaveGame(Map p_map, List<Player> p_playersLeftToIssueOrder, Integer p_currentPlayerIndex, String p_filepath) {
+    public void handleSaveGame(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            String p_filepath) {
         System.out.println(p_filepath);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p_filepath))) {
             out.writeObject(p_map);
@@ -54,8 +57,6 @@ public class IssueOrderPhase extends PlayPhase {
             e.printStackTrace();
         }
     }
-
-
 
     /**
      * Allow player to create orders

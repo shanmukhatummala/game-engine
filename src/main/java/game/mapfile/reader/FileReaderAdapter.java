@@ -1,4 +1,4 @@
-package game.reader;
+package game.mapfile.reader;
 
 import game.map.Map;
 
