@@ -3,6 +3,7 @@ package game.mapfile.reader;
 import static game.map.MapHelper.getContinentByName;
 import static game.map.MapHelper.getCountryByName;
 
+import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -113,6 +114,6 @@ public class ConquestFileReader {
                     "Loading map failed with error: " + l_e.getMessage() + ". So loading stopped.");
         }
 
-        System.out.println("Loaded the map into Java objects");
+        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Loaded the map into Java objects");
     }
 }

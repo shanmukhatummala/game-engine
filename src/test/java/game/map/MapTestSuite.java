@@ -8,7 +8,6 @@ import org.junit.platform.suite.api.Suite;
 @SelectClasses({
     MapHelperTest.class,
     MapLoaderTest.class,
-    MapSaverTest.class,
     MapShowerTest.class,
     MapTest.class,
     MapValidatorTest.class

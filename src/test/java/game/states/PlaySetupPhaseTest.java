@@ -166,16 +166,32 @@ public class PlaySetupPhaseTest {
     }
 
     /**
-     * This method is for testing the handleSaveMap in the wrong phase method and compare the
+     * This method is for testing the handleSaveMapCommand in the wrong phase method and compare the
      * printed output.
      */
     @Test
-    public void handleSaveMapTest() {
+    public void handleSaveMapCommandTest() {
         String l_expectedOutput =
                 "Invalid Command in state PlaySetupPhase you can't save a map here";
         d_playSetUpPhase
                 .getD_gamePhase()
-                .handleSaveMap(new Command("", new ArrayList<>()), d_map, d_playSetUpPhase, d_path);
+                .handleSaveMapCommand(
+                        new Command("", new ArrayList<>()), d_map, d_playSetUpPhase, d_path);
+        Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
+    }
+
+    /**
+     * This method is for testing the handleSaveMapType in the wrong phase method and compare the
+     * printed output.
+     */
+    @Test
+    public void handleSaveMapTypeTest() {
+        String l_expectedOutput =
+                "Invalid Command in state PlaySetupPhase you can't save a map here";
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleSaveMapType(
+                        new Command("", new ArrayList<>()), d_map, d_playSetUpPhase, d_path);
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 

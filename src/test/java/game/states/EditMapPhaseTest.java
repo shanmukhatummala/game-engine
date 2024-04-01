@@ -92,16 +92,36 @@ public class EditMapPhaseTest {
     }
 
     /**
-     * This method is for testing the handleSaveMap in the right phase and compare the method is
-     * changing the phase object to the correct kind of phase object.
+     * This method is for testing the handleSaveMapCommand in the right phase and compare the method
+     * is changing the phase object to the correct kind of phase object.
      */
     @Test
-    public void handleSaveMapTest() {
+    public void handleSaveMapCommandTest() {
         List<String> l_args = new ArrayList<>();
         l_args.add("new.map");
         d_map = createObjectsToAssert();
         Command l_command = new Command("savemap", l_args);
-        d_playSetUpPhase.getD_gamePhase().handleSaveMap(l_command, d_map, d_playSetUpPhase, d_path);
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleSaveMapCommand(l_command, d_map, d_playSetUpPhase, d_path);
+        String l_expectedPhase = "EditMapPhase";
+        Assertions.assertEquals(
+                l_expectedPhase, d_playSetUpPhase.getD_gamePhase().getClass().getSimpleName());
+    }
+
+    /**
+     * This method is for testing the handleSaveMapCommand in the right phase and compare the method
+     * is changing the phase object to the correct kind of phase object.
+     */
+    @Test
+    public void handleSaveMapTypeTest() {
+        List<String> l_args = new ArrayList<>();
+        l_args.add("1");
+        d_map = createObjectsToAssert();
+        Command l_command = new Command("savemaptype", l_args);
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleSaveMapType(l_command, d_map, d_playSetUpPhase, d_path);
         String l_expectedPhase = "PlaySetupPhase";
         Assertions.assertEquals(
                 l_expectedPhase, d_playSetUpPhase.getD_gamePhase().getClass().getSimpleName());
