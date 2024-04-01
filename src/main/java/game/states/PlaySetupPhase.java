@@ -166,9 +166,10 @@ public class PlaySetupPhase extends StartUpPhase {
     /**
      * @param p_ge
      * @param p_filepath
+     * @return
      */
     @Override
-    public void handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath) {
+    public List<Player> handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath) throws Exception {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p_filepath))) {
             Map l_map = (Map) in.readObject();
             p_map.clearMap();
@@ -182,11 +183,45 @@ public class PlaySetupPhase extends StartUpPhase {
             for (int i = 0; i < l_map.getD_players().size(); i++) {
                 p_map.addPlayer(l_map.getD_players().get(i));
             }
+
+            System.out.println("the map: ");
+            System.out.println(p_map.getD_mapName());
+            for (int i = 0; i < p_map.getD_continents().size(); i++) {
+                System.out.println(p_map.getD_continents().get(i).getD_name());
+            }
+            for (int i = 0; i < l_map.getD_countries().size(); i++) {
+                System.out.println(p_map.getD_countries().get(i).getD_name());
+            }
+            for (int i = 0; i < l_map.getD_players().size(); i++) {
+                System.out.println(p_map.getD_players().get(i).getD_name());
+            }
+
+            List<Player> l_playersLeftToIssueOrder = (List<Player>) in.readObject();
+
+
+            for (int i = 0; i < l_playersLeftToIssueOrder.size(); i++) {
+                System.out.println(l_playersLeftToIssueOrder.get(i).getD_name());
+            }
+
+            Integer l_currentPlayerIndex = (Integer) in.readObject();
+            System.out.println("the current player: ");
+            System.out.println(l_currentPlayerIndex);
+            p_ge.setD_currentPlayerIndex(l_currentPlayerIndex);
+
             p_ge.setD_gamePhase(new IssueOrderPhase());
+            return l_playersLeftToIssueOrder;
 
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException l_e ) {
+            if (l_e instanceof FileNotFoundException) {
+                System.out.println("The file you entered doesn't exist");
+            } else {
+                p_map.clearMap();
+                System.out.println(
+                        "Loading map failed with error: "
+                                + l_e.getMessage()
+                                + ". So loading stopped.");
+            }
+            throw new Exception("Try again.");
         }
     }
 

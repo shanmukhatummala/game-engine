@@ -172,3 +172,105 @@ Reinforcements are assigned
 Reinforcements are assigned
 << PHASE: IssueOrderPhase >>
 << PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Player c added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Player c added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Player c added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+Invalid number of armies (1) to deploy on Russia
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Player c added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+Inida doesn't exist in the map now. So, cannot deploy in this country.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
