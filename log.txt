@@ -1,0 +1,6 @@
+Player a added
+Player b added
+Player c added
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
