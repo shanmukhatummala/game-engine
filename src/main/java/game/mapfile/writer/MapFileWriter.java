@@ -8,8 +8,15 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/** Writes the map object into a file in the conquest format */
 public class MapFileWriter {
 
+    /**
+     * writes the map object into a file
+     *
+     * @param p_path path of the file
+     * @param p_map map object
+     */
     public void writeMapFile(String p_path, Map p_map) {
 
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_path))) {
@@ -28,8 +35,8 @@ public class MapFileWriter {
     }
 
     /**
-     * this method is called in the saveMap method to write all the continents and the bonus armies
-     * in a specific format
+     * this method is called in the writeMapFile method to write all the continents and the bonus
+     * armies in a specific format
      *
      * @param p_writer file writer object
      * @param p_map map object
@@ -47,8 +54,8 @@ public class MapFileWriter {
     }
 
     /**
-     * this method is called in the saveMap method to write all the continents and the bonus armies
-     * in a specific format
+     * this method is called in the writeMapFile method to write all the continents and the bonus
+     * armies in a specific format
      *
      * @param p_writer file writer object
      * @param p_map map object
@@ -71,8 +78,8 @@ public class MapFileWriter {
     }
 
     /**
-     * this method is called in the saveMap method to write all the border of all countries as in a
-     * country and it's neighbors
+     * this method is called in the writeMapFile method to write all the border of all countries as
+     * in a country and it's neighbors
      *
      * @param p_writer file writer object
      * @param p_map map object

@@ -1,7 +1,6 @@
 package game.mapfile.writer;
 
 import static game.map.MapHelper.getCountryById;
-import static game.map.MapHelper.getCountryByName;
 
 import game.map.Map;
 import game.pojo.Continent;
@@ -12,7 +11,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
+/** Writes the map object into a file in the conquest format */
 public class ConquestFileWriter {
+
+    /**
+     * writes the map object into a file
+     *
+     * @param p_path path of the file
+     * @param p_map map object
+     */
     public void writeConquestFile(String p_path, Map p_map) {
 
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_path))) {
@@ -48,8 +55,8 @@ public class ConquestFileWriter {
     }
 
     /**
-     * this method is called in the saveMap method to write all the continents and the bonus armies
-     * in a specific format
+     * this method is called in the writeConquestFile method to write all the countries and their
+     * neighbors in a specific format
      *
      * @param p_writer file writer object
      * @param p_map map object
@@ -60,8 +67,18 @@ public class ConquestFileWriter {
         p_writer.write(l_countryStarter);
         p_writer.newLine();
         for (Country l_country : p_map.getD_countries()) {
-            AtomicReference<String> l_countryRow = new AtomicReference<>(l_country.getD_name() + ",,," + l_country.getD_continent().getD_name());
-            l_country.getD_neighborIdList().forEach(neighborId -> l_countryRow.set(l_countryRow + "," + getCountryById(p_map, neighborId).getD_name()));
+            AtomicReference<String> l_countryRow =
+                    new AtomicReference<>(
+                            l_country.getD_name() + ",,," + l_country.getD_continent().getD_name());
+            l_country
+                    .getD_neighborIdList()
+                    .forEach(
+                            l_neighborId ->
+                                    l_countryRow.set(
+                                            l_countryRow
+                                                    + ","
+                                                    + getCountryById(p_map, l_neighborId)
+                                                            .getD_name()));
             p_writer.write(l_countryRow.toString());
             p_writer.newLine();
         }

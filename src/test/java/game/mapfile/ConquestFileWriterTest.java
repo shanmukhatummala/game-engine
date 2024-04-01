@@ -4,6 +4,7 @@ import game.map.Map;
 import game.mapfile.writer.ConquestFileWriter;
 import game.pojo.Continent;
 import game.pojo.Country;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/** Tests the ConquestFileWriter class */
 public class ConquestFileWriterTest {
 
     Map d_map;
@@ -25,7 +27,7 @@ public class ConquestFileWriterTest {
     private List<Country> d_countries;
     private ConquestFileWriter d_conquestFileWriter;
 
-    /** Setting up the map object to be tested */
+    /** Initializing context before each test */
     @BeforeEach
     void setUp() {
         d_continents = new ArrayList<>();
@@ -35,9 +37,7 @@ public class ConquestFileWriterTest {
         d_conquestFileWriter = new ConquestFileWriter();
     }
 
-    /**
-     * This method creates the continents and countries objects for the map object
-     */
+    /** This method creates the continents and countries objects for the map object */
     private void createContinentsAndCountries() {
         Continent l_continent1 = new Continent(1, "Cockpit", 5);
         Continent l_continent2 = new Continent(2, "Right Thruster", 6);
@@ -92,8 +92,8 @@ public class ConquestFileWriterTest {
     }
 
     /**
-     * This method test the saveMap method in the MapSaver class by comparing the content of the
-     * expected file to the file we created for test
+     * This method test the writeConquestFile method in the ConquestFileWriter class by comparing
+     * the content of the expected file to the file we created for test
      *
      * @throws IOException when writer fails to write
      */
