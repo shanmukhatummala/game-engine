@@ -78,8 +78,6 @@ public class IssueOrderPhaseTest {
 
 
     /**
-     * Tests the handleLoadMap in the right phase by comparing that the right map is loaded into the
-     * d_map object by comparing the countries and contents and players and name.
      */
     @Test
     public void handleSaveGameTest() {
