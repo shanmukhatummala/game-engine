@@ -1,6 +1,5 @@
 package game.states;
 
-import static game.map.MapSaver.saveMap;
 import static game.map.MapValidator.isMapValid;
 import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
@@ -8,6 +7,9 @@ import game.GameEngine;
 import game.commands.Command;
 import game.map.Map;
 import game.map.MapManipulation.MapManipulator;
+import game.mapfile.writer.ConquestFileWriter;
+import game.mapfile.writer.FileWriterAdapter;
+import game.mapfile.writer.MapFileWriter;
 
 import java.util.List;
 
@@ -47,7 +49,8 @@ public class EditMapPhase extends StartUpPhase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+    public void handleSaveMapCommand(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         if (!p_map.getD_mapName().equals(p_command.getD_args().get(0))) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntries(
                     List.of(
@@ -58,10 +61,37 @@ public class EditMapPhase extends StartUpPhase {
         if (!isMapValid(p_map)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "Current map is not valid: aborting the saving process.");
-            return;
         }
-        saveMap(p_basePath + p_map.getD_mapName(), p_map);
-        p_ge.setD_gamePhase(new PlaySetupPhase());
+        p_ge.setSavingInProgress(true);
+    }
+
+    /**
+     * Handles the command that mentions the type to save the map.
+     *
+     * @param p_command command that mentions the type
+     * @param p_map current map
+     * @param p_ge game engine managing the game state
+     * @param p_basePath path where the map is located
+     */
+    public void handleSaveMapType(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+
+        try {
+            if (p_command.getD_args().get(0).equals("1")) {
+                MapFileWriter mapFileWriter = new MapFileWriter();
+                mapFileWriter.writeMapFile(p_basePath + p_map.getD_mapName(), p_map);
+            } else {
+                FileWriterAdapter fileWriterAdapter =
+                        new FileWriterAdapter(new ConquestFileWriter());
+                fileWriterAdapter.writeMapFile(p_basePath + p_map.getD_mapName(), p_map);
+            }
+
+            p_ge.setSavingInProgress(false);
+            p_ge.setD_gamePhase(new PlaySetupPhase());
+        } catch (Exception l_e) {
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
+                    "Exception occurred when saving the map, try again");
+        }
     }
 
     /**

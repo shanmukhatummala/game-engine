@@ -5,5 +5,10 @@ import org.junit.platform.suite.api.Suite;
 
 /** Test suite for reader package */
 @Suite
-@SelectClasses({ConquestFileReaderTest.class, MapFileReaderTest.class})
+@SelectClasses({
+    ConquestFileReaderTest.class,
+    ConquestFileWriterTest.class,
+    MapFileReaderTest.class,
+    MapFileWriterTest.class
+})
 public class MapFileTestSuite {}

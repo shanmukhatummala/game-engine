@@ -34,9 +34,11 @@ public class GameEngine {
     /** This static variable is used for logging */
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
+    private final Map d_map;
+
     @Getter @Setter private Phase d_gamePhase;
     @Getter @Setter private Integer d_currentPlayerIndex;
-    private final Map d_map;
+    @Getter @Setter private boolean savingInProgress;
 
     /**
      * Constructor with map argument for GameEngine
@@ -66,13 +68,11 @@ public class GameEngine {
 
             while (true) {
                 try {
-                    // take the command and validate it
-                    String l_message =
-                            (d_gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
-                                    ? "Enter commands to 'edit (or) validate (or) save map':"
-                                    : "Enter the command";
-                    System.out.println(l_message);
+                    promptForUserInput();
                     String l_usrInput = l_bufferedReader.readLine();
+                    if (savingInProgress) {
+                        l_usrInput = "savefiletype " + l_usrInput;
+                    }
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
                     String l_commandType = l_commandList.get(0).getD_commandType();
                     Command l_command = l_commandList.get(0);
@@ -90,7 +90,9 @@ public class GameEngine {
                     } else if ("showmap".equals(l_commandType)) {
                         d_gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        d_gamePhase.handleSaveMap(l_command, d_map, this, RESOURCES_PATH);
+                        d_gamePhase.handleSaveMapCommand(l_command, d_map, this, RESOURCES_PATH);
+                    } else if ("savefiletype".equals(l_commandType)) {
+                        d_gamePhase.handleSaveMapType(l_command, d_map, this, RESOURCES_PATH);
                     } else if ("validatemap".equals(l_commandType)) {
                         d_gamePhase.handleValidateMap(d_map);
                     } else if ("editcontinent".equals(l_commandType)
@@ -116,6 +118,20 @@ public class GameEngine {
         } catch (IOException l_e) {
             throw new RuntimeException(l_e);
         }
+    }
+
+    private void promptForUserInput() {
+        String l_message;
+        if (savingInProgress) {
+            l_message =
+                    "Enter in which format you want to save this map:\n1. Domination\n2. Conquest";
+        } else {
+            l_message =
+                    (d_gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
+                            ? "Enter commands to 'edit (or) validate (or) save map':"
+                            : "Enter the command";
+        }
+        System.out.println(l_message);
     }
 
     private void gameMode(

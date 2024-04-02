@@ -75,7 +75,18 @@ public interface Phase {
      * @param p_ge The game engine managing the game state.
      * @param p_basePath Path where the map is located.
      */
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
+    public void handleSaveMapCommand(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
+
+    /**
+     * Handles the command that mentions the type to save the map.
+     *
+     * @param p_command command that mentions the type
+     * @param p_map current map
+     * @param p_ge game engine managing the game state
+     * @param p_basePath path where the map is located
+     */
+    public void handleSaveMapType(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 
     /**
      * Handles the command to validate a map.
