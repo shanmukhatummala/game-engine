@@ -203,29 +203,14 @@ public class PlaySetupPhase extends StartUpPhase {
                 p_map.addPlayer(l_map.getD_players().get(i));
             }
 
-            System.out.println("the map: ");
-            System.out.println(p_map.getD_mapName());
-            for (int i = 0; i < p_map.getD_continents().size(); i++) {
-                System.out.println(p_map.getD_continents().get(i).getD_name());
-            }
-            for (int i = 0; i < l_map.getD_countries().size(); i++) {
-                System.out.println(p_map.getD_countries().get(i).getD_name());
-            }
-            for (int i = 0; i < l_map.getD_players().size(); i++) {
-                System.out.println(p_map.getD_players().get(i).getD_name());
-            }
+
 
             List<Player> l_playersLeftToIssueOrder = (List<Player>) in.readObject();
 
-            for (int i = 0; i < l_playersLeftToIssueOrder.size(); i++) {
-                System.out.println(l_playersLeftToIssueOrder.get(i).getD_name());
-            }
+
 
             Integer l_currentPlayerIndex = (Integer) in.readObject();
-            System.out.println("the current player: ");
-            System.out.println(l_currentPlayerIndex);
             p_ge.setD_currentPlayerIndex(l_currentPlayerIndex);
-
             p_ge.setD_gamePhase(new IssueOrderPhase());
             return l_playersLeftToIssueOrder;
 

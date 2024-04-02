@@ -47,7 +47,6 @@ public class IssueOrderPhase extends PlayPhase {
             List<Player> p_playersLeftToIssueOrder,
             Integer p_currentPlayerIndex,
             String p_filepath) {
-        System.out.println(p_filepath);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(p_filepath))) {
             out.writeObject(p_map);
             out.writeObject(p_playersLeftToIssueOrder);
