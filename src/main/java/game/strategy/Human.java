@@ -9,10 +9,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Human strategy, allows for a human player to play the game and create orders using the console.
+ */
 public class Human extends PlayerStrategy {
 
+    /** Unique Human object. */
     private static Human d_humanStrategy;
 
+    /**
+     * Provides access to the strategy, using the Singleton design pattern
+     *
+     * @return the human strategy
+     */
     public static Human getHumanStrategy() {
         if (d_humanStrategy == null) {
             Human.d_humanStrategy = new Human();
@@ -20,11 +29,13 @@ public class Human extends PlayerStrategy {
         return d_humanStrategy;
     }
 
+    /** Private constructor to make sure that the client calls getHumanStrategy() */
     private Human() {}
     ;
 
+    /** Prompts the user to input a command to create an order */
     @Override
-    public Command createOrder(Map p_map, Player p_player) throws IOException {
+    public Command createOrder(Map p_map, Player p_player) {
         System.out.println(
                 "Player: "
                         + p_player.getD_name()
@@ -37,14 +48,16 @@ public class Human extends PlayerStrategy {
                                         + p_player.getD_cards())
                         + "):");
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String l_commandString = l_bufferedReader.readLine();
         Command l_command;
         try {
+            String l_commandString = l_bufferedReader.readLine();
             l_command = CommandParser.parse(l_commandString).get(0);
             return l_command;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return this.createOrder(p_map, p_player);
+        } catch (IOException e) {
+            System.out.println("Error when reading command. Error message: " + e.getMessage());
         }
+        return this.createOrder(p_map, p_player);
     }
 }

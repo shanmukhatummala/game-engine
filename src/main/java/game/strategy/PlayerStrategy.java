@@ -6,9 +6,31 @@ import game.pojo.Player;
 
 import java.io.IOException;
 
+/**
+ * Abstract class representing the different behaviors of the Player class. The strategy is
+ * responsible for creating the commands to create the orders that are inserted in the stack of
+ * orders.
+ *
+ * <p>Each strategy has to implement the Singleton design pattern. This is to ensure that each
+ * player that are equal and have the same strategy will be equal and have the same hash
+ */
 public abstract class PlayerStrategy {
-    public abstract Command createOrder(Map p_map, Player p_player) throws IOException;
+    /**
+     * Creates a command to create an order based on the current behavior
+     *
+     * @param p_map the map being played
+     * @param p_player the player using the strategy
+     * @return Command used to create the order
+     * @throws IOException if there's an error when reading the input for a human player.
+     */
+    public abstract Command createOrder(Map p_map, Player p_player);
 
+    /**
+     * Two strategies are equal if their class is the same.
+     *
+     * @param p_otherOject the object to which this object is compared
+     * @return true if the strategies are the same.
+     */
     @Override
     public boolean equals(Object p_otherObject) {
         return this.getClass() == p_otherObject.getClass();

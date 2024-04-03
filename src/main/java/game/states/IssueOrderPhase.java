@@ -8,7 +8,6 @@ import game.map.Map;
 import game.pojo.Player;
 import game.util.IssueOrderHelper;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class IssueOrderPhase extends PlayPhase {
     }
 
     /**
-     * Allow player to create orders
+     * Allow player to create orders. Loop over all the players until they issue all the orders
      *
      * @param p_map map for the game
      * @param p_ge The game engine managing the game state.
@@ -50,21 +49,18 @@ public class IssueOrderPhase extends PlayPhase {
                     continue;
                 }
                 while (true) {
-                    try {
-                        Command l_command = l_player.generateCommand();
-                        if ("showmap".equals(l_command.getD_commandType())) {
-                            this.handleShowMap(p_map);
-                        } else if ("commit".equals(l_command.getD_commandType())) {
-                            this.handleCommit(l_playersLeftToIssueOrder, l_player);
-                            break;
-                        } else {
-                            IssueOrderHelper.setCommand(l_command);
-                            l_player.issue_order();
-                            break;
-                        }
-                    } catch (IOException e) {
-                        this.printInvalidCommandMessage(
-                                "Error when reading command. Error message: " + e.getMessage());
+                    // Generates command according to the strategy
+                    Command l_command = l_player.generateCommand();
+                    if ("showmap".equals(l_command.getD_commandType())) {
+                        this.handleShowMap(p_map);
+                    } else if ("commit".equals(l_command.getD_commandType())) {
+                        this.handleCommit(l_playersLeftToIssueOrder, l_player);
+                        break;
+                    } else {
+                        // Creates the order and adds it to the list
+                        IssueOrderHelper.setCommand(l_command);
+                        l_player.issue_order();
+                        break;
                     }
                 }
             }

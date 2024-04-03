@@ -13,7 +13,6 @@ import game.strategy.Human;
 import game.strategy.PlayerStrategy;
 import game.util.IssueOrderHelper;
 
-import java.io.IOException;
 import java.util.*;
 
 /** Player is a POJO representing a player */
@@ -155,7 +154,7 @@ public class Player {
         d_cards.add(card);
     }
 
-    public Command generateCommand() throws IOException {
+    public Command generateCommand() {
         Map l_map = IssueOrderHelper.getMap();
         return d_strategy.createOrder(l_map, this);
     }
