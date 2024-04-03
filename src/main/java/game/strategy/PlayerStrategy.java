@@ -4,8 +4,6 @@ import game.commands.Command;
 import game.map.Map;
 import game.pojo.Player;
 
-import java.io.IOException;
-
 /**
  * Abstract class representing the different behaviors of the Player class. The strategy is
  * responsible for creating the commands to create the orders that are inserted in the stack of
@@ -21,14 +19,13 @@ public abstract class PlayerStrategy {
      * @param p_map the map being played
      * @param p_player the player using the strategy
      * @return Command used to create the order
-     * @throws IOException if there's an error when reading the input for a human player.
      */
     public abstract Command createOrder(Map p_map, Player p_player);
 
     /**
      * Two strategies are equal if their class is the same.
      *
-     * @param p_otherOject the object to which this object is compared
+     * @param p_otherObject the object to which this object is compared
      * @return true if the strategies are the same.
      */
     @Override

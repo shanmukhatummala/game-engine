@@ -43,6 +43,7 @@ public class Player {
      *
      * @param p_name name of the player
      * @param p_countries list of countries that belong to this player
+     * @param p_strategy the player behavior for creating orders
      */
     public Player(String p_name, List<Country> p_countries, PlayerStrategy p_strategy) {
         this.d_name = p_name;
@@ -128,10 +129,20 @@ public class Player {
         return d_negotiatedPlayers;
     }
 
+    /**
+     * Getter for the strategy
+     *
+     * @return the strategy used for generating orders
+     */
     public PlayerStrategy getD_strategy() {
         return d_strategy;
     }
 
+    /**
+     * Setter for the strategy
+     *
+     * @param p_strategy the behavior of the player
+     */
     public void setD_strategy(PlayerStrategy p_strategy) {
         d_strategy = p_strategy;
     }
@@ -154,6 +165,11 @@ public class Player {
         d_cards.add(card);
     }
 
+    /**
+     * Uses the strategy to generate the command that is used to issue orders
+     *
+     * @return Command used to create the order
+     */
     public Command generateCommand() {
         Map l_map = IssueOrderHelper.getMap();
         return d_strategy.createOrder(l_map, this);
