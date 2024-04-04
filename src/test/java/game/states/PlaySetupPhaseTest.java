@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.*;
 
 /** Class testing the PlaySetupPhase class */
@@ -166,16 +165,32 @@ public class PlaySetupPhaseTest {
     }
 
     /**
-     * This method is for testing the handleSaveMap in the wrong phase method and compare the
+     * This method is for testing the handleSaveMapCommand in the wrong phase method and compare the
      * printed output.
      */
     @Test
-    public void handleSaveMapTest() {
+    public void handleSaveMapCommandTest() {
         String l_expectedOutput =
                 "Invalid Command in state PlaySetupPhase you can't save a map here";
         d_playSetUpPhase
                 .getD_gamePhase()
-                .handleSaveMap(new Command("", new ArrayList<>()), d_map, d_playSetUpPhase, d_path);
+                .handleSaveMapCommand(
+                        new Command("", new ArrayList<>()), d_map, d_playSetUpPhase, d_path);
+        Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
+    }
+
+    /**
+     * This method is for testing the handleSaveMapType in the wrong phase method and compare the
+     * printed output.
+     */
+    @Test
+    public void handleSaveMapTypeTest() {
+        String l_expectedOutput =
+                "Invalid Command in state PlaySetupPhase you can't save a map here";
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleSaveMapType(
+                        new Command("", new ArrayList<>()), d_map, d_playSetUpPhase, d_path);
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 
@@ -203,6 +218,44 @@ public class PlaySetupPhaseTest {
                 .getD_gamePhase()
                 .handleEditCountriesOrContinentOrNeighbor(new String[] {}, d_map);
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
+    }
+
+    /** */
+    @Test
+    public void handleLoadGameTest() throws Exception {
+
+        List<String> l_commandArgs = new ArrayList<>();
+        l_commandArgs.add("loadgametest.bin");
+        Command l_command = new Command("loadgame", l_commandArgs);
+
+        Map l_expectedMap = new Map();
+        Integer l_expectedCurrentPlayerIndex = null;
+        List<Player> l_expectedPlayersLeftToIssueOrder = null;
+        try (ObjectInputStream in =
+                new ObjectInputStream(new FileInputStream(d_path + l_command.getD_args().get(0)))) {
+            l_expectedMap = (Map) in.readObject();
+            l_expectedPlayersLeftToIssueOrder = (List<Player>) in.readObject();
+            l_expectedCurrentPlayerIndex = (Integer) in.readObject();
+        } catch (IOException | ClassNotFoundException l_e) {
+            System.out.println(l_e.getMessage());
+        }
+
+        List<Player> l_playersLeftToIssueOrder =
+                d_playSetUpPhase
+                        .getD_gamePhase()
+                        .handleLoadGame(
+                                d_playSetUpPhase, d_map, d_path + l_command.getD_args().get(0));
+        List<Continent> l_continents = d_map.getD_continents();
+        List<Country> l_countries = d_map.getD_countries();
+        List<Player> l_players = d_map.getD_players();
+
+        Assertions.assertEquals(l_expectedMap.getD_countries(), l_countries);
+        Assertions.assertEquals(l_expectedMap.getD_continents(), l_continents);
+        Assertions.assertEquals(l_expectedMap.getD_players(), l_players);
+        Assertions.assertEquals(l_expectedMap.getD_mapName(), d_map.getD_mapName());
+        Assertions.assertEquals(l_expectedPlayersLeftToIssueOrder, l_playersLeftToIssueOrder);
+        Assertions.assertEquals(
+                l_expectedCurrentPlayerIndex, d_playSetUpPhase.getD_currentPlayerIndex());
     }
 
     /**

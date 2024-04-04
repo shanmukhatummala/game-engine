@@ -13,10 +13,11 @@ import game.strategy.Human;
 import game.strategy.PlayerStrategy;
 import game.util.IssueOrderHelper;
 
+import java.io.Serializable;
 import java.util.*;
 
 /** Player is a POJO representing a player */
-public class Player {
+public class Player implements Serializable {
 
     /** Card enum that stores all the possible cards */
     public enum Card {

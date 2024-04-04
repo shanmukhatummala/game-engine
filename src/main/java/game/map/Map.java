@@ -10,6 +10,7 @@ import game.pojo.Player;
 import lombok.Data;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,8 +28,9 @@ import java.util.stream.IntStream;
  * @author Shanmukha
  */
 @Data
-public class Map {
+public class Map implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private final List<Continent> d_continents;
     private final List<Country> d_countries;
     private final List<Player> d_players;
@@ -215,6 +217,21 @@ public class Map {
             }
         }
         d_players.add(new Player(p_playerName));
+    }
+
+    /**
+     * This method adds a player to the list of players
+     *
+     * @param p_player
+     */
+    public void addPlayer(Player p_player) {
+
+        for (Player l_thisPlayer : d_players) {
+            if (l_thisPlayer.getD_name().equals(p_player.getD_name())) {
+                throw new IllegalArgumentException("Player with same name already exists");
+            }
+        }
+        d_players.add(p_player);
     }
 
     /**

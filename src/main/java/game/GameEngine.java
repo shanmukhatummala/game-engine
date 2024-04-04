@@ -33,8 +33,11 @@ public class GameEngine {
     /** This static variable is used for logging */
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
-    @Getter @Setter private Phase d_gamePhase;
     private final Map d_map;
+
+    @Getter @Setter private Phase d_gamePhase;
+    @Getter @Setter private Integer d_currentPlayerIndex;
+    @Getter @Setter private boolean savingInProgress;
 
     /**
      * Constructor with map argument for GameEngine
@@ -44,6 +47,7 @@ public class GameEngine {
     public GameEngine(Map p_map) {
         this.d_map = p_map;
         this.d_gamePhase = new PlaySetupPhase();
+        this.d_currentPlayerIndex = 0;
         LOG_ENTRY_BUFFER.attach(new LogFileWriter("log.txt"));
         LOG_ENTRY_BUFFER.attach(new StdOutWriter());
     }
@@ -63,13 +67,11 @@ public class GameEngine {
 
             while (true) {
                 try {
-                    // take the command and validate it
-                    String l_message =
-                            (d_gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
-                                    ? "Enter commands to 'edit (or) validate (or) save map':"
-                                    : "Enter the command";
-                    System.out.println(l_message);
+                    promptForUserInput();
                     String l_usrInput = l_bufferedReader.readLine();
+                    if (savingInProgress) {
+                        l_usrInput = "savefiletype " + l_usrInput;
+                    }
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
                     String l_commandType = l_commandList.get(0).getD_commandType();
                     Command l_command = l_commandList.get(0);
@@ -79,10 +81,17 @@ public class GameEngine {
                         d_gamePhase.handleGamePlayer(l_commandList, d_map);
                     } else if ("loadmap".equals(l_commandType)) {
                         d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
+                    } else if ("loadgame".equals(l_commandType)) {
+                        List<Player> l_playersLeftToIssueOrder =
+                                d_gamePhase.handleLoadGame(
+                                        this, d_map, RESOURCES_PATH + l_command.getD_args().get(0));
+                        gameMode(l_bufferedReader, l_playersLeftToIssueOrder, d_currentPlayerIndex);
                     } else if ("showmap".equals(l_commandType)) {
                         d_gamePhase.handleShowMap(d_map);
                     } else if ("savemap".equals(l_commandType)) {
-                        d_gamePhase.handleSaveMap(l_command, d_map, this, RESOURCES_PATH);
+                        d_gamePhase.handleSaveMapCommand(l_command, d_map, this, RESOURCES_PATH);
+                    } else if ("savefiletype".equals(l_commandType)) {
+                        d_gamePhase.handleSaveMapType(l_command, d_map, this, RESOURCES_PATH);
                     } else if ("validatemap".equals(l_commandType)) {
                         d_gamePhase.handleValidateMap(d_map);
                     } else if ("editcontinent".equals(l_commandType)
@@ -92,9 +101,10 @@ public class GameEngine {
                                 l_usrInput.split(" "), d_map);
                     } else if ("assigncountries".equals(l_commandType)) {
                         d_gamePhase.handleCountriesAssignment(d_map, this);
-                        startGameLoop(d_map, l_bufferedReader);
-                        System.out.println("Game over - all orders executed");
-                        endGame();
+                        gameMode(
+                                l_bufferedReader,
+                                new ArrayList<>(d_map.getD_players()),
+                                d_currentPlayerIndex);
                     } else {
                         d_gamePhase.printInvalidCommandMessage(
                                 "Invalid Command in state "
@@ -109,22 +119,52 @@ public class GameEngine {
         }
     }
 
+    private void promptForUserInput() {
+        String l_message;
+        if (savingInProgress) {
+            l_message =
+                    "Enter in which format you want to save this map:\n1. Domination\n2. Conquest";
+        } else {
+            l_message =
+                    (d_gamePhase.getClass().getSimpleName().equals("EditMapPhase"))
+                            ? "Enter commands to 'edit (or) validate (or) save map':"
+                            : "Enter the command";
+        }
+        System.out.println(l_message);
+    }
+
+    private void gameMode(
+            BufferedReader P_bufferedReader,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayer) {
+        startGameLoop(d_map, P_bufferedReader, p_playersLeftToIssueOrder, p_currentPlayer);
+        System.out.println("Game over - all orders executed");
+        endGame();
+    }
+
     /**
      * Starts the game loop - calls assign reinforcements, issue orders, execute orders
      *
      * @param p_map map for the game
      */
-    private void startGameLoop(Map p_map, BufferedReader p_bufferedReader) {
+    private void startGameLoop(
+            Map p_map,
+            BufferedReader p_bufferedReader,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex) {
 
         while (p_map.getD_players().size() > 1) {
             d_gamePhase.handleReinforcementsAssignment(p_map, this);
-            d_gamePhase.handleIssuingOrders(p_map, this);
+            d_gamePhase.handleIssuingOrders(
+                    p_map, p_playersLeftToIssueOrder, p_currentPlayerIndex, this);
             Set<Player> l_playersToAssignCard = new HashSet<>();
             d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
             p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
             d_gamePhase.handleCardAssignment(l_playersToAssignCard, this);
             p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
             d_gamePhase.handleShowMap(p_map);
+            p_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());
+            p_currentPlayerIndex = 0;
         }
 
         if (p_map.getD_players().size() == 1) {

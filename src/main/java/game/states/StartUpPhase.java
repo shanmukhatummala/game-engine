@@ -15,10 +15,16 @@ abstract class StartUpPhase implements Phase {
      * not allowed during the start-up phase.
      *
      * @param p_map The current map.
+     * @param p_playersLeftToIssueOrder the list of players that haven't committed yet.
+     * @param p_currentPlayerIndex index of the player currently issuing orders.
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleIssuingOrders(Map p_map, GameEngine p_ge) {
+    public void handleIssuingOrders(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            GameEngine p_ge) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()
@@ -129,5 +135,41 @@ abstract class StartUpPhase implements Phase {
                         + this.getClass().getSimpleName()
                         + " you can't Commit orders start phase";
         printInvalidCommandMessage(l_message);
+    }
+
+    /**
+     * @param p_map
+     * @param p_playersLeftToIssueOrder
+     * @param p_currentPlayerIndex
+     * @param p_filepath
+     */
+    @Override
+    public void handleSaveGame(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            String p_filepath) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't save the game in start phase";
+        printInvalidCommandMessage(l_message);
+    }
+
+    /**
+     * @param ge
+     * @param p_map
+     * @param p_filepath
+     * @return
+     */
+    @Override
+    public List<Player> handleLoadGame(GameEngine ge, Map p_map, String p_filepath)
+            throws Exception {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't Load the game in start phase";
+        printInvalidCommandMessage(l_message);
+        return null;
     }
 }

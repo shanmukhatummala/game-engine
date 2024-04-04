@@ -12,6 +12,7 @@ import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
+import java.io.*;
 import java.util.List;
 
 /** Represents the phase in the game where initial setup actions are performed. */
@@ -34,7 +35,10 @@ public class PlaySetupPhase extends StartUpPhase {
      */
     @Override
     public void handleLoadMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
-        loadMap(p_basePath + p_command.getD_args().get(0), p_map);
+        String l_fileName = p_command.getD_args().get(0);
+        String l_filePath = p_basePath + l_fileName;
+        loadMap(l_filePath, p_map);
+
         if (!isMapValid(p_map)) {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                     "The loaded map is invalid, please load a valid map.");
@@ -120,7 +124,25 @@ public class PlaySetupPhase extends StartUpPhase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+    public void handleSaveMapCommand(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't save a map here";
+        printInvalidCommandMessage(l_message);
+    }
+
+    /**
+     * Handles the command that mentions the type to save the map.
+     *
+     * @param p_command command that mentions the type
+     * @param p_map current map
+     * @param p_ge game engine managing the game state
+     * @param p_basePath path where the map is located
+     */
+    public void handleSaveMapType(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()
@@ -157,5 +179,48 @@ public class PlaySetupPhase extends StartUpPhase {
                         + this.getClass().getSimpleName()
                         + " you can't edit map while not in the edit mode phase";
         printInvalidCommandMessage(l_message);
+    }
+
+    /**
+     * @param p_ge
+     * @param p_filepath
+     * @return
+     */
+    @Override
+    public List<Player> handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath)
+            throws Exception {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(p_filepath))) {
+            Map l_map = (Map) in.readObject();
+            p_map.clearMap();
+            p_map.setD_mapName(l_map.getD_mapName());
+            for (int i = 0; i < l_map.getD_continents().size(); i++) {
+                p_map.addContinent(l_map.getD_continents().get(i));
+            }
+            for (int i = 0; i < l_map.getD_countries().size(); i++) {
+                p_map.addCountry(l_map.getD_countries().get(i));
+            }
+            for (int i = 0; i < l_map.getD_players().size(); i++) {
+                p_map.addPlayer(l_map.getD_players().get(i));
+            }
+
+            List<Player> l_playersLeftToIssueOrder = (List<Player>) in.readObject();
+
+            Integer l_currentPlayerIndex = (Integer) in.readObject();
+            p_ge.setD_currentPlayerIndex(l_currentPlayerIndex);
+            p_ge.setD_gamePhase(new IssueOrderPhase());
+            return l_playersLeftToIssueOrder;
+
+        } catch (IOException | ClassNotFoundException l_e) {
+            if (l_e instanceof FileNotFoundException) {
+                System.out.println("The file you entered doesn't exist");
+            } else {
+                p_map.clearMap();
+                System.out.println(
+                        "Loading map failed with error: "
+                                + l_e.getMessage()
+                                + ". So loading stopped.");
+            }
+            throw new Exception("Try again.");
+        }
     }
 }

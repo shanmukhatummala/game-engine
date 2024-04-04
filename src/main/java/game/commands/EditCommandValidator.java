@@ -16,7 +16,8 @@ public class EditCommandValidator implements CommandValidator {
                     "editneighbor",
                     "showmap",
                     "savemap",
-                    "validatemap");
+                    "validatemap",
+                    "savefiletype");
 
     Map<String, Method> d_methodMap;
 
@@ -151,6 +152,18 @@ public class EditCommandValidator implements CommandValidator {
      */
     private boolean validateSavemapCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
+    }
+
+    /**
+     * Validates the savefiletype command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
+    private boolean validateSavefiletypeCommand(Command p_command) {
+        return (p_command.getD_args().size() == 1
+                && (p_command.getD_args().get(0).equals("1")
+                        || p_command.getD_args().get(0).equals("2")));
     }
 
     /**

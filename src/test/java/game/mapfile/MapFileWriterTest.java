@@ -1,5 +1,7 @@
-package game.map;
+package game.mapfile;
 
+import game.map.Map;
+import game.mapfile.writer.MapFileWriter;
 import game.pojo.Continent;
 import game.pojo.Country;
 
@@ -16,11 +18,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-/** This test class test the behavior of the MapSaver class */
-public class MapSaverTest {
+/** Test class for MapFileWriter class */
+public class MapFileWriterTest {
+
     Map d_map;
     final String d_pathToSaveMapOutcome = "src/test/resources/testMapSaver.map";
     private List<Country> d_countries;
+    private MapFileWriter d_mapFileWriter;
 
     /** Setting up the map object to be tested */
     @BeforeEach
@@ -29,6 +33,7 @@ public class MapSaverTest {
         d_countries = createCountries(l_continents);
         d_map = new Map(l_continents, d_countries, new ArrayList<>(), "testMapSaver.map");
         linkCountries();
+        d_mapFileWriter = new MapFileWriter();
     }
 
     /**
@@ -94,7 +99,7 @@ public class MapSaverTest {
     @Test
     void saveMap() throws IOException {
         String l_pathToExpectedOutcome = "src/test/resources/expected_outcome.map";
-        MapSaver.saveMap(d_pathToSaveMapOutcome, d_map);
+        d_mapFileWriter.writeMapFile(d_pathToSaveMapOutcome, d_map);
         List<String> l_expectedOutcome = Files.readAllLines(Paths.get(l_pathToExpectedOutcome));
         List<String> l_saveMapOutcome = Files.readAllLines(Paths.get(d_pathToSaveMapOutcome));
         Assertions.assertEquals(l_expectedOutcome, l_saveMapOutcome);

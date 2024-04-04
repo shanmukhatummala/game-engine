@@ -85,12 +85,30 @@ public abstract class PlayPhase implements Phase {
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+    public void handleSaveMapCommand(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
         String message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()
                         + " you can't save a map in the play mode";
         printInvalidCommandMessage(message);
+    }
+
+    /**
+     * Handles the command that mentions the type to save the map.
+     *
+     * @param p_command command that mentions the type
+     * @param p_map current map
+     * @param p_ge game engine managing the game state
+     * @param p_basePath path where the map is located
+     */
+    public void handleSaveMapType(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't save a map in the play mode";
+        printInvalidCommandMessage(l_message);
     }
 
     /**
@@ -129,10 +147,16 @@ public abstract class PlayPhase implements Phase {
      * subclasses.
      *
      * @param p_map The current map.
+     * @param p_playersLeftToIssueOrder the list of players that haven't committed yet.
+     * @param p_currentPlayerIndex index of the player currently issuing orders.
      * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleIssuingOrders(Map p_map, GameEngine p_ge) {}
+    public void handleIssuingOrders(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            GameEngine p_ge) {}
 
     /**
      * Handles the execution of orders. This method is abstract and must be implemented by
@@ -195,5 +219,40 @@ public abstract class PlayPhase implements Phase {
                         + this.getClass().getSimpleName()
                         + " you can't commit here.";
         printInvalidCommandMessage(message);
+    }
+
+    /**
+     * @param p_map
+     * @param p_playersLeftToIssueOrder
+     * @param p_currentPlayerIndex
+     * @param p_filepath
+     */
+    @Override
+    public void handleSaveGame(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            String p_filepath) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't save the game in start phase";
+        printInvalidCommandMessage(l_message);
+    }
+
+    /**
+     * @param ge
+     * @param p_map
+     * @param p_filepath
+     * @return
+     */
+    @Override
+    public List<Player> handleLoadGame(GameEngine ge, Map p_map, String p_filepath) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't Load the game in start phase";
+        printInvalidCommandMessage(l_message);
+        return null;
     }
 }

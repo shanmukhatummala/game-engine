@@ -8,11 +8,12 @@ import game.pojo.Player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 
 /**
  * Human strategy, allows for a human player to play the game and create orders using the console.
  */
-public class Human extends PlayerStrategy {
+public class Human extends PlayerStrategy implements Serializable {
 
     /** Unique Human object. */
     private static Human d_humanStrategy;

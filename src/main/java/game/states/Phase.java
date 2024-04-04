@@ -75,7 +75,18 @@ public interface Phase {
      * @param p_ge The game engine managing the game state.
      * @param p_basePath Path where the map is located.
      */
-    public void handleSaveMap(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
+    public void handleSaveMapCommand(
+            Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
+
+    /**
+     * Handles the command that mentions the type to save the map.
+     *
+     * @param p_command command that mentions the type
+     * @param p_map current map
+     * @param p_ge game engine managing the game state
+     * @param p_basePath path where the map is located
+     */
+    public void handleSaveMapType(Command p_command, Map p_map, GameEngine p_ge, String p_basePath);
 
     /**
      * Handles the command to validate a map.
@@ -102,12 +113,39 @@ public interface Phase {
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer);
 
     /**
+     * @param p_map
+     * @param p_playersLeftToIssueOrder
+     * @param p_currentPlayerIndex
+     * @param p_filepath
+     */
+    public void handleSaveGame(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            String p_filepath);
+
+    /**
+     * @param ge
+     * @param p_map
+     * @param p_filepath
+     * @return
+     */
+    public List<Player> handleLoadGame(GameEngine ge, Map p_map, String p_filepath)
+            throws Exception;
+
+    /**
      * Handles the command to issue orders.
      *
      * @param p_map The current map.
+     * @param p_playersLeftToIssueOrder the list of players that haven't committed yet.
+     * @param p_currentPlayerIndex index of the player currently issuing orders.
      * @param p_ge The game engine managing the game state.
      */
-    public void handleIssuingOrders(Map p_map, GameEngine p_ge);
+    public void handleIssuingOrders(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            GameEngine p_ge);
 
     /**
      * Handles the execution of orders.

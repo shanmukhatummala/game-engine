@@ -1,5 +1,6 @@
-package game.map;
+package game.mapfile.writer;
 
+import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 
@@ -7,16 +8,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/** this class is responsible for saving the map object into a map file */
-public class MapSaver {
+/** Writes the map object into a file in the conquest format */
+public class MapFileWriter {
 
     /**
-     * this method saves(write) the map into the file
+     * writes the map object into a file
      *
-     * @param p_path path of the file to be saved
-     * @param p_map the map object
+     * @param p_path path of the file
+     * @param p_map map object
      */
-    public static void saveMap(String p_path, Map p_map) {
+    public void writeMapFile(String p_path, Map p_map) {
 
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_path))) {
             // write the continents to the file
@@ -34,14 +35,14 @@ public class MapSaver {
     }
 
     /**
-     * this method is called in the saveMap method to write all the continents and the bonus armies
-     * in a specific format
+     * this method is called in the writeMapFile method to write all the continents and the bonus
+     * armies in a specific format
      *
      * @param p_writer file writer object
      * @param p_map map object
      * @throws IOException
      */
-    private static void writeContinents(BufferedWriter p_writer, Map p_map) throws IOException {
+    private void writeContinents(BufferedWriter p_writer, Map p_map) throws IOException {
         String l_continentsStarter = "[continents]";
         p_writer.write(l_continentsStarter);
         p_writer.newLine();
@@ -53,14 +54,14 @@ public class MapSaver {
     }
 
     /**
-     * this method is called in the saveMap method to write all the continents and the bonus armies
-     * in a specific format
+     * this method is called in the writeMapFile method to write all the continents and the bonus
+     * armies in a specific format
      *
      * @param p_writer file writer object
      * @param p_map map object
      * @throws IOException when writer fails to write then exception is thrown
      */
-    private static void writeCountries(BufferedWriter p_writer, Map p_map) throws IOException {
+    private void writeCountries(BufferedWriter p_writer, Map p_map) throws IOException {
         String l_countryStarter = "[countries]";
         p_writer.write(l_countryStarter);
         p_writer.newLine();
@@ -77,14 +78,14 @@ public class MapSaver {
     }
 
     /**
-     * this method is called in the saveMap method to write all the border of all countries as in a
-     * country and it's neighbors
+     * this method is called in the writeMapFile method to write all the border of all countries as
+     * in a country and it's neighbors
      *
      * @param p_writer file writer object
      * @param p_map map object
      * @throws IOException when writer fails to write then exception is thrown
      */
-    private static void writeBorders(BufferedWriter p_writer, Map p_map) throws IOException {
+    private void writeBorders(BufferedWriter p_writer, Map p_map) throws IOException {
         String l_borderStarter = "[borders]";
         p_writer.write(l_borderStarter);
         p_writer.newLine();
