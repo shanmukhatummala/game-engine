@@ -8,7 +8,7 @@ import java.util.*;
 
 import static game.map.MapHelper.getCountryById;
 
-public class Aggressive implements PlayerStrategy {
+public abstract class Aggressive extends PlayerStrategy {
     @Override
         public void deployStrongestCountry(Player player) {
             Country strongestCountry = findStrongestCountry(player.getD_countries());
