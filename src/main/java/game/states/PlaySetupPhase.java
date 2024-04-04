@@ -203,11 +203,7 @@ public class PlaySetupPhase extends StartUpPhase {
                 p_map.addPlayer(l_map.getD_players().get(i));
             }
 
-
-
             List<Player> l_playersLeftToIssueOrder = (List<Player>) in.readObject();
-
-
 
             Integer l_currentPlayerIndex = (Integer) in.readObject();
             p_ge.setD_currentPlayerIndex(l_currentPlayerIndex);

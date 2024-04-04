@@ -58,16 +58,63 @@ public class IssueOrderPhase extends PlayPhase {
     }
 
     /**
-     * Allow player to create orders
+     * Allow player to create orders. Loop over all the players until they issue all the orders
      *
      * @param p_map map for the game
-     * @param p_player The player issuing orders.
-     * @param p_command The command representing the issued order.
+     * @param p_playersLeftToIssueOrder the list of players that haven't committed yet.
+     * @param p_currentPlayerIndex index of the player currently issuing orders.
+     * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleIssuingOrders(Map p_map, Player p_player, Command p_command) {
-        IssueOrderHelper.setCommand(p_command);
+    public void handleIssuingOrders(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            GameEngine p_ge) {
         IssueOrderHelper.setMap(p_map);
-        p_player.issue_order();
+        while (!p_playersLeftToIssueOrder.isEmpty()) {
+            for (int i = p_currentPlayerIndex; i < p_map.getD_players().size(); i++) {
+                System.out.println(
+                        "immediatly after the for: current: "
+                                + p_currentPlayerIndex
+                                + " the i is: "
+                                + i);
+                if (!p_playersLeftToIssueOrder.contains(p_map.getD_players().get(i))) {
+                    p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
+                    continue;
+                }
+                System.out.println(
+                        "after the if it means the list is valid: current: "
+                                + p_currentPlayerIndex
+                                + " the i is: "
+                                + i);
+                Player l_player = p_map.getD_players().get(i);
+                while (true) {
+                    // Generates command according to the strategy
+                    Command l_command = l_player.generateCommand();
+                    if ("showmap".equals(l_command.getD_commandType())) {
+                        this.handleShowMap(p_map);
+                    } else if ("savegame".equals(l_command.getD_commandType())) {
+                        this.handleSaveGame(
+                                p_map,
+                                p_playersLeftToIssueOrder,
+                                p_currentPlayerIndex,
+                                GameEngine.RESOURCES_PATH + l_command.getD_args().get(0));
+                    } else if ("commit".equals(l_command.getD_commandType())) {
+                        this.handleCommit(p_playersLeftToIssueOrder, l_player);
+                        break;
+                    } else {
+                        // Creates the order and adds it to the list
+                        IssueOrderHelper.setCommand(l_command);
+                        l_player.issue_order();
+                        break;
+                    }
+                }
+                p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
+                System.out.println("the current player index: " + p_currentPlayerIndex);
+            }
+        }
+        System.out.println("Commands will be executed");
+        p_ge.setD_gamePhase(new ExecuteOrderPhase());
     }
 }
