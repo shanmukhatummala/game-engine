@@ -11,6 +11,9 @@ import static game.map.MapHelper.getCountryById;
 
 public  class Aggressive extends PlayerStrategy {
 
+    private boolean Deployed;
+    private boolean Attacked;
+    private boolean Moved;
 
     private static Aggressive aggressiveStrategy;
 
@@ -22,27 +25,51 @@ public  class Aggressive extends PlayerStrategy {
     }
 
     /** Private constructor to make sure that the client calls getAggressiveStrategy() */
-    private Aggressive() {}
+    private Aggressive() {
+        Deployed = false;
+        Attacked = false;
+        Moved = false;
+    }
 
     @Override
-    public Command createOrder(Map map, Player player) {
-        // Aggressive players don't need human input for creating orders, so this method is not implemented here
-        return null;
-    }
-    @Override
-        public void deployStrongestCountry(Player player) {
-            Country strongestCountry = findStrongestCountry(player.getD_countries());
-            int reinforcements = player.getD_reinforcements();
-            strongestCountry.setD_armyCount(strongestCountry.getD_armyCount() + reinforcements);
-            player.setD_reinforcements(0);
+    public Command createOrder(Map p_map, Player p_player) {
+        System.out.println("enter\n1:Deployed\n2:Attacked\n3:Moved");
+        if (!Deployed) {
+            deployStrongestCountry(p_player);
+            Deployed = true;
+            return new Command("deploy");
+        } else if (!Attacked) {
+            attackWithStrongestCountry(p_map, p_player);
+            Attacked = true;
+            return new Command("attack");
+        } else if (!Moved) {
+            moveArmies(p_map, p_player);
+            Moved = true;
+            return new Command("move");
+        } else {
+            // If all actions are completed, reset for the next turn
+            Deployed = false;
+            Attacked = false;
+            Moved = false;
+            // No specific command, as turn is completed
+            return new Command("end_turn");
         }
-    @Override
-    public void attackWithStrongestCountry(Player player, Map gameMap) {
-        Country strongestCountry = findStrongestCountry(player.getD_countries());
+
+        }
+
+        public void deployStrongestCountry(Player p_player) {
+            Country strongestCountry = findStrongestCountry(p_player.getD_countries());
+            int reinforcements = p_player.getD_reinforcements();
+            strongestCountry.setD_armyCount(strongestCountry.getD_armyCount() + reinforcements);
+            p_player.setD_reinforcements(0);
+        }
+
+    public void attackWithStrongestCountry(Map p_map,Player p_player ) {
+        Country strongestCountry = findStrongestCountry(p_player.getD_countries());
         Set<Integer> neighborIds = strongestCountry.getD_neighborIdList();
 
         for (Integer neighborId : neighborIds) {
-            Country neighbor = getCountryById(gameMap, neighborId);
+            Country neighbor = getCountryById(p_map, neighborId);
             if (neighbor != null && strongestCountry.getD_armyCount() > neighbor.getD_armyCount()) {
                 int armiesToAttackWith = strongestCountry.getD_armyCount() - neighbor.getD_armyCount();
                 neighbor.setD_armyCount(0); // Attack and conquer neighbor
@@ -50,15 +77,15 @@ public  class Aggressive extends PlayerStrategy {
                 break; // Stop after one successful attack
             }
         }
-    }
-    @Override
 
-    public void moveArmies(Player player, Map gameMap) {
-        Country strongestCountry = findStrongestCountry(player.getD_countries());
+    }
+
+    public void moveArmies(Map p_map,Player p_player) {
+        Country strongestCountry = findStrongestCountry(p_player.getD_countries());
         List<Integer> neighbors = new ArrayList<>(strongestCountry.getD_neighborIdList());
         for (int neighborId : neighbors) {
-            Country neighbor = getCountryById(gameMap, neighborId);
-            if (neighbor != null && neighbor.getD_continent().equals(player)) {
+            Country neighbor = getCountryById(p_map, neighborId);
+            if (neighbor != null && neighbor.getD_continent().equals(p_player)) {
                 int totalArmies = strongestCountry.getD_armyCount() + neighbor.getD_armyCount();
                 neighbor.setD_armyCount(totalArmies);
                 strongestCountry.setD_armyCount(0);
@@ -67,19 +94,7 @@ public  class Aggressive extends PlayerStrategy {
         }
     }
 
-    @Override
-    public void RandomDeploy(Player player) {
-    }
 
-    @Override
-    public void RandomAttack(Player player, Map gameMap) {
-
-    }
-
-    @Override
-    public void RandomMove(Player player, Map gameMap) {
-
-    }
 
     private Country findStrongestCountry(List<Country> countries) {
             return Collections.max(countries, Comparator.comparingInt(Country::getD_armyCount));
