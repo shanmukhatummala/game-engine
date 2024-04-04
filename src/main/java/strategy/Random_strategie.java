@@ -1,5 +1,6 @@
 package strategy;
 
+import game.commands.Command;
 import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -8,8 +9,38 @@ import java.util.Random;
 
 import static game.map.MapHelper.getCountryById;
 
-public abstract class Random_strategie extends PlayerStrategy {
+public  class Random_strategie extends PlayerStrategy {
 
+    private static Random_strategie RandomStrategy;
+
+    public static Random_strategie getAggressiveStrategy() {
+        if (RandomStrategy == null) {
+            RandomStrategy = new Random_strategie() {};
+        }
+        return RandomStrategy;
+    }
+
+    /** Private constructor to make sure that the client calls getAggressiveStrategy() */
+    private Random_strategie() {}
+    @Override
+    public Command createOrder(Map p_map, Player p_player) {
+        return null;
+    }
+
+    @Override
+    public void deployStrongestCountry(Player player) {
+
+    }
+
+    @Override
+    public void attackWithStrongestCountry(Player player, Map gameMap) {
+
+    }
+
+    @Override
+    public void moveArmies(Player player, Map gameMap) {
+
+    }
 
     @Override
     public void RandomDeploy(Player player) {

@@ -1,5 +1,6 @@
 package strategy;
 
+import game.commands.Command;
 import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -8,7 +9,26 @@ import java.util.*;
 
 import static game.map.MapHelper.getCountryById;
 
-public abstract class Aggressive extends PlayerStrategy {
+public  class Aggressive extends PlayerStrategy {
+
+
+    private static Aggressive aggressiveStrategy;
+
+    public static Aggressive getAggressiveStrategy() {
+        if (aggressiveStrategy == null) {
+            aggressiveStrategy = new Aggressive() {};
+        }
+        return aggressiveStrategy;
+    }
+
+    /** Private constructor to make sure that the client calls getAggressiveStrategy() */
+    private Aggressive() {}
+
+    @Override
+    public Command createOrder(Map map, Player player) {
+        // Aggressive players don't need human input for creating orders, so this method is not implemented here
+        return null;
+    }
     @Override
         public void deployStrongestCountry(Player player) {
             Country strongestCountry = findStrongestCountry(player.getD_countries());
@@ -45,6 +65,20 @@ public abstract class Aggressive extends PlayerStrategy {
                 break; // Move armies to the first neighboring country in the same continent
             }
         }
+    }
+
+    @Override
+    public void RandomDeploy(Player player) {
+    }
+
+    @Override
+    public void RandomAttack(Player player, Map gameMap) {
+
+    }
+
+    @Override
+    public void RandomMove(Player player, Map gameMap) {
+
     }
 
     private Country findStrongestCountry(List<Country> countries) {
