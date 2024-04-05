@@ -6,10 +6,12 @@ import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class IssueOrderPhaseTest {
-
 
     /** The data member represent the base path of the resources folder in the test */
     private String d_path;
@@ -70,15 +71,14 @@ public class IssueOrderPhaseTest {
         l_expectedCountries.add(l_country2);
         l_expectedCountries.add(l_country3);
         l_expectedCountries.add(l_country4);
-        Map l_map = new Map(l_expectedContinents, l_expectedCountries, l_expectedPlayers, "new.map");
-        l_map.assignCountries(l_expectedPlayers,l_expectedCountries);
+        Map l_map =
+                new Map(l_expectedContinents, l_expectedCountries, l_expectedPlayers, "new.map");
+        l_map.assignCountries(l_expectedPlayers, l_expectedCountries);
         l_map.getD_countries().get(0).setD_armyCount(3);
         return l_map;
     }
 
-
-    /**
-     */
+    /** */
     @Test
     public void handleSaveGameTest() {
         Map l_expectedMap = createObjectsToAssert();
@@ -86,10 +86,17 @@ public class IssueOrderPhaseTest {
         Integer l_expectedCurrentPlayerIndex = 1;
         l_commandArgs.add("savegametest.bin");
         Command l_command = new Command("savegame", l_commandArgs);
-        d_playSetUpPhase.getD_gamePhase().handleSaveGame(l_expectedMap, l_expectedMap.getD_players(),l_expectedCurrentPlayerIndex,d_path+l_command.getD_args().get(0));
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleSaveGame(
+                        l_expectedMap,
+                        l_expectedMap.getD_players(),
+                        l_expectedCurrentPlayerIndex,
+                        d_path + l_command.getD_args().get(0));
         List<Player> l_playersLeftToIssueOrder = null;
         Integer l_currentPlayerIndex = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(d_path+l_command.getD_args().get(0)))) {
+        try (ObjectInputStream in =
+                new ObjectInputStream(new FileInputStream(d_path + l_command.getD_args().get(0)))) {
             d_map = (Map) in.readObject();
             l_playersLeftToIssueOrder = (List<Player>) in.readObject();
             l_currentPlayerIndex = (Integer) in.readObject();
@@ -108,16 +115,13 @@ public class IssueOrderPhaseTest {
         Assertions.assertEquals(l_expectedCurrentPlayerIndex, l_currentPlayerIndex);
     }
 
-
-
-
     /**
      * This method run after every test and is for cleaning the resources used in the tests like
      * returning the System.setOut to it's default value.
      */
     @AfterEach
     public void tearDown() {
-        String l_pathToSavedOutcome = d_path+"savegametest.bin";
+        String l_pathToSavedOutcome = d_path + "savegametest.bin";
         Path l_pathToFile = Paths.get(l_pathToSavedOutcome);
         try {
             Files.delete(l_pathToFile);
@@ -126,5 +130,4 @@ public class IssueOrderPhaseTest {
             System.out.println(e.getMessage());
         }
     }
-
 }

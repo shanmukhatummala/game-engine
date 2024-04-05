@@ -220,28 +220,35 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 
-
-    /**
-     */
+    /** */
     @Test
     public void handleLoadGameTest() throws Exception {
-
-        List<String> l_commandArgs = new ArrayList<>();
-        l_commandArgs.add("loadgametest.bin");
-        Command l_command = new Command("loadgame", l_commandArgs);
-
-        Map l_expectedMap = new Map();
-        Integer l_expectedCurrentPlayerIndex = null;
-        List<Player> l_expectedPlayersLeftToIssueOrder = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(d_path+l_command.getD_args().get(0)))) {
-            l_expectedMap = (Map) in.readObject();
-            l_expectedPlayersLeftToIssueOrder = (List<Player>) in.readObject();
-            l_expectedCurrentPlayerIndex = (Integer) in.readObject();
-        } catch (IOException | ClassNotFoundException l_e) {
-            System.out.println(l_e.getMessage());
+        Map l_expectedMap = createObjectsToAssert();
+        l_expectedMap.addPlayer(new Player("player1", new ArrayList<>()));
+        l_expectedMap.addPlayer(new Player("player2", new ArrayList<>()));
+        l_expectedMap.assignCountries(l_expectedMap.getD_players(), l_expectedMap.getD_countries());
+        l_expectedMap.getD_countries().get(0).setD_armyCount(3);
+        String l_fileName = "loadgametest.bin";
+        List<Player> l_expectedPlayersLeftToIssueOrder = l_expectedMap.getD_players();
+        Integer l_expectedCurrentPlayerIndex = 1;
+        try (ObjectOutputStream out =
+                new ObjectOutputStream(new FileOutputStream(d_path + l_fileName))) {
+            out.writeObject(l_expectedMap);
+            out.writeObject(l_expectedPlayersLeftToIssueOrder);
+            out.writeObject(l_expectedCurrentPlayerIndex);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        List<Player> l_playersLeftToIssueOrder = d_playSetUpPhase.getD_gamePhase().handleLoadGame(d_playSetUpPhase,d_map,d_path+l_command.getD_args().get(0));
+        List<String> l_commandArgs = new ArrayList<>();
+        l_commandArgs.add(l_fileName);
+        Command l_command = new Command("loadgame", l_commandArgs);
+
+        List<Player> l_playersLeftToIssueOrder =
+                d_playSetUpPhase
+                        .getD_gamePhase()
+                        .handleLoadGame(
+                                d_playSetUpPhase, d_map, d_path + l_command.getD_args().get(0));
         List<Continent> l_continents = d_map.getD_continents();
         List<Country> l_countries = d_map.getD_countries();
         List<Player> l_players = d_map.getD_players();
@@ -251,7 +258,8 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedMap.getD_players(), l_players);
         Assertions.assertEquals(l_expectedMap.getD_mapName(), d_map.getD_mapName());
         Assertions.assertEquals(l_expectedPlayersLeftToIssueOrder, l_playersLeftToIssueOrder);
-        Assertions.assertEquals(l_expectedCurrentPlayerIndex, d_playSetUpPhase.getD_currentPlayerIndex());
+        Assertions.assertEquals(
+                l_expectedCurrentPlayerIndex, d_playSetUpPhase.getD_currentPlayerIndex());
     }
 
     /**

@@ -147,11 +147,16 @@ public abstract class PlayPhase implements Phase {
      * subclasses.
      *
      * @param p_map The current map.
-     * @param p_player The player issuing the orders.
-     * @param p_command The command to issue orders.
+     * @param p_playersLeftToIssueOrder the list of players that haven't committed yet.
+     * @param p_currentPlayerIndex index of the player currently issuing orders.
+     * @param p_ge The game engine managing the game state.
      */
     @Override
-    public void handleIssuingOrders(Map p_map, Player p_player, Command p_command) {}
+    public void handleIssuingOrders(
+            Map p_map,
+            List<Player> p_playersLeftToIssueOrder,
+            Integer p_currentPlayerIndex,
+            GameEngine p_ge) {}
 
     /**
      * Handles the execution of orders. This method is abstract and must be implemented by

@@ -9,6 +9,8 @@ import game.order.Bomb;
 import game.order.Deploy;
 import game.order.Negotiate;
 import game.order.Order;
+import game.strategy.Human;
+import game.strategy.PlayerStrategy;
 import game.util.IssueOrderHelper;
 
 import java.io.Serializable;
@@ -35,29 +37,43 @@ public class Player implements Serializable {
     private final Queue<Order> d_orderList;
     private final List<Card> d_cards;
     private final Set<String> d_negotiatedPlayers;
+    private PlayerStrategy d_strategy;
 
     /**
      * Constructor with player name and countries for Player
      *
      * @param p_name name of the player
      * @param p_countries list of countries that belong to this player
+     * @param p_strategy the player behavior for creating orders
      */
-    public Player(String p_name, List<Country> p_countries) {
+    public Player(String p_name, List<Country> p_countries, PlayerStrategy p_strategy) {
         this.d_name = p_name;
         this.d_countries = p_countries;
         this.d_orderList = new LinkedList<>();
         this.d_reinforcements = 0; //  the initial value of reinforcements for all the players
         this.d_cards = new ArrayList<>();
         this.d_negotiatedPlayers = new HashSet<>();
+        this.d_strategy = p_strategy;
     }
 
     /**
-     * Constructor with player name
+     * Constructor with player name and countries for Player, will adopt the Human strategy by
+     * default.
+     *
+     * @param p_name name of the player
+     * @param p_countries list of countries that belong to this player
+     */
+    public Player(String p_name, List<Country> p_countries) {
+        this(p_name, p_countries, Human.getHumanStrategy());
+    }
+
+    /**
+     * Constructor with player name, will adopt the Human strategy by default
      *
      * @param p_name name of the player
      */
     public Player(String p_name) {
-        this(p_name, new ArrayList<>());
+        this(p_name, new ArrayList<>(), Human.getHumanStrategy());
     }
 
     /**
@@ -115,6 +131,24 @@ public class Player implements Serializable {
     }
 
     /**
+     * Getter for the strategy
+     *
+     * @return the strategy used for generating orders
+     */
+    public PlayerStrategy getD_strategy() {
+        return d_strategy;
+    }
+
+    /**
+     * Setter for the strategy
+     *
+     * @param p_strategy the behavior of the player
+     */
+    public void setD_strategy(PlayerStrategy p_strategy) {
+        d_strategy = p_strategy;
+    }
+
+    /**
      * Setter for reinforcement count
      *
      * @param d_reinforcements reinforcement count to set
@@ -130,6 +164,16 @@ public class Player implements Serializable {
      */
     public void addCard(Card card) {
         d_cards.add(card);
+    }
+
+    /**
+     * Uses the strategy to generate the command that is used to issue orders
+     *
+     * @return Command used to create the order
+     */
+    public Command generateCommand() {
+        Map l_map = IssueOrderHelper.getMap();
+        return d_strategy.createOrder(l_map, this);
     }
 
     /** Handles the order issued by the Player in the game */
@@ -197,7 +241,8 @@ public class Player implements Serializable {
                 && Objects.equals(l_otherPlayer.d_reinforcements, this.d_reinforcements)
                 && Objects.equals(l_otherPlayer.d_orderList, this.d_orderList)
                 && Objects.equals(l_otherPlayer.d_cards, this.d_cards)
-                && Objects.equals(l_otherPlayer.d_negotiatedPlayers, this.d_negotiatedPlayers);
+                && Objects.equals(l_otherPlayer.d_negotiatedPlayers, this.d_negotiatedPlayers)
+                && Objects.equals(l_otherPlayer.d_strategy, this.d_strategy);
     }
 
     /**
@@ -208,6 +253,12 @@ public class Player implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(
-                d_name, d_countries, d_reinforcements, d_orderList, d_cards, d_negotiatedPlayers);
+                d_name,
+                d_countries,
+                d_reinforcements,
+                d_orderList,
+                d_cards,
+                d_negotiatedPlayers,
+                d_strategy);
     }
 }
