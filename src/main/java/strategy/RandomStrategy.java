@@ -1,64 +1,47 @@
 package strategy;
 
 import game.commands.Command;
-import game.commands.CommandParser;
 import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Random;
 
 import static game.map.MapHelper.getCountryById;
 
-public  class Random_strategie extends PlayerStrategy {
+public class RandomStrategy extends PlayerStrategy {
 
-    private static Random_strategie RandomStrategy;
+    private static RandomStrategy randomStrategy;
 
-    public static Random_strategie getAggressiveStrategy() {
-        if (RandomStrategy == null) {
-            RandomStrategy = new Random_strategie() {};
+    public static RandomStrategy getRandomStrategy() {
+        if (randomStrategy == null) {
+            randomStrategy = new RandomStrategy();
         }
-        return RandomStrategy;
+        return randomStrategy;
     }
 
-    /** Private constructor to make sure that the client calls getAggressiveStrategy() */
-    private Random_strategie() {}
+    /** Private constructor to make sure that the client calls getRandomStrategy() */
+    private RandomStrategy() {}
+
     @Override
     public Command createOrder(Map p_map, Player p_player) {
-        /** Prompts the user to input a command to create an order */
-        System.out.println(
-                "Player: "
-                        + p_player.getD_name()
-                        + ", enter the command "
-                        + "(reinforcements available before the start of this round: "
-                        + p_player.getD_reinforcements()
-                        + (p_player.getD_cards().isEmpty()
-                        ? ""
-                        : " and cards available before the start of this round: "
-                        + p_player.getD_cards())
-                        + "):");
-        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        Command l_command;
-        try {
-            String l_commandString = l_bufferedReader.readLine();
-            l_command = CommandParser.parse(l_commandString).get(0);
-            return l_command;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Error when reading command. Error message: " + e.getMessage());
+        Random random = new Random();
+        int action = random.nextInt(3); // 0 for deploy, 1 for attack, 2 for move
+
+        switch (action) {
+            case 0:
+                return deployRandomly(p_player);
+            case 1:
+                return attackRandomly(p_map, p_player);
+            case 2:
+                return moveRandomly(p_map, p_player);
+            default:
+                return new Command("end_turn");
         }
-        return this.createOrder(p_map, p_player);
     }
 
-
-
-    public void RandomDeploy(Player p_player) {
-
+    private Command deployRandomly(Player p_player) {
         List<Country> countries = p_player.getD_countries();
         if (!countries.isEmpty()) {
             Random random = new Random();
@@ -68,10 +51,12 @@ public  class Random_strategie extends PlayerStrategy {
             randomCountry.setD_armyCount(randomCountry.getD_armyCount() + reinforcements);
             p_player.setD_reinforcements(0);
             System.out.println("Deployed " + reinforcements + " armies to " + randomCountry.getD_name());
+            return new Command("deploy");
         }
+        return createOrder(null, p_player); // No valid country to deploy, try again
     }
 
-    public void RandomAttack(Map p_map, Player p_player) {
+    private Command attackRandomly(Map p_map, Player p_player) {
         List<Country> countries = p_player.getD_countries();
         if (!countries.isEmpty()) {
             Random random = new Random();
@@ -88,13 +73,14 @@ public  class Random_strategie extends PlayerStrategy {
                     randomCountry.setD_armyCount(armiesToAttackWith);
                     System.out.println(randomCountry.getD_name() + " attacks " + neighbor.getD_name() +
                             " with " + armiesToAttackWith + " armies");
+                    return new Command("attack");
                 }
             }
         }
+        return createOrder(p_map, p_player); // No valid attack, try again
     }
 
-
-    public void RandomMove( Map p_map,Player p_player) {
+    private Command moveRandomly(Map p_map, Player p_player) {
         List<Country> countries = p_player.getD_countries();
         if (!countries.isEmpty()) {
             Random random = new Random();
@@ -110,9 +96,10 @@ public  class Random_strategie extends PlayerStrategy {
                     neighbor.setD_armyCount(totalArmies);
                     randomCountry.setD_armyCount(0);
                     System.out.println("Moved armies from " + randomCountry.getD_name() + " to " + neighbor.getD_name());
+                    return new Command("move");
                 }
             }
         }
+        return createOrder(p_map, p_player); // No valid move, try again
     }
-
 }

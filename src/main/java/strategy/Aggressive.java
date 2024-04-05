@@ -33,7 +33,6 @@ public  class Aggressive extends PlayerStrategy {
 
     @Override
     public Command createOrder(Map p_map, Player p_player) {
-        System.out.println("enter\n1:Deployed\n2:Attacked\n3:Moved");
         if (!Deployed) {
             deployStrongestCountry(p_player);
             Deployed = true;
