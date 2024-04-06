@@ -1,4 +1,4 @@
-# Created at 2024-04-06T15:20:57.835
+# Created at 2024-04-06T15:29:36.110
 Boot Manifest-JAR contains absolute paths in classpath D:\java_intellji\game-engine\target\test-classes
 java.lang.IllegalArgumentException: 'other' has different root
 	at java.base/sun.nio.fs.WindowsPath.relativize(WindowsPath.java:420)
@@ -41,7 +41,7 @@ java.lang.IllegalArgumentException: 'other' has different root
 	at org.codehaus.classworlds.Launcher.main(Launcher.java:47)
 
 
-# Created at 2024-04-06T15:20:57.839
+# Created at 2024-04-06T15:29:36.112
 Boot Manifest-JAR contains absolute paths in classpath D:\java_intellji\game-engine\target\classes
 java.lang.IllegalArgumentException: 'other' has different root
 	at java.base/sun.nio.fs.WindowsPath.relativize(WindowsPath.java:420)

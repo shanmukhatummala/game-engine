@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="FullTestSuite" time="2.116" tests="87" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="FullTestSuite" time="1.086" tests="87" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="C:\Users\rayapudi naveen\.jdks\openjdk-21.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\RAYAPU~1\AppData\Local\Temp\surefire2908087653969641969\surefirebooter268953579507509471.jar C:\Users\rayapudi naveen\AppData\Local\Temp\surefire2908087653969641969 2024-04-06T15-20-57_237-jvmRun1 surefire9523607276437793809tmp surefire_0743093690077415947tmp"/>
+    <property name="sun.java.command" value="C:\Users\RAYAPU~1\AppData\Local\Temp\surefire7167060936259691792\surefirebooter11211317267882664252.jar C:\Users\rayapudi naveen\AppData\Local\Temp\surefire7167060936259691792 2024-04-06T15-29-35_749-jvmRun1 surefire3489182241177593681tmp surefire_014355184973777785265tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="D:\java_intellji\game-engine\target\test-classes;D:\java_intellji\game-engine\target\classes;C:\Users\rayapudi naveen\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\rayapudi naveen\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\rayapudi naveen\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\rayapudi naveen\.m2\repository\com\obsidiandynamics\pojotester\core\0.9.0\core-0.9.0.jar;C:\Users\rayapudi naveen\.m2\repository\org\slf4j\slf4j-api\1.7.26\slf4j-api-1.7.26.jar;C:\Users\rayapudi naveen\.m2\repository\org\apache\commons\commons-lang3\3.8.1\commons-lang3-3.8.1.jar;C:\Users\rayapudi naveen\.m2\repository\org\apache\commons\commons-collections4\4.3\commons-collections4-4.3.jar;C:\Users\rayapudi naveen\.m2\repository\com\googlecode\combinatoricslib\combinatoricslib\2.1\combinatoricslib-2.1.jar;C:\Users\rayapudi naveen\.m2\repository\org\javassist\javassist\3.24.1-GA\javassist-3.24.1-GA.jar;C:\Users\rayapudi naveen\.m2\repository\org\hamcrest\hamcrest-all\1.3\hamcrest-all-1.3.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\platform\junit-platform-suite-engine\1.10.1\junit-platform-suite-engine-1.10.1.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\platform\junit-platform-engine\1.10.1\junit-platform-engine-1.10.1.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\platform\junit-platform-suite-api\1.10.1\junit-platform-suite-api-1.10.1.jar;C:\Users\rayapudi naveen\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\platform\junit-platform-suite-commons\1.10.1\junit-platform-suite-commons-1.10.1.jar;C:\Users\rayapudi naveen\.m2\repository\org\junit\platform\junit-platform-launcher\1.10.1\junit-platform-launcher-1.10.1.jar;C:\Users\rayapudi naveen\.m2\repository\org\projectlombok\lombok\1.18.30\lombok-1.18.30.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\RAYAPU~1\AppData\Local\Temp\surefire2908087653969641969\surefirebooter268953579507509471.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\RAYAPU~1\AppData\Local\Temp\surefire7167060936259691792\surefirebooter11211317267882664252.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.2+13-58"/>
@@ -59,91 +59,91 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="parseEditcontinentTest" classname="game.commands.CommandParserTest" time="0.084"/>
-  <testcase name="parseDeployTest" classname="game.commands.CommandParserTest" time="0.002"/>
-  <testcase name="parseStartUpGameplayerTest" classname="game.commands.CommandParserTest" time="0.003"/>
-  <testcase name="parseCommitCommandTest" classname="game.commands.CommandParserTest" time="0.003"/>
-  <testcase name="shouldGetCountryWithId" classname="game.map.MapHelperTest" time="0.01"/>
-  <testcase name="shouldReturnNullWhenNoContinentExistsWithId" classname="game.map.MapHelperTest" time="0.003"/>
-  <testcase name="shouldReturnNullWhenNoCountryExistsWithId" classname="game.map.MapHelperTest" time="0.002"/>
+  <testcase name="parseEditcontinentTest" classname="game.commands.CommandParserTest" time="0.043"/>
+  <testcase name="parseDeployTest" classname="game.commands.CommandParserTest" time="0.001"/>
+  <testcase name="parseStartUpGameplayerTest" classname="game.commands.CommandParserTest" time="0.002"/>
+  <testcase name="parseCommitCommandTest" classname="game.commands.CommandParserTest" time="0.001"/>
+  <testcase name="shouldGetCountryWithId" classname="game.map.MapHelperTest" time="0.005"/>
+  <testcase name="shouldReturnNullWhenNoContinentExistsWithId" classname="game.map.MapHelperTest" time="0.002"/>
+  <testcase name="shouldReturnNullWhenNoCountryExistsWithId" classname="game.map.MapHelperTest" time="0.001"/>
   <testcase name="shouldGetContinentWithId" classname="game.map.MapHelperTest" time="0.001"/>
-  <testcase name="shouldLoadWarZoneMapIntoJavaObjects" classname="game.map.MapLoaderTest" time="0.082"/>
-  <testcase name="shouldLoadWarZoneMapIntoJavaObjects" classname="game.mapfile.MapFileReaderTest" time="0.009"/>
-  <testcase name="shouldLoadConquerorMapIntoJavaObjects" classname="game.map.MapLoaderTest" time="0.019"/>
-  <testcase name="showMapTestNoOwner" classname="game.map.MapShowerTest" time="0.023"/>
-  <testcase name="showMapTestOwner" classname="game.map.MapShowerTest" time="0.038"/>
-  <testcase name="testRemoveNeighbor" classname="game.map.MapTest" time="0.006"/>
-  <testcase name="testDistributionWhenNumOfPlayersDoesNotDivideNumOfCountries" classname="game.map.MapTest" time="0.013"/>
-  <testcase name="shouldAddPlayer" classname="game.map.MapTest" time="0.002"/>
-  <testcase name="testEqualDistributionWhenNumOfPlayersDividesNumOfCountries" classname="game.map.MapTest" time="0.005"/>
-  <testcase name="testAddNeighbor" classname="game.map.MapTest" time="0.004"/>
-  <testcase name="checkNeighborIsRemovedWhenCountryIsRemoved" classname="game.map.MapTest" time="0.006"/>
-  <testcase name="shouldThrowExceptionWhenAddingNewPlayerWithExistingName" classname="game.map.MapTest" time="0.005"/>
-  <testcase name="shouldThrowExceptionWhenRemovingPlayerThatDoesNotExist" classname="game.map.MapTest" time="0.003"/>
-  <testcase name="shouldThrowExceptionWhenAddingNewContinentWithExistingId" classname="game.map.MapTest" time="0.002"/>
-  <testcase name="testNoCountriesAvailable" classname="game.map.MapTest" time="0.003"/>
-  <testcase name="shouldThrowExceptionWhenAddingNewCountryWithExistingId" classname="game.map.MapTest" time="0.004"/>
-  <testcase name="checkNeighborIsRemovedWhenContinentIsRemoved" classname="game.map.MapTest" time="0.005"/>
+  <testcase name="shouldLoadWarZoneMapIntoJavaObjects" classname="game.map.MapLoaderTest" time="0.016"/>
+  <testcase name="shouldLoadWarZoneMapIntoJavaObjects" classname="game.mapfile.MapFileReaderTest" time="0.001"/>
+  <testcase name="shouldLoadConquerorMapIntoJavaObjects" classname="game.map.MapLoaderTest" time="0.003"/>
+  <testcase name="showMapTestNoOwner" classname="game.map.MapShowerTest" time="0.007"/>
+  <testcase name="showMapTestOwner" classname="game.map.MapShowerTest" time="0.005"/>
+  <testcase name="testRemoveNeighbor" classname="game.map.MapTest" time="0.004"/>
+  <testcase name="testDistributionWhenNumOfPlayersDoesNotDivideNumOfCountries" classname="game.map.MapTest" time="0.007"/>
+  <testcase name="shouldAddPlayer" classname="game.map.MapTest" time="0.001"/>
+  <testcase name="testEqualDistributionWhenNumOfPlayersDividesNumOfCountries" classname="game.map.MapTest" time="0.003"/>
+  <testcase name="testAddNeighbor" classname="game.map.MapTest" time="0.001"/>
+  <testcase name="checkNeighborIsRemovedWhenCountryIsRemoved" classname="game.map.MapTest" time="0.002"/>
+  <testcase name="shouldThrowExceptionWhenAddingNewPlayerWithExistingName" classname="game.map.MapTest" time="0.002"/>
+  <testcase name="shouldThrowExceptionWhenRemovingPlayerThatDoesNotExist" classname="game.map.MapTest" time="0.001"/>
+  <testcase name="shouldThrowExceptionWhenAddingNewContinentWithExistingId" classname="game.map.MapTest" time="0.001"/>
+  <testcase name="testNoCountriesAvailable" classname="game.map.MapTest" time="0.001"/>
+  <testcase name="shouldThrowExceptionWhenAddingNewCountryWithExistingId" classname="game.map.MapTest" time="0.001"/>
+  <testcase name="checkNeighborIsRemovedWhenContinentIsRemoved" classname="game.map.MapTest" time="0.003"/>
   <testcase name="shouldRemovePlayer" classname="game.map.MapTest" time="0.001"/>
   <testcase name="shouldAddContinent" classname="game.map.MapTest" time="0.001"/>
-  <testcase name="shouldAddCountry" classname="game.map.MapTest" time="0.001"/>
-  <testcase name="testisMapValidDisconnectedMap" classname="game.map.MapValidatorTest" time="0.004"/>
-  <testcase name="testdfsConnectedContinent" classname="game.map.MapValidatorTest" time="0.002"/>
+  <testcase name="shouldAddCountry" classname="game.map.MapTest" time="0.002"/>
+  <testcase name="testIsMapValidDisconnectedContinent" classname="game.map.MapValidatorTest" time="0.006"/>
   <testcase name="testDfsConnectedMap" classname="game.map.MapValidatorTest" time="0.002"/>
-  <testcase name="testDfsConnectedOneWay" classname="game.map.MapValidatorTest" time="0.002"/>
-  <testcase name="testMapIsConnectedNotConnected" classname="game.map.MapValidatorTest" time="0.001"/>
-  <testcase name="testisMapValidGoodMap" classname="game.map.MapValidatorTest" time="0.044"/>
-  <testcase name="testDfsNotConnected" classname="game.map.MapValidatorTest" time="0.001"/>
-  <testcase name="testmapAndContinentsConnectedRealMap" classname="game.map.MapValidatorTest" time="0.025"/>
-  <testcase name="testMapIsConnectedConnectedOneWay" classname="game.map.MapValidatorTest" time="0.006"/>
-  <testcase name="testisMapValidDisconnectedContinent" classname="game.map.MapValidatorTest" time="0.005"/>
-  <testcase name="testMapIsConnectedConnectedMap" classname="game.map.MapValidatorTest" time="0.008"/>
-  <testcase name="testExecuteAdvanceOrderDestinationOwnerIsNotAdjacentToInitiator" classname="game.order.AdvanceOrderTest" time="0.004"/>
-  <testcase name="testExecuteAdvanceOrderWhenDestinationOwnerAndInitiatorAreNegotiatedPlayers" classname="game.order.AdvanceOrderTest" time="0.004"/>
+  <testcase name="testDfsConnectedOneWay" classname="game.map.MapValidatorTest" time="0.001"/>
+  <testcase name="testIsMapValidGoodMap" classname="game.map.MapValidatorTest" time="0.016"/>
+  <testcase name="testMapIsConnectedNotConnected" classname="game.map.MapValidatorTest" time="0"/>
+  <testcase name="testDfsConnectedContinent" classname="game.map.MapValidatorTest" time="0.003"/>
+  <testcase name="testIsMapValidDisconnectedMap" classname="game.map.MapValidatorTest" time="0.001"/>
+  <testcase name="testDfsNotConnected" classname="game.map.MapValidatorTest" time="0.002"/>
+  <testcase name="testMapAndContinentsConnectedRealMap" classname="game.map.MapValidatorTest" time="0.011"/>
+  <testcase name="testMapIsConnectedConnectedOneWay" classname="game.map.MapValidatorTest" time="0.002"/>
+  <testcase name="testMapIsConnectedConnectedMap" classname="game.map.MapValidatorTest" time="0.004"/>
+  <testcase name="testExecuteAdvanceOrderDestinationOwnerIsNotAdjacentToInitiator" classname="game.order.AdvanceOrderTest" time="0.002"/>
+  <testcase name="testExecuteAdvanceOrderWhenDestinationOwnerAndInitiatorAreNegotiatedPlayers" classname="game.order.AdvanceOrderTest" time="0.001"/>
   <testcase name="testAttackTerritory_AttackerWins" classname="game.order.AdvanceOrderTest" time="0.001"/>
   <testcase name="testExecuteAdvanceOrderDestinationOwnerIsAdjacentToInitiator" classname="game.order.AdvanceOrderTest" time="0.001"/>
-  <testcase name="testValidMethodWhenDestinationIsNotValid" classname="game.order.AdvanceOrderTest" time="0.001"/>
-  <testcase name="TestAirliftWhenDestinationBelongsToSamePlayer" classname="game.order.AirliftTest" time="0.004"/>
-  <testcase name="shouldNotBlockadeWhenPlayerIsNotOwner" classname="game.order.BlockadeTest" time="0.005"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.order.BlockadeTest" time="0.289"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.order.BombTest" time="0.007"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.order.DeployTest" time="0.019"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.order.NegotiateTest" time="0.007"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.order.OrderTest" time="0.064"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.pojo.ContinentTest" time="0.071"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.pojo.CountryTest" time="0.046"/>
-  <testcase name="shouldPassAllPojoTests" classname="game.pojo.PlayerTest" time="0.248"/>
+  <testcase name="testValidMethodWhenDestinationIsNotValid" classname="game.order.AdvanceOrderTest" time="0.002"/>
+  <testcase name="TestAirliftWhenDestinationBelongsToSamePlayer" classname="game.order.AirliftTest" time="0.003"/>
+  <testcase name="shouldNotBlockadeWhenPlayerIsNotOwner" classname="game.order.BlockadeTest" time="0.004"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.order.BlockadeTest" time="0.136"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.order.BombTest" time="0.003"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.order.DeployTest" time="0.009"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.order.NegotiateTest" time="0.004"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.order.OrderTest" time="0.04"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.pojo.ContinentTest" time="0.041"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.pojo.CountryTest" time="0.031"/>
+  <testcase name="shouldPassAllPojoTests" classname="game.pojo.PlayerTest" time="0.231"/>
   <testcase name="shouldNotBlockadeWhenPlayerHasNoBlockadeCard" classname="game.order.BlockadeTest" time="0.001"/>
   <testcase name="ShouldExecuteBlockadeOrderWhenPlayerIsOwnerAndHasBlockadeCard" classname="game.order.BlockadeTest" time="0.001"/>
-  <testcase name="shouldNotBombWhenTargetBelongsToSamePlayer" classname="game.order.BombTest" time="0.003"/>
-  <testcase name="shouldNotBombWhenTargetIsNotAdjacent" classname="game.order.BombTest" time="0.004"/>
-  <testcase name="shouldNotBombWhenUserDoesNotHaveBombCard" classname="game.order.BombTest" time="0.002"/>
-  <testcase name="happyPathShouldExecuteBombOrder" classname="game.order.BombTest" time="0.003"/>
-  <testcase name="shouldNotBombWhenTargetOwnerAndInitiatorAreUnderNegotiation" classname="game.order.BombTest" time="0.002"/>
-  <testcase name="executeTest" classname="game.order.DeployTest" time="0.002"/>
-  <testcase name="shouldExecuteNegotiationWithValidDiplomacyCardAndTargetPlayer" classname="game.order.NegotiateTest" time="0.003"/>
+  <testcase name="shouldNotBombWhenTargetBelongsToSamePlayer" classname="game.order.BombTest" time="0.002"/>
+  <testcase name="shouldNotBombWhenTargetIsNotAdjacent" classname="game.order.BombTest" time="0.003"/>
+  <testcase name="shouldNotBombWhenUserDoesNotHaveBombCard" classname="game.order.BombTest" time="0.001"/>
+  <testcase name="happyPathShouldExecuteBombOrder" classname="game.order.BombTest" time="0.001"/>
+  <testcase name="shouldNotBombWhenTargetOwnerAndInitiatorAreUnderNegotiation" classname="game.order.BombTest" time="0.001"/>
+  <testcase name="executeTest" classname="game.order.DeployTest" time="0.001"/>
+  <testcase name="shouldExecuteNegotiationWithValidDiplomacyCardAndTargetPlayer" classname="game.order.NegotiateTest" time="0.002"/>
   <testcase name="shouldNotExecuteNegotiationWithoutValidTargetPlayer" classname="game.order.NegotiateTest" time="0.001"/>
-  <testcase name="shouldNotExecuteNegotiationWithoutDiplomacyCard" classname="game.order.NegotiateTest" time="0.001"/>
-  <testcase name="shouldIssueOrders" classname="game.pojo.PlayerTest" time="0.006"/>
+  <testcase name="shouldNotExecuteNegotiationWithoutDiplomacyCard" classname="game.order.NegotiateTest" time="0"/>
+  <testcase name="shouldIssueOrders" classname="game.pojo.PlayerTest" time="0.003"/>
   <testcase name="shouldReturnNextOrder" classname="game.pojo.PlayerTest" time="0.003"/>
-  <testcase name="shouldLoadMapIntoJavaObjects" classname="game.mapfile.ConquestFileReaderTest" time="0.003"/>
-  <testcase name="saveMap" classname="game.mapfile.ConquestFileWriterTest" time="0.028"/>
-  <testcase name="saveMap" classname="game.mapfile.MapFileWriterTest" time="0.036"/>
-  <testcase name="shouldAssignCardToPlayers" classname="game.states.AssignResourcesPhaseTest" time="0.056"/>
-  <testcase name="testAssignReinforcementsWithTerritoriesAndContinentBonus" classname="game.states.AssignResourcesPhaseTest" time="0.014"/>
-  <testcase name="testInitialReinforcements" classname="game.states.AssignResourcesPhaseTest" time="0.014"/>
-  <testcase name="handleSaveMapCommandTest" classname="game.states.EditMapPhaseTest" time="0.013"/>
-  <testcase name="handleSaveMapCommandTest" classname="game.states.PlaySetupPhaseTest" time="0.019"/>
-  <testcase name="handleSaveMapTypeTest" classname="game.states.EditMapPhaseTest" time="0.018"/>
-  <testcase name="handleSaveMapTypeTest" classname="game.states.PlaySetupPhaseTest" time="0.019"/>
-  <testcase name="handleEditContinentTest" classname="game.states.EditMapPhaseTest" time="0.08"/>
-  <testcase name="handleEditCountriesTest" classname="game.states.EditMapPhaseTest" time="0.063"/>
-  <testcase name="handleLoadMapTest" classname="game.states.EditMapPhaseTest" time="0.019"/>
-  <testcase name="handleLoadMapTest" classname="game.states.PlaySetupPhaseTest" time="0.04"/>
-  <testcase name="handleEditCountriesOrContinentOrNeighborTest" classname="game.states.PlaySetupPhaseTest" time="0.022"/>
-  <testcase name="handleGamePlayerTest" classname="game.states.PlaySetupPhaseTest" time="0.045"/>
-  <testcase name="handleEditMapTest" classname="game.states.PlaySetupPhaseTest" time="0.067"/>
-  <testcase name="handleLoadGameTest" classname="game.states.PlaySetupPhaseTest" time="0.073"/>
-  <testcase name="handleValidateMapTest" classname="game.states.PlaySetupPhaseTest" time="0.018"/>
-  <testcase name="handleGamePlayerRemoveTest" classname="game.states.PlaySetupPhaseTest" time="0.026"/>
+  <testcase name="shouldLoadMapIntoJavaObjects" classname="game.mapfile.ConquestFileReaderTest" time="0.002"/>
+  <testcase name="saveMap" classname="game.mapfile.ConquestFileWriterTest" time="0.013"/>
+  <testcase name="saveMap" classname="game.mapfile.MapFileWriterTest" time="0.01"/>
+  <testcase name="shouldAssignCardToPlayers" classname="game.states.AssignResourcesPhaseTest" time="0.016"/>
+  <testcase name="testAssignReinforcementsWithTerritoriesAndContinentBonus" classname="game.states.AssignResourcesPhaseTest" time="0.016"/>
+  <testcase name="testInitialReinforcements" classname="game.states.AssignResourcesPhaseTest" time="0.006"/>
+  <testcase name="handleSaveMapCommandTest" classname="game.states.EditMapPhaseTest" time="0.006"/>
+  <testcase name="handleSaveMapCommandTest" classname="game.states.PlaySetupPhaseTest" time="0.011"/>
+  <testcase name="handleSaveMapTypeTest" classname="game.states.EditMapPhaseTest" time="0.012"/>
+  <testcase name="handleSaveMapTypeTest" classname="game.states.PlaySetupPhaseTest" time="0.008"/>
+  <testcase name="handleEditContinentTest" classname="game.states.EditMapPhaseTest" time="0.02"/>
+  <testcase name="handleEditCountriesTest" classname="game.states.EditMapPhaseTest" time="0.018"/>
+  <testcase name="handleLoadMapTest" classname="game.states.EditMapPhaseTest" time="0.007"/>
+  <testcase name="handleLoadMapTest" classname="game.states.PlaySetupPhaseTest" time="0.019"/>
+  <testcase name="handleEditCountriesOrContinentOrNeighborTest" classname="game.states.PlaySetupPhaseTest" time="0.007"/>
+  <testcase name="handleGamePlayerTest" classname="game.states.PlaySetupPhaseTest" time="0.02"/>
+  <testcase name="handleEditMapTest" classname="game.states.PlaySetupPhaseTest" time="0.025"/>
+  <testcase name="handleLoadGameTest" classname="game.states.PlaySetupPhaseTest" time="0.044"/>
+  <testcase name="handleValidateMapTest" classname="game.states.PlaySetupPhaseTest" time="0.008"/>
+  <testcase name="handleGamePlayerRemoveTest" classname="game.states.PlaySetupPhaseTest" time="0.013"/>
 </testsuite>
