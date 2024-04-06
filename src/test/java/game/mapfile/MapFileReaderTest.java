@@ -70,12 +70,6 @@ public class MapFileReaderTest {
         l_country4.addNeighbors(List.of(3));
         l_country5.addNeighbors(Arrays.asList(2, 3));
 
-        l_continent1.addCountryId(1);
-        l_continent1.addCountryId(3);
-        l_continent2.addCountryId(2);
-        l_continent2.addCountryId(4);
-        l_continent2.addCountryId(5);
-
         expectedContinents.add(l_continent1);
         expectedContinents.add(l_continent2);
 

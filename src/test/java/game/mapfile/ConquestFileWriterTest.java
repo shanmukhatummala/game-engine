@@ -57,13 +57,6 @@ public class ConquestFileWriterTest {
         l_country5.addNeighbors(Arrays.asList(2, 4));
         l_country6.addNeighbors(Arrays.asList(5, 1));
 
-        l_continent1.addCountryId(1);
-        l_continent1.addCountryId(2);
-        l_continent3.addCountryId(3);
-        l_continent3.addCountryId(4);
-        l_continent3.addCountryId(5);
-        l_continent3.addCountryId(6);
-
         d_continents.add(l_continent1);
         d_continents.add(l_continent2);
         d_continents.add(l_continent3);

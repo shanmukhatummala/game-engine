@@ -68,12 +68,6 @@ class MapLoaderTest {
         l_country4.addNeighbors(List.of(3));
         l_country5.addNeighbors(Arrays.asList(2, 3));
 
-        l_continent1.addCountryId(1);
-        l_continent1.addCountryId(3);
-        l_continent2.addCountryId(2);
-        l_continent2.addCountryId(4);
-        l_continent2.addCountryId(5);
-
         expectedContinents.add(l_continent1);
         expectedContinents.add(l_continent2);
 
@@ -126,13 +120,6 @@ class MapLoaderTest {
         l_country4.addNeighbors(Arrays.asList(6, 5, 3));
         l_country5.addNeighbors(Arrays.asList(2, 4));
         l_country6.addNeighbors(Arrays.asList(5, 1));
-
-        l_continent1.addCountryId(1);
-        l_continent1.addCountryId(2);
-        l_continent3.addCountryId(3);
-        l_continent3.addCountryId(4);
-        l_continent3.addCountryId(5);
-        l_continent3.addCountryId(6);
 
         expectedContinents.add(l_continent1);
         expectedContinents.add(l_continent2);

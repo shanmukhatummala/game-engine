@@ -69,8 +69,6 @@ public class EditCountryProcessor {
 
                 p_map.addCountry(new Country(l_country_id, p_country_name, l_linked_continent));
 
-                p_map.addCountryToContinent(l_linked_continent.getD_id(), l_country_id);
-
                 GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country Added Successfully!");
             } catch (Exception e) {
                 GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country could not be added!");

@@ -34,13 +34,7 @@ class MapTest {
 
     /** Adds Continents, Countries, Neighbors To an emptied Map object */
     void setContinentsCountriesNeighborsToMap(Map p_map) {
-        Continent l_continent_1 =
-                Continent.builder()
-                        .d_id(1)
-                        .d_name("Asia")
-                        .d_bonus(5)
-                        .d_countryIdList(new ArrayList<>())
-                        .build();
+        Continent l_continent_1 = Continent.builder().d_id(1).d_name("Asia").d_bonus(5).build();
 
         Country l_country_1 =
                 Country.builder()
@@ -58,15 +52,7 @@ class MapTest {
                         .d_armyCount(3)
                         .build();
 
-        l_continent_1.getD_countryIdList().addAll(Arrays.asList(1, 2));
-
-        Continent l_continent_2 =
-                Continent.builder()
-                        .d_id(2)
-                        .d_name("Europe")
-                        .d_bonus(5)
-                        .d_countryIdList(new ArrayList<>())
-                        .build();
+        Continent l_continent_2 = Continent.builder().d_id(2).d_name("Europe").d_bonus(5).build();
 
         Country l_country_3 =
                 Country.builder()
@@ -83,8 +69,6 @@ class MapTest {
                         .d_continent(l_continent_2)
                         .d_armyCount(3)
                         .build();
-
-        l_continent_2.getD_countryIdList().addAll(Arrays.asList(3, 4));
 
         l_country_1.addNeighbors(Arrays.asList(2, 3));
         l_country_2.addNeighbors(Arrays.asList(1, 4));

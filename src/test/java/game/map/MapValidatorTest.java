@@ -18,7 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /** Class testing the MapValidator class */
 public class MapValidatorTest {
@@ -48,12 +50,6 @@ public class MapValidatorTest {
         d_country3 = new Country(3, "Holstein", d_continent1);
         d_country4 = new Country(4, "Hamburg", d_continent2);
         d_country5 = new Country(5, "Mecklenburger-Bucht", d_continent2);
-
-        d_continent1.addCountryId(1);
-        d_continent1.addCountryId(3);
-        d_continent2.addCountryId(2);
-        d_continent2.addCountryId(4);
-        d_continent2.addCountryId(5);
     }
 
     @AfterEach
@@ -174,16 +170,13 @@ public class MapValidatorTest {
 
     /** Tests the DFS on a continent that is NOT a connected subgraph. */
     @Test
-    void testdfsConnectedContinent() {
+    void testDfsConnectedContinent() {
         loadMap(d_path, d_map);
-        List<Boolean> l_expectedResult = new ArrayList<Boolean>();
+        Set<Integer> l_expectedResult = new HashSet<>();
         Continent l_continentToTest = d_map.getD_continents().get(1);
-        for (int l_i = 0; l_i < l_continentToTest.getD_countryIdList().size(); l_i++)
-            l_expectedResult.add(Boolean.TRUE);
-        l_expectedResult.set(1, Boolean.FALSE);
-        assertEquals(
-                l_expectedResult,
-                dfs(l_continentToTest.getD_countryIdList().get(0), l_continentToTest, d_map));
+        l_expectedResult.add(2);
+        l_expectedResult.add(5);
+        assertEquals(l_expectedResult, dfs(2, l_continentToTest, d_map));
     }
 
     /**
@@ -191,28 +184,28 @@ public class MapValidatorTest {
      * connected subgraphs. The map used is a real Domination map.
      */
     @Test
-    void testmapAndContinentsConnectedRealMap() {
+    void testMapAndContinentsConnectedRealMap() {
         loadMap("src/test/resources/canada_test.map", d_map);
         assertTrue(mapAndContinentsConnected(d_map));
     }
 
     /** Tests the method mapIsValid on a correct map. */
     @Test
-    void testisMapValidGoodMap() {
+    void testIsMapValidGoodMap() {
         loadMap("src/test/resources/canada_test.map", d_map);
         assertTrue(isMapValid(d_map));
     }
 
     /** Tests the method mapIsValid on a map where one continent is not a connected subgraph. */
     @Test
-    void testisMapValidDisconnectedContinent() {
+    void testIsMapValidDisconnectedContinent() {
         loadMap(d_path, d_map);
         assertFalse(isMapValid(d_map));
     }
 
     /** Tests the method mapIsValid on a disconnected map. */
     @Test
-    void testisMapValidDisconnectedMap() {
+    void testIsMapValidDisconnectedMap() {
         d_country1.addNeighbors(Arrays.asList(2, 3));
         d_country2.addNeighbors(Arrays.asList(3, 5));
         d_country3.addNeighbors(Arrays.asList(2, 4));

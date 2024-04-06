@@ -82,12 +82,15 @@ public class MapHelper {
      * @return Returns True if the given continent is owned by the given player, else returns False.
      */
     public static boolean playerOwnsContinent(Map p_map, Player p_player, Continent p_continent) {
-        List<Country> l_countriesOfThisPlayer = p_player.getD_countries();
-        for (Integer l_countryId : p_continent.getD_countryIdList()) {
-            if (!l_countriesOfThisPlayer.contains(getCountryById(p_map, l_countryId))) {
-                return false;
+
+        for (Country country : p_map.getD_countries()) {
+            if (country.getD_continent().equals(p_continent)) {
+                if (!p_player.getD_countries().contains(country)) {
+                    return false;
+                }
             }
         }
+
         return true;
     }
 

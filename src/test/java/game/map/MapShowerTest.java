@@ -105,8 +105,8 @@ class MapShowerTest {
     void showMapTestOwner() {
 
         // Creating continents, countries and players
-        Continent l_norddeutschland = new Continent(1, "Norddeutschland", List.of(1, 2), 5);
-        Continent l_westdeutschland = new Continent(2, "Westdeutschland", List.of(3, 4), 5);
+        Continent l_norddeutschland = new Continent(1, "Norddeutschland", 5);
+        Continent l_westdeutschland = new Continent(2, "Westdeutschland", 5);
 
         Country l_ostfriesland =
                 new Country(

@@ -93,14 +93,14 @@ public class Map implements Serializable {
      */
     public void removeContinent(String p_continent_name) {
         List<Integer> l_linked_countries =
-                d_continents.stream()
-                        .filter(Objects::nonNull)
+                d_countries.stream()
                         .filter(
-                                l_continent ->
-                                        Objects.equals(l_continent.getD_name(), p_continent_name))
-                        .findFirst()
-                        .map(l_continent -> new ArrayList<>(l_continent.getD_countryIdList()))
-                        .orElse(new ArrayList<>());
+                                country ->
+                                        country.getD_continent()
+                                                .getD_name()
+                                                .equals(p_continent_name))
+                        .map(Country::getD_id)
+                        .toList();
 
         boolean l_is_continent_removed =
                 d_continents.removeIf(
@@ -137,25 +137,11 @@ public class Map implements Serializable {
      * @param p_country_id The ID of the country to be removed.
      */
     public void removeCountry(Integer p_country_id) {
-        Integer l_linked_continent_id =
-                d_countries.stream()
-                        .filter(Objects::nonNull)
-                        .filter(country -> country.getD_id() == p_country_id)
-                        .findFirst()
-                        .map(Country::getD_continent)
-                        .map(Continent::getD_id)
-                        .orElse(null);
-
         boolean l_is_country_removed =
                 d_countries.removeIf(country -> country.getD_id() == p_country_id);
 
         if (l_is_country_removed) {
             d_countries.forEach(country -> country.removeNeighbor(p_country_id, this));
-
-            if (l_linked_continent_id != null) {
-                removeCountryFromContinent(l_linked_continent_id, p_country_id);
-            }
-
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country removed successfully!");
         } else {
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry("No Country with the given ID exists!");
@@ -192,10 +178,6 @@ public class Map implements Serializable {
         if (l_is_country_removed) {
             d_countries.forEach(
                     l_country -> l_country.removeNeighbor(l_country_id_to_be_removed, this));
-
-            if (l_linked_continent_id != null) {
-                removeCountryFromContinent(l_linked_continent_id, l_country_id_to_be_removed);
-            }
 
             GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Country removed successfully!");
         } else {
@@ -249,33 +231,6 @@ public class Map implements Serializable {
             }
         }
         throw new IllegalArgumentException("No player exists with this name");
-    }
-
-    /**
-     * Adds a country to a continent.
-     *
-     * @param p_continent_id The ID of the continent.
-     * @param p_country_id The ID of the country to be added to the continent.
-     */
-    public void addCountryToContinent(Integer p_continent_id, Integer p_country_id) {
-        d_continents.stream()
-                .filter(l_c -> l_c.getD_id() == p_continent_id)
-                .forEach(l_c -> l_c.getD_countryIdList().add(p_country_id));
-    }
-
-    /**
-     * Removes a country from a continent.
-     *
-     * @param p_continent_id The ID of the continent.
-     * @param p_country_id The ID of the country to be removed from the continent.
-     */
-    public void removeCountryFromContinent(Integer p_continent_id, Integer p_country_id) {
-        d_continents.stream()
-                .filter(l_c -> l_c.getD_id() == p_continent_id)
-                .forEach(
-                        l_c ->
-                                l_c.getD_countryIdList()
-                                        .removeIf(id -> Objects.equals(id, p_country_id)));
     }
 
     /**

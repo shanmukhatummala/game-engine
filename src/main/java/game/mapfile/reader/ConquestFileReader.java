@@ -92,7 +92,6 @@ public class ConquestFileReader {
                                     : new ArrayList<>());
                     p_map.addCountry(l_country);
 
-                    l_continent.addCountryId(l_countryId);
                     l_countryId++;
                 }
             }
