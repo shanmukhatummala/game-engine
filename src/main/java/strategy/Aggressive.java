@@ -9,9 +9,6 @@
  */
 package strategy;
 
-import static game.map.MapHelper.getCountryById;
-import static game.map.MapHelper.getCountryOwner;
-
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.map.Map;
@@ -22,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import static game.map.MapHelper.getCountryById;
+import static game.map.MapHelper.getCountryOwner;
 
 public class Aggressive extends PlayerStrategy {
 
@@ -71,7 +71,7 @@ public class Aggressive extends PlayerStrategy {
             return attackCommandOnStrongest(p_map, p_player);
         } else if (!d_moved) {
             d_moved = true;
-            return moveCommandToCentralize(p_map, p_player);
+            return moveCommandToReinforce(p_map, p_player);
         } else {
             // Reset flags for the next round
             d_deployed = false;
@@ -95,8 +95,7 @@ public class Aggressive extends PlayerStrategy {
     }
 
     /**
-     * Creates an attack command for the strongest country of the player against the strongest
-     * country on the map.
+     * Creates an attack command for the strongest country of the player against any neighboring enemy country.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the command is being created
@@ -104,49 +103,52 @@ public class Aggressive extends PlayerStrategy {
      */
     private Command attackCommandOnStrongest(Map p_map, Player p_player) {
         Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());
-        Country l_targetCountry = findStrongestCountry(p_map.getD_countries());
-        if (l_strongestCountry.equals(l_targetCountry)) {
-            // If the strongest country is already the target, skip attacking
-            return new Command("commit");
+        List<Integer> l_neighborIds = (List<Integer>) l_strongestCountry.getD_neighborIdList();
+
+        // Shuffle the neighbor IDs to attack a random neighboring enemy country
+        Collections.shuffle(l_neighborIds);
+
+        // Look for an enemy neighbor to attack
+        for (int l_neighborId : l_neighborIds) {
+            Country l_neighborCountry = getCountryById(p_map, l_neighborId);
+            if (l_neighborCountry != null && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
+                return CommandParser.parse("attack " + l_strongestCountry.getD_name() + " " + l_neighborCountry.getD_name()).get(0);
+            }
         }
-        return CommandParser.parse(
-                        "attack "
-                                + l_strongestCountry.getD_name()
-                                + " "
-                                + l_targetCountry.getD_name())
-                .get(0);
+
+        // If no enemy neighbor is found, try to move to a random neighbor
+        return moveCommandToReinforce(p_map, p_player);
     }
 
     /**
-     * Creates a move command to centralize troops in the strongest country of the player.
+     * Creates a move command to reinforce the strongest country by moving troops from neighboring countries.
+     * If no suitable neighbor is found, commit for this action.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the command is being created
      * @return the move command
      */
-    private Command moveCommandToCentralize(Map p_map, Player p_player) {
-        String l_targetCountryName;
+    private Command moveCommandToReinforce(Map p_map, Player p_player) {
         Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());
-        List<Integer> l_neighbors = new ArrayList<>(l_strongestCountry.getD_neighborIdList());
-        for (int l_neighborId : l_neighbors) {
-            Country l_neighbor = getCountryById(p_map, l_neighborId);
-            if (l_neighbor != null
-                    && getCountryOwner(l_neighbor, Collections.singletonList(p_player))
-                            .equals(p_player)) {
-                int l_totalArmies =
-                        l_strongestCountry.getD_armyCount() + l_neighbor.getD_armyCount();
-                l_targetCountryName = l_neighbor.getD_name();
-                return CommandParser.parse(
-                                "move "
-                                        + l_strongestCountry.getD_name()
-                                        + " "
-                                        + l_targetCountryName
-                                        + " "
-                                        + l_totalArmies)
-                        .get(0);
+        List<Integer> l_neighborIds = (List<Integer>) l_strongestCountry.getD_neighborIdList();
+
+        // Find neighboring countries owned by the player
+        List<Country> l_ownedNeighbors = new ArrayList<>();
+        for (int l_neighborId : l_neighborIds) {
+            Country l_neighborCountry = getCountryById(p_map, l_neighborId);
+            if (l_neighborCountry != null && getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
+                l_ownedNeighbors.add(l_neighborCountry);
             }
         }
-        // Placeholder for handling the case where no move is made
+
+        if (!l_ownedNeighbors.isEmpty()) {
+            // Find the neighbor with the fewest armies and move its armies to the strongest country
+            Country l_weakestNeighbor = Collections.min(l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));
+            int l_armiesToMove = l_weakestNeighbor.getD_armyCount();
+            return CommandParser.parse("move " + l_weakestNeighbor.getD_name() + " " + l_strongestCountry.getD_name() + " " + l_armiesToMove).get(0);
+        }
+
+        // If no suitable neighbor is found, commit for this action
         return new Command("commit");
     }
 
