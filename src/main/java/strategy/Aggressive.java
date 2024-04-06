@@ -1,13 +1,16 @@
 /**
- * The Aggressive class represents an aggressive strategy for a player in a game.
- * This strategy involves deploying troops to the strongest country, attacking the
- * strongest country on the map, and then moving troops to centralize them.
- * The strategy follows a sequence of actions: deploy, attack, move, and then repeats.
- * This class is a singleton, ensuring that only one instance of the Aggressive strategy exists.
+ * The Aggressive class represents an aggressive strategy for a player in a game. This strategy
+ * involves deploying troops to the strongest country, attacking the strongest country on the map,
+ * and then moving troops to centralize them. The strategy follows a sequence of actions: deploy,
+ * attack, move, and then repeats. This class is a singleton, ensuring that only one instance of the
+ * Aggressive strategy exists.
  *
  * @author Naveen Rayapudi
  */
 package strategy;
+
+import static game.map.MapHelper.getCountryById;
+import static game.map.MapHelper.getCountryOwner;
 
 import game.commands.Command;
 import game.commands.CommandParser;
@@ -20,34 +23,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static game.map.MapHelper.getCountryById;
-import static game.map.MapHelper.getCountryOwner;
-
 public class Aggressive extends PlayerStrategy {
 
-    /**
-     * Indicates whether the player has deployed troops.
-     */
+    /** Indicates whether the player has deployed troops. */
     private boolean d_deployed = false;
 
-    /**
-     * Indicates whether the player has attacked.
-     */
+    /** Indicates whether the player has attacked. */
     private boolean d_attacked = false;
 
-    /**
-     * Indicates whether the player has moved troops.
-     */
+    /** Indicates whether the player has moved troops. */
     private boolean d_moved = false;
 
-    /**
-     * The singleton instance of the Aggressive strategy.
-     */
+    /** The singleton instance of the Aggressive strategy. */
     private static Aggressive d_aggressiveStrategy;
 
     /**
-     * Returns the singleton instance of the Aggressive strategy.
-     * If the instance does not exist, it is created.
+     * Returns the singleton instance of the Aggressive strategy. If the instance does not exist, it
+     * is created.
      *
      * @return the singleton instance of the Aggressive strategy
      */
@@ -58,14 +50,12 @@ public class Aggressive extends PlayerStrategy {
         return d_aggressiveStrategy;
     }
 
-    /**
-     * Private constructor to enforce the singleton pattern.
-     */
+    /** Private constructor to enforce the singleton pattern. */
     private Aggressive() {}
 
     /**
-     * Creates an order for the player based on the current state of the game.
-     * The order sequence is deploy, attack, move, and then repeats.
+     * Creates an order for the player based on the current state of the game. The order sequence is
+     * deploy, attack, move, and then repeats.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the order is being created
@@ -105,7 +95,8 @@ public class Aggressive extends PlayerStrategy {
     }
 
     /**
-     * Creates an attack command for the strongest country of the player against the strongest country on the map.
+     * Creates an attack command for the strongest country of the player against the strongest
+     * country on the map.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the command is being created
@@ -118,7 +109,11 @@ public class Aggressive extends PlayerStrategy {
             // If the strongest country is already the target, skip attacking
             return new Command("commit");
         }
-        return CommandParser.parse("attack " + l_strongestCountry.getD_name() + " " + l_targetCountry.getD_name())
+        return CommandParser.parse(
+                        "attack "
+                                + l_strongestCountry.getD_name()
+                                + " "
+                                + l_targetCountry.getD_name())
                 .get(0);
     }
 
@@ -135,10 +130,19 @@ public class Aggressive extends PlayerStrategy {
         List<Integer> l_neighbors = new ArrayList<>(l_strongestCountry.getD_neighborIdList());
         for (int l_neighborId : l_neighbors) {
             Country l_neighbor = getCountryById(p_map, l_neighborId);
-            if (l_neighbor != null && getCountryOwner(l_neighbor, Collections.singletonList(p_player)).equals(p_player)) {
-                int l_totalArmies = l_strongestCountry.getD_armyCount() + l_neighbor.getD_armyCount();
-                l_targetCountryName =l_neighbor.getD_name();
-                return CommandParser.parse("move " + l_strongestCountry.getD_name() + " " + l_targetCountryName+ " "+ l_totalArmies)
+            if (l_neighbor != null
+                    && getCountryOwner(l_neighbor, Collections.singletonList(p_player))
+                            .equals(p_player)) {
+                int l_totalArmies =
+                        l_strongestCountry.getD_armyCount() + l_neighbor.getD_armyCount();
+                l_targetCountryName = l_neighbor.getD_name();
+                return CommandParser.parse(
+                                "move "
+                                        + l_strongestCountry.getD_name()
+                                        + " "
+                                        + l_targetCountryName
+                                        + " "
+                                        + l_totalArmies)
                         .get(0);
             }
         }

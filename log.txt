@@ -1,0 +1,437 @@
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: PlaySetupPhase >>
+Reinforcements are assigned
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Reinforcements are assigned
+Reinforcements are assigned
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+Continent Added Successfully!
+Continent Added Successfully!
+Continent Added Successfully!
+Continent Added Successfully!
+Continent Added Successfully!
+Continent Added Successfully!
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+Country Added Successfully!
+Country Added Successfully!
+Country Added Successfully!
+Country Added Successfully!
+Country Added Successfully!
+Country Added Successfully!
+Country Added Successfully!
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player1 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+Player player2 added
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+<< PHASE: EditMapPhase >>
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+You have entered the editing mode.
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+<< PHASE: PlaySetupPhase >>
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed
+Player player2 removed

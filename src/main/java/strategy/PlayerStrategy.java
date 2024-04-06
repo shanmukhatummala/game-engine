@@ -24,9 +24,4 @@ public abstract class PlayerStrategy {
     public boolean equals(Object p_otherObject) {
         return this.getClass() == p_otherObject.getClass();
     }
-
-
 }
-
-
-
