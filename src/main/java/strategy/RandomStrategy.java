@@ -1,9 +1,9 @@
 /**
- * The RandomStrategy class represents a strategy for a player in a game that involves
- * random actions such as deploying troops, attacking, and moving troops. This strategy
- * is designed to provide a simple, yet unpredictable approach to gameplay.
- * The strategy follows a sequence of actions: deploy, attack, move, and then repeats.
- * This class is a singleton, ensuring that only one instance of the RandomStrategy exists.
+ * The RandomStrategy class represents a strategy for a player in a game that involves random
+ * actions such as deploying troops, attacking, and moving troops. This strategy is designed to
+ * provide a simple, yet unpredictable approach to gameplay. The strategy follows a sequence of
+ * actions: deploy, attack, move, and then repeats. This class is a singleton, ensuring that only
+ * one instance of the RandomStrategy exists.
  *
  * @author Naveen Rayapudi
  */
@@ -23,14 +23,12 @@ import static game.map.MapHelper.getCountryOwner;
 
 public class RandomStrategy extends PlayerStrategy {
 
-    /**
-     * The singleton instance of the RandomStrategy.
-     */
+    /** The singleton instance of the RandomStrategy. */
     private static RandomStrategy randomStrategy;
 
     /**
-     * Returns the singleton instance of the RandomStrategy.
-     * If the instance does not exist, it is created.
+     * Returns the singleton instance of the RandomStrategy. If the instance does not exist, it is
+     * created.
      *
      * @return the singleton instance of the RandomStrategy
      */
@@ -41,29 +39,21 @@ public class RandomStrategy extends PlayerStrategy {
         return randomStrategy;
     }
 
-    /**
-     * Private constructor to enforce the singleton pattern.
-     */
+    /** Private constructor to enforce the singleton pattern. */
     private RandomStrategy() {}
 
-    /**
-     * Indicates whether the player has deployed troops.
-     */
+    /** Indicates whether the player has deployed troops. */
     private boolean d_deployed = false;
 
-    /**
-     * Indicates whether the player has attacked.
-     */
+    /** Indicates whether the player has attacked. */
     private boolean d_attacked = false;
 
-    /**
-     * Indicates whether the player has moved troops.
-     */
+    /** Indicates whether the player has moved troops. */
     private boolean d_moved = false;
 
     /**
-     * Creates an order for the player based on random actions.
-     * The order sequence is deploy, attack, move, and then repeats.
+     * Creates an order for the player based on random actions. The order sequence is deploy,
+     * attack, move, and then repeats.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the order is being created
@@ -103,14 +93,16 @@ public class RandomStrategy extends PlayerStrategy {
             int index = l_random.nextInt(l_countries.size());
             Country l_randomCountry = l_countries.get(index);
             int l_reinforcements = p_player.getD_reinforcements();
-            System.out.println("Deployed " + l_reinforcements + " armies to " + l_randomCountry.getD_name());
+            System.out.println(
+                    "Deployed " + l_reinforcements + " armies to " + l_randomCountry.getD_name());
             return new Command("deploy");
         }
         return new Command("commit"); // No valid country to deploy, try again
     }
 
     /**
-     * Creates an attack command for a randomly selected country of the player against a neighboring country.
+     * Creates an attack command for a randomly selected country of the player against a neighboring
+     * country.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the command is being created
@@ -127,10 +119,17 @@ public class RandomStrategy extends PlayerStrategy {
                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
                 Country l_neighbor = getCountryById(p_map, l_neighborId);
-                if (l_neighbor != null && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
-                    int l_armiesToAttackWith = l_randomCountry.getD_armyCount() - l_neighbor.getD_armyCount();
-                    System.out.println(l_randomCountry.getD_name() + " attacks " + l_neighbor.getD_name() +
-                            " with " + l_armiesToAttackWith + " armies");
+                if (l_neighbor != null
+                        && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
+                    int l_armiesToAttackWith =
+                            l_randomCountry.getD_armyCount() - l_neighbor.getD_armyCount();
+                    System.out.println(
+                            l_randomCountry.getD_name()
+                                    + " attacks "
+                                    + l_neighbor.getD_name()
+                                    + " with "
+                                    + l_armiesToAttackWith
+                                    + " armies");
                     return new Command("attack");
                 }
             }
@@ -139,7 +138,8 @@ public class RandomStrategy extends PlayerStrategy {
     }
 
     /**
-     * Creates a move command to move troops from a randomly selected country of the player to a neighboring country.
+     * Creates a move command to move troops from a randomly selected country of the player to a
+     * neighboring country.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the command is being created
@@ -156,9 +156,18 @@ public class RandomStrategy extends PlayerStrategy {
                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
                 Country l_neighbor = getCountryById(p_map, l_neighborId);
-                if (l_neighbor != null && getCountryOwner(l_neighbor, Collections.singletonList(p_player)).equals(p_player)) {
-                    int l_totalArmies = l_randomCountry.getD_armyCount() + l_neighbor.getD_armyCount();
-                    System.out.println("Moved armies from " + l_randomCountry.getD_name() + " to " + l_neighbor.getD_name()+ " "+ l_totalArmies);
+                if (l_neighbor != null
+                        && getCountryOwner(l_neighbor, Collections.singletonList(p_player))
+                                .equals(p_player)) {
+                    int l_totalArmies =
+                            l_randomCountry.getD_armyCount() + l_neighbor.getD_armyCount();
+                    System.out.println(
+                            "Moved armies from "
+                                    + l_randomCountry.getD_name()
+                                    + " to "
+                                    + l_neighbor.getD_name()
+                                    + " "
+                                    + l_totalArmies);
                     return new Command("move");
                 }
             }
