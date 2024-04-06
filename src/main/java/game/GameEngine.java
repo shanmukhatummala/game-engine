@@ -75,40 +75,57 @@ public class GameEngine {
                     List<Command> l_commandList = CommandParser.parse(l_usrInput);
                     String l_commandType = l_commandList.get(0).getD_commandType();
                     Command l_command = l_commandList.get(0);
-                    if ("editmap".equals(l_commandType)) {
-                        d_gamePhase.handleEditMap(this, l_command, d_map, RESOURCES_PATH);
-                    } else if ("gameplayer".equals(l_commandType)) {
-                        d_gamePhase.handleGamePlayer(l_commandList, d_map);
-                    } else if ("loadmap".equals(l_commandType)) {
-                        d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
-                    } else if ("loadgame".equals(l_commandType)) {
-                        List<Player> l_playersLeftToIssueOrder =
-                                d_gamePhase.handleLoadGame(
-                                        this, d_map, RESOURCES_PATH + l_command.getD_args().get(0));
-                        gameMode(l_bufferedReader, l_playersLeftToIssueOrder, d_currentPlayerIndex);
-                    } else if ("showmap".equals(l_commandType)) {
-                        d_gamePhase.handleShowMap(d_map);
-                    } else if ("savemap".equals(l_commandType)) {
-                        d_gamePhase.handleSaveMapCommand(l_command, d_map, this, RESOURCES_PATH);
-                    } else if ("savefiletype".equals(l_commandType)) {
-                        d_gamePhase.handleSaveMapType(l_command, d_map, this, RESOURCES_PATH);
-                    } else if ("validatemap".equals(l_commandType)) {
-                        d_gamePhase.handleValidateMap(d_map);
-                    } else if ("editcontinent".equals(l_commandType)
-                            || "editcountry".equals(l_commandType)
-                            || "editneighbor".equals(l_commandType)) {
-                        d_gamePhase.handleEditCountriesOrContinentOrNeighbor(
-                                l_usrInput.split(" "), d_map);
-                    } else if ("assigncountries".equals(l_commandType)) {
-                        d_gamePhase.handleCountriesAssignment(d_map, this);
-                        gameMode(
-                                l_bufferedReader,
-                                new ArrayList<>(d_map.getD_players()),
-                                d_currentPlayerIndex);
-                    } else {
-                        d_gamePhase.printInvalidCommandMessage(
-                                "Invalid Command in state "
-                                        + d_gamePhase.getClass().getSimpleName());
+                    switch (l_commandType) {
+                        case "editmap":
+                            d_gamePhase.handleEditMap(this, l_command, d_map, RESOURCES_PATH);
+                            break;
+                        case "gameplayer":
+                            d_gamePhase.handleGamePlayer(l_commandList, d_map);
+                            break;
+                        case "loadmap":
+                            d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);
+                            break;
+                        case "loadgame":
+                            List<Player> l_playersLeftToIssueOrder =
+                                    d_gamePhase.handleLoadGame(
+                                            this,
+                                            d_map,
+                                            RESOURCES_PATH + l_command.getD_args().get(0));
+                            gameMode(
+                                    l_bufferedReader,
+                                    l_playersLeftToIssueOrder,
+                                    d_currentPlayerIndex);
+                            break;
+                        case "showmap":
+                            d_gamePhase.handleShowMap(d_map);
+                            break;
+                        case "savemap":
+                            d_gamePhase.handleSaveMapCommand(
+                                    l_command, d_map, this, RESOURCES_PATH);
+                            break;
+                        case "savefiletype":
+                            d_gamePhase.handleSaveMapType(l_command, d_map, this, RESOURCES_PATH);
+                            break;
+                        case "validatemap":
+                            d_gamePhase.handleValidateMap(d_map);
+                            break;
+                        case "editcontinent":
+                        case "editcountry":
+                        case "editneighbor":
+                            d_gamePhase.handleEditCountriesOrContinentOrNeighbor(
+                                    l_usrInput.split(" "), d_map);
+                            break;
+                        case "assigncountries":
+                            d_gamePhase.handleCountriesAssignment(d_map, this);
+                            gameMode(
+                                    l_bufferedReader,
+                                    new ArrayList<>(d_map.getD_players()),
+                                    d_currentPlayerIndex);
+                            break;
+                        default:
+                            d_gamePhase.printInvalidCommandMessage(
+                                    "Invalid Command in state "
+                                            + d_gamePhase.getClass().getSimpleName());
                     }
                 } catch (Exception l_e) {
                     System.out.println(l_e.getMessage());

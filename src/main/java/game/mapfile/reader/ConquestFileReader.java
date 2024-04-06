@@ -51,13 +51,12 @@ public class ConquestFileReader {
                 }
 
                 if ("[Territories]".equals(l_line)) {
+                    l_readingContinents = false;
                     l_readingCountries = true;
                     continue;
                 }
 
-                if (l_line.isEmpty()) {
-                    l_readingContinents = false;
-                    l_readingCountries = false;
+                if (l_line.isEmpty() || l_line.equals(" ")) {
                     continue;
                 }
 
