@@ -9,9 +9,6 @@
  */
 package strategy;
 
-import static game.map.MapHelper.getCountryById;
-import static game.map.MapHelper.getCountryOwner;
-
 import game.commands.Command;
 import game.commands.CommandParser;
 import game.map.Map;
@@ -22,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import static game.map.MapHelper.getCountryById;
+import static game.map.MapHelper.getCountryOwner;
 
 public class Aggressive extends PlayerStrategy {
 
