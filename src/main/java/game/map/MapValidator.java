@@ -6,7 +6,10 @@ import game.pojo.Continent;
 import game.pojo.Country;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Class responsible for validating the map upon loading/saving and during the editing process We
@@ -79,50 +82,47 @@ public class MapValidator {
      * Implementation of the DFS, but restricted to the countries that belong to the given
      * continent.
      *
-     * @param p_startingCountryID Id of the first country explored. The country is assumed to belong
+     * @param p_startingCountryID id of the first country explored. The country is assumed to belong
      *     to the given continent.
      * @param p_continent Continent on which we want to apply the DFS.
      * @param p_mapToValidate The map that we want to validate.
-     * @return A list that represents whether or not each country has been visited during the DFS.
-     *     The index of the list corresponds to those in the d_countryIdList data attribute of the
+     * @return A list that represents whether each country has been visited during the DFS. The
+     *     index of the list corresponds to those in the d_countryIdList data attribute of the
      *     Continent object.
      */
-    public static List<Boolean> dfs(
+    public static Set<Integer> dfs(
             Integer p_startingCountryID, Continent p_continent, Map p_mapToValidate) {
-        List<Boolean> l_isVisited = new ArrayList<Boolean>();
-        for (int l_i = 0; l_i < p_continent.getD_countryIdList().size(); l_i++)
-            l_isVisited.add(Boolean.FALSE);
-        return dfsStep(p_startingCountryID, p_continent, l_isVisited, p_mapToValidate);
+        Set<Integer> l_visited = new HashSet<>();
+        return dfsStep(p_startingCountryID, p_continent, l_visited, p_mapToValidate);
     }
 
     /**
      * Recursive function for the DFS. The algorithm flags the current country as visited and the
      * function is called recursively for each neighbor that hasn't been seen yet.
      *
-     * @param p_currentCountryID Id of the country being visited.
+     * @param p_currentCountryID id of the country being visited.
      * @param p_continent Continent where the DFS is applied
-     * @param p_countryHasBeenSeen List representing if each country is seen or not
+     * @param l_visitedCountries List representing the countries that are seen
      * @param p_mapToValidate The map that we want to validate.
      * @return The list where we can see if a country has been visited or not
      */
-    private static List<Boolean> dfsStep(
+    private static Set<Integer> dfsStep(
             Integer p_currentCountryID,
             Continent p_continent,
-            List<Boolean> p_countryHasBeenSeen,
+            Set<Integer> l_visitedCountries,
             Map p_mapToValidate) {
-        int l_indexCurrentCountry = p_continent.getD_countryIdList().indexOf(p_currentCountryID);
-        p_countryHasBeenSeen.set(l_indexCurrentCountry, Boolean.TRUE);
+        l_visitedCountries.add(p_currentCountryID);
         // We call dfsStep on each neighbor (in the continent) that has not been seen yet
-        for (Integer l_neighbourID :
-                getCountryById(p_mapToValidate, p_currentCountryID).getD_neighborIdList()) {
+        Set<Integer> l_neighborIdList =
+                getCountryById(p_mapToValidate, p_currentCountryID).getD_neighborIdList();
+        for (Integer l_neighbourID : l_neighborIdList) {
             Country l_neighbour = getCountryById(p_mapToValidate, l_neighbourID);
             if (!l_neighbour.getD_continent().equals(p_continent)) continue;
-            int l_indexNeighbour = p_continent.getD_countryIdList().indexOf(l_neighbourID);
-            if (!p_countryHasBeenSeen.get(l_indexNeighbour)) {
-                dfsStep(l_neighbourID, p_continent, p_countryHasBeenSeen, p_mapToValidate);
+            if (!l_visitedCountries.contains(l_neighbourID)) {
+                dfsStep(l_neighbourID, p_continent, l_visitedCountries, p_mapToValidate);
             }
         }
-        return p_countryHasBeenSeen;
+        return l_visitedCountries;
     }
 
     /**
@@ -134,10 +134,17 @@ public class MapValidator {
      * @return true if the continent is a connected subgraph, false otherwise.
      */
     public static boolean continentIsConnected(Continent p_continent, Map p_mapToValidate) {
-        for (Integer l_countryId : p_continent.getD_countryIdList()) {
-            List<Boolean> l_dfsResult = dfs(l_countryId, p_continent, p_mapToValidate);
-            for (Boolean l_isVisited : l_dfsResult) {
-                if (!l_isVisited) return false;
+
+        List<Integer> l_countryIdsInGivenContinent =
+                p_mapToValidate.getD_countries().stream()
+                        .filter(l_country -> l_country.getD_continent().equals(p_continent))
+                        .map(Country::getD_id)
+                        .toList();
+
+        for (Integer l_countryId : l_countryIdsInGivenContinent) {
+            Set<Integer> l_dfsResult = dfs(l_countryId, p_continent, p_mapToValidate);
+            if (l_dfsResult.size() != l_countryIdsInGivenContinent.size()) {
+                return false;
             }
         }
         return true;
@@ -167,8 +174,12 @@ public class MapValidator {
     public static boolean isMapValid(Map p_mapToValidate) {
 
         // Each continent has to have at least one country
-        for (Continent l_continent : p_mapToValidate.getD_continents()) {
-            if (l_continent.getD_countryIdList().isEmpty()) return false;
+        if (p_mapToValidate.getD_countries().stream()
+                        .map(Country::getD_continent)
+                        .collect(Collectors.toSet())
+                        .size()
+                < p_mapToValidate.getD_continents().size()) {
+            return false;
         }
         // The name and id of each country has to be unique
         for (int l_i = 0; l_i < p_mapToValidate.getD_countries().size(); l_i++) {

@@ -3,8 +3,6 @@ package game.pojo;
 import lombok.Builder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,7 +15,6 @@ public class Continent implements Serializable {
 
     private int d_id;
     private String d_name;
-    private List<Integer> d_countryIdList;
     private int d_bonus;
 
     /** Constructor without arguments for Continent */
@@ -28,25 +25,12 @@ public class Continent implements Serializable {
      *
      * @param p_id id of the continent
      * @param p_name name of the continent
-     * @param p_countryIdList countries present in the continent
-     * @param p_bonus bonus that the player controlling this continent gets
-     */
-    public Continent(int p_id, String p_name, List<Integer> p_countryIdList, int p_bonus) {
-        this.d_id = p_id;
-        this.d_name = p_name;
-        this.d_countryIdList = p_countryIdList;
-        this.d_bonus = p_bonus;
-    }
-
-    /**
-     * Constructor for Continent with all arguments except country list
-     *
-     * @param p_id id of the continent
-     * @param p_name name of the continent
      * @param p_bonus bonus that the player controlling this continent gets
      */
     public Continent(int p_id, String p_name, int p_bonus) {
-        this(p_id, p_name, new ArrayList<>(), p_bonus);
+        this.d_id = p_id;
+        this.d_name = p_name;
+        this.d_bonus = p_bonus;
     }
 
     /**
@@ -68,30 +52,12 @@ public class Continent implements Serializable {
     }
 
     /**
-     * Getter for country list
-     *
-     * @return list of countries in the continent
-     */
-    public List<Integer> getD_countryIdList() {
-        return d_countryIdList;
-    }
-
-    /**
      * Getter for bonus
      *
      * @return bonus that the player gets for this continent
      */
     public int getD_bonus() {
         return d_bonus;
-    }
-
-    /**
-     * Adds a country to the country list
-     *
-     * @param p_countryId id of the country to be added
-     */
-    public void addCountryId(Integer p_countryId) {
-        this.getD_countryIdList().add(p_countryId);
     }
 
     /**
@@ -115,7 +81,6 @@ public class Continent implements Serializable {
 
         return Objects.equals(l_otherContinent.d_id, this.d_id)
                 && Objects.equals(l_otherContinent.d_name, this.d_name)
-                && Objects.equals(l_otherContinent.d_countryIdList, this.d_countryIdList)
                 && Objects.equals(l_otherContinent.d_bonus, this.d_bonus);
     }
 
@@ -126,6 +91,6 @@ public class Continent implements Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(d_id, d_name, d_countryIdList, d_bonus);
+        return Objects.hash(d_id, d_name, d_bonus);
     }
 }

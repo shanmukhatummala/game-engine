@@ -84,8 +84,6 @@ public class MapFileReader {
 
                     Country l_country = new Country(l_countryId, l_countryName, l_continent);
                     p_map.addCountry(l_country);
-
-                    l_continent.addCountryId(l_countryId);
                 }
 
                 if (l_readingBorders) {

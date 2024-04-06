@@ -83,8 +83,8 @@ public class AssignResourcesPhaseTest {
         d_map.getD_players().add(d_player1);
         d_map.getD_players().add(d_player2);
 
-        Continent l_continent1 = new Continent(1, "Continent 1", Arrays.asList(1, 3), 3);
-        Continent l_continent2 = new Continent(2, "Continent 2", Arrays.asList(2, 4), 5);
+        Continent l_continent1 = new Continent(1, "Continent 1", 3);
+        Continent l_continent2 = new Continent(2, "Continent 2", 5);
 
         List<Continent> l_continents = Arrays.asList(l_continent1, l_continent2);
 

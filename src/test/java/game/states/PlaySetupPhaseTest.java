@@ -62,11 +62,6 @@ public class PlaySetupPhaseTest {
         l_country3.addNeighbors(List.of(2));
         l_country4.addNeighbors(List.of(2));
 
-        l_continent1.addCountryId(1);
-        l_continent1.addCountryId(2);
-        l_continent1.addCountryId(3);
-        l_continent1.addCountryId(4);
-
         l_expectedContinents.add(l_continent1);
 
         l_expectedCountries.add(l_country1);

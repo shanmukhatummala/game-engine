@@ -60,10 +60,6 @@ public class IssueOrderPhaseTest {
         l_country2.addNeighbors(List.of(1));
         l_country3.addNeighbors(List.of(2));
         l_country4.addNeighbors(List.of(2));
-        l_continent1.addCountryId(1);
-        l_continent1.addCountryId(2);
-        l_continent1.addCountryId(3);
-        l_continent1.addCountryId(4);
         l_expectedPlayers.add(l_player1);
         l_expectedPlayers.add(l_player2);
         l_expectedContinents.add(l_continent1);
