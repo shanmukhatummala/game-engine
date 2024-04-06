@@ -15,6 +15,16 @@ import static game.map.MapHelper.getCountryOwner;
 
 public class Cheater extends PlayerStrategy {
 
+    /**
+     * Implements the cheater player's issue order method.
+     * This method simulates the cheater's behavior without directly impacting the map.
+     *
+     * @param p_map The map where the game is played
+     * @param p_player Cheater player
+     *
+     * @return List of orders issued by the player (empty list in the case of a cheater)
+     */
+
     @Override
     public Command createOrder(Map p_map, Player p_player) {
 
@@ -30,6 +40,7 @@ public class Cheater extends PlayerStrategy {
                 }
             }
         }
+
         return null;
     }
 }
