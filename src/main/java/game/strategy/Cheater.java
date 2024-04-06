@@ -11,6 +11,11 @@ import game.pojo.Player;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Represents a cheater computer player strategy.
+ * The cheater's strategy is to conquer all the immediate neighboring enemy countries,
+ * and then doubles the number of armies on its own countries that have enemy neighbors.
+ */
 public class Cheater extends PlayerStrategy {
 
     /**
@@ -24,8 +29,10 @@ public class Cheater extends PlayerStrategy {
     @Override
     public Command createOrder(Map p_map, Player p_player) {
 
+        // Get all the countries owned by the cheater
         List<Country> countries = p_player.getD_countries();
 
+        // Conquering all the immediate neighboring enemy countries
         for (Country country : countries) {
             Set<Integer> neighbors = country.getD_neighborIdList();
             for (Integer neighbor : neighbors) {
@@ -41,6 +48,7 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
+        // Doubling the number of armies on cheater's countries that have enemy neighbors
         for (Country country : countries) {
             Set<Integer> neighbors = country.getD_neighborIdList();
             for (Integer neighbor : neighbors) {
@@ -58,6 +66,7 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
+        // Return an empty list since cheater's strategy does not issue explicit orders
         return null;
     }
 }
