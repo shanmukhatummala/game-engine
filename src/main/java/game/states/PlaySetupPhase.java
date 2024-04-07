@@ -169,11 +169,11 @@ public class PlaySetupPhase extends StartUpPhase {
      * Handles the command to edit countries, continents, or neighbors. Displays an invalid command
      * message as editing a map is not allowed during setup.
      *
-     * @param p_args The command arguments.
+     * @param p_command The Command object.
      * @param p_map The current map.
      */
     @Override
-    public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
+    public void handleEditCountriesOrContinentOrNeighbor(Command p_command, Map p_map) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()

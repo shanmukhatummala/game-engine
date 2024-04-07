@@ -2,7 +2,10 @@ package game.map.MapManipulation;
 
 import static game.constants.MapManipulation.*;
 
+import game.commands.Command;
 import game.map.Map;
+
+import java.util.List;
 
 /**
  * The MapManipulator class is responsible for processing commands related to map manipulation. It
@@ -13,19 +16,22 @@ public class MapManipulator {
     /**
      * Processes the given command based on the arguments and the game p_map.
      *
-     * @param p_args The command arguments.
+     * @param p_command The Command object.
      * @param p_map The game p_map on which the command will be executed.
      */
-    public void processCommand(String[] p_args, Map p_map) {
-        switch (p_args[0]) {
+    public void processCommand(Command p_command, Map p_map) {
+        String l_commandType = p_command.getD_commandType();
+        String[] l_args = p_command.getD_args().toArray(String[]::new);
+
+        switch (l_commandType) {
             case EDIT_CONTINENT:
-                EditContinentProcessor.process(p_args, p_map);
+                EditContinentProcessor.process(l_args, p_map);
                 break;
             case EDIT_COUNTRY:
-                EditCountryProcessor.process(p_args, p_map);
+                EditCountryProcessor.process(l_args, p_map);
                 break;
             case EDIT_NEIGHBOR:
-                EditNeighborProcessor.process(p_args, p_map);
+                EditNeighborProcessor.process(l_args, p_map);
                 break;
             default:
                 System.out.println("Invalid command please try again");
