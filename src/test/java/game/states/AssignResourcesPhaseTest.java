@@ -1,19 +1,10 @@
 package game.states;
 
-import static game.pojo.Player.Card.*;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-
 import game.GameEngine;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +12,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static game.pojo.Player.Card.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 /** Test class for AssignResourcesPhase class */
 public class AssignResourcesPhaseTest {
@@ -64,6 +62,8 @@ public class AssignResourcesPhaseTest {
     /** Test assignReinforcements when 5 reinforcements assigned to each player */
     @Test
     void testInitialReinforcements() {
+
+
         d_map.addPlayer(d_player1.getD_name());
         d_map.addPlayer(d_player2.getD_name());
 
