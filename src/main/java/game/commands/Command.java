@@ -1,5 +1,7 @@
 package game.commands;
 
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * Represents a command given by the user. A command is made up of a commandType (e.g. 'gameplayer',
  * 'editcontinent', etc...) and of different arguments.
  */
+@NoArgsConstructor
 public class Command {
     private String d_commandType;
     private List<String> d_args;

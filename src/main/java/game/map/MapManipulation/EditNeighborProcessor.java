@@ -23,7 +23,7 @@ public class EditNeighborProcessor {
      * @param p_map The game p_map on which the command will be executed.
      */
     public static void process(String[] p_args, Map p_map) {
-        for (int l_i = 1; l_i < p_args.length; ) {
+        for (int l_i = 0; l_i < p_args.length; ) {
             if (p_args[l_i].equals(ADD_PARAM)) {
                 processAddCommand(p_args[l_i + 1], p_args[l_i + 2], p_map);
                 l_i += 3; // Skip the next two p_args

@@ -19,21 +19,21 @@ public class EditContinentProcessor {
     /**
      * Processes the provided arguments to add or remove a continent from the game map.
      *
-     * @param args The command arguments specifying the action (add or remove), continent ID, and
+     * @param p_args The command arguments specifying the action (add or remove), continent ID, and
      *     continent name.
-     * @param map The game map on which the command will be executed.
+     * @param p_map The game map on which the command will be executed.
      */
-    public static void process(String[] args, Map map) {
-        for (int l_i = 1; l_i < args.length; ) {
-            if (args[l_i].equals(ADD_PARAM)) {
-                processAddCommand(args[l_i + 1], args[l_i + 2], map);
+    public static void process(String[] p_args, Map p_map) {
+        for (int l_i = 0; l_i < p_args.length; ) {
+            if (p_args[l_i].equals(ADD_PARAM)) {
+                processAddCommand(p_args[l_i + 1], p_args[l_i + 2], p_map);
                 l_i += 3; // Skip the next two args
-            } else if (args[l_i].equals(REMOVE_PARAM)) {
-                processRemoveCommand(args[l_i + 1], map);
+            } else if (p_args[l_i].equals(REMOVE_PARAM)) {
+                processRemoveCommand(p_args[l_i + 1], p_map);
                 l_i += 2; // Skip the next arg
             } else {
                 // Handle unrecognized parameters if needed
-                System.out.println("Unrecognized parameter: " + args[l_i]);
+                System.out.println("Unrecognized parameter: " + p_args[l_i]);
             }
         }
     }
