@@ -9,6 +9,9 @@
  */
 package strategy;
 
+import static game.map.MapHelper.getCountryById;
+import static game.map.MapHelper.getCountryOwner;
+
 import game.commands.Command;
 import game.map.Map;
 import game.pojo.Country;
@@ -17,9 +20,6 @@ import game.pojo.Player;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import static game.map.MapHelper.getCountryById;
-import static game.map.MapHelper.getCountryOwner;
 
 public class RandomStrategy extends PlayerStrategy {
 
@@ -119,8 +119,10 @@ public class RandomStrategy extends PlayerStrategy {
                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
                 Country l_neighbor = getCountryById(p_map, l_neighborId);
-                if (l_neighbor != null && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
-                    System.out.println(l_randomCountry.getD_name()+ " attacks " + l_neighbor.getD_name());
+                if (l_neighbor != null
+                        && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
+                    System.out.println(
+                            l_randomCountry.getD_name() + " attacks " + l_neighbor.getD_name());
                     return new Command("attack");
                 }
             }
@@ -155,8 +157,7 @@ public class RandomStrategy extends PlayerStrategy {
                             "Moved armies from "
                                     + l_randomCountry.getD_name()
                                     + " to "
-                                    + l_neighbor.getD_name()
-                                  );
+                                    + l_neighbor.getD_name());
                     return new Command("move");
                 }
             }
