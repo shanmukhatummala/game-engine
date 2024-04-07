@@ -133,10 +133,10 @@ public class EditMapPhaseTest {
         l_continent.add(new Continent(1, "Asia", 4));
         d_map = new Map(l_continent, new ArrayList<>(), new ArrayList<>(), "test.map");
         String[] l_args = new String[] {"editcountry", "-add", "test", "Asia"};
-        Command l_command = CommandParser.parse(String.join(" ", l_args)).get(0);
+        List<Command> l_commandList = CommandParser.parse(String.join(" ", l_args));
         List<Country> l_expectedCountries = new ArrayList<>();
         l_expectedCountries.add(new Country(1, "test", l_continent.get(0)));
-        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
+        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_commandList, d_map);
         Assertions.assertEquals(l_expectedCountries, d_map.getD_countries());
     }
 
@@ -148,10 +148,10 @@ public class EditMapPhaseTest {
     public void handleEditContinentTest() {
         d_map = new Map(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "test.map");
         String[] l_args = new String[] {"editcontinent", "-add", "test", "3"};
-        Command l_command = CommandParser.parse(String.join(" ", l_args)).get(0);
+        List<Command> l_commandList = CommandParser.parse(String.join(" ", l_args));
         List<Continent> l_expectedContinent = new ArrayList<>();
         l_expectedContinent.add(new Continent(1, "test", 3));
-        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
+        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_commandList, d_map);
         Assertions.assertEquals(l_expectedContinent, d_map.getD_continents());
     }
 

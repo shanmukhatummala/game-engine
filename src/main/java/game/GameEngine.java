@@ -112,7 +112,7 @@ public class GameEngine {
                         case "editcontinent":
                         case "editcountry":
                         case "editneighbor":
-                            d_gamePhase.handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
+                            d_gamePhase.handleEditCountriesOrContinentOrNeighbor(l_commandList, d_map);
                             break;
                         case "assigncountries":
                             d_gamePhase.handleCountriesAssignment(d_map, this);
