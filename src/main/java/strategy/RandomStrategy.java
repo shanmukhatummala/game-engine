@@ -119,22 +119,14 @@ public class RandomStrategy extends PlayerStrategy {
                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
                 Country l_neighbor = getCountryById(p_map, l_neighborId);
-                if (l_neighbor != null
-                        && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
-                    int l_armiesToAttackWith =
-                            l_randomCountry.getD_armyCount() - l_neighbor.getD_armyCount();
-                    System.out.println(
-                            l_randomCountry.getD_name()
-                                    + " attacks "
-                                    + l_neighbor.getD_name()
-                                    + " with "
-                                    + l_armiesToAttackWith
-                                    + " armies");
+                if (l_neighbor != null && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
+                    System.out.println(l_randomCountry.getD_name()+ " attacks " + l_neighbor.getD_name());
                     return new Command("attack");
                 }
             }
         }
-        return new Command("commit"); // No valid attack, try again
+        // If no enemy neighbor is found, try to move to a random neighbor
+        return moveRandomly(p_map, p_player);
     }
 
     /**
@@ -159,15 +151,12 @@ public class RandomStrategy extends PlayerStrategy {
                 if (l_neighbor != null
                         && getCountryOwner(l_neighbor, Collections.singletonList(p_player))
                                 .equals(p_player)) {
-                    int l_totalArmies =
-                            l_randomCountry.getD_armyCount() + l_neighbor.getD_armyCount();
                     System.out.println(
                             "Moved armies from "
                                     + l_randomCountry.getD_name()
                                     + " to "
                                     + l_neighbor.getD_name()
-                                    + " "
-                                    + l_totalArmies);
+                                  );
                     return new Command("move");
                 }
             }
