@@ -136,7 +136,9 @@ public class EditMapPhaseTest {
         Command l_command = CommandParser.parse(String.join(" ", l_args)).get(0);
         List<Country> l_expectedCountries = new ArrayList<>();
         l_expectedCountries.add(new Country(1, "test", l_continent.get(0)));
-        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
         Assertions.assertEquals(l_expectedCountries, d_map.getD_countries());
     }
 
@@ -151,7 +153,9 @@ public class EditMapPhaseTest {
         Command l_command = CommandParser.parse(String.join(" ", l_args)).get(0);
         List<Continent> l_expectedContinent = new ArrayList<>();
         l_expectedContinent.add(new Continent(1, "test", 3));
-        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
         Assertions.assertEquals(l_expectedContinent, d_map.getD_continents());
     }
 
