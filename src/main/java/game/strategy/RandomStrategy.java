@@ -7,7 +7,7 @@
  *
  * @author Naveen Rayapudi
  */
-package strategy;
+package game.strategy;
 
 import static game.map.MapHelper.getCountryById;
 import static game.map.MapHelper.getCountryOwner;
