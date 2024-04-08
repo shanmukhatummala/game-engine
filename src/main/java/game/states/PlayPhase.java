@@ -130,11 +130,11 @@ public abstract class PlayPhase implements Phase {
      * Handles the command to edit countries, continents, or neighbors of the map. Displays an
      * invalid command message as map editing is not allowed during gameplay.
      *
-     * @param p_args The arguments for the command.
+     * @param p_command The Command object.
      * @param p_map The current map.
      */
     @Override
-    public void handleEditCountriesOrContinentOrNeighbor(String[] p_args, Map p_map) {
+    public void handleEditCountriesOrContinentOrNeighbor(Command p_command, Map p_map) {
         String message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()

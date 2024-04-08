@@ -2,14 +2,13 @@ package game;
 
 import game.commands.Command;
 import game.commands.CommandParser;
-import game.logger.LogEntryBuffer;
-import game.logger.LogFileWriter;
-import game.logger.StdOutWriter;
 import game.map.Map;
 import game.pojo.Player;
 import game.states.Phase;
 import game.states.PlaySetupPhase;
-
+import game.logger.LogEntryBuffer;
+import game.logger.LogFileWriter;
+import game.logger.StdOutWriter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -112,8 +111,7 @@ public class GameEngine {
                         case "editcontinent":
                         case "editcountry":
                         case "editneighbor":
-                            d_gamePhase.handleEditCountriesOrContinentOrNeighbor(
-                                    l_usrInput.split(" "), d_map);
+                            d_gamePhase.handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
                             break;
                         case "assigncountries":
                             d_gamePhase.handleCountriesAssignment(d_map, this);

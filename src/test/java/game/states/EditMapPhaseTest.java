@@ -2,6 +2,7 @@ package game.states;
 
 import game.GameEngine;
 import game.commands.Command;
+import game.commands.CommandParser;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -132,9 +133,12 @@ public class EditMapPhaseTest {
         l_continent.add(new Continent(1, "Asia", 4));
         d_map = new Map(l_continent, new ArrayList<>(), new ArrayList<>(), "test.map");
         String[] l_args = new String[] {"editcountry", "-add", "test", "Asia"};
+        Command l_command = CommandParser.parse(String.join(" ", l_args)).get(0);
         List<Country> l_expectedCountries = new ArrayList<>();
         l_expectedCountries.add(new Country(1, "test", l_continent.get(0)));
-        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_args, d_map);
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
         Assertions.assertEquals(l_expectedCountries, d_map.getD_countries());
     }
 
@@ -146,15 +150,18 @@ public class EditMapPhaseTest {
     public void handleEditContinentTest() {
         d_map = new Map(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), "test.map");
         String[] l_args = new String[] {"editcontinent", "-add", "test", "3"};
+        Command l_command = CommandParser.parse(String.join(" ", l_args)).get(0);
         List<Continent> l_expectedContinent = new ArrayList<>();
         l_expectedContinent.add(new Continent(1, "test", 3));
-        d_playSetUpPhase.getD_gamePhase().handleEditCountriesOrContinentOrNeighbor(l_args, d_map);
+        d_playSetUpPhase
+                .getD_gamePhase()
+                .handleEditCountriesOrContinentOrNeighbor(l_command, d_map);
         Assertions.assertEquals(l_expectedContinent, d_map.getD_continents());
     }
 
     /**
      * This method run after every test and is for cleaning the resources used in the tests like
-     * returning the System.setOut to it's default value.
+     * returning the System.setOut to its default value.
      */
     @AfterEach
     public void tearDown() {

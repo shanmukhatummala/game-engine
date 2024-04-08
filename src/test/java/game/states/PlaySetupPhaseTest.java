@@ -211,7 +211,7 @@ public class PlaySetupPhaseTest {
                 "Invalid Command in state PlaySetupPhase you can't edit map while not in the edit mode phase";
         d_playSetUpPhase
                 .getD_gamePhase()
-                .handleEditCountriesOrContinentOrNeighbor(new String[] {}, d_map);
+                .handleEditCountriesOrContinentOrNeighbor(new Command(), d_map);
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 
@@ -259,7 +259,7 @@ public class PlaySetupPhaseTest {
 
     /**
      * This method run after every test and is for cleaning the resources used in the tests like
-     * returning the System.setOut to it's default value.
+     * returning the System.setOut to its default value.
      */
     @AfterEach
     public void tearDown() {

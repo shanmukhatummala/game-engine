@@ -1,0 +1,61 @@
+Index: src/main/java/game/pojo/Country.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game.pojo;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Objects;\r\n\r\n/**\r\n * Country is a POJO representing the Country in a map\r\n *\r\n * @author Shanmukha\r\n */\r\npublic class Country {\r\n\r\n    private int d_id;\r\n    private String d_name;\r\n    private Continent d_continent;\r\n    private List<Integer> d_neighborIdList;\r\n    private int d_armyCount;\r\n    private String player;\r\n\r\n    /** Constructor without arguments for Country */\r\n    public Country() {}\r\n\r\n    /**\r\n     * Constructor with all arguments for Country\r\n     *\r\n     * @param p_id id of the continent\r\n     * @param p_name name of the continent\r\n     * @param p_continent continent in which this country is present\r\n     * @param p_neighborIdList list of the country ids of neighbours\r\n     * @param p_armyCount army count present in the country\r\n     */\r\n    public Country(\r\n            int p_id,\r\n            String p_name,\r\n            Continent p_continent,\r\n            List<Integer> p_neighborIdList,\r\n            int p_armyCount) {\r\n        this.d_id = p_id;\r\n        this.d_name = p_name;\r\n        this.d_continent = p_continent;\r\n        this.d_neighborIdList = p_neighborIdList;\r\n        this.d_armyCount = p_armyCount;\r\n    }\r\n\r\n    /**\r\n     * Constructor with some arguments for Country\r\n     *\r\n     * @param p_id id of the continent\r\n     * @param p_name name of the continent\r\n     * @param p_continent continent in which this country is present\r\n     */\r\n    public Country(int p_id, String p_name, Continent p_continent) {\r\n        this(p_id, p_name, p_continent, new ArrayList<>(), 0);\r\n    }\r\n\r\n    /**\r\n     * Adds a neighbor to the list of neighbors\r\n     *\r\n     * @param p_neighborId id of the neighbor\r\n     */\r\n    public void addNeighbor(Integer p_neighborId) {\r\n        if (!this.getD_neighborIdList().contains(p_neighborId)) {\r\n            this.getD_neighborIdList().add(p_neighborId);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Adds multiple neighbor to the list of neighbors\r\n     *\r\n     * @param p_neighborIds ids of the neighbors\r\n     */\r\n    public void addNeighbors(List<Integer> p_neighborIds) {\r\n        this.getD_neighborIdList().addAll(p_neighborIds);\r\n    }\r\n\r\n    /**\r\n     * Getter for country id\r\n     *\r\n     * @return ID of the country\r\n     */\r\n    public int getD_id() {\r\n        return d_id;\r\n    }\r\n\r\n    /**\r\n     * Removes a neighbor from the list of neighbors\r\n     *\r\n     * @param p_neighbor_id id of the neighbor to be removed\r\n     */\r\n    public void removeNeighbor(Integer p_neighbor_id) {\r\n        this.getD_neighborIdList().removeIf(id -> Objects.equals(id, p_neighbor_id));\r\n    }\r\n\r\n    /**\r\n     * Getter for country name\r\n     *\r\n     * @return name of the country\r\n     */\r\n    public String getD_name() {\r\n        return d_name;\r\n    }\r\n\r\n    /**\r\n     * Getter for the continent in which this country is located\r\n     *\r\n     * @return continent in which this country is present\r\n     */\r\n    public Continent getD_continent() {\r\n        return d_continent;\r\n    }\r\n\r\n    /**\r\n     * Getter for the neighbors list of this country\r\n     *\r\n     * @return list of neighbors to this country\r\n     */\r\n    public List<Integer> getD_neighborIdList() {\r\n        return d_neighborIdList;\r\n    }\r\n\r\n    /**\r\n     * Getter for the army count in this country\r\n     *\r\n     * @return army count present in country\r\n     */\r\n    public int getD_armyCount() {\r\n        return d_armyCount;\r\n    }\r\n\r\n    /**\r\n     * Setter for army count\r\n     *\r\n     * @param d_armyCount army count to set in this country\r\n     */\r\n    public void setD_armyCount(int d_armyCount) {\r\n        this.d_armyCount = d_armyCount;\r\n    }\r\n\r\n\r\n    /**\r\n     * Equals method to check the equality between two country objects\r\n     *\r\n     * @param p_other the object to which this object is compared\r\n     * @return true if the contents of the objects are equal\r\n     */\r\n    @Override\r\n    public boolean equals(Object p_other) {\r\n\r\n        if (p_other == this) {\r\n            return true;\r\n        }\r\n\r\n        if (!(p_other instanceof Country)) {\r\n            return false;\r\n        }\r\n\r\n        Country l_otherCountry = (Country) p_other;\r\n\r\n        return Objects.equals(l_otherCountry.d_id, this.d_id)\r\n                && Objects.equals(l_otherCountry.d_name, this.d_name)\r\n                && Objects.equals(l_otherCountry.d_continent, this.d_continent)\r\n                && Objects.equals(l_otherCountry.d_neighborIdList, this.d_neighborIdList)\r\n                && Objects.equals(l_otherCountry.d_armyCount, this.d_armyCount);\r\n    }\r\n\r\n    /**\r\n     * Gives the hashcode of a country object\r\n     *\r\n     * @return hashcode of the object\r\n     */\r\n    @Override\r\n    public int hashCode() {\r\n        return Objects.hash(d_id, d_name, d_continent, d_neighborIdList, d_armyCount);\r\n    }\r\n\r\n    public void setD_initiator(String player) {\r\n        this.player=player;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/game/pojo/Country.java b/src/main/java/game/pojo/Country.java
+--- a/src/main/java/game/pojo/Country.java	
++++ b/src/main/java/game/pojo/Country.java	
+@@ -16,7 +16,7 @@
+     private Continent d_continent;
+     private List<Integer> d_neighborIdList;
+     private int d_armyCount;
+-    private String player;
++
+ 
+     /** Constructor without arguments for Country */
+     public Country() {}
+@@ -174,7 +174,5 @@
+         return Objects.hash(d_id, d_name, d_continent, d_neighborIdList, d_armyCount);
+     }
+ 
+-    public void setD_initiator(String player) {
+-        this.player=player;
+-    }
++
+ }
+Index: src/main/java/game/order/AdvanceOrder.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game.order;\r\n\r\nimport game.pojo.Country;\r\nimport game.pojo.Player;\r\n\r\nimport java.util.List;\r\nimport java.util.Random;\r\n\r\nimport static game.map.MapHelper.isAdjacent;\r\n\r\npublic class AdvanceOrder extends Order {\r\n\r\n    private int d_armyCount;\r\n    /**\r\n     * This class extends from order class and represents the move order type of orders\r\n     */\r\n\r\n    private Country destination;\r\n    private int armyNumber;\r\n\r\n    /**\r\n     * Constructor for MoveOrder\r\n     *\r\n     * @param destination Country object representing the destination territory\r\n     * @param initiator   Player object who initiated the order\r\n     * @param armyNumber  Integer representing the number of armies to move\r\n     */\r\n    public AdvanceOrder(Country destination, Player initiator, int armyNumber) {\r\n        super(initiator);\r\n        this.destination = destination;\r\n        this.armyNumber = armyNumber;\r\n\r\n    }\r\n\r\n    /**\r\n     * Executes the move order, moving armies from the source territory to the destination territory\r\n     */\r\n    @Override\r\n    public void execute() {\r\n\r\n        List<Country> l_countriesOfInitiator = this.getD_initiator().getD_countries();\r\n        if (destination.getD_name().equals(this.getD_initiator())) {\r\n            int armies = destination.getD_armyCount() + armyNumber;\r\n            System.out.println(armies);\r\n\r\n        } else {\r\n            if (!isAdjacent(l_countriesOfInitiator, destination)) {\r\n                attackTerritory(destination, armyNumber);\r\n            }\r\n        }\r\n    }\r\n\r\n    private void attackTerritory(Country target, int armyNumber) {\r\n        Random random = new Random();\r\n        int attackingArmies = armyNumber;\r\n        int defendingArmies = target.getD_armyCount();\r\n\r\n        while (attackingArmies > 0 && defendingArmies > 0) {\r\n            // Each attacking army has 60% chance of killing one defending army\r\n            for (int i = 0; i < attackingArmies; i++) {\r\n                if (random.nextDouble() <= 0.6) {\r\n                    defendingArmies--;\r\n                }\r\n            }\r\n\r\n            // Each defending army has 70% chance of killing one attacking army\r\n            for (int i = 0; i < defendingArmies; i++) {\r\n                if (random.nextDouble() <= 0.7) {\r\n                    attackingArmies--;\r\n                }\r\n            }\r\n        }\r\n\r\n        // Update territory armies based on the outcome of the attack\r\n        if (defendingArmies <= 0) {\r\n            // Attacker wins\r\n            target.setD_armyCount(attackingArmies);\r\n            String player= String.valueOf(this.getD_initiator());\r\n            target.setD_initiator(player);\r\n        } else {\r\n            // Defender wins\r\n            target.setD_armyCount(defendingArmies);\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n
+===================================================================
+diff --git a/src/main/java/game/order/AdvanceOrder.java b/src/main/java/game/order/AdvanceOrder.java
+--- a/src/main/java/game/order/AdvanceOrder.java	
++++ b/src/main/java/game/order/AdvanceOrder.java	
+@@ -13,13 +13,14 @@
+     private int d_armyCount;
+     /**
+      * This class extends from order class and represents the move order type of orders
++     * @author Naveen
+      */
+ 
+     private Country destination;
+     private int armyNumber;
+ 
+     /**
+-     * Constructor for MoveOrder
++     * Constructor for AdvanceOrder
+      *
+      * @param destination Country object representing the destination territory
+      * @param initiator   Player object who initiated the order
+@@ -33,7 +34,7 @@
+     }
+ 
+     /**
+-     * Executes the move order, moving armies from the source territory to the destination territory
++     * Executes the Advance order, moving armies from the source territory to the destination territory
+      */
+     @Override
+     public void execute() {
