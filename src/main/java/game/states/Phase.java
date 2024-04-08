@@ -45,10 +45,10 @@ public interface Phase {
     /**
      * Handles the command to edit countries, continents, or neighbors on the map.
      *
-     * @param p_command The command for editing countries, continents, or neighbors.
+     * @param p_commandList The List of commands for editing countries, continents, or neighbors.
      * @param p_map The current map.
      */
-    public void handleEditCountriesOrContinentOrNeighbor(Command p_command, Map p_map);
+    public void handleEditCountriesOrContinentOrNeighbor(List<Command> p_commandList, Map p_map);
 
     /**
      * Handles the assignment of countries to players.
