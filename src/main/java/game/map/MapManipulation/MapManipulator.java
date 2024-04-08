@@ -5,8 +5,6 @@ import static game.constants.MapManipulation.*;
 import game.commands.Command;
 import game.map.Map;
 
-import java.util.List;
-
 /**
  * The MapManipulator class is responsible for processing commands related to map manipulation. It
  * delegates the processing of specific commands to corresponding processor classes.

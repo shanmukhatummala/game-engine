@@ -7,7 +7,10 @@
  *
  * @author Naveen Rayapudi
  */
-package strategy;
+package game.strategy;
+
+import static game.map.MapHelper.getCountryById;
+import static game.map.MapHelper.getCountryOwner;
 
 import game.commands.Command;
 import game.commands.CommandParser;
@@ -19,9 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import static game.map.MapHelper.getCountryById;
-import static game.map.MapHelper.getCountryOwner;
 
 public class Aggressive extends PlayerStrategy {
 
@@ -95,7 +95,8 @@ public class Aggressive extends PlayerStrategy {
     }
 
     /**
-     * Creates an attack command for the strongest country of the player against any neighboring enemy country.
+     * Creates an attack command for the strongest country of the player against any neighboring
+     * enemy country.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the command is being created
@@ -111,8 +112,14 @@ public class Aggressive extends PlayerStrategy {
         // Look for an enemy neighbor to attack
         for (int l_neighborId : l_neighborIds) {
             Country l_neighborCountry = getCountryById(p_map, l_neighborId);
-            if (l_neighborCountry != null && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
-                return CommandParser.parse("attack " + l_strongestCountry.getD_name() + " " + l_neighborCountry.getD_name()).get(0);
+            if (l_neighborCountry != null
+                    && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
+                return CommandParser.parse(
+                                "attack "
+                                        + l_strongestCountry.getD_name()
+                                        + " "
+                                        + l_neighborCountry.getD_name())
+                        .get(0);
             }
         }
 
@@ -121,8 +128,8 @@ public class Aggressive extends PlayerStrategy {
     }
 
     /**
-     * Creates a move command to reinforce the strongest country by moving troops from neighboring countries.
-     * If no suitable neighbor is found, commit for this action.
+     * Creates a move command to reinforce the strongest country by moving troops from neighboring
+     * countries. If no suitable neighbor is found, commit for this action.
      *
      * @param p_map the current game map
      * @param p_player the player for whom the command is being created
@@ -136,16 +143,26 @@ public class Aggressive extends PlayerStrategy {
         List<Country> l_ownedNeighbors = new ArrayList<>();
         for (int l_neighborId : l_neighborIds) {
             Country l_neighborCountry = getCountryById(p_map, l_neighborId);
-            if (l_neighborCountry != null && getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
+            if (l_neighborCountry != null
+                    && getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
                 l_ownedNeighbors.add(l_neighborCountry);
             }
         }
 
         if (!l_ownedNeighbors.isEmpty()) {
             // Find the neighbor with the fewest armies and move its armies to the strongest country
-            Country l_weakestNeighbor = Collections.min(l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));
+            Country l_weakestNeighbor =
+                    Collections.min(
+                            l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));
             int l_armiesToMove = l_weakestNeighbor.getD_armyCount();
-            return CommandParser.parse("move " + l_weakestNeighbor.getD_name() + " " + l_strongestCountry.getD_name() + " " + l_armiesToMove).get(0);
+            return CommandParser.parse(
+                            "move "
+                                    + l_weakestNeighbor.getD_name()
+                                    + " "
+                                    + l_strongestCountry.getD_name()
+                                    + " "
+                                    + l_armiesToMove)
+                    .get(0);
         }
 
         // If no suitable neighbor is found, commit for this action
