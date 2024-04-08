@@ -1,3 +1,4 @@
+
 /**
  * The RandomStrategy class represents a strategy for a player in a game that involves random
  * actions such as deploying troops, attacking, and moving troops. This strategy is designed to
@@ -94,9 +95,7 @@ public class RandomStrategy extends PlayerStrategy {
             int index = l_random.nextInt(l_countries.size());
             Country l_randomCountryID = l_countries.get(index);
             int l_reinforcements = p_player.getD_reinforcements();
-            return CommandParser.parse(
-                            "deploy " + l_randomCountryID.getD_name() + " " + l_reinforcements)
-                    .get(0);
+            return CommandParser.parse("deploy "+ l_randomCountryID.getD_name()+" "+ l_reinforcements).get(0);
         }
         return new Command("commit"); // No valid country to deploy, try again
     }
@@ -115,23 +114,17 @@ public class RandomStrategy extends PlayerStrategy {
             Random l_random = new Random();
             int index = l_random.nextInt(l_countries.size());
             Country l_randomCountry = l_countries.get(index);
-            int l_armiesToMove = l_randomCountry.getD_armyCount();
+            int l_armiesToMove=l_randomCountry.getD_armyCount();
             List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();
             if (!l_neighborIds.isEmpty()) {
                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
                 Country l_neighbor = getCountryById(p_map, l_neighborId);
 
-                if (l_neighbor != null
-                        && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
-                    return CommandParser.parse(
-                                    "advance "
-                                            + l_randomCountry.getD_name()
-                                            + " "
-                                            + l_neighbor.getD_name()
-                                            + " "
-                                            + l_armiesToMove)
-                            .get(0);
+                if (l_neighbor != null && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
+                    return CommandParser.parse("advance " + l_randomCountry.getD_name() + " " + l_neighbor.getD_name()+ " " + l_armiesToMove).get(0);
+
+
                 }
             }
         }
@@ -153,26 +146,23 @@ public class RandomStrategy extends PlayerStrategy {
             Random l_random = new Random();
             int index = l_random.nextInt(l_countries.size());
             Country l_randomCountry = l_countries.get(index);
-            int l_armiesToMove = l_randomCountry.getD_armyCount();
+            int l_armiesToMove=l_randomCountry.getD_armyCount();
             List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();
             if (!l_neighborIds.isEmpty()) {
                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
                 Country l_neighbor = getCountryById(p_map, l_neighborId);
 
-                if (l_neighbor != null
-                        && getCountryOwner(l_neighbor, Collections.singletonList(p_player))
-                                .equals(p_player)) {
+                if (l_neighbor != null && getCountryOwner(l_neighbor, Collections.singletonList(p_player)).equals(p_player)) {
 
-                    return new Command(
-                            "advance",
-                            List.of(
-                                    l_randomCountry.getD_name(),
-                                    l_neighbor.getD_name(),
-                                    Integer.toString(l_armiesToMove)));
+                    return new Command("advance", List.of(l_randomCountry.getD_name(), l_neighbor.getD_name(), Integer.toString(l_armiesToMove)));
+
                 }
             }
         }
         return new Command("commit"); // No valid move, try again
     }
 }
+
+
+

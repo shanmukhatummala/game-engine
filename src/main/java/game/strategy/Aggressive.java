@@ -113,21 +113,14 @@ public class Aggressive extends PlayerStrategy {
         for (int l_neighborId : l_neighborIds) {
             Country l_neighborCountry = getCountryById(p_map, l_neighborId);
 
-            if (l_neighborCountry != null
-                    && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
+            if (l_neighborCountry != null && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
                 int l_armiesToMove = l_strongestCountry.getD_armyCount();
-                return CommandParser.parse(
-                                "advance "
-                                        + l_strongestCountry.getD_name()
-                                        + " "
-                                        + l_neighborCountry.getD_name()
-                                        + " "
-                                        + l_armiesToMove)
-                        .get(0);
+                return CommandParser.parse("advance " + l_strongestCountry.getD_name() + " " + l_neighborCountry.getD_name() + " " + l_armiesToMove).get(0);
             }
         }
         // If no enemy neighbor is found, try to move to a random neighbor
         return moveCommandToReinforce(p_map, p_player);
+
     }
 
     /**
@@ -138,7 +131,7 @@ public class Aggressive extends PlayerStrategy {
      * @param p_player the player for whom the command is being created
      * @return the move command
      */
-    public Command moveCommandToReinforce(Map p_map, Player p_player) {
+    public Command moveCommandToReinforce (Map p_map, Player p_player){
         Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());
         List<Integer> l_neighborIds = new ArrayList<>(l_strongestCountry.getD_neighborIdList());
 
@@ -154,22 +147,17 @@ public class Aggressive extends PlayerStrategy {
 
         if (!l_ownedNeighbors.isEmpty()) {
             // Find the neighbor with the fewest armies and move its armies to the strongest country
-            Country l_weakestNeighbor =
-                    Collections.min(
-                            l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));
+            Country l_weakestNeighbor = Collections.min(l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));
             int l_armiesToMove = l_weakestNeighbor.getD_armyCount();
 
-            return new Command(
-                    "advance",
-                    List.of(
-                            l_weakestNeighbor.getD_name(),
-                            l_strongestCountry.getD_name(),
-                            Integer.toString(l_armiesToMove)));
+            return new Command("advance", List.of(l_weakestNeighbor.getD_name(), l_strongestCountry.getD_name(), Integer.toString(l_armiesToMove)));
+
         }
 
         // If no suitable neighbor is found, commit for this action
         return new Command("commit");
     }
+
 
     /**
      * Finds the strongest country among a list of countries.
@@ -177,7 +165,9 @@ public class Aggressive extends PlayerStrategy {
      * @param p_countries the list of countries to search through
      * @return the strongest country
      */
-    private Country findStrongestCountry(List<Country> p_countries) {
+    private Country findStrongestCountry (List < Country > p_countries) {
         return Collections.max(p_countries, Comparator.comparingInt(Country::getD_armyCount));
     }
 }
+
+
