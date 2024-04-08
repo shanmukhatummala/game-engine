@@ -11,7 +11,7 @@ import java.util.List;
  */
 @NoArgsConstructor
 public class Command {
-    private String d_commandType;
+    private static String d_commandType;
     private List<String> d_args;
 
     /**
@@ -39,7 +39,7 @@ public class Command {
      *
      * @return The command type
      */
-    public String getD_commandType() {
+    public static String getD_commandType() {
         return d_commandType;
     }
 
