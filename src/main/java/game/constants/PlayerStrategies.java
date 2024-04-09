@@ -57,6 +57,11 @@ public class PlayerStrategies {
         put(CHEATER, Cheater.getCheaterStrategy());
     }};
 
+    /**
+     * A mapping of AI player strategy identifiers to their corresponding display names.
+     * This map is used to convert internal strategy names to more user-friendly names
+     * that can be displayed in the game's user interface or logs.
+     */
     public static final Map<String, String> AI_PLAYER_STRATEGY_TO_NAME = new HashMap<>()
     {{
         put(AGGRESSIVE, StringUtils.capitalize(AGGRESSIVE));
