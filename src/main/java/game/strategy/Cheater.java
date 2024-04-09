@@ -8,6 +8,8 @@ import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -18,20 +20,23 @@ import java.util.Set;
  */
 public class Cheater extends PlayerStrategy {
 
-    /** Unique Cheater object. */
-    private static Cheater d_CheaterStrategy;
+    /** Unique Human object. */
+    private static Cheater d_cheaterStrategy;
 
     /**
      * Provides access to the strategy, using the Singleton design pattern
      *
-     * @return the cheater strategy
+     * @return the Cheater strategy
      */
     public static Cheater getCheaterStrategy() {
-        if (d_CheaterStrategy == null) {
-            Cheater.d_CheaterStrategy = new Cheater();
+        if (d_cheaterStrategy == null) {
+            Cheater.d_cheaterStrategy = new Cheater();
         }
-        return d_CheaterStrategy;
+        return d_cheaterStrategy;
     }
+
+    /** Private constructor to make sure that the client calls getHumanStrategy() */
+    public Cheater() {}
 
     /**
      * Implements the cheater player's issue order method. This method simulates the cheater's
@@ -46,14 +51,19 @@ public class Cheater extends PlayerStrategy {
 
         // Get all the countries owned by the cheater
         List<Country> countries = p_player.getD_countries();
+        List<Country> neighborsToBeOccupied = new ArrayList<>();
 
-        // Conquering all the immediate neighboring enemy countries
-        for (Country country : countries) {
+        // Capturing all the immediate neighboring enemy countries
+        for (int i=0; i< countries.size(); i++) {
+            Country country = countries.get(i);
             Set<Integer> neighbors = country.getD_neighborIdList();
-            for (Integer neighbor : neighbors) {
+            Iterator it = neighbors.iterator();
+            while (it.hasNext()) {
+                int neighbor = (int) it.next();
                 Country neighborCountry = getCountryById(p_map, neighbor);
                 Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
                 if (neighborOwner != null && !neighborOwner.equals(p_player)) {
+                    neighborsToBeOccupied.add(neighborCountry);
                     System.out.println(
                             "Cheater player "
                                     + p_player.getD_name()
@@ -63,7 +73,15 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
-        // List<Country> updatedCountries = p_player.getD_countries();
+        //Occupying all the immediate neighboring enemy countries
+        for(Country neighborCountry : neighborsToBeOccupied ) {
+            Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
+            if(neighborOwner != null) {
+                neighborOwner.getD_countries().remove(neighborCountry);
+            }
+            p_player.getD_countries().add(neighborCountry);
+        }
+
         // Doubling the number of armies on cheater's countries that have enemy neighbors
         for (Country country : countries) {
             Set<Integer> neighbors = country.getD_neighborIdList();
@@ -82,7 +100,6 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
-        // Return an empty list since cheater's strategy does not issue explicit orders
-        return null;
+        return new Command("commit");
     }
 }
