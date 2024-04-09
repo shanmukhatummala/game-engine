@@ -67,6 +67,7 @@ public class Map implements Serializable {
         d_continents.clear();
         d_countries.clear();
         d_neighborsGraph.clear();
+        d_mapName = "Unknown Name";
     }
 
     /**

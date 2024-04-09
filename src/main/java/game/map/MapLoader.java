@@ -1,5 +1,7 @@
 package game.map;
 
+import static game.util.FileHelper.fileExists;
+
 import game.mapfile.reader.ConquestFileReader;
 import game.mapfile.reader.FileReaderAdapter;
 import game.mapfile.reader.MapFileReader;
@@ -22,6 +24,10 @@ public class MapLoader {
      * @param p_map reference to the map
      */
     public static void loadMap(String p_path, Map p_map) {
+        if (!fileExists(p_path)) {
+            System.out.println("The file you entered doesn't exist. Check the file name properly.");
+            return;
+        }
         String l_firstLine = null;
         try (BufferedReader l_reader = new BufferedReader(new java.io.FileReader(p_path))) {
             l_firstLine = l_reader.readLine();

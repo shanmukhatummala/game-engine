@@ -9,7 +9,6 @@ import game.pojo.Continent;
 import game.pojo.Country;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 
 /**
  * MapFileReader is used for loading the warzone style map
@@ -101,10 +100,12 @@ public class MapFileReader {
                     }
                 }
             }
-        } catch (IOException | IllegalArgumentException l_e) {
+        } catch (Exception l_e) {
             p_map.clearMap();
             System.out.println(
-                    "Loading map failed with error: " + l_e.getMessage() + ". So stopped loading.");
+                    "Loading map failed with error: "
+                            + l_e.getMessage()
+                            + ". So stopped loading, check if your map is in correct format.");
         }
 
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Loaded the map into Java objects");

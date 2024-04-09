@@ -1,28 +1,25 @@
 package game.strategy;
 
-import game.commands.Command;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-import game.strategy.Cheater;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * The CheaterTest class is responsible for testing the behavior of the Cheater player strategy.
- */
+/** The CheaterTest class is responsible for testing the behavior of the Cheater player strategy. */
 public class CheaterTest {
 
     /**
-     * This test method verifies the behavior of the Cheater player strategy.
-     * It creates a mock map with countries and players and then simulates Cheater behavior,
-     * and checks if the behavior is correctly executed.
+     * This test method verifies the behavior of the Cheater player strategy. It creates a mock map
+     * with countries and players and then simulates Cheater behavior, and checks if the behavior is
+     * correctly executed.
      */
     @Test
     public void testCheaterBehavior() {
@@ -51,10 +48,10 @@ public class CheaterTest {
         l_map.getD_players().add(l_player1);
         l_map.getD_players().add(l_player2);
 
-        l_country1.setD_neighborIdList(Set.of(2,4));
-        l_country2.setD_neighborIdList(Set.of(1,3,5));
+        l_country1.setD_neighborIdList(Set.of(2, 4));
+        l_country2.setD_neighborIdList(Set.of(1, 3, 5));
         l_country3.setD_neighborIdList(Set.of(2));
-        l_country4.setD_neighborIdList(Set.of(1,6));
+        l_country4.setD_neighborIdList(Set.of(1, 6));
         l_country5.setD_neighborIdList(Set.of(2));
         l_country6.setD_neighborIdList(Set.of(4));
 

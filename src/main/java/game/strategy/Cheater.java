@@ -48,7 +48,7 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
-        //List<Country> updatedCountries = p_player.getD_countries();
+        // List<Country> updatedCountries = p_player.getD_countries();
         // Doubling the number of armies on cheater's countries that have enemy neighbors
         for (Country country : countries) {
             Set<Integer> neighbors = country.getD_neighborIdList();
