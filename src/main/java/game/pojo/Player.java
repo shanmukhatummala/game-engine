@@ -184,6 +184,7 @@ public class Player implements Serializable {
 
     /**
      * Setter for the deployed field
+     * @param p_deployed Boolean value to be set for the deployed field
      */
     public void setD_deployed(boolean p_deployed) {
         d_deployed = p_deployed;
@@ -191,6 +192,7 @@ public class Player implements Serializable {
 
     /**
      * Setter for the attacked field
+     * @param p_attacked Boolean value to be set for the attacked field
      */
     public void setD_attacked(boolean p_attacked) {
         d_attacked = p_attacked;
@@ -198,6 +200,7 @@ public class Player implements Serializable {
 
     /**
      * Setter for the moved field
+     * @param p_moved Boolean value to set for the moved field
      */
     public void setD_moved(boolean p_moved) {
         d_moved = p_moved;
