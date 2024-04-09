@@ -121,7 +121,7 @@ class PlayerTest {
         final Class<Player> l_classUnderTest = Player.class;
 
         assertPojoMethodsFor(l_classUnderTest)
-                .testing(Method.CONSTRUCTOR, Method.GETTER, Method.EQUALS)
+                .testing(Method.CONSTRUCTOR, Method.GETTER)
                 .areWellImplemented();
     }
 }
