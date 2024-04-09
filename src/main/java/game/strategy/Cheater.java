@@ -42,12 +42,13 @@ public class Cheater extends PlayerStrategy {
                     System.out.println(
                             "Cheater player "
                                     + p_player.getD_name()
-                                    + "conquering their neighbor country : "
+                                    + " conquering their neighbor country : "
                                     + neighborCountry.getD_name());
                 }
             }
         }
 
+        //List<Country> updatedCountries = p_player.getD_countries();
         // Doubling the number of armies on cheater's countries that have enemy neighbors
         for (Country country : countries) {
             Set<Integer> neighbors = country.getD_neighborIdList();
