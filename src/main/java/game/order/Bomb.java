@@ -15,6 +15,7 @@ import java.util.List;
 /** This class is used for performing the Bomb operation */
 public class Bomb extends Order {
 
+    /** Represents the name of the target country. */
     private String d_targetCountryName;
 
     /**

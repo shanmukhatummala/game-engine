@@ -22,10 +22,19 @@ import java.util.Set;
 @Setter
 public class Country implements Serializable {
 
+    /** The unique identifier of the country */
     private int d_id;
+
+    /** The name of the country */
     private String d_name;
+
+    /** The continent in which the given country is located*/
     private Continent d_continent;
+
+    /** The IDs of neighboring countries */
     private Set<Integer> d_neighborIdList;
+
+    /** The number of armies present in the given country */
     private int d_armyCount;
 
     /** Constructor without arguments for Country */

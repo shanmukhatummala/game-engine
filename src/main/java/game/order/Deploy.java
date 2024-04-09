@@ -10,7 +10,10 @@ import game.pojo.Player;
 /** this class extends from order class and represent the deploy order type of orders */
 public class Deploy extends Order {
 
+    /** Represents the name of the destination country. */
     private String d_destinationCountryName;
+
+    /** Represents the number of armies to be moved */
     private int d_armyNumber;
 
     /**

@@ -13,8 +13,13 @@ import java.util.Objects;
 @Builder
 public class Continent implements Serializable {
 
+    /** The unique identifier of the continent. */
     private int d_id;
+
+    /** The name of the continent */
     private String d_name;
+
+    /** The bonus that the player controlling this continent receives */
     private int d_bonus;
 
     /** Constructor without arguments for Continent */

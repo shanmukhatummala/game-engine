@@ -7,7 +7,11 @@ import java.io.Serializable;
 
 /** and abstract class to represent the type of order a player can give */
 public abstract class Order implements Serializable {
+
+    /** Represents the name of the initiator player. */
     private final Player d_initiator;
+
+    /** Reference to the map */
     private final Map d_map;
 
     /**
