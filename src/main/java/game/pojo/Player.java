@@ -86,7 +86,6 @@ public class Player implements Serializable {
         this(p_name, new ArrayList<>(), p_playerStrategy);
     }
 
-
     /**
      * Getter for player name
      *

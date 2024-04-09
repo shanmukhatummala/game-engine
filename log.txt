@@ -1309,3 +1309,21 @@ Player player2 removed
 Player player2 removed
 Player player2 removed
 Player player2 removed
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Player a added
+Player b added
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
