@@ -18,6 +18,21 @@ import java.util.Set;
  */
 public class Cheater extends PlayerStrategy {
 
+    /** Unique Cheater object. */
+    private static Cheater d_CheaterStrategy;
+
+    /**
+     * Provides access to the strategy, using the Singleton design pattern
+     *
+     * @return the cheater strategy
+     */
+    public static Cheater getCheaterStrategy() {
+        if (d_CheaterStrategy == null) {
+            Cheater.d_CheaterStrategy = new Cheater();
+        }
+        return d_CheaterStrategy;
+    }
+
     /**
      * Implements the cheater player's issue order method. This method simulates the cheater's
      * behavior without directly impacting the map.
