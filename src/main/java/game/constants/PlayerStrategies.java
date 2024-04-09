@@ -41,7 +41,7 @@ public class PlayerStrategies {
         put(AGGRESSIVE, Aggressive.getAggressiveStrategy());
         put(BENEVOLENT, Benevolent.getBenevolentStrategy());
         put(RANDOM, RandomStrategy.getRandomStrategy());
-//        put(CHEATER, Cheater.ge);
+        put(CHEATER, Cheater.getCheaterStrategy());
     }};
 
 
