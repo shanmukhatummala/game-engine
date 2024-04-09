@@ -169,10 +169,9 @@ public class EditMapPhase extends StartUpPhase {
      * the command is not allowed in the phase
      *
      * @param p_commandList The list of commands related to the tournament
-     * @param p_map The current map.
      */
     @Override
-    public void handleTournament(List<Command> p_commandList, Map p_map) {
+    public void handleTournament(List<Command> p_commandList) {
         String l_message =
                 "Invalid Command in state "
                         + this.getClass().getSimpleName()
