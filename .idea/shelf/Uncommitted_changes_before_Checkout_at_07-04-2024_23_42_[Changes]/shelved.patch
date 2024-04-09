@@ -1,0 +1,1010 @@
+Index: src/test/java/game/states/AssignResourcesPhaseTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game.states;\r\n\r\nimport game.GameEngine;\r\nimport game.map.Map;\r\nimport game.pojo.Continent;\r\nimport game.pojo.Country;\r\nimport game.pojo.Player;\r\nimport org.junit.jupiter.api.BeforeEach;\r\nimport org.junit.jupiter.api.Test;\r\n\r\nimport java.util.Arrays;\r\nimport java.util.HashSet;\r\nimport java.util.List;\r\nimport java.util.Set;\r\n\r\nimport static game.pojo.Player.Card.*;\r\nimport static org.hamcrest.CoreMatchers.equalTo;\r\nimport static org.hamcrest.MatcherAssert.assertThat;\r\nimport static org.hamcrest.Matchers.anyOf;\r\nimport static org.hamcrest.Matchers.is;\r\nimport static org.junit.Assert.assertEquals;\r\n\r\n/** Test class for AssignResourcesPhase class */\r\npublic class AssignResourcesPhaseTest {\r\n\r\n    private AssignResourcesPhase d_assignResourcesPhase;\r\n    private Set<Player> d_players;\r\n    private Player d_player1;\r\n    private Player d_player2;\r\n    private Map d_map;\r\n\r\n    /** Sets up the required objects for the execution of tests */\r\n    @BeforeEach\r\n    public void setUp() {\r\n        d_assignResourcesPhase = new AssignResourcesPhase();\r\n        d_players = new HashSet<>();\r\n        d_player1 = new Player(\"d_player1\");\r\n        d_player2 = new Player(\"d_player2\");\r\n        d_players.add(d_player1);\r\n        d_players.add(d_player1);\r\n        d_players.add(d_player2);\r\n        d_map = new Map();\r\n    }\r\n\r\n    /** Tests if assigning a random card to players is working as expected */\r\n    @Test\r\n    public void shouldAssignCardToPlayers() {\r\n\r\n        d_assignResourcesPhase.handleCardAssignment(d_players, new GameEngine());\r\n\r\n        assertThat(d_players.size(), equalTo(2));\r\n        assertThat(d_player1.getD_cards().size(), equalTo(1));\r\n        assertThat(\r\n                d_player1.getD_cards().get(0),\r\n                anyOf(is(BOMB), is(BLOCKADE), is(AIRLIFT), is(DIPLOMACY)));\r\n        assertThat(d_player2.getD_cards().size(), equalTo(1));\r\n        assertThat(\r\n                d_player2.getD_cards().get(0),\r\n                anyOf(is(BOMB), is(BLOCKADE), is(AIRLIFT), is(DIPLOMACY)));\r\n    }\r\n\r\n    /** Test assignReinforcements when 5 reinforcements assigned to each player */\r\n    @Test\r\n    void testInitialReinforcements() {\r\n\r\n\r\n        d_map.addPlayer(d_player1.getD_name());\r\n        d_map.addPlayer(d_player2.getD_name());\r\n\r\n        new AssignResourcesPhase().handleReinforcementsAssignment(d_map, new GameEngine(d_map));\r\n\r\n        // check reinforcements for each player\r\n        assertEquals(\r\n                0, d_player1.getD_reinforcements()); // Initial reinforcements for two players are 5\r\n        assertEquals(0, d_player2.getD_reinforcements());\r\n    }\r\n\r\n    /** Test assignReinforcements when bonus reinforcements assigned to each player */\r\n    @Test\r\n    public void testAssignReinforcementsWithTerritoriesAndContinentBonus() {\r\n\r\n        // Add players to the map\r\n        d_map.getD_players().add(d_player1);\r\n        d_map.getD_players().add(d_player2);\r\n\r\n        Continent l_continent1 = new Continent(1, \"Continent 1\", 3);\r\n        Continent l_continent2 = new Continent(2, \"Continent 2\", 5);\r\n\r\n        List<Continent> l_continents = Arrays.asList(l_continent1, l_continent2);\r\n\r\n        Country l_country1 = new Country(1, \"country1\", l_continent1);\r\n        Country l_country2 = new Country(2, \"country2\", l_continent2);\r\n        Country l_country3 = new Country(3, \"country3\", l_continent1);\r\n        Country l_country4 = new Country(4, \"country4\", l_continent2);\r\n\r\n        List<Country> l_countries = Arrays.asList(l_country1, l_country2, l_country3, l_country4);\r\n        // Add continents to the map\r\n        d_map.getD_continents().addAll(l_continents);\r\n        // Add countries to the map\r\n        d_map.getD_countries().addAll(l_countries);\r\n\r\n        d_player1.getD_countries().addAll(Arrays.asList(l_country1, l_country2, l_country3));\r\n        d_player2.getD_countries().add(l_country4);\r\n\r\n        // Assign reinforcements\r\n        new AssignResourcesPhase().handleReinforcementsAssignment(d_map, new GameEngine(d_map));\r\n\r\n        // Check player 1 received correct number of reinforcements\r\n        assertEquals(4, d_player1.getD_reinforcements()); // Base: 3 + Bonus: 3 = 8\r\n\r\n        // Check player 2 received correct number of reinforcements\r\n        assertEquals(3, d_player2.getD_reinforcements()); // Base: 3\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/game/states/AssignResourcesPhaseTest.java b/src/test/java/game/states/AssignResourcesPhaseTest.java
+--- a/src/test/java/game/states/AssignResourcesPhaseTest.java	(revision 1ec153af9fdbe435a714d92c869839cfb0481fa5)
++++ b/src/test/java/game/states/AssignResourcesPhaseTest.java	(date 1712547490110)
+@@ -1,10 +1,19 @@
+ package game.states;
+ 
++import static game.pojo.Player.Card.*;
++
++import static org.hamcrest.CoreMatchers.equalTo;
++import static org.hamcrest.MatcherAssert.assertThat;
++import static org.hamcrest.Matchers.anyOf;
++import static org.hamcrest.Matchers.is;
++import static org.junit.Assert.assertEquals;
++
+ import game.GameEngine;
+ import game.map.Map;
+ import game.pojo.Continent;
+ import game.pojo.Country;
+ import game.pojo.Player;
++
+ import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.Test;
+ 
+@@ -13,13 +22,6 @@
+ import java.util.List;
+ import java.util.Set;
+ 
+-import static game.pojo.Player.Card.*;
+-import static org.hamcrest.CoreMatchers.equalTo;
+-import static org.hamcrest.MatcherAssert.assertThat;
+-import static org.hamcrest.Matchers.anyOf;
+-import static org.hamcrest.Matchers.is;
+-import static org.junit.Assert.assertEquals;
+-
+ /** Test class for AssignResourcesPhase class */
+ public class AssignResourcesPhaseTest {
+ 
+@@ -63,7 +65,6 @@
+     @Test
+     void testInitialReinforcements() {
+ 
+-
+         d_map.addPlayer(d_player1.getD_name());
+         d_map.addPlayer(d_player2.getD_name());
+ 
+Index: src/main/java/game/strategy/Aggressive.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n * The Aggressive class represents an aggressive strategy for a player in a game. This strategy\r\n * involves deploying troops to the strongest country, attacking the strongest country on the map,\r\n * and then moving troops to centralize them. The strategy follows a sequence of actions: deploy,\r\n * attack, move, and then repeats. This class is a singleton, ensuring that only one instance of the\r\n * Aggressive strategy exists.\r\n *\r\n * @author Naveen Rayapudi\r\n */\r\npackage game.strategy;\r\n\r\nimport game.commands.Command;\r\nimport game.commands.CommandParser;\r\nimport game.map.Map;\r\nimport game.pojo.Country;\r\nimport game.pojo.Player;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.Comparator;\r\nimport java.util.List;\r\n\r\nimport static game.map.MapHelper.getCountryById;\r\nimport static game.map.MapHelper.getCountryOwner;\r\n\r\npublic class Aggressive extends PlayerStrategy {\r\n\r\n    /** Indicates whether the player has deployed troops. */\r\n    private boolean d_deployed = false;\r\n\r\n    /** Indicates whether the player has attacked. */\r\n    private boolean d_attacked = false;\r\n\r\n    /** Indicates whether the player has moved troops. */\r\n    private boolean d_moved = false;\r\n\r\n    /** The singleton instance of the Aggressive strategy. */\r\n    private static Aggressive d_aggressiveStrategy;\r\n\r\n    /**\r\n     * Returns the singleton instance of the Aggressive strategy. If the instance does not exist, it\r\n     * is created.\r\n     *\r\n     * @return the singleton instance of the Aggressive strategy\r\n     */\r\n    public static Aggressive getAggressiveStrategy() {\r\n        if (d_aggressiveStrategy == null) {\r\n            Aggressive.d_aggressiveStrategy = new Aggressive();\r\n        }\r\n        return d_aggressiveStrategy;\r\n    }\r\n\r\n    /** Private constructor to enforce the singleton pattern. */\r\n    public Aggressive() {}\r\n\r\n    /**\r\n     * Creates an order for the player based on the current state of the game. The order sequence is\r\n     * deploy, attack, move, and then repeats.\r\n     *\r\n     * @param p_map the current game map\r\n     * @param p_player the player for whom the order is being created\r\n     * @return the command to be executed\r\n     */\r\n    @Override\r\n    public Command createOrder(Map p_map, Player p_player) {\r\n        if (!d_deployed) {\r\n            d_deployed = true;\r\n            return deployCommandOnStrongest(p_player);\r\n        } else if (!d_attacked) {\r\n            d_attacked = true;\r\n            return attackCommandOnStrongest(p_map, p_player);\r\n        } else if (!d_moved) {\r\n            d_moved = true;\r\n            return moveCommandToReinforce(p_map, p_player);\r\n        } else {\r\n            // Reset flags for the next round\r\n            d_deployed = false;\r\n            d_attacked = false;\r\n            d_moved = false;\r\n            return new Command(\"commit\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Creates a deploy command for the strongest country of the player.\r\n     *\r\n     * @param p_player the player for whom the command is being created\r\n     * @return the deploy command\r\n     */\r\n    public Command deployCommandOnStrongest(Player p_player) {\r\n        String l_countryName = findStrongestCountry(p_player.getD_countries()).getD_name();\r\n        int l_reinforcementsToDeploy = p_player.getD_reinforcements();\r\n        return CommandParser.parse(\"deploy \" + l_countryName + \" \" + l_reinforcementsToDeploy)\r\n                .get(0);\r\n    }\r\n\r\n    /**\r\n     * Creates an attack command for the strongest country of the player against any neighboring\r\n     * enemy country.\r\n     *\r\n     * @param p_map the current game map\r\n     * @param p_player the player for whom the command is being created\r\n     * @return the attack command\r\n     */\r\n    public Command attackCommandOnStrongest(Map p_map, Player p_player) {\r\n        Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());\r\n        List<Integer> l_neighborIds = new ArrayList<>(l_strongestCountry.getD_neighborIdList());\r\n\r\n        // Shuffle the neighbor IDs to attack a random neighboring enemy country\r\n        Collections.shuffle(l_neighborIds);\r\n\r\n        // Look for an enemy neighbor to attack\r\n        for (int l_neighborId : l_neighborIds) {\r\n            Country l_neighborCountry = getCountryById(p_map, l_neighborId);\r\n\r\n            if (l_neighborCountry != null && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {\r\n                int l_armiesToMove = l_strongestCountry.getD_armyCount();\r\n                return CommandParser.parse(\"advance \" + l_strongestCountry.getD_name() + \" \" + l_neighborCountry.getD_name() + \" \" + l_armiesToMove).get(0);\r\n            }\r\n        }\r\n            // If no enemy neighbor is found, try to move to a random neighbor\r\n            return moveCommandToReinforce(p_map, p_player);\r\n\r\n    }\r\n\r\n        /**\r\n         * Creates a move command to reinforce the strongest country by moving troops from neighboring\r\n         * countries. If no suitable neighbor is found, commit for this action.\r\n         *\r\n         * @param p_map the current game map\r\n         * @param p_player the player for whom the command is being created\r\n         * @return the move command\r\n         */\r\n        public Command moveCommandToReinforce (Map p_map, Player p_player){\r\n            Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());\r\n            List<Integer> l_neighborIds = new ArrayList<>(l_strongestCountry.getD_neighborIdList());\r\n\r\n            // Find neighboring countries owned by the player\r\n            List<Country> l_ownedNeighbors = new ArrayList<>();\r\n            for (int l_neighborId : l_neighborIds) {\r\n                Country l_neighborCountry = getCountryById(p_map, l_neighborId);\r\n                if (l_neighborCountry != null\r\n                        && getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {\r\n                    l_ownedNeighbors.add(l_neighborCountry);\r\n                }\r\n            }\r\n\r\n            if (!l_ownedNeighbors.isEmpty()) {\r\n                // Find the neighbor with the fewest armies and move its armies to the strongest country\r\n                Country l_weakestNeighbor = Collections.min(l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));\r\n                int l_armiesToMove = l_weakestNeighbor.getD_armyCount();\r\n\r\n                return new Command(\"advance\", List.of(l_weakestNeighbor.getD_name(), l_strongestCountry.getD_name(), Integer.toString(l_armiesToMove)));\r\n\r\n            }\r\n\r\n            // If no suitable neighbor is found, commit for this action\r\n            return new Command(\"commit\");\r\n        }\r\n\r\n\r\n        /**\r\n         * Finds the strongest country among a list of countries.\r\n         *\r\n         * @param p_countries the list of countries to search through\r\n         * @return the strongest country\r\n         */\r\n        private Country findStrongestCountry (List < Country > p_countries) {\r\n            return Collections.max(p_countries, Comparator.comparingInt(Country::getD_armyCount));\r\n        }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/game/strategy/Aggressive.java b/src/main/java/game/strategy/Aggressive.java
+--- a/src/main/java/game/strategy/Aggressive.java	(revision 1ec153af9fdbe435a714d92c869839cfb0481fa5)
++++ b/src/main/java/game/strategy/Aggressive.java	(date 1712547489576)
+@@ -9,6 +9,9 @@
+  */
+ package game.strategy;
+ 
++import static game.map.MapHelper.getCountryById;
++import static game.map.MapHelper.getCountryOwner;
++
+ import game.commands.Command;
+ import game.commands.CommandParser;
+ import game.map.Map;
+@@ -20,9 +23,6 @@
+ import java.util.Comparator;
+ import java.util.List;
+ 
+-import static game.map.MapHelper.getCountryById;
+-import static game.map.MapHelper.getCountryOwner;
+-
+ public class Aggressive extends PlayerStrategy {
+ 
+     /** Indicates whether the player has deployed troops. */
+@@ -113,60 +113,71 @@
+         for (int l_neighborId : l_neighborIds) {
+             Country l_neighborCountry = getCountryById(p_map, l_neighborId);
+ 
+-            if (l_neighborCountry != null && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
++            if (l_neighborCountry != null
++                    && !getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
+                 int l_armiesToMove = l_strongestCountry.getD_armyCount();
+-                return CommandParser.parse("advance " + l_strongestCountry.getD_name() + " " + l_neighborCountry.getD_name() + " " + l_armiesToMove).get(0);
++                return CommandParser.parse(
++                                "advance "
++                                        + l_strongestCountry.getD_name()
++                                        + " "
++                                        + l_neighborCountry.getD_name()
++                                        + " "
++                                        + l_armiesToMove)
++                        .get(0);
+             }
+         }
+-            // If no enemy neighbor is found, try to move to a random neighbor
+-            return moveCommandToReinforce(p_map, p_player);
+-
++        // If no enemy neighbor is found, try to move to a random neighbor
++        return moveCommandToReinforce(p_map, p_player);
+     }
+ 
+-        /**
+-         * Creates a move command to reinforce the strongest country by moving troops from neighboring
+-         * countries. If no suitable neighbor is found, commit for this action.
+-         *
+-         * @param p_map the current game map
+-         * @param p_player the player for whom the command is being created
+-         * @return the move command
+-         */
+-        public Command moveCommandToReinforce (Map p_map, Player p_player){
+-            Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());
+-            List<Integer> l_neighborIds = new ArrayList<>(l_strongestCountry.getD_neighborIdList());
++    /**
++     * Creates a move command to reinforce the strongest country by moving troops from neighboring
++     * countries. If no suitable neighbor is found, commit for this action.
++     *
++     * @param p_map the current game map
++     * @param p_player the player for whom the command is being created
++     * @return the move command
++     */
++    public Command moveCommandToReinforce(Map p_map, Player p_player) {
++        Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());
++        List<Integer> l_neighborIds = new ArrayList<>(l_strongestCountry.getD_neighborIdList());
+ 
+-            // Find neighboring countries owned by the player
+-            List<Country> l_ownedNeighbors = new ArrayList<>();
+-            for (int l_neighborId : l_neighborIds) {
+-                Country l_neighborCountry = getCountryById(p_map, l_neighborId);
+-                if (l_neighborCountry != null
+-                        && getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
+-                    l_ownedNeighbors.add(l_neighborCountry);
+-                }
+-            }
++        // Find neighboring countries owned by the player
++        List<Country> l_ownedNeighbors = new ArrayList<>();
++        for (int l_neighborId : l_neighborIds) {
++            Country l_neighborCountry = getCountryById(p_map, l_neighborId);
++            if (l_neighborCountry != null
++                    && getCountryOwner(l_neighborCountry, p_map.getD_players()).equals(p_player)) {
++                l_ownedNeighbors.add(l_neighborCountry);
++            }
++        }
+ 
+-            if (!l_ownedNeighbors.isEmpty()) {
+-                // Find the neighbor with the fewest armies and move its armies to the strongest country
+-                Country l_weakestNeighbor = Collections.min(l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));
+-                int l_armiesToMove = l_weakestNeighbor.getD_armyCount();
++        if (!l_ownedNeighbors.isEmpty()) {
++            // Find the neighbor with the fewest armies and move its armies to the strongest country
++            Country l_weakestNeighbor =
++                    Collections.min(
++                            l_ownedNeighbors, Comparator.comparingInt(Country::getD_armyCount));
++            int l_armiesToMove = l_weakestNeighbor.getD_armyCount();
+ 
+-                return new Command("advance", List.of(l_weakestNeighbor.getD_name(), l_strongestCountry.getD_name(), Integer.toString(l_armiesToMove)));
+-
+-            }
++            return new Command(
++                    "advance",
++                    List.of(
++                            l_weakestNeighbor.getD_name(),
++                            l_strongestCountry.getD_name(),
++                            Integer.toString(l_armiesToMove)));
++        }
+ 
+-            // If no suitable neighbor is found, commit for this action
+-            return new Command("commit");
+-        }
++        // If no suitable neighbor is found, commit for this action
++        return new Command("commit");
++    }
+ 
+-
+-        /**
+-         * Finds the strongest country among a list of countries.
+-         *
+-         * @param p_countries the list of countries to search through
+-         * @return the strongest country
+-         */
+-        private Country findStrongestCountry (List < Country > p_countries) {
+-            return Collections.max(p_countries, Comparator.comparingInt(Country::getD_armyCount));
+-        }
++    /**
++     * Finds the strongest country among a list of countries.
++     *
++     * @param p_countries the list of countries to search through
++     * @return the strongest country
++     */
++    private Country findStrongestCountry(List<Country> p_countries) {
++        return Collections.max(p_countries, Comparator.comparingInt(Country::getD_armyCount));
++    }
+ }
+-
+Index: src/main/java/game/strategy/RandomStrategy.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\r\n * The RandomStrategy class represents a strategy for a player in a game that involves random\r\n * actions such as deploying troops, attacking, and moving troops. This strategy is designed to\r\n * provide a simple, yet unpredictable approach to gameplay. The strategy follows a sequence of\r\n * actions: deploy, attack, move, and then repeats. This class is a singleton, ensuring that only\r\n * one instance of the RandomStrategy exists.\r\n *\r\n * @author Naveen Rayapudi\r\n */\r\npackage game.strategy;\r\n\r\nimport game.commands.Command;\r\nimport game.commands.CommandParser;\r\nimport game.map.Map;\r\nimport game.pojo.Country;\r\nimport game.pojo.Player;\r\n\r\nimport java.util.Collections;\r\nimport java.util.List;\r\nimport java.util.Random;\r\n\r\nimport static game.map.MapHelper.getCountryById;\r\nimport static game.map.MapHelper.getCountryOwner;\r\n\r\npublic class RandomStrategy extends PlayerStrategy {\r\n\r\n    /** The singleton instance of the RandomStrategy. */\r\n    private static RandomStrategy randomStrategy;\r\n\r\n    /**\r\n     * Returns the singleton instance of the RandomStrategy. If the instance does not exist, it is\r\n     * created.\r\n     *\r\n     * @return the singleton instance of the RandomStrategy\r\n     */\r\n    public static RandomStrategy getRandomStrategy() {\r\n        if (randomStrategy == null) {\r\n            randomStrategy = new RandomStrategy();\r\n        }\r\n        return randomStrategy;\r\n    }\r\n\r\n    /** Private constructor to enforce the singleton pattern. */\r\n    private RandomStrategy() {}\r\n\r\n    /** Indicates whether the player has deployed troops. */\r\n    private boolean d_deployed = false;\r\n\r\n    /** Indicates whether the player has attacked. */\r\n    private boolean d_attacked = false;\r\n\r\n    /** Indicates whether the player has moved troops. */\r\n    private boolean d_moved = false;\r\n\r\n    /**\r\n     * Creates an order for the player based on random actions. The order sequence is deploy,\r\n     * attack, move, and then repeats.\r\n     *\r\n     * @param p_map the current game map\r\n     * @param p_player the player for whom the order is being created\r\n     * @return the command to be executed\r\n     */\r\n    @Override\r\n    public Command createOrder(Map p_map, Player p_player) {\r\n        if (!d_deployed) {\r\n            d_deployed = true;\r\n            return deployRandomly(p_player);\r\n        } else if (!d_attacked) {\r\n            d_attacked = true;\r\n            return attackRandomly(p_map, p_player);\r\n        } else if (!d_moved) {\r\n            d_moved = true;\r\n            return moveRandomly(p_map, p_player);\r\n        } else {\r\n            // Reset flags for the next round\r\n            d_deployed = false;\r\n            d_attacked = false;\r\n            d_moved = false;\r\n            return new Command(\"commit\");\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Creates a deploy command for a randomly selected country of the player.\r\n     *\r\n     * @param p_player the player for whom the command is being created\r\n     * @return the deploy command\r\n     */\r\n    private Command deployRandomly(Player p_player) {\r\n        List<Country> l_countries = p_player.getD_countries();\r\n\r\n        if (!l_countries.isEmpty()) {\r\n            Random l_random = new Random();\r\n            int index = l_random.nextInt(l_countries.size());\r\n            Country l_randomCountryID = l_countries.get(index);\r\n            int l_reinforcements = p_player.getD_reinforcements();\r\n            return CommandParser.parse(\"deploy \"+ l_randomCountryID.getD_name()+\" \"+ l_reinforcements).get(0);\r\n        }\r\n        return new Command(\"commit\"); // No valid country to deploy, try again\r\n    }\r\n\r\n    /**\r\n     * Creates an attack command for a randomly selected country of the player against a neighboring\r\n     * country.\r\n     *\r\n     * @param p_map the current game map\r\n     * @param p_player the player for whom the command is being created\r\n     * @return the attack command\r\n     */\r\n    private Command attackRandomly(Map p_map, Player p_player) {\r\n        List<Country> l_countries = p_player.getD_countries();\r\n        if (!l_countries.isEmpty()) {\r\n            Random l_random = new Random();\r\n            int index = l_random.nextInt(l_countries.size());\r\n            Country l_randomCountry = l_countries.get(index);\r\n            int l_armiesToMove=l_randomCountry.getD_armyCount();\r\n            List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();\r\n            if (!l_neighborIds.isEmpty()) {\r\n                int l_neighborIndex = l_random.nextInt(l_neighborIds.size());\r\n                int l_neighborId = l_neighborIds.get(l_neighborIndex);\r\n                Country l_neighbor = getCountryById(p_map, l_neighborId);\r\n\r\n                if (l_neighbor != null && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {\r\n                    return CommandParser.parse(\"advance \" + l_randomCountry.getD_name() + \" \" + l_neighbor.getD_name()+ \" \" + l_armiesToMove).get(0);\r\n\r\n\r\n                }\r\n            }\r\n        }\r\n        // If no enemy neighbor is found, try to move to a random neighbor\r\n        return moveRandomly(p_map, p_player);\r\n    }\r\n\r\n    /**\r\n     * Creates a move command to move troops from a randomly selected country of the player to a\r\n     * neighboring country.\r\n     *\r\n     * @param p_map the current game map\r\n     * @param p_player the player for whom the command is being created\r\n     * @return the move command\r\n     */\r\n    private Command moveRandomly(Map p_map, Player p_player) {\r\n        List<Country> l_countries = p_player.getD_countries();\r\n        if (!l_countries.isEmpty()) {\r\n            Random l_random = new Random();\r\n            int index = l_random.nextInt(l_countries.size());\r\n            Country l_randomCountry = l_countries.get(index);\r\n            int l_armiesToMove=l_randomCountry.getD_armyCount();\r\n            List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();\r\n            if (!l_neighborIds.isEmpty()) {\r\n                int l_neighborIndex = l_random.nextInt(l_neighborIds.size());\r\n                int l_neighborId = l_neighborIds.get(l_neighborIndex);\r\n                Country l_neighbor = getCountryById(p_map, l_neighborId);\r\n\r\n                if (l_neighbor != null && getCountryOwner(l_neighbor, Collections.singletonList(p_player)).equals(p_player)) {\r\n\r\n                    return new Command(\"advance\", List.of(l_randomCountry.getD_name(), l_neighbor.getD_name(), Integer.toString(l_armiesToMove)));\r\n\r\n                }\r\n            }\r\n        }\r\n        return new Command(\"commit\"); // No valid move, try again\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/game/strategy/RandomStrategy.java b/src/main/java/game/strategy/RandomStrategy.java
+--- a/src/main/java/game/strategy/RandomStrategy.java	(revision 1ec153af9fdbe435a714d92c869839cfb0481fa5)
++++ b/src/main/java/game/strategy/RandomStrategy.java	(date 1712547489339)
+@@ -9,6 +9,9 @@
+  */
+ package game.strategy;
+ 
++import static game.map.MapHelper.getCountryById;
++import static game.map.MapHelper.getCountryOwner;
++
+ import game.commands.Command;
+ import game.commands.CommandParser;
+ import game.map.Map;
+@@ -19,9 +22,6 @@
+ import java.util.List;
+ import java.util.Random;
+ 
+-import static game.map.MapHelper.getCountryById;
+-import static game.map.MapHelper.getCountryOwner;
+-
+ public class RandomStrategy extends PlayerStrategy {
+ 
+     /** The singleton instance of the RandomStrategy. */
+@@ -94,7 +94,9 @@
+             int index = l_random.nextInt(l_countries.size());
+             Country l_randomCountryID = l_countries.get(index);
+             int l_reinforcements = p_player.getD_reinforcements();
+-            return CommandParser.parse("deploy "+ l_randomCountryID.getD_name()+" "+ l_reinforcements).get(0);
++            return CommandParser.parse(
++                            "deploy " + l_randomCountryID.getD_name() + " " + l_reinforcements)
++                    .get(0);
+         }
+         return new Command("commit"); // No valid country to deploy, try again
+     }
+@@ -113,17 +115,23 @@
+             Random l_random = new Random();
+             int index = l_random.nextInt(l_countries.size());
+             Country l_randomCountry = l_countries.get(index);
+-            int l_armiesToMove=l_randomCountry.getD_armyCount();
++            int l_armiesToMove = l_randomCountry.getD_armyCount();
+             List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();
+             if (!l_neighborIds.isEmpty()) {
+                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
+                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
+                 Country l_neighbor = getCountryById(p_map, l_neighborId);
+ 
+-                if (l_neighbor != null && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
+-                    return CommandParser.parse("advance " + l_randomCountry.getD_name() + " " + l_neighbor.getD_name()+ " " + l_armiesToMove).get(0);
+-
+-
++                if (l_neighbor != null
++                        && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
++                    return CommandParser.parse(
++                                    "advance "
++                                            + l_randomCountry.getD_name()
++                                            + " "
++                                            + l_neighbor.getD_name()
++                                            + " "
++                                            + l_armiesToMove)
++                            .get(0);
+                 }
+             }
+         }
+@@ -145,17 +153,23 @@
+             Random l_random = new Random();
+             int index = l_random.nextInt(l_countries.size());
+             Country l_randomCountry = l_countries.get(index);
+-            int l_armiesToMove=l_randomCountry.getD_armyCount();
++            int l_armiesToMove = l_randomCountry.getD_armyCount();
+             List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();
+             if (!l_neighborIds.isEmpty()) {
+                 int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
+                 int l_neighborId = l_neighborIds.get(l_neighborIndex);
+                 Country l_neighbor = getCountryById(p_map, l_neighborId);
+ 
+-                if (l_neighbor != null && getCountryOwner(l_neighbor, Collections.singletonList(p_player)).equals(p_player)) {
++                if (l_neighbor != null
++                        && getCountryOwner(l_neighbor, Collections.singletonList(p_player))
++                                .equals(p_player)) {
+ 
+-                    return new Command("advance", List.of(l_randomCountry.getD_name(), l_neighbor.getD_name(), Integer.toString(l_armiesToMove)));
+-
++                    return new Command(
++                            "advance",
++                            List.of(
++                                    l_randomCountry.getD_name(),
++                                    l_neighbor.getD_name(),
++                                    Integer.toString(l_armiesToMove)));
+                 }
+             }
+         }
+Index: src/test/java/game/strategy/Aggressivetest.java
+===================================================================
+diff --git a/src/test/java/game/strategy/Aggressivetest.java b/src/test/java/game/strategy/Aggressivetest.java
+deleted file mode 100644
+--- a/src/test/java/game/strategy/Aggressivetest.java	(revision 1ec153af9fdbe435a714d92c869839cfb0481fa5)
++++ /dev/null	(revision 1ec153af9fdbe435a714d92c869839cfb0481fa5)
+@@ -1,94 +0,0 @@
+-package game.strategy;
+-
+-import game.commands.Command;
+-import game.map.Map;
+-import game.pojo.Continent;
+-import game.pojo.Country;
+-import game.pojo.Player;
+-import org.junit.Before;
+-import org.junit.Test;
+-
+-import java.util.ArrayList;
+-import java.util.HashSet;
+-import java.util.List;
+-
+-import static org.junit.Assert.*;
+-
+-public class Aggressivetest {
+-    private Aggressive d_aggressiveStrategy;
+-    private Map d_mockedMap;
+-    private Player d_mockedPlayer;
+-
+-    @Before
+-    public void setUp() {
+-        d_aggressiveStrategy = Aggressive.getAggressiveStrategy();
+-        d_mockedMap = new Map(); // Assuming a default map
+-        d_mockedPlayer = new Player("Player"); // Assuming a default player
+-    }
+-
+-
+-    @Test
+-    public void testSingletonPattern() {
+-        Aggressive l_aggressive1 = Aggressive.getAggressiveStrategy();
+-        Aggressive l_aggressive2 = Aggressive.getAggressiveStrategy();
+-        assertSame(l_aggressive1, l_aggressive2);
+-    }
+-
+-
+-    @Test
+-    public void testDeployCommandOnStrongest() {
+-        // Create necessary objects for the test
+-        Continent l_continent = new Continent();
+-        Country l_country = new Country(1, "Country1", l_continent, new HashSet<>(), 100);
+-        Player l_player = new Player("Player1", new ArrayList<>(List.of(l_country)));
+-        l_player.setD_reinforcements(10);
+-        Command l_command = d_aggressiveStrategy.deployCommandOnStrongest(l_player);
+-        // Check if the returned command is of type "deploy"
+-        assertEquals("deploy", Command.getD_commandType());
+-        // Check if the command arguments are as expected
+-        List<String> args = l_command.getD_args();
+-        assertEquals(2, args.size()); // Expecting two arguments
+-        assertEquals("Country1", args.get(0)); // Expecting country name
+-        assertEquals("10", args.get(1)); // Expecting reinforcements count
+-    }
+-
+-
+-    @Test
+-    public void testAttackCommandOnStrongest() {
+-        Continent l_continent = new Continent();
+-        Country l_strongestCountry = new Country(1, "Country1", l_continent, new HashSet<>(), 100); // Mocking a country with 3 armies
+-        Country l_neighborCountry = new Country(2,"NeighborCountry", l_continent,new HashSet<>(),50); // Mocking a neighboring country with 2 armies
+-        Player l_player = new Player("Player1", new ArrayList<>(List.of(l_neighborCountry)));
+-        l_strongestCountry.addNeighbor(l_neighborCountry.getD_id());
+-        d_mockedMap.getD_continents().add(l_continent);
+-        d_mockedMap.getD_countries().add(l_strongestCountry);
+-        d_mockedMap.getD_countries().add(l_neighborCountry);
+-        d_mockedMap.getD_players().add(d_mockedPlayer);
+-        d_mockedPlayer.getD_countries().add(l_strongestCountry);
+-        d_mockedMap.getD_players().add(l_player);
+-        Command l_attackCommand = d_aggressiveStrategy.attackCommandOnStrongest(d_mockedMap, d_mockedPlayer);
+-
+-        assertEquals("advance Country1 NeighborCountry 100", l_attackCommand.toString());
+-    }
+-
+-    @Test
+-    public void testMoveCommandToReinforce() {
+-
+-            Continent l_continent = new Continent();
+-            Country l_strongestCountry = new Country(1, "Country1", l_continent, new HashSet<>(), 100); // Mocking a country with 3 armies
+-            Country l_neighborCountry = new Country(2,"NeighborCountry", l_continent,new HashSet<>(),50); // Mocking a neighboring country with 2 armies
+-            Player l_player = new Player("Player", new ArrayList<>(List.of(l_neighborCountry)));
+-            l_strongestCountry.addNeighbor(l_neighborCountry.getD_id());;
+-            d_mockedMap.getD_countries().add(l_strongestCountry);
+-            d_mockedMap.getD_countries().add(l_neighborCountry);
+-            d_mockedMap.getD_players().add(d_mockedPlayer);
+-            d_mockedPlayer.getD_countries().add(l_strongestCountry);
+-            d_mockedPlayer.getD_countries().add(l_neighborCountry);
+-            d_mockedMap.getD_players().add(l_player);
+-            Command l_moveCommand = d_aggressiveStrategy.moveCommandToReinforce(d_mockedMap, d_mockedPlayer);
+-            assertEquals("advance NeighborCountry Country1 50", l_moveCommand.toString());
+-        }
+-
+-}
+-
+-
+Index: log.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nReinforcements are assigned\r\nReinforcements are assigned\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nReinforcements are assigned\r\nReinforcements are assigned\r\nReinforcements are assigned\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nLoaded the map into Java objects\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nReinforcements are assigned\r\nReinforcements are assigned\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: AssignResourcesPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nReinforcements are assigned\r\nReinforcements are assigned\r\nReinforcements are assigned\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\nContinent Added Successfully!\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\nCountry Added Successfully!\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player1 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\nPlayer player2 added\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\n<< PHASE: EditMapPhase >>\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\nYou have entered the editing mode.\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: IssueOrderPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\nLoaded the map into Java objects\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\n<< PHASE: PlaySetupPhase >>\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nPlayer player2 removed\r\nLoaded the map into Java objects\r\n<< PHASE: PlaySetupPhase >>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/log.txt b/log.txt
+--- a/log.txt	(revision 1ec153af9fdbe435a714d92c869839cfb0481fa5)
++++ b/log.txt	(date 1712547508206)
+@@ -876,3 +876,572 @@
+ Player player2 removed
+ Loaded the map into Java objects
+ << PHASE: PlaySetupPhase >>
++<< PHASE: IssueOrderPhase >>
++Reinforcements are assigned
++<< PHASE: IssueOrderPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Player player1 added
++Player player1 added
++Player player1 added
++Player player2 added
++Player player2 added
++Player player2 added
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++<< PHASE: AssignResourcesPhase >>
++<< PHASE: AssignResourcesPhase >>
++<< PHASE: PlaySetupPhase >>
++Reinforcements are assigned
++Reinforcements are assigned
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: AssignResourcesPhase >>
++<< PHASE: AssignResourcesPhase >>
++<< PHASE: AssignResourcesPhase >>
++<< PHASE: AssignResourcesPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Reinforcements are assigned
++Reinforcements are assigned
++Reinforcements are assigned
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++Continent Added Successfully!
++Continent Added Successfully!
++Continent Added Successfully!
++Continent Added Successfully!
++Continent Added Successfully!
++Continent Added Successfully!
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++Country Added Successfully!
++Country Added Successfully!
++Country Added Successfully!
++Country Added Successfully!
++Country Added Successfully!
++Country Added Successfully!
++Country Added Successfully!
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player1 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++Player player2 added
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++<< PHASE: EditMapPhase >>
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++You have entered the editing mode.
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: IssueOrderPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++Loaded the map into Java objects
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++<< PHASE: PlaySetupPhase >>
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
++Player player2 removed
+Index: src/main/java/game/GameEngine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport game.commands.Command;\r\nimport game.commands.CommandParser;\r\nimport game.map.Map;\r\nimport game.pojo.Player;\r\nimport game.states.Phase;\r\nimport game.states.PlaySetupPhase;\r\nimport game.logger.LogEntryBuffer;\r\nimport game.logger.LogFileWriter;\r\nimport game.logger.StdOutWriter;\r\nimport lombok.Getter;\r\nimport lombok.Setter;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.IOException;\r\nimport java.io.InputStreamReader;\r\nimport java.util.ArrayList;\r\nimport java.util.HashSet;\r\nimport java.util.List;\r\nimport java.util.Set;\r\n\r\n/**\r\n * GameEngine is responsible for reading the main commands from the players and calling required\r\n * methods to perform the actions\r\n */\r\npublic class GameEngine {\r\n\r\n    /** This static variable stores the path for the resources directory */\r\n    public static final String RESOURCES_PATH = \"src/main/resources/\";\r\n\r\n    /** This static variable is used for logging */\r\n    public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());\r\n\r\n    private final Map d_map;\r\n\r\n    @Getter @Setter private Phase d_gamePhase;\r\n    @Getter @Setter private Integer d_currentPlayerIndex;\r\n    @Getter @Setter private boolean savingInProgress;\r\n\r\n    /**\r\n     * Constructor with map argument for GameEngine\r\n     *\r\n     * @param p_map map for the game\r\n     */\r\n    public GameEngine(Map p_map) {\r\n        this.d_map = p_map;\r\n        this.d_gamePhase = new PlaySetupPhase();\r\n        this.d_currentPlayerIndex = 0;\r\n        LOG_ENTRY_BUFFER.attach(new LogFileWriter(\"log.txt\"));\r\n        LOG_ENTRY_BUFFER.attach(new StdOutWriter());\r\n    }\r\n\r\n    /** Constructor without arguments for GameEngine */\r\n    public GameEngine() {\r\n        this(new Map());\r\n    }\r\n\r\n    /**\r\n     * Starts the game, and reads the input commands from the user and calls the required methods\r\n     */\r\n    public void startGame() {\r\n\r\n        try (BufferedReader l_bufferedReader =\r\n                new BufferedReader(new InputStreamReader(System.in))) {\r\n\r\n            while (true) {\r\n                try {\r\n                    promptForUserInput();\r\n                    String l_usrInput = l_bufferedReader.readLine();\r\n                    if (savingInProgress) {\r\n                        l_usrInput = \"savefiletype \" + l_usrInput;\r\n                    }\r\n                    List<Command> l_commandList = CommandParser.parse(l_usrInput);\r\n                    String l_commandType = l_commandList.get(0).getD_commandType();\r\n                    Command l_command = l_commandList.get(0);\r\n                    switch (l_commandType) {\r\n                        case \"editmap\":\r\n                            d_gamePhase.handleEditMap(this, l_command, d_map, RESOURCES_PATH);\r\n                            break;\r\n                        case \"gameplayer\":\r\n                            d_gamePhase.handleGamePlayer(l_commandList, d_map);\r\n                            break;\r\n                        case \"loadmap\":\r\n                            d_gamePhase.handleLoadMap(l_command, d_map, this, RESOURCES_PATH);\r\n                            break;\r\n                        case \"loadgame\":\r\n                            List<Player> l_playersLeftToIssueOrder =\r\n                                    d_gamePhase.handleLoadGame(\r\n                                            this,\r\n                                            d_map,\r\n                                            RESOURCES_PATH + l_command.getD_args().get(0));\r\n                            gameMode(\r\n                                    l_bufferedReader,\r\n                                    l_playersLeftToIssueOrder,\r\n                                    d_currentPlayerIndex);\r\n                            break;\r\n                        case \"showmap\":\r\n                            d_gamePhase.handleShowMap(d_map);\r\n                            break;\r\n                        case \"savemap\":\r\n                            d_gamePhase.handleSaveMapCommand(\r\n                                    l_command, d_map, this, RESOURCES_PATH);\r\n                            break;\r\n                        case \"savefiletype\":\r\n                            d_gamePhase.handleSaveMapType(l_command, d_map, this, RESOURCES_PATH);\r\n                            break;\r\n                        case \"validatemap\":\r\n                            d_gamePhase.handleValidateMap(d_map);\r\n                            break;\r\n                        case \"editcontinent\":\r\n                        case \"editcountry\":\r\n                        case \"editneighbor\":\r\n                            d_gamePhase.handleEditCountriesOrContinentOrNeighbor(l_command, d_map);\r\n                            break;\r\n                        case \"assigncountries\":\r\n                            d_gamePhase.handleCountriesAssignment(d_map, this);\r\n                            gameMode(\r\n                                    l_bufferedReader,\r\n                                    new ArrayList<>(d_map.getD_players()),\r\n                                    d_currentPlayerIndex);\r\n                            break;\r\n                        default:\r\n                            d_gamePhase.printInvalidCommandMessage(\r\n                                    \"Invalid Command in state \"\r\n                                            + d_gamePhase.getClass().getSimpleName());\r\n                    }\r\n                } catch (Exception l_e) {\r\n                    System.out.println(l_e.getMessage());\r\n                }\r\n            }\r\n        } catch (IOException l_e) {\r\n            throw new RuntimeException(l_e);\r\n        }\r\n    }\r\n\r\n    private void promptForUserInput() {\r\n        String l_message;\r\n        if (savingInProgress) {\r\n            l_message =\r\n                    \"Enter in which format you want to save this map:\\n1. Domination\\n2. Conquest\";\r\n        } else {\r\n            l_message =\r\n                    (d_gamePhase.getClass().getSimpleName().equals(\"EditMapPhase\"))\r\n                            ? \"Enter commands to 'edit (or) validate (or) save map':\"\r\n                            : \"Enter the command\";\r\n        }\r\n        System.out.println(l_message);\r\n    }\r\n\r\n    private void gameMode(\r\n            BufferedReader P_bufferedReader,\r\n            List<Player> p_playersLeftToIssueOrder,\r\n            Integer p_currentPlayer) {\r\n        startGameLoop(d_map, P_bufferedReader, p_playersLeftToIssueOrder, p_currentPlayer);\r\n        System.out.println(\"Game over - all orders executed\");\r\n        endGame();\r\n    }\r\n\r\n    /**\r\n     * Starts the game loop - calls assign reinforcements, issue orders, execute orders\r\n     *\r\n     * @param p_map map for the game\r\n     */\r\n    private void startGameLoop(\r\n            Map p_map,\r\n            BufferedReader p_bufferedReader,\r\n            List<Player> p_playersLeftToIssueOrder,\r\n            Integer p_currentPlayerIndex) {\r\n\r\n        while (p_map.getD_players().size() > 1) {\r\n            d_gamePhase.handleReinforcementsAssignment(p_map, this);\r\n            d_gamePhase.handleIssuingOrders(\r\n                    p_map, p_playersLeftToIssueOrder, p_currentPlayerIndex, this);\r\n            Set<Player> l_playersToAssignCard = new HashSet<>();\r\n            d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);\r\n            p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());\r\n            d_gamePhase.handleCardAssignment(l_playersToAssignCard, this);\r\n            p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());\r\n            d_gamePhase.handleShowMap(p_map);\r\n            p_playersLeftToIssueOrder = new ArrayList<>(p_map.getD_players());\r\n            p_currentPlayerIndex = 0;\r\n        }\r\n\r\n        if (p_map.getD_players().size() == 1) {\r\n            System.out.println(\r\n                    \"Congratulations, \"\r\n                            + p_map.getD_players().get(0).getD_name()\r\n                            + \", you are the winner!\");\r\n        }\r\n    }\r\n\r\n    /** Stops the program or in other words ends the game */\r\n    public static void endGame() {\r\n        System.exit(0);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/game/GameEngine.java b/src/main/java/game/GameEngine.java
+--- a/src/main/java/game/GameEngine.java	(revision 1ec153af9fdbe435a714d92c869839cfb0481fa5)
++++ b/src/main/java/game/GameEngine.java	(date 1712547489175)
+@@ -2,13 +2,14 @@
+ 
+ import game.commands.Command;
+ import game.commands.CommandParser;
++import game.logger.LogEntryBuffer;
++import game.logger.LogFileWriter;
++import game.logger.StdOutWriter;
+ import game.map.Map;
+ import game.pojo.Player;
+ import game.states.Phase;
+ import game.states.PlaySetupPhase;
+-import game.logger.LogEntryBuffer;
+-import game.logger.LogFileWriter;
+-import game.logger.StdOutWriter;
++
+ import lombok.Getter;
+ import lombok.Setter;
+ 

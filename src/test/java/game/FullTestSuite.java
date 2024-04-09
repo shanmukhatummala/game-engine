@@ -6,6 +6,7 @@ import game.mapfile.MapFileTestSuite;
 import game.order.OrderTestSuite;
 import game.pojo.PojoTestSuite;
 import game.states.StateTestSuite;
+import game.strategy.StrategyTestSuite;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -18,6 +19,7 @@ import org.junit.platform.suite.api.Suite;
     OrderTestSuite.class,
     PojoTestSuite.class,
     MapFileTestSuite.class,
-    StateTestSuite.class
+    StateTestSuite.class,
+    StrategyTestSuite.class
 })
 public class FullTestSuite {}

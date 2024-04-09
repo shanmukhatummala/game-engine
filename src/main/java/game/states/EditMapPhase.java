@@ -112,13 +112,13 @@ public class EditMapPhase extends StartUpPhase {
      * Handles the command to edit countries, continents, or neighbors using a MapManipulator
      * object.
      *
-     * @param p_command The command to edit countries, continents, or neighbors
+     * @param p_commandList The List of commands to edit countries, continents, or neighbors
      * @param p_map Current map for the game.
      */
     @Override
-    public void handleEditCountriesOrContinentOrNeighbor(Command p_command, Map p_map) {
+    public void handleEditCountriesOrContinentOrNeighbor(List<Command> p_commandList, Map p_map) {
         final MapManipulator l_mapManipulator = new MapManipulator();
-        l_mapManipulator.processCommand(p_command, p_map);
+        l_mapManipulator.processCommand(p_commandList, p_map);
     }
 
     /**
