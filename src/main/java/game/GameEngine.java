@@ -122,6 +122,9 @@ public class GameEngine {
                                     new ArrayList<>(d_map.getD_players()),
                                     d_currentPlayerIndex);
                             break;
+                        case "tournament":
+                            d_gamePhase.handleTournament(l_commandList, d_map);
+                            break;
                         default:
                             d_gamePhase.printInvalidCommandMessage(
                                     "Invalid Command in state "
@@ -189,6 +192,35 @@ public class GameEngine {
                     "Congratulations, "
                             + p_map.getD_players().get(0).getD_name()
                             + ", you are the winner!");
+        }
+    }
+
+    /**
+     * Runs the Tournament game loop - calls assign reinforcements, issue orders, execute orders
+     * @return String: Player Name of winner, or "Draw" if it is a draw
+     * @param p_map map for the game
+     * @param p_maxNumberOfTurns Max number of turns allowed in a game
+     */
+    private String runTournamentLoop(
+            Map p_map, Integer p_maxNumberOfTurns) {
+
+        while (p_map.getD_players().size() > 1
+                && p_maxNumberOfTurns-- > 0) {
+            d_gamePhase.handleReinforcementsAssignment(p_map, this);
+            d_gamePhase.handleIssuingOrders(
+                    p_map, p_map.getD_players(), 0, this);
+            Set<Player> l_playersToAssignCard = new HashSet<>();
+            d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
+            p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
+            d_gamePhase.handleCardAssignment(l_playersToAssignCard, this);
+            p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
+            d_gamePhase.handleShowMap(p_map);
+        }
+
+        if (p_map.getD_players().size() == 1) {
+            return p_map.getD_players().get(0).getD_name();
+        } else {
+            return "Draw";
         }
     }
 
