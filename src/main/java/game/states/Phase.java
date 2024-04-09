@@ -175,6 +175,13 @@ public interface Phase {
     }
 
     /**
+     * Handles the tournament command
+     *
+     * @param p_commandList The list of commands related to the tournament
+     */
+    public void handleTournament(List<Command> p_commandList);
+
+    /**
      * Prints an invalid command message.
      *
      * @param p_message The message indicating the command is invalid.

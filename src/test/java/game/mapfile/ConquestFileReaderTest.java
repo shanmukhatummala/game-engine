@@ -48,7 +48,7 @@ class ConquestFileReaderTest {
     }
 
     @Test
-    public void shouldNotLoadBadlyFormattedDominationMapIntoJavaObjects() {
+    public void shouldNotLoadBadlyFormattedConquestMapIntoJavaObjects() {
 
         d_path = "src/test/resources/bad_format_conquest_map.map";
         d_conquestFileReader.readConquestFile(d_path, d_map);
