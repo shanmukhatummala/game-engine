@@ -31,12 +31,25 @@ public class Player implements Serializable {
         DIPLOMACY
     }
 
+    /** Represents the name of the player */
     private final String d_name;
+
+    /** Represents the list of countries owned by the given player */
     private final List<Country> d_countries;
+
+    /** Represents the number of reinforcements available to the given player */
     private int d_reinforcements;
+
+    /** Represents the queue of orders issued by the given player */
     private final Queue<Order> d_orderList;
+
+    /** Represents the list of cards held by the player */
     private final List<Card> d_cards;
+
+    /** Represents the set of players with whom the current player has negotiated */
     private final Set<String> d_negotiatedPlayers;
+
+    /** Represents the strategy used by the player to generate orders */
     private PlayerStrategy d_strategy;
 
     /** Indicates whether the player has deployed troops. */
