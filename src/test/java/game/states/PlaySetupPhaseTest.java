@@ -104,6 +104,30 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(d_map.getD_mapName(), l_expectedMap.getD_mapName());
     }
 
+    /** Tests the handleLoadMap if the map is not valid */
+    @Test
+    public void handleInvalidDominationMapLoadTest() {
+        List<String> l_commandArgs = new ArrayList<>();
+        l_commandArgs.add("invalid_domination_map.map");
+        Command l_command = new Command("loadmap", l_commandArgs);
+        d_playSetUpPhase.getD_gamePhase().handleLoadMap(l_command, d_map, d_playSetUpPhase, d_path);
+        Assertions.assertEquals(0, d_map.getD_countries().size());
+        Assertions.assertEquals(0, d_map.getD_continents().size());
+        Assertions.assertEquals(d_map.getD_mapName(), "Unknown Name");
+    }
+
+    /** Tests the handleLoadMap if the map is not valid */
+    @Test
+    public void handleInvalidConquestMapLoadTest() {
+        List<String> l_commandArgs = new ArrayList<>();
+        l_commandArgs.add("invalid_conquest_map.map");
+        Command l_command = new Command("loadmap", l_commandArgs);
+        d_playSetUpPhase.getD_gamePhase().handleLoadMap(l_command, d_map, d_playSetUpPhase, d_path);
+        Assertions.assertEquals(0, d_map.getD_countries().size());
+        Assertions.assertEquals(0, d_map.getD_continents().size());
+        Assertions.assertEquals(d_map.getD_mapName(), "Unknown Name");
+    }
+
     /**
      * Tests the handleGamePlayer in the right phase by comparing that the right player are added
      * into the d_map object by comparing the expected players.
@@ -255,6 +279,22 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedPlayersLeftToIssueOrder, l_playersLeftToIssueOrder);
         Assertions.assertEquals(
                 l_expectedCurrentPlayerIndex, d_playSetUpPhase.getD_currentPlayerIndex());
+    }
+
+    /** This method is for testing the runTournament function */
+    @Test
+    public void runTournamentTest() {
+
+        String[][] tournamentOutput =
+                ((PlaySetupPhase) d_playSetUpPhase.getD_gamePhase())
+                        .runTournament(
+                                List.of("new.map"), List.of("aggressive", "benevolent"), 2, 50);
+
+        for (String[] row : tournamentOutput) {
+            for (String value : row) {
+                Assertions.assertNotNull(value, "The result contains null elements");
+            }
+        }
     }
 
     /**

@@ -7,7 +7,6 @@ import game.map.Map;
 import game.mapfile.reader.ConquestFileReader;
 import game.pojo.Continent;
 import game.pojo.Country;
-import game.pojo.Player;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,17 +37,27 @@ class ConquestFileReaderTest {
 
         List<Continent> l_continents = d_map.getD_continents();
         List<Country> l_countries = d_map.getD_countries();
-        List<Player> l_players = d_map.getD_players();
 
         List<Continent> l_expectedContinents = new ArrayList<>();
         List<Country> l_expectedCountries = new ArrayList<>();
-        List<Player> l_expectedPlayers = new ArrayList<>();
 
         createObjectsToAssert(l_expectedContinents, l_expectedCountries);
 
         assertThat(l_countries, equalTo(l_expectedCountries));
         assertThat(l_continents, equalTo(l_expectedContinents));
-        assertThat(l_players, equalTo(l_expectedPlayers));
+    }
+
+    @Test
+    public void shouldNotLoadBadlyFormattedConquestMapIntoJavaObjects() {
+
+        d_path = "src/test/resources/bad_format_conquest_map.map";
+        d_conquestFileReader.readConquestFile(d_path, d_map);
+
+        List<Continent> l_continents = d_map.getD_continents();
+        List<Country> l_countries = d_map.getD_countries();
+
+        assertThat(l_countries.size(), equalTo(0));
+        assertThat(l_continents.size(), equalTo(0));
     }
 
     /** Create expected objects for the test to assert */

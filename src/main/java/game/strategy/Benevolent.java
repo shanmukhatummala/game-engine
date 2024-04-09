@@ -15,12 +15,6 @@ import java.util.List;
 
 public class Benevolent extends PlayerStrategy {
 
-    /** Indicates whether the player has deployed troops. */
-    private boolean d_deployed = false;
-
-    /** Indicates whether the player has moved troops. */
-    private boolean d_moved = false;
-
     /** Unique Benevolent object. */
     private static Benevolent d_benevolentStrategy;
 
@@ -51,16 +45,20 @@ public class Benevolent extends PlayerStrategy {
      */
     @Override
     public Command createOrder(Map p_map, Player p_player) {
-        if (!d_deployed) {
-            d_deployed = true;
+
+        boolean l_deployed = p_player.getD_deployed();
+        boolean l_moved = p_player.getD_moved();
+
+        if (!l_deployed) {
+            p_player.setD_deployed(true);
             return deployCommandOnWeakest(p_player);
         }
-        if (!d_moved) {
-            d_moved = true;
+        if (!l_moved) {
+            p_player.setD_moved(true);
             return moveOnWeakest(p_map, p_player);
         }
-        d_deployed = false;
-        d_moved = false;
+        p_player.setD_deployed(false);
+        p_player.setD_moved(false);
         return new Command("commit");
     }
 
@@ -101,8 +99,8 @@ public class Benevolent extends PlayerStrategy {
 
         // if there are no weak neighbors, do nothing for the current turn
         if (l_weakestNeighbor.equals(l_strongestCountry)) {
-            d_deployed = false;
-            d_moved = false;
+            p_player.setD_deployed(false);
+            p_player.setD_moved(false);
             return new Command("commit");
         }
         return CommandParser.parse(

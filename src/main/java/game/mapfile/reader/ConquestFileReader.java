@@ -9,7 +9,6 @@ import game.pojo.Continent;
 import game.pojo.Country;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -106,12 +105,13 @@ public class ConquestFileReader {
                                                                         p_map, l_neighbor.trim()))
                                                         .getD_id()));
                     });
-        } catch (IOException | IllegalArgumentException l_e) {
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Loaded the map into Java objects");
+        } catch (Exception l_e) {
             p_map.clearMap();
             System.out.println(
-                    "Loading map failed with error: " + l_e.getMessage() + ". So loading stopped.");
+                    "Loading map failed with error: "
+                            + l_e.getMessage()
+                            + ". So stopped loading, check if your map is in correct format.");
         }
-
-        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Loaded the map into Java objects");
     }
 }

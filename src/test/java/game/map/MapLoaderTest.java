@@ -30,7 +30,7 @@ class MapLoaderTest {
 
     /** Tests loadMap method to load a warzone style map */
     @Test
-    public void shouldLoadWarZoneMapIntoJavaObjects() {
+    public void shouldLoadDominationMapIntoJavaObjects() {
 
         d_path = "src/test/resources/germany_test.map";
         loadMap(d_path, d_map);
@@ -43,7 +43,7 @@ class MapLoaderTest {
         List<Country> l_expectedCountries = new ArrayList<>();
         List<Player> l_expectedPlayers = new ArrayList<>();
 
-        createObjectsToAssertWarZoneMapLoad(l_expectedContinents, l_expectedCountries);
+        createObjectsToAssertDominationMapLoad(l_expectedContinents, l_expectedCountries);
 
         assertThat(l_countries, equalTo(l_expectedCountries));
         assertThat(l_continents, equalTo(l_expectedContinents));
@@ -51,7 +51,7 @@ class MapLoaderTest {
     }
 
     /** Create expected objects for the test to assert warzone map loading */
-    private void createObjectsToAssertWarZoneMapLoad(
+    private void createObjectsToAssertDominationMapLoad(
             List<Continent> expectedContinents, List<Country> expectedCountries) {
         Continent l_continent1 = new Continent(1, "Norddeutschland", 3);
         Continent l_continent2 = new Continent(2, "Westdeutschland", 4);
