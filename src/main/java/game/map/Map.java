@@ -7,6 +7,7 @@ import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
 
+import game.strategy.PlayerStrategy;
 import lombok.Data;
 import lombok.Getter;
 
@@ -199,6 +200,23 @@ public class Map implements Serializable {
             }
         }
         d_players.add(new Player(p_playerName));
+    }
+
+    /**
+     * This method adds a player to the list of players
+     *
+     * @param p_playerName the player name to be added
+     * @param p_playerStrategy the strategy to be followed by the new player
+     * @throws IllegalArgumentException when a player with same name already exists
+     */
+    public void addPlayer(String p_playerName, PlayerStrategy p_playerStrategy) {
+
+        for (Player l_thisPlayer : d_players) {
+            if (l_thisPlayer.getD_name().equals(p_playerName)) {
+                throw new IllegalArgumentException("Player with same name already exists");
+            }
+        }
+        d_players.add(new Player(p_playerName, p_playerStrategy));
     }
 
     /**

@@ -77,6 +77,17 @@ public class Player implements Serializable {
     }
 
     /**
+     * Constructor with player name, player strategy
+     *
+     * @param p_name name of the player
+     * @param p_playerStrategy Strategy of the player
+     */
+    public Player(String p_name, PlayerStrategy p_playerStrategy) {
+        this(p_name, new ArrayList<>(), p_playerStrategy);
+    }
+
+
+    /**
      * Getter for player name
      *
      * @return name of the player

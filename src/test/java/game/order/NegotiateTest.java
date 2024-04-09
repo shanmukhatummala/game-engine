@@ -8,6 +8,7 @@ import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import game.map.Map;
 import game.pojo.Player;
 
+import game.strategy.Human;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +27,8 @@ public class NegotiateTest {
      */
     @BeforeEach
     void setUp() {
-        d_initiator = new Player("initiator", null);
-        d_targetPlayer = new Player("targetPlayer", null);
+        d_initiator = new Player("initiator", Human.getHumanStrategy());
+        d_targetPlayer = new Player("targetPlayer", Human.getHumanStrategy());
         d_map = new Map();
         d_map.getD_players().add(d_initiator);
     }
