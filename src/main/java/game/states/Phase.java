@@ -183,8 +183,9 @@ public interface Phase {
      * Handles the tournament command
      *
      * @param p_commandList The list of commands related to the tournament
+     * @param p_gameEngine The GameEngine Object
      */
-    public void handleTournament(List<Command> p_commandList);
+    public void handleTournament(List<Command> p_commandList, GameEngine p_gameEngine);
 
     /**
      * Prints an invalid command message.

@@ -257,13 +257,13 @@ public class PlaySetupPhase extends StartUpPhase {
      * the tournament. It processes the commands to extract tournament configurations such as maps,
      * player strategies, number of games, and maximum number of turns. If any configuration is
      * missing or invalid, it logs an error.
-     *
-     * @param p_commandList The list of commands related to the tournament configuration. Expected
-     *     commands include map selection (-M), player strategies (-P), number of games (-G), and
-     *     maximum number of turns (-D).
+     * @param p_commandList The list of commands related to the tournament configuration.
+     *                      Expected commands include map selection (-M), player strategies (-P),
+     *                      number of games (-G), and maximum number of turns (-D).
+     * @param p_gameEngine The GameEngine Object
      */
     @Override
-    public void handleTournament(List<Command> p_commandList) {
+    public void handleTournament(List<Command> p_commandList, GameEngine p_gameEngine) {
         List<String> l_maps = new ArrayList<>();
         List<String> l_playerStrategies = new ArrayList<>();
         Integer l_maxNumberOfTurns = null;
@@ -325,8 +325,8 @@ public class PlaySetupPhase extends StartUpPhase {
             return;
         }
 
-        String[][] l_tournamentResult =
-                runTournament(l_maps, l_playerStrategies, l_maxNumberOfTurns, l_numberOfGames);
+        String[][] l_tournamentResult = runTournament(l_maps, l_playerStrategies,
+                l_maxNumberOfTurns, l_numberOfGames, p_gameEngine);
 
         String l_formattedTournamentResultOutput =
                 formatTournamentResults(
@@ -350,37 +350,34 @@ public class PlaySetupPhase extends StartUpPhase {
      * @return A 2D array containing the results of the tournament, with each row representing a map
      *     and each column representing a game.
      */
-    public String[][] runTournament(
-            List<String> p_maps,
-            List<String> p_playerStrategies,
-            Integer p_maxNumberOfTurns,
-            Integer p_numberOfGames) {
+    public String[][] runTournament(List<String> p_maps,
+                                    List<String> p_playerStrategies,
+                                    Integer p_maxNumberOfTurns,
+                                    Integer p_numberOfGames,
+                                    GameEngine p_gameEngine) {
         String[][] l_tournamentResult = new String[p_maps.size()][p_numberOfGames];
 
         for (int l_mapIndex = 0; l_mapIndex < p_maps.size(); l_mapIndex++) {
             for (int l_gameNumber = 0; l_gameNumber < p_numberOfGames; l_gameNumber++) {
-                GameEngine l_gameEngine = new GameEngine(new Map());
+                p_gameEngine.getD_map().clearMap();
+                p_gameEngine.setD_gamePhase(new PlaySetupPhase());
+                p_gameEngine.setD_currentPlayerIndex(0);
+                p_gameEngine.getD_map().getD_players().clear();
 
-                l_gameEngine
-                        .getD_gamePhase()
-                        .handleLoadMap(
-                                new Command("loadmap", List.of(p_maps.get(l_mapIndex))),
-                                l_gameEngine.getD_map(),
-                                l_gameEngine,
-                                GameEngine.RESOURCES_PATH);
+                p_gameEngine.getD_gamePhase().handleLoadMap(
+                        new Command("loadmap", List.of(p_maps.get(l_mapIndex))),
+                        p_gameEngine.getD_map(),
+                        p_gameEngine,
+                        GameEngine.RESOURCES_PATH);
 
-                for (String l_playerStrategy : p_playerStrategies) {
-                    l_gameEngine
-                            .getD_map()
-                            .getD_players()
-                            .add(
-                                    new Player(
-                                            AI_PLAYER_STRATEGY_TO_NAME.get(l_playerStrategy),
-                                            PLAYER_STRATEGY_MAP.get(l_playerStrategy)));
+                for (String l_playerStrategy: p_playerStrategies) {
+                    p_gameEngine.getD_map().getD_players()
+                            .add(new Player(AI_PLAYER_STRATEGY_TO_NAME.get(l_playerStrategy),
+                                    PLAYER_STRATEGY_MAP.get(l_playerStrategy)));
                 }
 
                 l_tournamentResult[l_mapIndex][l_gameNumber] =
-                        l_gameEngine.runTournamentLoop(l_gameEngine.getD_map(), p_maxNumberOfTurns);
+                        p_gameEngine.runTournamentLoop(p_gameEngine.getD_map(), p_maxNumberOfTurns, p_gameEngine);
             }
         }
 
