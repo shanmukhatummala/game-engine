@@ -18,7 +18,7 @@ import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -43,15 +43,6 @@ public class RandomStrategy extends PlayerStrategy {
     /** Private constructor to enforce the singleton pattern. */
     private RandomStrategy() {}
 
-    /** Indicates whether the player has deployed troops. */
-    private boolean d_deployed = false;
-
-    /** Indicates whether the player has attacked. */
-    private boolean d_attacked = false;
-
-    /** Indicates whether the player has moved troops. */
-    private boolean d_moved = false;
-
     /**
      * Creates an order for the player based on random actions. The order sequence is deploy,
      * attack, move, and then repeats.
@@ -62,20 +53,25 @@ public class RandomStrategy extends PlayerStrategy {
      */
     @Override
     public Command createOrder(Map p_map, Player p_player) {
-        if (!d_deployed) {
-            d_deployed = true;
+
+        boolean l_deployed = p_player.getD_deployed();
+        boolean l_attacked = p_player.getD_attacked();
+        boolean l_moved = p_player.getD_moved();
+
+        if (!l_deployed) {
+            p_player.setD_deployed(true);
             return deployRandomly(p_player);
-        } else if (!d_attacked) {
-            d_attacked = true;
+        } else if (!l_attacked) {
+            p_player.setD_attacked(true);
             return attackRandomly(p_map, p_player);
-        } else if (!d_moved) {
-            d_moved = true;
+        } else if (!l_moved) {
+            p_player.setD_moved(true);
             return moveRandomly(p_map, p_player);
         } else {
             // Reset flags for the next round
-            d_deployed = false;
-            d_attacked = false;
-            d_moved = false;
+            p_player.setD_deployed(false);
+            p_player.setD_attacked(false);
+            p_player.setD_moved(false);
             return new Command("commit");
         }
     }
@@ -89,16 +85,14 @@ public class RandomStrategy extends PlayerStrategy {
     private Command deployRandomly(Player p_player) {
         List<Country> l_countries = p_player.getD_countries();
 
-        if (!l_countries.isEmpty()) {
-            Random l_random = new Random();
-            int index = l_random.nextInt(l_countries.size());
-            Country l_randomCountryID = l_countries.get(index);
-            int l_reinforcements = p_player.getD_reinforcements();
-            return CommandParser.parse(
-                            "deploy " + l_randomCountryID.getD_name() + " " + l_reinforcements)
-                    .get(0);
-        }
-        return new Command("commit"); // No valid country to deploy, try again
+        Random l_random = new Random();
+        // l_countries can never be empty, or else the player is eliminated from the game
+        int index = l_random.nextInt(l_countries.size());
+        Country l_randomCountryID = l_countries.get(index);
+        int l_reinforcements = p_player.getD_reinforcements();
+        return CommandParser.parse(
+                        "deploy " + l_randomCountryID.getD_name() + " " + l_reinforcements)
+                .get(0);
     }
 
     /**
@@ -111,28 +105,36 @@ public class RandomStrategy extends PlayerStrategy {
      */
     private Command attackRandomly(Map p_map, Player p_player) {
         List<Country> l_countries = p_player.getD_countries();
-        if (!l_countries.isEmpty()) {
-            Random l_random = new Random();
-            int index = l_random.nextInt(l_countries.size());
-            Country l_randomCountry = l_countries.get(index);
-            int l_armiesToMove = l_randomCountry.getD_armyCount();
-            List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();
-            if (!l_neighborIds.isEmpty()) {
-                int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
-                int l_neighborId = l_neighborIds.get(l_neighborIndex);
-                Country l_neighbor = getCountryById(p_map, l_neighborId);
+        Random l_random = new Random();
+        int index = l_random.nextInt(l_countries.size());
+        Country l_randomCountry = l_countries.get(index);
+        int l_armiesToMove = l_random.nextInt(l_randomCountry.getD_armyCount() + 1);
 
-                if (l_neighbor != null
-                        && l_randomCountry.getD_armyCount() > l_neighbor.getD_armyCount()) {
-                    return CommandParser.parse(
-                                    "advance "
-                                            + l_randomCountry.getD_name()
-                                            + " "
-                                            + l_neighbor.getD_name()
-                                            + " "
-                                            + l_armiesToMove)
-                            .get(0);
-                }
+        List<Integer> l_neighborIds = new ArrayList<Integer>(l_randomCountry.getD_neighborIdList());
+
+        // Select only the enemy neighbors
+        List<Integer> l_enemyNeighborIds = new ArrayList<Integer>();
+        for (int l_neighborId : l_neighborIds) {
+            Country l_neighbor = getCountryById(p_map, l_neighborId);
+            if (!getCountryOwner(l_neighbor, p_map.getD_players()).equals(p_player)) {
+                l_enemyNeighborIds.add(l_neighborId);
+            }
+        }
+
+        if (!l_enemyNeighborIds.isEmpty()) {
+            int l_neighborIndex = l_random.nextInt(l_enemyNeighborIds.size());
+            int l_neighborId = l_neighborIds.get(l_neighborIndex);
+            Country l_neighbor = getCountryById(p_map, l_neighborId);
+
+            if (l_neighbor != null) {
+                return CommandParser.parse(
+                                "advance "
+                                        + l_randomCountry.getD_name()
+                                        + " "
+                                        + l_neighbor.getD_name()
+                                        + " "
+                                        + l_armiesToMove)
+                        .get(0);
             }
         }
         // If no enemy neighbor is found, try to move to a random neighbor
@@ -149,30 +151,34 @@ public class RandomStrategy extends PlayerStrategy {
      */
     private Command moveRandomly(Map p_map, Player p_player) {
         List<Country> l_countries = p_player.getD_countries();
-        if (!l_countries.isEmpty()) {
-            Random l_random = new Random();
-            int index = l_random.nextInt(l_countries.size());
-            Country l_randomCountry = l_countries.get(index);
-            int l_armiesToMove = l_randomCountry.getD_armyCount();
-            List<Integer> l_neighborIds = (List<Integer>) l_randomCountry.getD_neighborIdList();
-            if (!l_neighborIds.isEmpty()) {
-                int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
-                int l_neighborId = l_neighborIds.get(l_neighborIndex);
-                Country l_neighbor = getCountryById(p_map, l_neighborId);
 
-                if (l_neighbor != null
-                        && getCountryOwner(l_neighbor, Collections.singletonList(p_player))
-                                .equals(p_player)) {
+        Random l_random = new Random();
+        int index = l_random.nextInt(l_countries.size());
+        Country l_randomCountry = l_countries.get(index);
+        int l_armiesToMove = l_randomCountry.getD_armyCount();
 
-                    return new Command(
-                            "advance",
-                            List.of(
-                                    l_randomCountry.getD_name(),
-                                    l_neighbor.getD_name(),
-                                    Integer.toString(l_armiesToMove)));
-                }
+        List<Integer> l_neighborIds = new ArrayList<Integer>(l_randomCountry.getD_neighborIdList());
+
+        if (!l_neighborIds.isEmpty()) {
+            int l_neighborIndex = l_random.nextInt(l_neighborIds.size());
+            int l_neighborId = l_neighborIds.get(l_neighborIndex);
+            Country l_neighbor = getCountryById(p_map, l_neighborId);
+
+            if (l_neighbor != null
+                    && getCountryOwner(l_neighbor, p_map.getD_players()).equals(p_player)) {
+
+                return new Command(
+                        "advance",
+                        List.of(
+                                l_randomCountry.getD_name(),
+                                l_neighbor.getD_name(),
+                                Integer.toString(l_armiesToMove)));
             }
         }
-        return new Command("commit"); // No valid move, try again
+        // If the player can't move, end turn
+        p_player.setD_deployed(false);
+        p_player.setD_attacked(false);
+        p_player.setD_moved(false);
+        return new Command("commit");
     }
 }

@@ -19,7 +19,6 @@ import game.strategy.PlayerStrategy;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,8 +89,8 @@ public class PlaySetupPhase extends StartUpPhase {
             return Human.getHumanStrategy();
         }
 
-        return PlayerStrategies.PLAYER_STRATEGY_MAP.getOrDefault(p_commandArgs.get(2),
-                Human.getHumanStrategy());
+        return PlayerStrategies.PLAYER_STRATEGY_MAP.getOrDefault(
+                p_commandArgs.get(2), Human.getHumanStrategy());
     }
 
     /**
@@ -249,13 +248,14 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
-     * Handles the execution of the tournament command by parsing the command list and initiating the tournament.
-     * It processes the commands to extract tournament configurations such as maps, player strategies,
-     * number of games, and maximum number of turns. If any configuration is missing or invalid, it logs an error.
+     * Handles the execution of the tournament command by parsing the command list and initiating
+     * the tournament. It processes the commands to extract tournament configurations such as maps,
+     * player strategies, number of games, and maximum number of turns. If any configuration is
+     * missing or invalid, it logs an error.
      *
-     * @param p_commandList The list of commands related to the tournament configuration.
-     *                      Expected commands include map selection (-M), player strategies (-P),
-     *                      number of games (-G), and maximum number of turns (-D).
+     * @param p_commandList The list of commands related to the tournament configuration. Expected
+     *     commands include map selection (-M), player strategies (-P), number of games (-G), and
+     *     maximum number of turns (-D).
      */
     @Override
     public void handleTournament(List<Command> p_commandList) {
@@ -285,9 +285,11 @@ public class PlaySetupPhase extends StartUpPhase {
                             l_playerStrategies.add(l_args.get(l_i));
                         }
                     }
-                    l_playerStrategies = l_playerStrategies.stream().distinct().collect(Collectors.toList());
+                    l_playerStrategies =
+                            l_playerStrategies.stream().distinct().collect(Collectors.toList());
                     if (l_playerStrategies.size() < 2 || l_playerStrategies.size() > 4) {
-                        printInvalidCommandMessage("Forbidden number of Player Strategies. Try again!");
+                        printInvalidCommandMessage(
+                                "Forbidden number of Player Strategies. Try again!");
                         return;
                     }
                     break;
@@ -310,55 +312,66 @@ public class PlaySetupPhase extends StartUpPhase {
             }
         }
 
-        if (l_maps.isEmpty() || l_playerStrategies.isEmpty()
-                || l_numberOfGames == null || l_maxNumberOfTurns == null) {
+        if (l_maps.isEmpty()
+                || l_playerStrategies.isEmpty()
+                || l_numberOfGames == null
+                || l_maxNumberOfTurns == null) {
             printInvalidCommandMessage("Invalid Tournament command. Try again!");
             return;
         }
 
-        String[][] l_tournamentResult = runTournament(l_maps, l_playerStrategies,
-                l_maxNumberOfTurns, l_numberOfGames);
+        String[][] l_tournamentResult =
+                runTournament(l_maps, l_playerStrategies, l_maxNumberOfTurns, l_numberOfGames);
 
-        String l_formattedTournamentResultOutput = formatTournamentResults(l_tournamentResult,
-                l_maps,
-                l_playerStrategies,
-                l_maxNumberOfTurns,
-                l_numberOfGames);
+        String l_formattedTournamentResultOutput =
+                formatTournamentResults(
+                        l_tournamentResult,
+                        l_maps,
+                        l_playerStrategies,
+                        l_maxNumberOfTurns,
+                        l_numberOfGames);
 
         System.out.println(l_formattedTournamentResultOutput);
     }
 
     /**
-     * Runs the tournament based on the provided configurations. It sets up the game environment
-     * for each map and game combination, executes the games, and collects the results.
+     * Runs the tournament based on the provided configurations. It sets up the game environment for
+     * each map and game combination, executes the games, and collects the results.
      *
-     * @param p_maps             The list of map files to be used in the tournament.
+     * @param p_maps The list of map files to be used in the tournament.
      * @param p_playerStrategies The list of player strategies participating in the tournament.
      * @param p_maxNumberOfTurns The maximum number of turns allowed for each game.
-     * @param p_numberOfGames    The number of games to be played on each map.
+     * @param p_numberOfGames The number of games to be played on each map.
      * @return A 2D array containing the results of the tournament, with each row representing a map
-     *         and each column representing a game.
+     *     and each column representing a game.
      */
-    public String[][] runTournament(List<String> p_maps,
-                                    List<String> p_playerStrategies,
-                                    Integer p_maxNumberOfTurns,
-                                    Integer p_numberOfGames) {
+    public String[][] runTournament(
+            List<String> p_maps,
+            List<String> p_playerStrategies,
+            Integer p_maxNumberOfTurns,
+            Integer p_numberOfGames) {
         String[][] l_tournamentResult = new String[p_maps.size()][p_numberOfGames];
 
         for (int l_mapIndex = 0; l_mapIndex < p_maps.size(); l_mapIndex++) {
             for (int l_gameNumber = 0; l_gameNumber < p_numberOfGames; l_gameNumber++) {
                 GameEngine l_gameEngine = new GameEngine(new Map());
 
-                l_gameEngine.getD_gamePhase().handleLoadMap(
-                        new Command("loadmap", List.of(p_maps.get(l_mapIndex))),
-                        l_gameEngine.getD_map(),
-                        l_gameEngine,
-                        GameEngine.RESOURCES_PATH);
+                l_gameEngine
+                        .getD_gamePhase()
+                        .handleLoadMap(
+                                new Command("loadmap", List.of(p_maps.get(l_mapIndex))),
+                                l_gameEngine.getD_map(),
+                                l_gameEngine,
+                                GameEngine.RESOURCES_PATH);
 
-                for (String l_playerStrategy: p_playerStrategies) {
-                    l_gameEngine.getD_map().getD_players()
-                            .add(new Player(AI_PLAYER_STRATEGY_TO_NAME.get(l_playerStrategy),
-                                    PLAYER_STRATEGY_MAP.get(l_playerStrategy)));
+                for (String l_playerStrategy : p_playerStrategies) {
+                    l_gameEngine
+                            .getD_map()
+                            .getD_players()
+                            .add(
+                                    new Player(
+                                            AI_PLAYER_STRATEGY_TO_NAME.get(l_playerStrategy),
+                                            PLAYER_STRATEGY_MAP.get(l_playerStrategy)));
                 }
 
                 l_tournamentResult[l_mapIndex][l_gameNumber] =
@@ -370,22 +383,26 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
-     * Formats the results of a tournament into a structured string representation.
-     * This method takes the 2D array of tournament results, the list of maps, the list of player strategies,
-     * the maximum number of turns, and the number of games, then constructs a string that displays the
-     * tournament configuration and outcomes in a readable format with game labels above their respective values.
+     * Formats the results of a tournament into a structured string representation. This method
+     * takes the 2D array of tournament results, the list of maps, the list of player strategies,
+     * the maximum number of turns, and the number of games, then constructs a string that displays
+     * the tournament configuration and outcomes in a readable format with game labels above their
+     * respective values.
      *
-     * @param p_tournamentResult   The 2D array containing the results of the tournament.
-     *                             Each row represents a map, and each column represents a game.
-     * @param p_maps               The list of map names used in the tournament.
-     * @param p_playerStrategies   The list of player strategies participating in the tournament.
-     * @param p_maxNumberOfTurns   The maximum number of turns allowed for each game.
-     * @param p_numberOfGames      The number of games to be played on each map.
+     * @param p_tournamentResult The 2D array containing the results of the tournament. Each row
+     *     represents a map, and each column represents a game.
+     * @param p_maps The list of map names used in the tournament.
+     * @param p_playerStrategies The list of player strategies participating in the tournament.
+     * @param p_maxNumberOfTurns The maximum number of turns allowed for each game.
+     * @param p_numberOfGames The number of games to be played on each map.
      * @return A formatted string representing the tournament results.
      */
-    public String formatTournamentResults(String[][] p_tournamentResult, List<String> p_maps,
-                                          List<String> p_playerStrategies, Integer p_maxNumberOfTurns,
-                                          Integer p_numberOfGames) {
+    public String formatTournamentResults(
+            String[][] p_tournamentResult,
+            List<String> p_maps,
+            List<String> p_playerStrategies,
+            Integer p_maxNumberOfTurns,
+            Integer p_numberOfGames) {
         StringBuilder sb = new StringBuilder();
         sb.append("M: ");
         p_maps.forEach(map -> sb.append(map).append(", "));
@@ -418,6 +435,4 @@ public class PlaySetupPhase extends StartUpPhase {
 
         return sb.toString().trim();
     }
-
-
 }

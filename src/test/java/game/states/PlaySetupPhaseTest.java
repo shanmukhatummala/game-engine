@@ -281,17 +281,14 @@ public class PlaySetupPhaseTest {
                 l_expectedCurrentPlayerIndex, d_playSetUpPhase.getD_currentPlayerIndex());
     }
 
-    /**
-     * This method is for testing the runTournament function
-     */
+    /** This method is for testing the runTournament function */
     @Test
     public void runTournamentTest() {
 
-        String[][] tournamentOutput = ((PlaySetupPhase) d_playSetUpPhase.getD_gamePhase())
-                .runTournament(List.of("new.map"),
-                        List.of("aggressive", "benevolent"),
-                        2,
-                        50);
+        String[][] tournamentOutput =
+                ((PlaySetupPhase) d_playSetUpPhase.getD_gamePhase())
+                        .runTournament(
+                                List.of("new.map"), List.of("aggressive", "benevolent"), 2, 50);
 
         for (String[] row : tournamentOutput) {
             for (String value : row) {

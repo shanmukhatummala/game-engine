@@ -256,10 +256,9 @@ public abstract class PlayPhase implements Phase {
         return null;
     }
 
-
     /**
-     * Handles the tournament command. Displays an invalid command message if
-     * the command is not allowed in the phase
+     * Handles the tournament command. Displays an invalid command message if the command is not
+     * allowed in the phase
      *
      * @param p_commandList The list of commands related to the tournament
      */

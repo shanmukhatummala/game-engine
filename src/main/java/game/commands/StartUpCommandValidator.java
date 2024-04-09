@@ -11,7 +11,13 @@ public class StartUpCommandValidator implements CommandValidator {
 
     static List<String> d_validCommands =
             Arrays.asList(
-                    "gameplayer", "showmap", "loadmap", "assigncountries", "editmap", "loadgame", "tournament");
+                    "gameplayer",
+                    "showmap",
+                    "loadmap",
+                    "assigncountries",
+                    "editmap",
+                    "loadgame",
+                    "tournament");
 
     Map<String, Method> d_methodMap;
 
@@ -130,7 +136,9 @@ public class StartUpCommandValidator implements CommandValidator {
         }
         List<String> l_commandArgs = p_command.getD_args();
 
-        return (l_commandArgs.get(0).equals("-M") || l_commandArgs.get(0).equals("-P")
-        || l_commandArgs.get(0).equals("-G") || l_commandArgs.get(0).equals("-D"));
+        return (l_commandArgs.get(0).equals("-M")
+                || l_commandArgs.get(0).equals("-P")
+                || l_commandArgs.get(0).equals("-G")
+                || l_commandArgs.get(0).equals("-D"));
     }
 }
