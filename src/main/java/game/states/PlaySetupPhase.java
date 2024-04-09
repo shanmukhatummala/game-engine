@@ -11,6 +11,8 @@ import game.commands.Command;
 import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
+import game.strategy.Human;
+import game.strategy.PlayerStrategy;
 
 import java.io.*;
 import java.util.List;
@@ -59,7 +61,8 @@ public class PlaySetupPhase extends StartUpPhase {
         for (Command l_command : p_commandList) {
             List<String> l_commandArgs = l_command.getD_args();
             if (l_commandArgs.get(0).equals("-add")) {
-                p_map.addPlayer(l_commandArgs.get(1));
+                PlayerStrategy l_playerStrategy = resolveStrategyForPlayerAdd(l_commandArgs);
+                p_map.addPlayer(l_commandArgs.get(1), l_playerStrategy);
                 GameEngine.LOG_ENTRY_BUFFER.addLogEntry(
                         "Player " + l_commandArgs.get(1) + " added");
             } else {
@@ -68,6 +71,20 @@ public class PlaySetupPhase extends StartUpPhase {
                         "Player " + l_commandArgs.get(1) + " removed");
             }
         }
+    }
+
+    /**
+     * Resolves the PlayerStrategy for Add player from CL arguments
+     *
+     * @param p_commandArgs The CL arguments for Player Add command.
+     */
+    public PlayerStrategy resolveStrategyForPlayerAdd(List<String> p_commandArgs) {
+        if (p_commandArgs.size() < 3) {
+            // No PlayerStrategy in Add Player command, will be human by default
+            return Human.getHumanStrategy();
+        }
+
+
     }
 
     /**
