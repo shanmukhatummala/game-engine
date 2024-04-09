@@ -1,18 +1,15 @@
 package game.strategy;
 
-import game.commands.Command;
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
 import game.pojo.Player;
-import game.strategy.Cheater;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The CheaterTest class is responsible for testing the behavior of the Cheater player strategy.
