@@ -73,14 +73,10 @@ public class CommandParser {
      *     (e.g. 'deploy 2 country' instead of 'deploy country 2')
      */
     public static List<Command> parse(String p_inputStr) throws IllegalArgumentException {
-        CommandValidator l_editValidator = new EditCommandValidator();
-        CommandValidator l_startUpValidator = new StartUpCommandValidator();
-        CommandValidator l_orderValidator = new OrderCommandValidator();
+        CommandValidator l_commandValidator = new CommandValidator();
         List<Command> l_commandList = createCommands(p_inputStr);
         for (Command l_command : l_commandList) {
-            if (!l_editValidator.validate(l_command)
-                    && !l_startUpValidator.validate(l_command)
-                    && !l_orderValidator.validate(l_command)) {
+            if (!l_commandValidator.validate(l_command)) {
                 throw new IllegalArgumentException(
                         "Invalid command: " + l_command.getD_commandType() + l_command.getD_args());
             }
