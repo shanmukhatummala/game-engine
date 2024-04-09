@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+/** Test class for GameEngine class */
 public class GameEngineTest {
     private GameEngine d_gameEngine;
     private Map d_map;
@@ -35,12 +36,12 @@ public class GameEngineTest {
     public void shouldTakeLoadMapCommandAndExecute() {
         String l_command = "loadmap new.map\n";
         System.setIn(new ByteArrayInputStream(l_command.getBytes()));
-        Thread t = new Thread(() -> d_gameEngine.startGame());
-        t.start();
+        Thread l_thread = new Thread(() -> d_gameEngine.startGame());
+        l_thread.start();
         ByteArrayOutputStream l_output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(l_output));
         while (!l_output.toString().contains("Loaded the map into Java objects")) {}
-        t.stop();
+        l_thread.stop();
 
         assertThat(d_map.getD_continents().size(), not(equalTo(0)));
         assertThat(d_map.getD_countries().size(), not(equalTo(0)));
@@ -51,12 +52,12 @@ public class GameEngineTest {
     public void shouldTakeGamePlayerCommandAndExecute() {
         String l_command = "gameplayer -add p1 -add p2 -add p3 -remove p1\n";
         System.setIn(new ByteArrayInputStream(l_command.getBytes()));
-        Thread t = new Thread(() -> d_gameEngine.startGame());
-        t.start();
+        Thread l_thread = new Thread(() -> d_gameEngine.startGame());
+        l_thread.start();
         ByteArrayOutputStream l_output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(l_output));
         while (!l_output.toString().contains("Player p1 removed")) {}
-        t.stop();
+        l_thread.stop();
 
         assertThat(d_map.getD_players().size(), equalTo(2));
         assertThat(d_map.getD_players().get(0).getD_name(), equalTo("p2"));

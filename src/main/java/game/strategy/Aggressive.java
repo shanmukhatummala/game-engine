@@ -22,17 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class Aggressive extends PlayerStrategy {
-
-    /** Indicates whether the player has deployed troops. */
-    private boolean d_deployed = false;
-
-    /** Indicates whether the player has attacked. */
-    private boolean d_attacked = false;
-
-    /** Indicates whether the player has moved troops. */
-    private boolean d_moved = false;
 
     /** The singleton instance of the Aggressive strategy. */
     private static Aggressive d_aggressiveStrategy;
@@ -63,20 +55,25 @@ public class Aggressive extends PlayerStrategy {
      */
     @Override
     public Command createOrder(Map p_map, Player p_player) {
-        if (!d_deployed) {
-            d_deployed = true;
+
+        boolean l_deployed = p_player.getD_deployed();
+        boolean l_attacked = p_player.getD_attacked();
+        boolean l_moved = p_player.getD_moved();
+
+        if (!l_deployed) {
+            p_player.setD_deployed(true);
             return deployCommandOnStrongest(p_player);
-        } else if (!d_attacked) {
-            d_attacked = true;
+        } else if (!l_attacked) {
+            p_player.setD_attacked(true);
             return attackCommandOnStrongest(p_map, p_player);
-        } else if (!d_moved) {
-            d_moved = true;
+        } else if (!l_moved) {
+            p_player.setD_moved(true);
             return moveCommandToReinforce(p_map, p_player);
         } else {
             // Reset flags for the next round
-            d_deployed = false;
-            d_attacked = false;
-            d_moved = false;
+            p_player.setD_deployed(false);
+            p_player.setD_attacked(false);
+            p_player.setD_moved(false);
             return new Command("commit");
         }
     }
@@ -127,7 +124,7 @@ public class Aggressive extends PlayerStrategy {
             }
         }
         // If no enemy neighbor is found, try to move to a random neighbor
-        return moveCommandToReinforce(p_map, p_player);
+        return moveStrongestToRandom(p_map, p_player);
     }
 
     /**
@@ -168,7 +165,39 @@ public class Aggressive extends PlayerStrategy {
         }
 
         // If no suitable neighbor is found, commit for this action
+        p_player.setD_deployed(false);
+        p_player.setD_attacked(false);
+        p_player.setD_moved(false);
         return new Command("commit");
+    }
+
+    /**
+     * Creates a move command to move the armies from the strongest country to one of its (friendly)
+     * neighbors. The method assumes that attackCommandOnStrongest has already been called and that
+     * it didn't find any enemy neighbors.
+     *
+     * @param p_map the current game map
+     * @param p_player the player for whom the command is being created
+     * @return the move command
+     */
+    private Command moveStrongestToRandom(Map p_map, Player p_player) {
+        Country l_strongestCountry = findStrongestCountry(p_player.getD_countries());
+        List<Integer> l_neighborIds = new ArrayList<>(l_strongestCountry.getD_neighborIdList());
+
+        // Select a neighbor at random
+        Random l_random = new Random();
+        int l_index = l_random.nextInt(l_neighborIds.size());
+
+        Country l_randomNeighbor = getCountryById(p_map, l_neighborIds.get(l_index));
+        int l_armiesToMove = l_strongestCountry.getD_armyCount();
+
+        // Move everything to that neighbor
+        return new Command(
+                "advance",
+                List.of(
+                        l_strongestCountry.getD_name(),
+                        l_randomNeighbor.getD_name(),
+                        Integer.toString(l_armiesToMove)));
     }
 
     /**

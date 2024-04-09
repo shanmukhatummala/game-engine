@@ -32,7 +32,8 @@ public class CommandValidator {
                     "savefiletype",
                     "editcontinent",
                     "editcountry",
-                    "editneighbor");
+                    "editneighbor",
+                    "tournament");
 
     Map<String, Method> d_methodMap;
 
@@ -42,6 +43,7 @@ public class CommandValidator {
         d_methodMap = new HashMap<String, Method>();
         String l_orderType = null;
 
+        // Links the commands that require no arguments to the validateNoArgCommand method
         for (int l_i = 0; l_i < d_noArgumentCommands.size(); l_i++) {
             try {
                 l_orderType = d_noArgumentCommands.get(l_i);
@@ -56,6 +58,7 @@ public class CommandValidator {
             }
         }
 
+        // Links the commands that require only one argument to the validateOneArgCommand method
         for (int l_i = 0; l_i < d_oneArgumentCommands.size(); l_i++) {
             try {
                 l_orderType = d_oneArgumentCommands.get(l_i);
@@ -71,7 +74,7 @@ public class CommandValidator {
         }
 
         // We create a map that links a valid command to its validating method
-        // (e.g. savemap is linked to validateSavemapCommand)
+        // (e.g. tournament is linked to validateTournamentCommand)
         for (int l_i = 0; l_i < d_otherCommands.size(); l_i++) {
             try {
                 l_orderType = d_otherCommands.get(l_i);
@@ -274,5 +277,23 @@ public class CommandValidator {
         }
 
         return false;
+    }
+
+    /**
+     * Validates the tournament command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
+    private boolean validateTournamentCommand(Command p_command) {
+        if (p_command.getD_args().size() < 2) {
+            return false;
+        }
+        List<String> l_commandArgs = p_command.getD_args();
+
+        return (l_commandArgs.get(0).equals("-M")
+                || l_commandArgs.get(0).equals("-P")
+                || l_commandArgs.get(0).equals("-G")
+                || l_commandArgs.get(0).equals("-D"));
     }
 }

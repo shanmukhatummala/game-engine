@@ -7,6 +7,8 @@ import game.strategy.Human;
 import game.strategy.PlayerStrategy;
 import game.strategy.RandomStrategy;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +49,7 @@ public class PlayerStrategies {
      * A mapping of strategy names to their corresponding {@code PlayerStrategy} objects. This map
      * allows for dynamic retrieval of player strategies based on their name.
      */
-    public static final Map<String, PlayerStrategy> playerStrategyMap =
+    public static final Map<String, PlayerStrategy> PLAYER_STRATEGY_MAP =
             new HashMap<>() {
                 {
                     put(HUMAN, Human.getHumanStrategy());
@@ -55,6 +57,21 @@ public class PlayerStrategies {
                     put(BENEVOLENT, Benevolent.getBenevolentStrategy());
                     put(RANDOM, RandomStrategy.getRandomStrategy());
                     put(CHEATER, Cheater.getCheaterStrategy());
+                }
+            };
+
+    /**
+     * A mapping of AI player strategy identifiers to their corresponding display names. This map is
+     * used to convert internal strategy names to more user-friendly names that can be displayed in
+     * the game's user interface or logs.
+     */
+    public static final Map<String, String> AI_PLAYER_STRATEGY_TO_NAME =
+            new HashMap<>() {
+                {
+                    put(AGGRESSIVE, StringUtils.capitalize(AGGRESSIVE));
+                    put(BENEVOLENT, StringUtils.capitalize(BENEVOLENT));
+                    put(RANDOM, StringUtils.capitalize(RANDOM));
+                    put(CHEATER, StringUtils.capitalize(CHEATER));
                 }
             };
 }

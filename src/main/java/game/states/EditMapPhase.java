@@ -163,4 +163,19 @@ public class EditMapPhase extends StartUpPhase {
                         + " you can't add or remove player while editing a map";
         printInvalidCommandMessage(message);
     }
+
+    /**
+     * Handles the tournament command. Displays an invalid command message if the command is not
+     * allowed in the phase
+     *
+     * @param p_commandList The list of commands related to the tournament
+     */
+    @Override
+    public void handleTournament(List<Command> p_commandList) {
+        String l_message =
+                "Invalid Command in state "
+                        + this.getClass().getSimpleName()
+                        + " you can't start a tournament in this phase";
+        printInvalidCommandMessage(l_message);
+    }
 }
