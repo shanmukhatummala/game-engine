@@ -133,6 +133,7 @@ public interface Phase {
      * @param p_map game map
      * @param p_filepath path to the game file
      * @return list of players
+     * @throws Exception if an error occurs while loading the game.
      */
     public List<Player> handleLoadGame(GameEngine ge, Map p_map, String p_filepath)
             throws Exception;

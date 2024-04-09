@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/** Represents a Random computer player strategy */
 public class RandomStrategy extends PlayerStrategy {
 
     /** The singleton instance of the RandomStrategy. */

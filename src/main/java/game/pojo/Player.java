@@ -31,12 +31,25 @@ public class Player implements Serializable {
         DIPLOMACY
     }
 
+    /** Represents the name of the player */
     private final String d_name;
+
+    /** Represents the list of countries owned by the given player */
     private final List<Country> d_countries;
+
+    /** Represents the number of reinforcements available to the given player */
     private int d_reinforcements;
+
+    /** Represents the queue of orders issued by the given player */
     private final Queue<Order> d_orderList;
+
+    /** Represents the list of cards held by the player */
     private final List<Card> d_cards;
+
+    /** Represents the set of players with whom the current player has negotiated */
     private final Set<String> d_negotiatedPlayers;
+
+    /** Represents the strategy used by the player to generate orders */
     private PlayerStrategy d_strategy;
 
     /** Indicates whether the player has deployed troops. */
@@ -184,6 +197,7 @@ public class Player implements Serializable {
 
     /**
      * Setter for the deployed field
+     * @param p_deployed Boolean value to be set for the deployed field
      */
     public void setD_deployed(boolean p_deployed) {
         d_deployed = p_deployed;
@@ -191,6 +205,7 @@ public class Player implements Serializable {
 
     /**
      * Setter for the attacked field
+     * @param p_attacked Boolean value to be set for the attacked field
      */
     public void setD_attacked(boolean p_attacked) {
         d_attacked = p_attacked;
@@ -198,6 +213,7 @@ public class Player implements Serializable {
 
     /**
      * Setter for the moved field
+     * @param p_moved Boolean value to set for the moved field
      */
     public void setD_moved(boolean p_moved) {
         d_moved = p_moved;

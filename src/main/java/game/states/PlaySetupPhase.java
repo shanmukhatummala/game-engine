@@ -82,6 +82,7 @@ public class PlaySetupPhase extends StartUpPhase {
      * Resolves the PlayerStrategy for Add player from CL arguments
      *
      * @param p_commandArgs The CL arguments for Player Add command.
+     * @return The player strategy resolved for adding a player
      */
     public PlayerStrategy resolveStrategyForPlayerAdd(List<String> p_commandArgs) {
         if (p_commandArgs.size() < 3) {

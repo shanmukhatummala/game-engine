@@ -11,6 +11,7 @@ import game.pojo.Player;
 /** Class representing a blockade order */
 public class Blockade extends Order {
 
+    /** Represents the name of the target country. */
     private String d_targetName;
 
     /**

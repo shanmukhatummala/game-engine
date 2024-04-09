@@ -17,8 +17,13 @@ import java.util.Random;
  */
 public class Advance extends Order {
 
+    /** Represents the name of the destination country. */
     private final String d_destinationName;
+
+    /** Represents the name of the source country */
     private final String d_sourceName;
+
+    /** Represents the number of armies to be moved */
     private final int d_armyNumber;
 
     /**

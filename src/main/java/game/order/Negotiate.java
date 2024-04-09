@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 /** Class representing a blockade order */
 public class Negotiate extends Order {
 
+    /** Represents the name of the target player. */
     private String d_targetPlayer;
 
     /**
