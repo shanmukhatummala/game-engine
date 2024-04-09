@@ -37,7 +37,7 @@ public class IssueOrderPhase extends PlayPhase {
      * Handles the saving of the current game.
      *
      * @param p_map the current map to save
-     * @param p_playersLeftToIssueOrder
+     * @param p_playersLeftToIssueOrder list of players left to issue order
      * @param p_currentPlayerIndex the current player that saved the game
      * @param p_filepath the path of the file to be saved
      */

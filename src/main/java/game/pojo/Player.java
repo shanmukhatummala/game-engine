@@ -158,26 +158,47 @@ public class Player implements Serializable {
         return d_strategy;
     }
 
+    /**
+     * Gives the value of deployed field
+     * @return true if the player has deployed the troops, else false
+     */
     public boolean getD_deployed() {
         return d_deployed;
     }
 
+    /**
+     * Gives the value of attacked field
+     * @return true if the player has attacked, else false
+     */
     public boolean getD_attacked() {
         return d_attacked;
     }
 
+    /**
+     * Gives the value of moved field
+     * @return true if the player has moved the troops, else false
+     */
     public boolean getD_moved() {
         return d_moved;
     }
 
+    /**
+     * Setter for the deployed field
+     */
     public void setD_deployed(boolean p_deployed) {
         d_deployed = p_deployed;
     }
 
+    /**
+     * Setter for the attacked field
+     */
     public void setD_attacked(boolean p_attacked) {
         d_attacked = p_attacked;
     }
 
+    /**
+     * Setter for the moved field
+     */
     public void setD_moved(boolean p_moved) {
         d_moved = p_moved;
     }

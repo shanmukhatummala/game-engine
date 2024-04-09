@@ -113,10 +113,12 @@ public interface Phase {
     public void handleCommit(List<Player> p_playersLeftToIssueOrder, Player p_currentPlayer);
 
     /**
-     * @param p_map
-     * @param p_playersLeftToIssueOrder
-     * @param p_currentPlayerIndex
-     * @param p_filepath
+     * Handles the saving of the game state
+     *
+     * @param p_map the game map
+     * @param p_playersLeftToIssueOrder list of players left to issue order
+     * @param p_currentPlayerIndex index of the current player
+     * @param p_filepath file path to save the game
      */
     public void handleSaveGame(
             Map p_map,
@@ -125,10 +127,12 @@ public interface Phase {
             String p_filepath);
 
     /**
-     * @param ge
-     * @param p_map
-     * @param p_filepath
-     * @return
+     * Handles the loading of the game state
+     *
+     * @param ge game engine object
+     * @param p_map game map
+     * @param p_filepath path to the game file
+     * @return list of players
      */
     public List<Player> handleLoadGame(GameEngine ge, Map p_map, String p_filepath)
             throws Exception;

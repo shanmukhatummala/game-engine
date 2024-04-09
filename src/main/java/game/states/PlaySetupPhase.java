@@ -205,9 +205,13 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
+     * Handles the loading of the game state
+     *
      * @param p_ge reference for GameEngine object
-     * @param p_filepath binary file path
+     * @param p_map the game map
+     * @param p_filepath p_filepath binary file path
      * @return the list of players
+     * @throws Exception when loading game fails
      */
     @Override
     public List<Player> handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath)

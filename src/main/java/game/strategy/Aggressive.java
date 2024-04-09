@@ -24,6 +24,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Implementation of the Aggressive Player Strategy
+ */
 public class Aggressive extends PlayerStrategy {
 
     /** The singleton instance of the Aggressive strategy. */

@@ -13,6 +13,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Implementation of the Benevolent Player Strategy
+ */
 public class Benevolent extends PlayerStrategy {
 
     /** Unique Benevolent object. */

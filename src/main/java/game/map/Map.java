@@ -31,11 +31,31 @@ import java.util.stream.IntStream;
 @Data
 public class Map implements Serializable {
 
+    /**
+     * used during deserialization by the serialization runtime
+     */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * list of continents in the map
+     */
     private final List<Continent> d_continents;
+    /**
+     * list of countries in the map
+     */
     private final List<Country> d_countries;
+    /**
+     * list of players in the map
+     */
     private final List<Player> d_players;
+
+    /**
+     * stores the name of the map file
+     */
     @Getter private String d_mapName;
+    /**
+     * stores the neighbors of all countries at one place
+     */
     private TreeMap<Integer, TreeSet<Integer>> d_neighborsGraph;
 
     /** Constructor without arguments for Map */
@@ -223,7 +243,7 @@ public class Map implements Serializable {
     /**
      * This method adds a player to the list of players
      *
-     * @param p_player
+     * @param p_player player to add
      */
     public void addPlayer(Player p_player) {
 

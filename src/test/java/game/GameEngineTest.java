@@ -26,6 +26,9 @@ public class GameEngineTest {
         d_gameEngine = new GameEngine(d_map);
     }
 
+    /**
+     * Reset the configuration after each test
+     */
     @AfterEach
     void tearDown() {
         System.setIn(System.in);

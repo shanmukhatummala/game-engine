@@ -222,10 +222,12 @@ public abstract class PlayPhase implements Phase {
     }
 
     /**
-     * @param p_map
-     * @param p_playersLeftToIssueOrder
-     * @param p_currentPlayerIndex
-     * @param p_filepath
+     * Handles the saving of the game state
+     *
+     * @param p_map the game map
+     * @param p_playersLeftToIssueOrder list of players left to issue order
+     * @param p_currentPlayerIndex index of the current player
+     * @param p_filepath path to the file that saves game state
      */
     @Override
     public void handleSaveGame(
@@ -241,10 +243,12 @@ public abstract class PlayPhase implements Phase {
     }
 
     /**
-     * @param ge
-     * @param p_map
-     * @param p_filepath
-     * @return
+     * Handles the loading of the game state
+     *
+     * @param ge the reference to GameEngine object
+     * @param p_map the game map
+     * @param p_filepath path to the file to load game state
+     * @return list of players
      */
     @Override
     public List<Player> handleLoadGame(GameEngine ge, Map p_map, String p_filepath) {
