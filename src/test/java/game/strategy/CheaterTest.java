@@ -14,11 +14,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The CheaterTest class is responsible for testing the behavior of the Cheater player strategy.
+ */
 public class CheaterTest {
 
+    /**
+     * This test method verifies the behavior of the Cheater player strategy.
+     * It creates a mock map with countries and players and then simulates Cheater behavior,
+     * and checks if the behavior is correctly executed.
+     */
     @Test
     public void testCheaterBehavior() {
 
+        // Creating a mock map for testing
         Continent l_continent = new Continent();
         Country l_country1 = new Country(1, "Country1", l_continent, new HashSet<>(), 10);
         Country l_country2 = new Country(2, "Country2", l_continent, new HashSet<>(), 10);
@@ -49,6 +58,7 @@ public class CheaterTest {
         l_country5.setD_neighborIdList(Set.of(2));
         l_country6.setD_neighborIdList(Set.of(4));
 
+        // Simulating Cheater behavior
         Cheater cheater = new Cheater();
         cheater.createOrder(l_map, l_player1);
 
