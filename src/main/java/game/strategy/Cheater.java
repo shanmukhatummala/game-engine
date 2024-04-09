@@ -8,6 +8,8 @@ import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -31,14 +33,21 @@ public class Cheater extends PlayerStrategy {
 
         // Get all the countries owned by the cheater
         List<Country> countries = p_player.getD_countries();
+        List<Country> neighborsToBeOccupied = new ArrayList<>();
 
         // Conquering all the immediate neighboring enemy countries
-        for (Country country : countries) {
+        for (int i=0; i< countries.size(); i++) {
+            Country country = countries.get(i);
             Set<Integer> neighbors = country.getD_neighborIdList();
-            for (Integer neighbor : neighbors) {
+            Iterator it = neighbors.iterator();
+            while (it.hasNext()) {
+                int neighbor = (int) it.next();
                 Country neighborCountry = getCountryById(p_map, neighbor);
                 Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
                 if (neighborOwner != null && !neighborOwner.equals(p_player)) {
+                    neighborsToBeOccupied.add(neighborCountry);
+//                    neighborOwner.getD_countries().remove(neighborCountry);
+//                    p_player.getD_countries().add(neighborCountry);
                     System.out.println(
                             "Cheater player "
                                     + p_player.getD_name()
@@ -46,6 +55,14 @@ public class Cheater extends PlayerStrategy {
                                     + neighborCountry.getD_name());
                 }
             }
+        }
+
+        for(Country neighborCountry : neighborsToBeOccupied ) {
+            Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
+            if(neighborOwner != null) {
+                neighborOwner.getD_countries().remove(neighborCountry);
+            }
+            p_player.getD_countries().add(neighborCountry);
         }
 
         //List<Country> updatedCountries = p_player.getD_countries();
@@ -67,7 +84,6 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
-        // Return an empty list since cheater's strategy does not issue explicit orders
-        return null;
+        return new Command("commit");
     }
 }
