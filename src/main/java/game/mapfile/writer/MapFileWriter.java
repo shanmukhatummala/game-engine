@@ -1,5 +1,9 @@
 package game.mapfile.writer;
 
+import static game.util.FileHelper.createCopyOfOriginalFileBeforeSaving;
+import static game.util.FileHelper.deleteFileCopy;
+import static game.util.FileHelper.restoreOriginalContent;
+
 import game.map.Map;
 import game.pojo.Continent;
 import game.pojo.Country;
@@ -19,6 +23,8 @@ public class MapFileWriter {
      */
     public void writeMapFile(String p_path, Map p_map) {
 
+        createCopyOfOriginalFileBeforeSaving(p_path);
+
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_path))) {
             // write the continents to the file
             writeContinents(l_writer, p_map);
@@ -28,9 +34,13 @@ public class MapFileWriter {
             writeBorders(l_writer, p_map);
             // close the writer
             l_writer.close();
+
+            deleteFileCopy(p_path);
             System.out.println("Saved the map file");
         } catch (IOException l_e) {
-            throw new RuntimeException(l_e);
+            restoreOriginalContent(p_path);
+            System.out.println(
+                    "Something went wrong when saving the file. Your updates to the file are not saved");
         }
     }
 

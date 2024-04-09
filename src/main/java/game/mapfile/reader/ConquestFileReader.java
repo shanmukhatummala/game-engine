@@ -109,7 +109,7 @@ public class ConquestFileReader {
         } catch (IOException | IllegalArgumentException l_e) {
             p_map.clearMap();
             System.out.println(
-                    "Loading map failed with error: " + l_e.getMessage() + ". So loading stopped.");
+                    "Loading map failed with error: " + l_e.getMessage() + ". So stopped loading.");
         }
 
         GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Loaded the map into Java objects");
