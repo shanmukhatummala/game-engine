@@ -62,7 +62,8 @@ public class StartUpCommandValidator implements CommandValidator {
      * @return true if command is valid
      */
     private boolean validateGameplayerCommand(Command p_command) {
-        if (p_command.getD_args().size() != 2) {
+        if (p_command.getD_args().size() != 2
+            && p_command.getD_args().size() != 3) {
             return false;
         }
         List<String> l_commandArgs = p_command.getD_args();
