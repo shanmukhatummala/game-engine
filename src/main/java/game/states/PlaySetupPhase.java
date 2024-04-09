@@ -85,8 +85,8 @@ public class PlaySetupPhase extends StartUpPhase {
             return Human.getHumanStrategy();
         }
 
-        return PlayerStrategies.playerStrategyMap.getOrDefault(p_commandArgs.get(2),
-                Human.getHumanStrategy());
+        return PlayerStrategies.playerStrategyMap.getOrDefault(
+                p_commandArgs.get(2), Human.getHumanStrategy());
     }
 
     /**
@@ -201,9 +201,9 @@ public class PlaySetupPhase extends StartUpPhase {
     }
 
     /**
-     * @param p_ge
-     * @param p_filepath
-     * @return
+     * @param p_ge reference for GameEngine object
+     * @param p_filepath binary file path
+     * @return the list of players
      */
     @Override
     public List<Player> handleLoadGame(GameEngine p_ge, Map p_map, String p_filepath)

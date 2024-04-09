@@ -7,8 +7,8 @@ import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 import game.map.Map;
 import game.pojo.Player;
-
 import game.strategy.Human;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
