@@ -8,6 +8,7 @@ import static game.util.LoggingHelper.getLoggerEntryForPhaseChange;
 
 import game.GameEngine;
 import game.commands.Command;
+import game.constants.PlayerStrategies;
 import game.map.Map;
 import game.pojo.Country;
 import game.pojo.Player;
@@ -84,7 +85,8 @@ public class PlaySetupPhase extends StartUpPhase {
             return Human.getHumanStrategy();
         }
 
-
+        return PlayerStrategies.playerStrategyMap.getOrDefault(p_commandArgs.get(2),
+                Human.getHumanStrategy());
     }
 
     /**
