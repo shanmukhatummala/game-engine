@@ -85,8 +85,8 @@ public class PlaySetupPhase extends StartUpPhase {
             return Human.getHumanStrategy();
         }
 
-        return PlayerStrategies.playerStrategyMap.getOrDefault(p_commandArgs.get(2),
-                Human.getHumanStrategy());
+        return PlayerStrategies.playerStrategyMap.getOrDefault(
+                p_commandArgs.get(2), Human.getHumanStrategy());
     }
 
     /**

@@ -39,6 +39,15 @@ public class Player implements Serializable {
     private final Set<String> d_negotiatedPlayers;
     private PlayerStrategy d_strategy;
 
+    /** Indicates whether the player has deployed troops. */
+    private boolean d_deployed = false;
+
+    /** Indicates whether the player has attacked. */
+    private boolean d_attacked = false;
+
+    /** Indicates whether the player has moved troops. */
+    private boolean d_moved = false;
+
     /**
      * Constructor with player name and countries for Player
      *
@@ -85,7 +94,6 @@ public class Player implements Serializable {
     public Player(String p_name, PlayerStrategy p_playerStrategy) {
         this(p_name, new ArrayList<>(), p_playerStrategy);
     }
-
 
     /**
      * Getter for player name
@@ -148,6 +156,30 @@ public class Player implements Serializable {
      */
     public PlayerStrategy getD_strategy() {
         return d_strategy;
+    }
+
+    public boolean getD_deployed() {
+        return d_deployed;
+    }
+
+    public boolean getD_attacked() {
+        return d_attacked;
+    }
+
+    public boolean getD_moved() {
+        return d_moved;
+    }
+
+    public void setD_deployed(boolean p_deployed) {
+        d_deployed = p_deployed;
+    }
+
+    public void setD_attacked(boolean p_attacked) {
+        d_attacked = p_attacked;
+    }
+
+    public void setD_moved(boolean p_moved) {
+        d_moved = p_moved;
     }
 
     /**
