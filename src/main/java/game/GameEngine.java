@@ -33,7 +33,7 @@ public class GameEngine {
     /** This static variable is used for logging */
     public static final LogEntryBuffer LOG_ENTRY_BUFFER = new LogEntryBuffer(new ArrayList<>());
 
-    private final Map d_map;
+    @Getter private final Map d_map;
 
     @Getter @Setter private Phase d_gamePhase;
     @Getter @Setter private Integer d_currentPlayerIndex;
@@ -123,7 +123,8 @@ public class GameEngine {
                                     d_currentPlayerIndex);
                             break;
                         case "tournament":
-                            d_gamePhase.handleTournament(l_commandList, d_map);
+                            d_gamePhase.handleTournament(l_commandList);
+                            endGame();
                             break;
                         default:
                             d_gamePhase.printInvalidCommandMessage(
@@ -201,7 +202,7 @@ public class GameEngine {
      * @param p_map map for the game
      * @param p_maxNumberOfTurns Max number of turns allowed in a game
      */
-    private String runTournamentLoop(
+    public String runTournamentLoop(
             Map p_map, Integer p_maxNumberOfTurns) {
 
         while (p_map.getD_players().size() > 1
@@ -214,7 +215,7 @@ public class GameEngine {
             p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
             d_gamePhase.handleCardAssignment(l_playersToAssignCard, this);
             p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
-            d_gamePhase.handleShowMap(p_map);
+//            d_gamePhase.handleShowMap(p_map);
         }
 
         if (p_map.getD_players().size() == 1) {
