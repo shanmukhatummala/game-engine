@@ -10,6 +10,7 @@ target/
 .idea/*.xml
 .idea/codeStyles/
 .idea/libraries/
+.idea/shelf/
 *.iws
 *.iml
 *.ipr
