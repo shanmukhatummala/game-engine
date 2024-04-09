@@ -35,7 +35,7 @@ public class Cheater extends PlayerStrategy {
         List<Country> countries = p_player.getD_countries();
         List<Country> neighborsToBeOccupied = new ArrayList<>();
 
-        // Conquering all the immediate neighboring enemy countries
+        // Capturing all the immediate neighboring enemy countries
         for (int i=0; i< countries.size(); i++) {
             Country country = countries.get(i);
             Set<Integer> neighbors = country.getD_neighborIdList();
@@ -46,8 +46,6 @@ public class Cheater extends PlayerStrategy {
                 Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
                 if (neighborOwner != null && !neighborOwner.equals(p_player)) {
                     neighborsToBeOccupied.add(neighborCountry);
-//                    neighborOwner.getD_countries().remove(neighborCountry);
-//                    p_player.getD_countries().add(neighborCountry);
                     System.out.println(
                             "Cheater player "
                                     + p_player.getD_name()
@@ -57,6 +55,7 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
+        //Occupying all the immediate neighboring enemy countries
         for(Country neighborCountry : neighborsToBeOccupied ) {
             Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
             if(neighborOwner != null) {
@@ -65,7 +64,6 @@ public class Cheater extends PlayerStrategy {
             p_player.getD_countries().add(neighborCountry);
         }
 
-        //List<Country> updatedCountries = p_player.getD_countries();
         // Doubling the number of armies on cheater's countries that have enemy neighbors
         for (Country country : countries) {
             Set<Integer> neighbors = country.getD_neighborIdList();
