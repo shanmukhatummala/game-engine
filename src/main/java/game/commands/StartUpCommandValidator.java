@@ -11,7 +11,7 @@ public class StartUpCommandValidator implements CommandValidator {
 
     static List<String> d_validCommands =
             Arrays.asList(
-                    "gameplayer", "showmap", "loadmap", "assigncountries", "editmap", "loadgame");
+                    "gameplayer", "showmap", "loadmap", "assigncountries", "editmap", "loadgame", "tournament");
 
     Map<String, Method> d_methodMap;
 
@@ -116,5 +116,21 @@ public class StartUpCommandValidator implements CommandValidator {
      */
     private boolean validateLoadgameCommand(Command p_command) {
         return (p_command.getD_args().size() == 1);
+    }
+
+    /**
+     * Validates the tournament command
+     *
+     * @param p_command given command
+     * @return true if command is valid
+     */
+    private boolean validateTournamentCommand(Command p_command) {
+        if (p_command.getD_args().size() < 2) {
+            return false;
+        }
+        List<String> l_commandArgs = p_command.getD_args();
+
+        return (l_commandArgs.get(0).equals("-M") || l_commandArgs.get(0).equals("-P")
+        || l_commandArgs.get(0).equals("-G") || l_commandArgs.get(0).equals("-D"));
     }
 }
