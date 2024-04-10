@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,7 +124,7 @@ public class GameEngine {
                                     d_currentPlayerIndex);
                             break;
                         case "tournament":
-                            d_gamePhase.handleTournament(l_commandList);
+                            d_gamePhase.handleTournament(l_commandList, this);
                             endGame();
                             break;
                         default:
@@ -202,18 +203,31 @@ public class GameEngine {
      * @return String: Player Name of winner, or "Draw" if it is a draw
      * @param p_map map for the game
      * @param p_maxNumberOfTurns Max number of turns allowed in a game
+     * @param p_gameEngine GameEngine Object
      */
-    public String runTournamentLoop(Map p_map, Integer p_maxNumberOfTurns) {
-
-        while (p_map.getD_players().size() > 1 && p_maxNumberOfTurns-- > 0) {
-            d_gamePhase.handleReinforcementsAssignment(p_map, this);
-            d_gamePhase.handleIssuingOrders(p_map, p_map.getD_players(), 0, this);
-            Set<Player> l_playersToAssignCard = new HashSet<>();
-            d_gamePhase.handleExecutingOrders(p_map, this, l_playersToAssignCard);
-            p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
-            d_gamePhase.handleCardAssignment(l_playersToAssignCard, this);
-            p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
-            //            d_gamePhase.handleShowMap(p_map);
+    public String runTournamentLoop(
+            Map p_map, Integer p_maxNumberOfTurns, GameEngine p_gameEngine) {
+        try {
+            p_gameEngine.getD_gamePhase().handleCountriesAssignment(p_map, p_gameEngine);
+            while (p_map.getD_players().size() > 1 && p_maxNumberOfTurns-- > 0) {
+                p_gameEngine.getD_gamePhase().handleReinforcementsAssignment(p_map, p_gameEngine);
+                p_gameEngine
+                        .getD_gamePhase()
+                        .handleIssuingOrders(
+                                p_map, new ArrayList<>(p_map.getD_players()), 0, p_gameEngine);
+                Set<Player> l_playersToAssignCard = new HashSet<>();
+                p_gameEngine
+                        .getD_gamePhase()
+                        .handleExecutingOrders(p_map, p_gameEngine, l_playersToAssignCard);
+                p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
+                p_gameEngine
+                        .getD_gamePhase()
+                        .handleCardAssignment(l_playersToAssignCard, p_gameEngine);
+                p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
+                d_gamePhase.handleShowMap(p_map);
+            }
+        } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
 
         if (p_map.getD_players().size() == 1) {

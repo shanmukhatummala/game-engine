@@ -1,1 +1,467 @@
 
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: PlaySetupPhase >>
+Loaded the map into Java objects
+<< PHASE: PlaySetupPhase >>
+Countries have been assigned.
+You have entered the play mode.
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>
+<< PHASE: ExecuteOrderPhase >>
+<< PHASE: AssignResourcesPhase >>
+Reinforcements are assigned
+<< PHASE: IssueOrderPhase >>

@@ -288,7 +288,11 @@ public class PlaySetupPhaseTest {
         String[][] tournamentOutput =
                 ((PlaySetupPhase) d_playSetUpPhase.getD_gamePhase())
                         .runTournament(
-                                List.of("new.map"), List.of("aggressive", "benevolent"), 2, 50);
+                                List.of("new.map"),
+                                List.of("aggressive", "benevolent"),
+                                2,
+                                50,
+                                d_playSetUpPhase);
 
         for (String[] row : tournamentOutput) {
             for (String value : row) {
