@@ -62,7 +62,7 @@ public class Cheater extends PlayerStrategy {
                 int neighbor = (int) it.next();
                 Country neighborCountry = getCountryById(p_map, neighbor);
                 Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
-                if (neighborOwner != null && !neighborOwner.equals(p_player)) {
+                if (neighborOwner == null || !neighborOwner.equals(p_player)) {
                     neighborsToBeOccupied.add(neighborCountry);
                     System.out.println(
                             "Cheater player "

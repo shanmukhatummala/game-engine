@@ -199,7 +199,6 @@ public class GameEngine {
 
     /**
      * Runs the Tournament game loop - calls assign reinforcements, issue orders, execute orders
-     *
      * @return String: Player Name of winner, or "Draw" if it is a draw
      * @param p_map map for the game
      * @param p_maxNumberOfTurns Max number of turns allowed in a game
@@ -219,6 +218,7 @@ public class GameEngine {
                 p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
                 p_gameEngine.getD_gamePhase().handleCardAssignment(l_playersToAssignCard, p_gameEngine);
                 p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
+                d_gamePhase.handleShowMap(p_map);
             }
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
