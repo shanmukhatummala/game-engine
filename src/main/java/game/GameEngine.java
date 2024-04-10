@@ -141,6 +141,7 @@ public class GameEngine {
         }
     }
 
+    /** Asks the user for input */
     private void promptForUserInput() {
         String l_message;
         if (savingInProgress) {
@@ -155,6 +156,13 @@ public class GameEngine {
         System.out.println(l_message);
     }
 
+    /**
+     * Starts the game loop from a new game or a loaded game
+     *
+     * @param P_bufferedReader to read the input
+     * @param p_playersLeftToIssueOrder the players that can still issue order in the current turn
+     * @param p_currentPlayer the player is currently playing
+     */
     private void gameMode(
             BufferedReader P_bufferedReader,
             List<Player> p_playersLeftToIssueOrder,

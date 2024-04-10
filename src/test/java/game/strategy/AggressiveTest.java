@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+/** Test class for the aggressive strategy */
 public class AggressiveTest {
     private Aggressive d_aggressiveStrategy;
     private Map d_mockedMap;

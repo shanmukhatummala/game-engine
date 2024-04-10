@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/** Test class for IssueOrderPhase */
 public class IssueOrderPhaseTest {
 
     /** The data member represent the base path of the resources folder in the test */
@@ -74,7 +75,7 @@ public class IssueOrderPhaseTest {
         return l_map;
     }
 
-    /** */
+    /** Tests the save game feature */
     @Test
     public void handleSaveGameTest() {
         Map l_expectedMap = createObjectsToAssert();
@@ -113,7 +114,7 @@ public class IssueOrderPhaseTest {
 
     /**
      * This method run after every test and is for cleaning the resources used in the tests like
-     * returning the System.setOut to it's default value.
+     * deleting the file.
      */
     @AfterEach
     public void tearDown() {
