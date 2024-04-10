@@ -224,7 +224,7 @@ public class GameEngine {
                         .getD_gamePhase()
                         .handleCardAssignment(l_playersToAssignCard, p_gameEngine);
                 p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
-                d_gamePhase.handleShowMap(p_map);
+                p_gameEngine.getD_gamePhase().handleShowMap(p_map);
             }
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
