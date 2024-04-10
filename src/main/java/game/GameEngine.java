@@ -199,6 +199,7 @@ public class GameEngine {
 
     /**
      * Runs the Tournament game loop - calls assign reinforcements, issue orders, execute orders
+     *
      * @return String: Player Name of winner, or "Draw" if it is a draw
      * @param p_map map for the game
      * @param p_maxNumberOfTurns Max number of turns allowed in a game
@@ -208,15 +209,20 @@ public class GameEngine {
             Map p_map, Integer p_maxNumberOfTurns, GameEngine p_gameEngine) {
         try {
             p_gameEngine.getD_gamePhase().handleCountriesAssignment(p_map, p_gameEngine);
-            while (p_map.getD_players().size() > 1
-                    && p_maxNumberOfTurns-- > 0) {
+            while (p_map.getD_players().size() > 1 && p_maxNumberOfTurns-- > 0) {
                 p_gameEngine.getD_gamePhase().handleReinforcementsAssignment(p_map, p_gameEngine);
-                p_gameEngine.getD_gamePhase().handleIssuingOrders(
-                        p_map, new ArrayList<>(p_map.getD_players()), 0, p_gameEngine);
+                p_gameEngine
+                        .getD_gamePhase()
+                        .handleIssuingOrders(
+                                p_map, new ArrayList<>(p_map.getD_players()), 0, p_gameEngine);
                 Set<Player> l_playersToAssignCard = new HashSet<>();
-                p_gameEngine.getD_gamePhase().handleExecutingOrders(p_map, p_gameEngine, l_playersToAssignCard);
+                p_gameEngine
+                        .getD_gamePhase()
+                        .handleExecutingOrders(p_map, p_gameEngine, l_playersToAssignCard);
                 p_map.getD_players().forEach(l_player -> l_player.getD_negotiatedPlayers().clear());
-                p_gameEngine.getD_gamePhase().handleCardAssignment(l_playersToAssignCard, p_gameEngine);
+                p_gameEngine
+                        .getD_gamePhase()
+                        .handleCardAssignment(l_playersToAssignCard, p_gameEngine);
                 p_map.getD_players().removeIf(l_player -> l_player.getD_countries().isEmpty());
                 d_gamePhase.handleShowMap(p_map);
             }

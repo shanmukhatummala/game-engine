@@ -54,7 +54,7 @@ public class Cheater extends PlayerStrategy {
         List<Country> neighborsToBeOccupied = new ArrayList<>();
 
         // Capturing all the immediate neighboring enemy countries
-        for (int i=0; i< countries.size(); i++) {
+        for (int i = 0; i < countries.size(); i++) {
             Country country = countries.get(i);
             Set<Integer> neighbors = country.getD_neighborIdList();
             Iterator it = neighbors.iterator();
@@ -73,10 +73,10 @@ public class Cheater extends PlayerStrategy {
             }
         }
 
-        //Occupying all the immediate neighboring enemy countries
-        for(Country neighborCountry : neighborsToBeOccupied ) {
+        // Occupying all the immediate neighboring enemy countries
+        for (Country neighborCountry : neighborsToBeOccupied) {
             Player neighborOwner = getCountryOwner(neighborCountry, p_map.getD_players());
-            if(neighborOwner != null) {
+            if (neighborOwner != null) {
                 neighborOwner.getD_countries().remove(neighborCountry);
             }
             p_player.getD_countries().add(neighborCountry);

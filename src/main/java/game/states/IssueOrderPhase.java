@@ -74,20 +74,16 @@ public class IssueOrderPhase extends PlayPhase {
         IssueOrderHelper.setMap(p_map);
         while (!p_playersLeftToIssueOrder.isEmpty()) {
             for (int i = p_currentPlayerIndex; i < p_map.getD_players().size(); i++) {
-                System.out.println(
-                        "immediatly after the for: current: "
-                                + p_currentPlayerIndex
-                                + " the i is: "
-                                + i);
+                if (p_map.getD_players().get(i).getD_countries().isEmpty()) {
+                    p_playersLeftToIssueOrder.remove(p_map.getD_players().get(i));
+                    p_map.getD_players().remove(p_map.getD_players().get(i));
+                    p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
+                    continue;
+                }
                 if (!p_playersLeftToIssueOrder.contains(p_map.getD_players().get(i))) {
                     p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
                     continue;
                 }
-                System.out.println(
-                        "after the if it means the list is valid: current: "
-                                + p_currentPlayerIndex
-                                + " the i is: "
-                                + i);
                 Player l_player = p_map.getD_players().get(i);
                 while (true) {
                     // Generates command according to the strategy
@@ -110,8 +106,8 @@ public class IssueOrderPhase extends PlayPhase {
                         break;
                     }
                 }
+
                 p_currentPlayerIndex = (i + 1) % p_map.getD_players().size();
-                System.out.println("the current player index: " + p_currentPlayerIndex);
             }
         }
         System.out.println("Commands will be executed");
