@@ -100,6 +100,7 @@ public class MapFileReader {
                     }
                 }
             }
+            GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Loaded the map into Java objects");
         } catch (Exception l_e) {
             p_map.clearMap();
             System.out.println(
@@ -107,7 +108,5 @@ public class MapFileReader {
                             + l_e.getMessage()
                             + ". So stopped loading, check if your map is in correct format.");
         }
-
-        GameEngine.LOG_ENTRY_BUFFER.addLogEntry("Loaded the map into Java objects");
     }
 }
