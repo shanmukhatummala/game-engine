@@ -48,6 +48,7 @@ public class MapFileReaderTest {
         assertThat(l_continents, equalTo(l_expectedContinents));
     }
 
+    /** Test that we should not load a badly formatted domination map */
     @Test
     public void shouldNotLoadBadlyFormattedDominationMapIntoJavaObjects() {
 

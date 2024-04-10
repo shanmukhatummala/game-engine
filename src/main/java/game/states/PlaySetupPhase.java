@@ -353,6 +353,7 @@ public class PlaySetupPhase extends StartUpPhase {
      * @param p_playerStrategies The list of player strategies participating in the tournament.
      * @param p_maxNumberOfTurns The maximum number of turns allowed for each game.
      * @param p_numberOfGames The number of games to be played on each map.
+     * @param p_gameEngine the GameEngine object.
      * @return A 2D array containing the results of the tournament, with each row representing a map
      *     and each column representing a game.
      */

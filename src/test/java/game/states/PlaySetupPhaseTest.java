@@ -239,7 +239,11 @@ public class PlaySetupPhaseTest {
         Assertions.assertEquals(l_expectedOutput, outputStreamCaptor.toString().trim());
     }
 
-    /** */
+    /**
+     * Tests the load game feature
+     *
+     * @throws Exception if reading doesn't work
+     */
     @Test
     public void handleLoadGameTest() throws Exception {
         Map l_expectedMap = createObjectsToAssert();
