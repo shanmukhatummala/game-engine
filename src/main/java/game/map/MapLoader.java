@@ -43,12 +43,12 @@ public class MapLoader {
             }
         }
 
+        MapFileReader l_mapFileReader;
         if ("[Map]".equals(l_firstLine) || "[Continents]".equals(l_firstLine)) {
-            MapFileReader l_mapFileReader = new FileReaderAdapter(new ConquestFileReader());
-            l_mapFileReader.readFile(p_path, p_map);
+            l_mapFileReader = new FileReaderAdapter(new ConquestFileReader());
         } else {
-            MapFileReader l_mapFileReader = new MapFileReader();
-            l_mapFileReader.readFile(p_path, p_map);
+            l_mapFileReader = new MapFileReader();
         }
+        l_mapFileReader.readFile(p_path, p_map);
     }
 }

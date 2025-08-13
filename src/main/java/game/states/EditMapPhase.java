@@ -77,14 +77,13 @@ public class EditMapPhase extends StartUpPhase {
             Command p_command, Map p_map, GameEngine p_ge, String p_basePath) {
 
         try {
+            MapFileWriter mapFileWriter;
             if (p_command.getD_args().get(0).equals("1")) {
-                MapFileWriter mapFileWriter = new MapFileWriter();
-                mapFileWriter.writeMapFile(p_basePath + p_map.getD_mapName(), p_map);
+                mapFileWriter = new MapFileWriter();
             } else {
-                FileWriterAdapter fileWriterAdapter =
-                        new FileWriterAdapter(new ConquestFileWriter());
-                fileWriterAdapter.writeMapFile(p_basePath + p_map.getD_mapName(), p_map);
+                mapFileWriter = new FileWriterAdapter(new ConquestFileWriter());
             }
+            mapFileWriter.writeMapFile(p_basePath + p_map.getD_mapName(), p_map);
 
             p_ge.setSavingInProgress(false);
             p_ge.setD_gamePhase(new PlaySetupPhase());
